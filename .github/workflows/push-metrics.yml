@@ -17,7 +17,9 @@ jobs:
       - name: Install dependencies
         run: |
           apt-get update
-          apt-get install lcov git
+          apt-get install -y lcov git
+          rosdep update
+          rosdep install -y --from-paths . --ignore-src --rosdistro foxy
 
       - name: Coverage
         run: ${GITHUB_WORKSPACE}/scripts/coverage.sh ${GITHUB_WORKSPACE}
@@ -35,7 +37,7 @@ jobs:
         with:
           ref: gh-pages
 
-      - name: git setting
+      - name: Push to gh-pages
         run: |
           git config --local user.email "actions@example.com"
           git config --local user.name "Github Actions"
