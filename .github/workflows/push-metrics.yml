@@ -1,0 +1,39 @@
+name: Push metrics
+
+on:
+  push:
+    branches: main
+
+jobs:
+  generate-report:
+    runs-on: ubuntu-latest
+    container: osrf/ros:foxy-desktop
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Coverage
+        run: ${GITHUB_WORKSPACE}/.github/workflows/coverage.sh ${GITHUB_WORKSPACE}
+
+      - name: Measure code metrics
+        run: ${GITHUB_WORKSPACE}/.github/workflows/lizard.sh ${GITHUB_WORKSPACE}
+
+      - name: Gathering artifacts
+        run: |
+          mkdir public
+          mv lcov/ public/
+          mv lizard_result/ public/
+
+      - uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+
+      - name: git setting
+        run: |
+          git config --local user.email "actions@example.com"
+          git config --local user.name "Github Actions"
+          git add public
+          git commit -m "Add artifacts"
+          git push origin gh-pages
