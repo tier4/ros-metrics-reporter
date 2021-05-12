@@ -14,6 +14,11 @@ jobs:
         with:
           submodules: true
 
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install lcov git
+
       - name: Coverage
         run: ${GITHUB_WORKSPACE}/scripts/coverage.sh ${GITHUB_WORKSPACE}
 
