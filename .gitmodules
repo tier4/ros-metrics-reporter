@@ -1,0 +1,4 @@
+[submodule "test/src/demos"]
+	path = test/src/demos
+	url = https://github.com/ros2/demos.git
+	branch = foxy
