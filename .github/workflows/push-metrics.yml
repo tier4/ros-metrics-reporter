@@ -15,10 +15,10 @@ jobs:
           submodules: true
 
       - name: Coverage
-        run: ${GITHUB_WORKSPACE}/.github/workflows/coverage.sh ${GITHUB_WORKSPACE}
+        run: ${GITHUB_WORKSPACE}/scripts/coverage.sh ${GITHUB_WORKSPACE}
 
       - name: Measure code metrics
-        run: ${GITHUB_WORKSPACE}/.github/workflows/lizard.sh ${GITHUB_WORKSPACE}
+        run: ${GITHUB_WORKSPACE}/scripts/lizard.sh ${GITHUB_WORKSPACE}
 
       - name: Gathering artifacts
         run: |
