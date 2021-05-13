@@ -35,8 +35,8 @@ jobs:
       - name: Scraping
         run: |
           TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
-          mkdir -p metrics/$TIMESTAMP
-          python3 scripts/scraping.py --lcov_dir=doc/lcov/$TIMESTAMP/ --lizard_dir=doc/lizard_result/$TIMESTAMP/ --output_dir=metrics/$TIMESTAMP/
+          mkdir -p ${GITHUB_WORKSPACE}/metrics/$TIMESTAMP
+          python3 scripts/scraping.py --lcov_dir=${GITHUB_WORKSPACE}/lcov/$TIMESTAMP/ --lizard_dir=${GITHUB_WORKSPACE}/lizard_result/$TIMESTAMP/ --output_dir=${GITHUB_WORKSPACE}/metrics/$TIMESTAMP/
 
       - name: Gathering artifacts
         run: |
