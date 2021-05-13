@@ -8,7 +8,7 @@ PACKAGE_LIST=$(colcon list --names-only)
 COVERAGE_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1"
 
 # Set generated timestamp
-if [ -e $2 ]; then
+if [ $# -eq 2 ]; then
   TIMESTAMP=$(cat $2)
 else
   TIMESTAMP=$(date -u '+%Y%m%d_%H%M%S')
@@ -57,7 +57,7 @@ function get_package_coverage() {
     --output-file "${OUTPUT_DIR}/$1/lcov.run" || { echo "Coverage generation failed."; return 1; }
 
   # Return if lcov.run is empty
-  if [ ! -s ${BASE_DIR}/lcov/$1/lcov.run ]; then
+  if [ ! -s ${OUTPUT_DIR}/$1/lcov.run ]; then
     echo "Skipped $1"
     return 0
   fi
@@ -70,7 +70,7 @@ function get_package_coverage() {
     -o "${OUTPUT_DIR}/$1/lcov.total" || { echo "Coverage combination failed."; return 1; }
 
   # Filter test, build, and install files and generate html
-  lcov --config-file .lcovrc -r "${BASE_DIR}/lcov/$1/lcov.total" \
+  lcov --config-file .lcovrc -r "${OUTPUT_DIR}/$1/lcov.total" \
     "${BASE_DIR}/build/*" \
     "${BASE_DIR}/install/*" \
           "${BASE_DIR}/$1/test/*" \

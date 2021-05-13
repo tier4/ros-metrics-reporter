@@ -17,9 +17,10 @@ jobs:
       - name: Install dependencies
         run: |
           apt-get update
-          apt-get install -y lcov git
+          apt-get install -y lcov git python3-pip
           rosdep update
           rosdep install -y --from-paths . --ignore-src --rosdistro foxy
+          pip3 install jinja2
 
       - name: Set timestamp
         run: |

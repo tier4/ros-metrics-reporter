@@ -8,7 +8,7 @@ PACKAGE_LIST=$(colcon list --names-only)
 PACKAGE_LIST_FULL=$(colcon list)
 
 # Set generated timestamp
-if [ -e $2 ]; then
+if [ $# -eq 2 ]; then
   TIMESTAMP=$(cat $2)
 else
   TIMESTAMP=$(date -u '+%Y%m%d_%H%M%S')
