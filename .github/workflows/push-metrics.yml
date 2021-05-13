@@ -40,25 +40,9 @@ jobs:
           ln -s -r public/lcov/* public/lcov/latest
           ln -s -r public/lizard_result/* public/lizard_result/latest
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+      - name: Deploy measurement result page to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          name: metrics-report
-          path: public/
-
-      - uses: actions/checkout@v2
-        with:
-          ref: gh-pages
-
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: metrics-report
-
-      - name: Push to gh-pages
-        run: |
-          git config --local user.email "actions@example.com"
-          git config --local user.name "Github Actions"
-          git add public
-          git commit -m "Add artifacts"
-          git push origin gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          keep_files: true
