@@ -20,7 +20,7 @@ jobs:
           apt-get install -y lcov git python3-pip
           rosdep update
           rosdep install -y --from-paths . --ignore-src --rosdistro foxy
-          pip3 install jinja2
+          pip3 install jinja2 bs4
 
       - name: Set timestamp
         run: |
@@ -32,13 +32,21 @@ jobs:
       - name: Measure code metrics
         run: ${GITHUB_WORKSPACE}/scripts/lizard.sh ${GITHUB_WORKSPACE} ${GITHUB_WORKSPACE}/timestamp.txt
 
+      - name: Scraping
+        run: |
+          TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
+          mkdir -p metrics/$TIMESTAMP
+          python scripts/scraping.py --lcov_dir=doc/lcov/$TIMESTAMP/ --lizard_dir=doc/lizard_result/$TIMESTAMP/ --output_dir=metrics/$TIMESTAMP/
+
       - name: Gathering artifacts
         run: |
           mkdir public/
           mv lcov/ public/
           mv lizard_result/ public/
-          ln -s -r public/lcov/* public/lcov/latest
-          ln -s -r public/lizard_result/* public/lizard_result/latest
+          mv metrics/ public/
+          ln -nfrs public/lcov/* public/lcov/latest
+          ln -nfrs public/lizard_result/* public/lizard_result/latest
+          ln -nfrs public/metrics/* public/metrics/latest
 
       - name: Deploy measurement result page to gh-pages
         uses: peaceiris/actions-gh-pages@v3
