@@ -1,9 +1,10 @@
 #! /usr/bin/env python3
 
 import argparse
-from pathlib import Path
 import bs4
 import re
+
+from util import dir_path
 
 
 def get_lcov_coverage(html_path: str) -> dict:
@@ -71,12 +72,6 @@ def get_lizard_metrics(html_path: str) -> list:
     get_worst_case(parameter),
     get_violate_count(parameter),
   ]
-
-def dir_path(input):
-  if Path(input).is_dir():
-    return Path(input)
-  else:
-    raise NotADirectoryError(input)
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
