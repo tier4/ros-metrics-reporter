@@ -21,21 +21,38 @@ jobs:
           rosdep update
           rosdep install -y --from-paths . --ignore-src --rosdistro foxy
 
+      - name: Set timestamp
+        run: |
+          date -u '+%Y%m%d_%H%M%S' > ${GITHUB_WORKSPACE}/timestamp.txt
+
       - name: Coverage
-        run: ${GITHUB_WORKSPACE}/scripts/coverage.sh ${GITHUB_WORKSPACE}
+        run: ${GITHUB_WORKSPACE}/scripts/coverage.sh ${GITHUB_WORKSPACE} ${GITHUB_WORKSPACE}/timestamp.txt
 
       - name: Measure code metrics
-        run: ${GITHUB_WORKSPACE}/scripts/lizard.sh ${GITHUB_WORKSPACE}
+        run: ${GITHUB_WORKSPACE}/scripts/lizard.sh ${GITHUB_WORKSPACE} ${GITHUB_WORKSPACE}/timestamp.txt
 
       - name: Gathering artifacts
         run: |
-          mkdir public
+          mkdir public/
           mv lcov/ public/
           mv lizard_result/ public/
+          ln -s -r public/lcov/* public/lcov/latest
+          ln -s -r public/lizard_result/* public/lizard_result/latest
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: metrics-report
+          path: public/
 
       - uses: actions/checkout@v2
         with:
           ref: gh-pages
+
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: metrics-report
 
       - name: Push to gh-pages
         run: |

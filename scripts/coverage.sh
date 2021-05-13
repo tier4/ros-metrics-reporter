@@ -7,6 +7,14 @@ BASE_DIR=$1
 PACKAGE_LIST=$(colcon list --names-only)
 COVERAGE_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1"
 
+# Set generated timestamp
+if [ -e $2 ]; then
+  TIMESTAMP=$(cat $2)
+else
+  TIMESTAMP=$(date -u '+%Y%m%d_%H%M%S')
+fi
+OUTPUT_DIR=${BASE_DIR}/lcov/${TIMESTAMP}
+
 function get_package_coverage() {
   [ "$1" == "" ] && return 1
 
@@ -22,8 +30,8 @@ function get_package_coverage() {
     -DCMAKE_C_FLAGS="$COVERAGE_FLAGS" \
     --packages-up-to $1 || { echo "Build failed." ; return 1; }
 
-  if [ ! -d ${BASE_DIR}/lcov/$1 ]; then
-    mkdir -p ${BASE_DIR}/lcov/$1
+  if [ ! -d ${OUTPUT_DIR}/$1 ]; then
+    mkdir -p ${OUTPUT_DIR}/$1
   fi
 
   # Get a zero-coverage baseline
@@ -32,7 +40,7 @@ function get_package_coverage() {
     --base-directory "${BASE_DIR}" \
     --capture \
     --directory "${BASE_DIR}/build/$1" \
-    -o "${BASE_DIR}/lcov/$1/lcov.base" \
+    -o "${OUTPUT_DIR}/$1/lcov.base" \
     --initial || { echo "Zero baseline coverage failed."; return 1; }
 
   colcon test \
@@ -46,7 +54,7 @@ function get_package_coverage() {
     --base-directory "${BASE_DIR}" \
     --capture \
     --directory "${BASE_DIR}/build/$1" \
-    --output-file "${BASE_DIR}/lcov/$1/lcov.run" || { echo "Coverage generation failed."; return 1; }
+    --output-file "${OUTPUT_DIR}/$1/lcov.run" || { echo "Coverage generation failed."; return 1; }
 
   # Return if lcov.run is empty
   if [ ! -s ${BASE_DIR}/lcov/$1/lcov.run ]; then
@@ -57,9 +65,9 @@ function get_package_coverage() {
   # Combine zero-coverage with coverage information.
   lcov \
     --config-file .lcovrc \
-    -a "${BASE_DIR}/lcov/$1/lcov.base" \
-    -a "${BASE_DIR}/lcov/$1/lcov.run" \
-    -o "${BASE_DIR}/lcov/$1/lcov.total" || { echo "Coverage combination failed."; return 1; }
+    -a "${OUTPUT_DIR}/$1/lcov.base" \
+    -a "${OUTPUT_DIR}/$1/lcov.run" \
+    -o "${OUTPUT_DIR}/$1/lcov.total" || { echo "Coverage combination failed."; return 1; }
 
   # Filter test, build, and install files and generate html
   lcov --config-file .lcovrc -r "${BASE_DIR}/lcov/$1/lcov.total" \
@@ -69,22 +77,27 @@ function get_package_coverage() {
           "*/CMakeCCompilerId.c" \
           "*/CMakeCXXCompilerId.cpp" \
           "*_msgs/*" \
-    -o "${BASE_DIR}/lcov/$1/lcov.total.filtered" || { echo "Filtering failed."; return 1; }
+    -o "${OUTPUT_DIR}/$1/lcov.total.filtered" || { echo "Filtering failed."; return 1; }
 
   genhtml \
     --config-file .lcovrc \
     -p "${BASE_DIR}" \
     --legend \
     --demangle-cpp \
-    "${BASE_DIR}/lcov/$1/lcov.total.filtered" \
-    -o "${BASE_DIR}/lcov/$1/" || { echo "HTML generation failed."; return 1; }
+    "${OUTPUT_DIR}/$1/lcov.total.filtered" \
+    -o "${OUTPUT_DIR}/$1/" || { echo "HTML generation failed."; return 1; }
 
   return 0
 }
 
-if [ ! -d ${BASE_DIR}/lcov ]; then
-  mkdir -p ${BASE_DIR}/lcov
-fi
+# Create output directory
+mkdir -p $OUTPUT_DIR
+
+# Save timestamp
+echo $TIMESTAMP > ${OUTPUT_DIR}/timestamp.txt
+
+# Save package list
+echo "$PACKAGE_LIST" > ${OUTPUT_DIR}/package_list.txt
 
 . /opt/ros/foxy/setup.sh
 
@@ -94,9 +107,3 @@ for PACKAGE in $PACKAGE_LIST; do
     exit 1
   fi
 done
-
-# Save package list
-echo "$PACKAGE_LIST" > $BASE_DIR/lcov/package_list.txt
-
-# Sage generated date
-date -u '+%F %T' > $BASE_DIR/lcov/timestamp.txt
