@@ -1,0 +1,6 @@
+CCN(worst): 11
+CCN(violate): 0
+LOC(worst): 69
+LOC(violate): 0
+Parameter(worst): 8
+Parameter(violate): 1
