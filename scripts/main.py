@@ -87,10 +87,10 @@ def run(
         plot_timeseries(df, save_dir)
 
     # Copy artifacts
-    lcov_dest = hugo_root_dir / "static" / "lcov"
+    lcov_dest = hugo_root_dir / "static" / "__lcov"
     copy_artifacts(lcov_result_path, lcov_dest)
 
-    lizard_dest = hugo_root_dir / "static" / "lizard"
+    lizard_dest = hugo_root_dir / "static" / "__lizard"
     copy_artifacts(lizard_result_path, lizard_dest)
 
     # Create markdown from template

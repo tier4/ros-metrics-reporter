@@ -23,12 +23,12 @@ def replace_token(file: Path, package: str):
 
     text_lines = text_lines.replace("__TEMPLATE__", package)
 
-    lcov_html = "/lcov/" + package + "/index.html"
+    lcov_html = "/__lcov/" + package + "/index.html"
     text_lines = text_lines.replace(
         "__LCOV_RESULT_HTML_LINK__", lcov_result_link_inplace
     ).replace("__LCOV_RESULT_HTML__", lcov_html)
 
-    lizard_html = "/lizard/" + package + "/index.html"
+    lizard_html = "/__lizard/" + package + "/index.html"
     text_lines = text_lines.replace(
         "__LIZARD_RESULT_HTML_LINK__", lizard_result_link_inplace
     ).replace("__LIZARD_RESULT_HTML__", lizard_html)
