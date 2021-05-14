@@ -77,7 +77,7 @@ jobs:
           pip install pandas plotly
 
       - name: Create static page
-        run: python scripts/main.py --input_dir=${GITHUB_WORKSPACE}/doc/metrics/ --hugo_root_dir=${GITHUB_WORKSPACE}/example/hugo-site/ --hugo_template_dir=${GITHUB_WORKSPACE}/template/hugo/
+        run: python scripts/main.py --input-dir=${GITHUB_WORKSPACE}/doc/metrics/ --hugo-root-dir=${GITHUB_WORKSPACE}/example/hugo-site/ --hugo-template-dir=${GITHUB_WORKSPACE}/template/hugo/ --lcov-result-path=${GITHUB_WORKSPACE}/doc/lcov/latest/ --lizard-result-path=${GITHUB_WORKSPACE}/doc/lizard_result/latest/
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
@@ -87,7 +87,9 @@ jobs:
       - name: Generate pages
         run: |
           cd example/hugo-site
-          hugo --minify -d ${GITHUB_WORKSPACE}/public/site
+          cp -r ${GITHUB_WORKSPACE}/doc/lcov/ .
+          cp -r ${GITHUB_WORKSPACE}/doc/lizard_result/ .
+          hugo --minify -d ${GITHUB_WORKSPACE}/public
 
       - name: Deploy measurement result page to gh-pages
         uses: peaceiris/actions-gh-pages@v3

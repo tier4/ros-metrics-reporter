@@ -3,11 +3,21 @@
 import argparse
 from pathlib import Path
 from datetime import datetime
+from distutils import dir_util
 import pandas as pd
 
 from util import dir_path
 from plot_timeseries import plot_timeseries
 from create_markdown import copy_template
+
+
+def copy_artifacts(src: Path, dest: Path):
+    dest.mkdir(exist_ok=True)
+    for package_dir in src.iterdir():
+        if package_dir.is_dir():
+            package_dest = dest / package_dir.name
+            package_dest.mkdir(exist_ok=True)
+            dir_util.copy_tree(package_dir, str(package_dest))
 
 
 def read_file(path: Path) -> dict:
@@ -42,7 +52,13 @@ def get_trial_record(record_dir: Path) -> dict:
     return all_package_metrics
 
 
-def run(base_path: Path, hugo_root_dir: Path, hugo_template_dir: Path):
+def run(
+    base_path: Path,
+    hugo_root_dir: Path,
+    hugo_template_dir: Path,
+    lcov_result_path: Path,
+    lizard_result_path: Path,
+):
     data_source = {}
     for timestamp_dir in base_path.iterdir():
         # Skip latest directory
@@ -70,6 +86,13 @@ def run(base_path: Path, hugo_root_dir: Path, hugo_template_dir: Path):
         save_dir.mkdir(exist_ok=True)
         plot_timeseries(df, save_dir)
 
+    # Copy artifacts
+    lcov_dest = hugo_root_dir / "static" / "lcov"
+    copy_artifacts(lcov_result_path, lcov_dest)
+
+    lizard_dest = hugo_root_dir / "static" / "lizard"
+    copy_artifacts(lizard_result_path, lizard_dest)
+
     # Create markdown from template
     copy_template(hugo_template_dir, hugo_root_dir, packages)
 
@@ -77,21 +100,39 @@ def run(base_path: Path, hugo_root_dir: Path, hugo_template_dir: Path):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--input_dir", help="Path to coverage artifacts", type=dir_path, required=True
+        "--input-dir", help="Path to coverage artifacts", type=dir_path, required=True
     )
     parser.add_argument(
-        "--hugo_root_dir",
+        "--hugo-root-dir",
         help="Path to hugo directory to output files",
         type=dir_path,
         required=True,
     )
     parser.add_argument(
-        "--hugo_template_dir",
+        "--hugo-template-dir",
         help="Path to template directory to generate markdown",
+        type=dir_path,
+        required=True,
+    )
+    parser.add_argument(
+        "--lcov-result-path",
+        help="Path to lcov result directory",
+        type=dir_path,
+        required=True,
+    )
+    parser.add_argument(
+        "--lizard-result-path",
+        help="Path to lizard result directory",
         type=dir_path,
         required=True,
     )
 
     args = parser.parse_args()
 
-    run(args.input_dir, args.hugo_root_dir, args.hugo_template_dir)
+    run(
+        args.input_dir,
+        args.hugo_root_dir,
+        args.hugo_template_dir,
+        args.lcov_result_path,
+        args.lizard_result_path,
+    )

@@ -6,8 +6,14 @@ from pathlib import Path
 
 
 plotly_inplace = '{{< load-plotly >}}\n\
-{{< plotly json="/plotly/__PLOTLY_FIGURE_NAME__.json" height="400px" >}}\
+{{< plotly json="/plotly/__PLOTLY_FIGURE_NAME__" height="400px" >}}\
 '
+lcov_result_link_inplace = (
+    "[You can access more detailed data on code coverage here.](__LCOV_RESULT_HTML__)"
+)
+lizard_result_link_inplace = (
+    "[You can access more detailed data on code metrics here.](__LIZARD_RESULT_HTML__)"
+)
 
 
 def replace_token(file: Path, package: str):
@@ -16,8 +22,24 @@ def replace_token(file: Path, package: str):
         text_lines = f.read()
 
     text_lines = text_lines.replace("__TEMPLATE__", package)
-    text_lines = text_lines.replace("__PLOTLY_FIGURE__", plotly_inplace)
-    text_lines = text_lines.replace("__PLOTLY_FIGURE_NAME__", package + "/CCN_violate")
+
+    lcov_html = "/lcov/" + package + "/index.html"
+    text_lines = text_lines.replace(
+        "__LCOV_RESULT_HTML_LINK__", lcov_result_link_inplace
+    ).replace("__LCOV_RESULT_HTML__", lcov_html)
+
+    lizard_html = "/lizard/" + package + "/index.html"
+    text_lines = text_lines.replace(
+        "__LIZARD_RESULT_HTML_LINK__", lizard_result_link_inplace
+    ).replace("__LIZARD_RESULT_HTML__", lizard_html)
+
+    text_lines = text_lines.replace("__PLOTLY_COVERAGE_FIGURE__", plotly_inplace)
+    text_lines = text_lines.replace("__PLOTLY_FIGURE_NAME__", package + "/Lines.json")
+
+    text_lines = text_lines.replace("__PLOTLY_METRICS_FIGURE__", plotly_inplace)
+    text_lines = text_lines.replace(
+        "__PLOTLY_FIGURE_NAME__", package + "/CCN_violate.json"
+    )
 
     with open(file, "w") as f:
         f.write(text_lines)

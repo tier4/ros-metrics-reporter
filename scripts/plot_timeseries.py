@@ -6,8 +6,10 @@ from pathlib import Path
 
 
 plot_name_list = [
-    "Lines Functions",
-    "Branches CCN(worst)",
+    "Lines",
+    "Functions",
+    "Branches",
+    "CCN(worst)",
     "CCN(violate)",
     "LOC(worst)",
     "LOC(violate)",
