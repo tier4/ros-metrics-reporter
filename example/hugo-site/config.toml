@@ -1,4 +1,4 @@
-baseURL = "http://localhost"
+baseURL = "https://tier4.github.io/autoware_ci_monitor_scripts/site/"
 title = "Geekdocs"
 theme = "hugo-geekdoc"
 
