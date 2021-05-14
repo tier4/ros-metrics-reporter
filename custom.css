@@ -1,1 +1,22 @@
-/* You can add custom styles here. */
+/* Global customization */
+
+/* Light mode theming */
+:root,
+:root[color-mode="light"] {
+  --header-background: #07579E;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --header-background: #07579E;
+  }
+}
+
+/* Dark mode theming */
+:root[color-mode="dark"] {
+  --header-background: #07579E;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --header-background: #07579E;
+  }
+}
