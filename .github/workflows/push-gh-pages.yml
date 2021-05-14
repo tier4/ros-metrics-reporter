@@ -89,7 +89,7 @@ jobs:
           cd example/hugo-site
           cp -r ${GITHUB_WORKSPACE}/doc/lcov/ .
           cp -r ${GITHUB_WORKSPACE}/doc/lizard_result/ .
-          hugo --minify -d ${GITHUB_WORKSPACE}/public
+          hugo -d ${GITHUB_WORKSPACE}/public
 
       - name: Deploy measurement result page to gh-pages
         uses: peaceiris/actions-gh-pages@v3
