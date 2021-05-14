@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 plotly_inplace = '{{< load-plotly >}}\n\
-{{< plotly json="/plotly/__PLOTLY_FIGURE_NAME__" height="400px" >}}\
+{{< plotly json="../../plotly/__PLOTLY_FIGURE_NAME__" height="400px" >}}\
 '
 lcov_result_link_inplace = (
     "[You can access more detailed data on code coverage here.](__LCOV_RESULT_HTML__)"

@@ -2,6 +2,8 @@ baseURL = "https://tier4.github.io/autoware_ci_monitor_scripts/"
 title = "ros2/demos"
 theme = "hugo-geekdoc"
 
+relativeURLs = true
+
 # Required to get well formatted code blocks
 pygmentsUseClasses = true
 pygmentsCodeFences = true
