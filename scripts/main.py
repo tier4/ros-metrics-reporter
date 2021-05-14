@@ -4,7 +4,6 @@ import argparse
 from pathlib import Path
 from datetime import datetime
 import pandas as pd
-from distutils import dir_util
 
 from util import dir_path
 from plot_timeseries import plot_timeseries

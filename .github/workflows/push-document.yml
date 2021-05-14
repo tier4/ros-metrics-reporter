@@ -21,8 +21,13 @@ jobs:
         with:
           python-version: '3.8'
 
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas plotly
+
       - name: Create static page
-        run: python3 scripts/main.py --input_dir=${GITHUB_WORKSPACE}/doc/metrics/ --hugo_root_dir=${GITHUB_WORKSPACE}/example/hugo-site/ --hugo_template_dir=${GITHUB_WORKSPACE}/template/hugo/
+        run: python scripts/main.py --input_dir=${GITHUB_WORKSPACE}/doc/metrics/ --hugo_root_dir=${GITHUB_WORKSPACE}/example/hugo-site/ --hugo_template_dir=${GITHUB_WORKSPACE}/template/hugo/
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
