@@ -11,8 +11,8 @@
 
 
     <meta name="description" content="composition
- Test result    Code coverage        Plotly.d3.json(&#34;/plotly/composition/Lines.json&#34;, function(err, fig) { Plotly.plot(&#39;\/plotly\/composition\/Lines.json&#39;, fig.data, fig.layout, {responsive: true}); });  You can access more detailed data on code coverage here.
-Code metrics       Plotly.d3.json(&#34;/plotly/composition/CCN_violate.json&#34;, function(err, fig) { Plotly.plot(&#39;\/plotly\/composition\/CCN_violate.json&#39;, fig.data, fig.layout, {responsive: true}); });  You can access more detailed data on code metrics here.">
+ Test result    Code coverage        json_url = &#34;https://tier4.github.io/autoware_ci_monitor_scripts/&#34; &#43; &#34;plotly/composition/Lines.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/composition\/Lines.json&#39;, fig.data, fig.layout, {responsive: true}); });  You can access more detailed data on code coverage here.
+Code metrics       json_url = &#34;https://tier4.github.io/autoware_ci_monitor_scripts/&#34; &#43; &#34;plotly/composition/CCN_violate.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/composition\/CCN_violate.json&#39;, fig.data, fig.layout, {responsive: true}); });  You can access more detailed data on code metrics here.">
 
 
 
@@ -660,10 +660,11 @@ Code metrics       Plotly.d3.json(&#34;/plotly/composition/CCN_violate.json&#34;
 
 
 
-<div id="/plotly/composition/Lines.json" class="plotly" style="height:400px"></div>
+<div id="plotly/composition/Lines.json" class="plotly" style="height:400px"></div>
 <script>
-Plotly.d3.json("/plotly/composition/Lines.json", function(err, fig) {
-    Plotly.plot('\/plotly\/composition\/Lines.json', fig.data, fig.layout, {responsive: true});
+json_url = "https://tier4.github.io/autoware_ci_monitor_scripts/" + "plotly/composition/Lines.json"
+Plotly.d3.json(json_url, function(err, fig) {
+    Plotly.plot('plotly\/composition\/Lines.json', fig.data, fig.layout, {responsive: true});
 });
 </script>
 </p>
@@ -679,10 +680,11 @@ Plotly.d3.json("/plotly/composition/Lines.json", function(err, fig) {
 
 
 
-<div id="/plotly/composition/CCN_violate.json" class="plotly" style="height:400px"></div>
+<div id="plotly/composition/CCN_violate.json" class="plotly" style="height:400px"></div>
 <script>
-Plotly.d3.json("/plotly/composition/CCN_violate.json", function(err, fig) {
-    Plotly.plot('\/plotly\/composition\/CCN_violate.json', fig.data, fig.layout, {responsive: true});
+json_url = "https://tier4.github.io/autoware_ci_monitor_scripts/" + "plotly/composition/CCN_violate.json"
+Plotly.d3.json(json_url, function(err, fig) {
+    Plotly.plot('plotly\/composition\/CCN_violate.json', fig.data, fig.layout, {responsive: true});
 });
 </script>
 </p>
