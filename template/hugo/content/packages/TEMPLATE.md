@@ -1,8 +1,8 @@
 ---
-title: "__TEMPLATE__"
+title: {{ package_name }}
 ---
 
-__TEMPLATE__
+{{ package_name }}
 
 ---
 
@@ -10,14 +10,18 @@ __TEMPLATE__
 
 ## Code coverage
 
+{% raw %}
 {{< load-plotly >}}
-{{< plotly json="plotly/__PLOTLY_LCOV_FIGURE_NAME__" height="400px" >}}
+{{< plotly json="plotly/{% endraw %}{{ plotly_lcov_figure_name }}{% raw %}" height="400px" >}}
+{% endraw %}
 
-[You can access more detailed data on code coverage here.](__LCOV_RESULT_HTML_LINK__)
+[You can access more detailed data on code coverage here.]({{ lcov_result_html_link }})
 
 ## Code metrics
 
+{% raw %}
 {{< load-plotly >}}
-{{< plotly json="plotly/__PLOTLY_METRICS_FIGURE_NAME__" height="400px" >}}
+{{< plotly json="plotly/{% endraw %}{{ plotly_metrics_figure_name }}{% raw %}" height="400px" >}}
+{% endraw %}
 
-[You can access more detailed data on code metrics here.](__LIZARD_RESULT_HTML_LINK__)
+[You can access more detailed data on code metrics here.]({{ lizard_result_html_link }})

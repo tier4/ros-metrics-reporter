@@ -3,4 +3,10 @@ title: Collapse
 geekdocCollapseSection: true
 ---
 
-Demo collapsible menu entries.
+# Code quarity dashboard
+
+| Package name | Coverage rate | Metrics |
+| :---: | :---: | :---: |
+{%- for package in packages %}
+| {{ package }} | __COVERAGE_BADGE__ | __METRICS_BADGE__ |
+{%- endfor %}

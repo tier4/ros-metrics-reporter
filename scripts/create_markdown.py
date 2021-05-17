@@ -3,30 +3,44 @@
 from distutils import dir_util
 import shutil
 from pathlib import Path
+from jinja2 import Environment, FileSystemLoader
 
 
-def replace_token(file: Path, package: str):
-    # Read file, replace token and overwrite file
-    with open(file) as f:
-        text_lines = f.read()
-
-    text_lines = text_lines.replace("__TEMPLATE__", package)
-
+def replace_token(package: str) -> dict:
     lcov_html = "/__lcov/" + package + "/index.html"
-    text_lines = text_lines.replace("__LCOV_RESULT_HTML_LINK__", lcov_html)
-
     lizard_html = "/__lizard/" + package + "/index.html"
-    text_lines = text_lines.replace(
-        "__LIZARD_RESULT_HTML_LINK__", lizard_html)
+    coverage_json = package + "/Lines.json"
+    metrics_json = package + "/CCN_violate.json"
 
-    text_lines = text_lines.replace("__PLOTLY_LCOV_FIGURE_NAME__", package + "/Lines.json")
+    return {
+        "package_name": package,
+        "lcov_result_html_link": lcov_html,
+        "lizard_result_html_link": lizard_html,
+        "plotly_lcov_figure_name": coverage_json,
+        "plotly_metrics_figure_name": metrics_json,
+    }
 
-    text_lines = text_lines.replace(
-        "__PLOTLY_METRICS_FIGURE_NAME__", package + "/CCN_violate.json"
-    )
+
+def replace_summary_page(file: Path, packages: list):
+    # Read file, replace token and overwrite file
+    env = Environment(loader=FileSystemLoader(str(file.parent)))
+    template = env.get_template(file.name)
 
     with open(file, "w") as f:
-        f.write(text_lines)
+        f.write(template.render({
+            'packages': packages,
+        }))
+
+
+def replace_contents(file: Path, package: str):
+    # Read file, replace token and overwrite file
+    env = Environment(loader=FileSystemLoader(str(file.parent)))
+    template = env.get_template(file.name)
+
+    with open(file, "w") as f:
+        f.write(template.render(
+            replace_token(package)
+        ))
 
 
 def copy_template(src: str, dest: str, packages: list):
@@ -34,13 +48,18 @@ def copy_template(src: str, dest: str, packages: list):
     markdown_dir_src = Path(src, "content")
     markdown_dir_dest = Path(dest, "content")
     dir_util.copy_tree(markdown_dir_src, str(markdown_dir_dest))
-    template = Path(dest, "content", "packages", "TEMPLATE.md")
 
+    # Create summary page
+    summary_page = markdown_dir_dest / '_index.md'
+    replace_summary_page(summary_page, packages)
+
+    # Create package detail page
+    template = Path(dest, "content", "packages", "TEMPLATE.md")
     for package in packages:
         filename = dest / "content" / "packages" / (package + ".md")
         shutil.copy(template, filename)
         # Peplace token
-        replace_token(filename, package)
+        replace_contents(filename, package)
 
     template.unlink()
 
