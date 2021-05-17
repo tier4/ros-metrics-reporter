@@ -44,9 +44,10 @@ jobs:
           mv lcov/ public/
           mv lizard_result/ public/
           mv metrics/ public/
-          ln -nfrs public/lcov/* public/lcov/latest
-          ln -nfrs public/lizard_result/* public/lizard_result/latest
-          ln -nfrs public/metrics/* public/metrics/latest
+          TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
+          ln -nfrs public/lcov/$TIMESTAMP public/lcov/latest
+          ln -nfrs public/lizard_result/$TIMESTAMP public/lizard_result/latest
+          ln -nfrs public/metrics/$TIMESTAMP public/metrics/latest
 
       - name: Deploy measurement result page to gh-pages
         uses: peaceiris/actions-gh-pages@v3
@@ -74,7 +75,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pandas plotly
+          pip install pandas plotly jinja2
 
       - name: Create static page
         run: python scripts/main.py --input-dir=${GITHUB_WORKSPACE}/doc/metrics/ --hugo-root-dir=${GITHUB_WORKSPACE}/example/hugo-site/ --hugo-template-dir=${GITHUB_WORKSPACE}/template/hugo/ --lcov-result-path=${GITHUB_WORKSPACE}/doc/lcov/latest/ --lizard-result-path=${GITHUB_WORKSPACE}/doc/lizard_result/latest/
