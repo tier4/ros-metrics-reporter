@@ -5,6 +5,8 @@ from pathlib import Path
 from datetime import datetime
 from distutils import dir_util
 import pandas as pd
+from pandas.core.frame import DataFrame
+from pandas.io.parsers import read_csv
 
 from util import dir_path
 from plot_timeseries import plot_timeseries
@@ -20,34 +22,33 @@ def copy_artifacts(src: Path, dest: Path):
             dir_util.copy_tree(package_dir, str(package_dest))
 
 
-def read_file(path: Path) -> dict:
-    """Read coverage result from file"""
-    result = {}
-    with path.open() as f:
-        lines = f.readlines()
-        for line in lines:
-            splitted = line.rstrip().split(": ")
-            result[splitted[0]] = splitted[1]
-
-    return result
-
-
-def get_trial_record(record_dir: Path) -> dict:
-    all_package_metrics = {}
+def get_trial_record(record_dir: Path) -> DataFrame:
+    cols = [
+        "date",
+        "package_name",
+        "type",
+        "value",
+        "signal",
+    ]
+    all_package_metrics = pd.DataFrame(index=[], columns=cols)
 
     for package_dir in record_dir.iterdir():
-        package_metrics = {}
-        package_metrics["date"] = datetime.strptime(record_dir.name, "%Y%m%d_%H%M%S")
+        date = datetime.strptime(record_dir.name, "%Y%m%d_%H%M%S")
+        package_name = package_dir.name
 
-        coverage_file = package_dir / "coverage.txt"
+        coverage_file = package_dir / "coverage.csv"
         if coverage_file.exists():
-            package_metrics.update(read_file(coverage_file))
+            coverage_data = pd.read_csv(coverage_file)
+            coverage_data["package_name"] = package_name
+            coverage_data["date"] = date
+            all_package_metrics = pd.concat([all_package_metrics, coverage_data], axis=0)
 
-        lizard_file = package_dir / "lizard.txt"
+        lizard_file = package_dir / "lizard.csv"
         if lizard_file.exists():
-            package_metrics.update(read_file(lizard_file))
-
-        all_package_metrics[package_dir.name] = package_metrics
+            package_metrics = pd.read_csv(lizard_file)
+            package_metrics["package_name"] = package_name
+            package_metrics["date"] = date
+            all_package_metrics = pd.concat([all_package_metrics, package_metrics], axis=0)
 
     return all_package_metrics
 
@@ -59,30 +60,31 @@ def run(
     lcov_result_path: Path,
     lizard_result_path: Path,
 ):
-    data_source = {}
+    cols = [
+        "date",
+        "package_name",
+        "type",
+        "value",
+        "signal",
+    ]
+    data_source = pd.DataFrame(index=[], columns=cols)
+
     for timestamp_dir in base_path.iterdir():
         # Skip latest directory
         if "latest" in timestamp_dir.name:
             continue
 
         single_record = get_trial_record(timestamp_dir)
-        for key, val in single_record.items():
-            if key in data_source:
-                tmp = data_source[key]
-                tmp.append(val)
-                data_source[key] = tmp
-            else:
-                data_source[key] = [val]
+        data_source = pd.concat([data_source, single_record], axis=0)
 
     # Create graph
     plotly_output_dir = hugo_root_dir / "static" / "plotly"
     plotly_output_dir.mkdir(parents=True, exist_ok=True)
 
-    packages = []
-    for key, val in data_source.items():
-        packages.append(key)
-        df = pd.DataFrame(val)
-        save_dir = plotly_output_dir / key
+    packages = data_source["package_name"].unique()
+    for package in packages:
+        df = data_source[data_source["package_name"] == package]
+        save_dir = plotly_output_dir / package
         save_dir.mkdir(exist_ok=True)
         plot_timeseries(df, save_dir)
 

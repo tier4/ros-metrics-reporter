@@ -9,8 +9,8 @@ from jinja2 import Environment, FileSystemLoader
 def replace_token(package: str) -> dict:
     lcov_html = "/__lcov/" + package + "/index.html"
     lizard_html = "/__lizard/" + package + "/index.html"
-    coverage_json = package + "/Lines.json"
-    metrics_json = package + "/CCN_violate.json"
+    coverage_json = package + "/coverage.json"
+    metrics_json = package + "/metrics.json"
 
     return {
         "package_name": package,

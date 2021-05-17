@@ -1,9 +1,7 @@
 ---
-title: Collapse
+title: Code quarity dashboard
 geekdocCollapseSection: true
 ---
-
-# Code quarity dashboard
 
 | Package name | Coverage rate | Metrics |
 | :---: | :---: | :---: |

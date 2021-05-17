@@ -3,25 +3,31 @@
 import argparse
 import bs4
 import re
+import csv
 
 from util import dir_path
 
+def classname_to_signal(classname: str) -> str:
+    return re.sub("headerCovTableEntry", "", classname)
 
-def get_lcov_coverage(html_path: str) -> dict:
+def get_lcov_coverage(html_path: str) -> list:
     """ Get Lines, Functions, Branches coverage rate """
     soup = bs4.BeautifulSoup(open(html_path), "html.parser")
-
-    rate = {}
+    rate_list = []
     for tr in soup.select("body > table:nth-of-type(1) > tr > td > table > tr"):
         try:
             coverage_type = tr.select("td:nth-of-type(4)")[0]
             percentage = tr.select("td:nth-of-type(7)")[0]
             if "%" in percentage.text:
-                rate[coverage_type.text] = re.sub(" %", "", percentage.text)
+                rate = {}
+                rate['type'] = re.sub(":", "", coverage_type.text)
+                rate['value'] = re.sub(" %", "", percentage.text)
+                rate['signal'] = classname_to_signal(percentage['class'][0])
+                rate_list.append(rate)
         except:
             continue
 
-    return rate
+    return rate_list
 
 
 def get_worst_case(metrics: list) -> int:
@@ -68,12 +74,12 @@ def get_lizard_metrics(html_path: str) -> list:
             parameter.append(tds[5])
 
     return [
-        get_worst_case(ccn),
-        get_violate_count(ccn),
-        get_worst_case(loc),
-        get_violate_count(loc),
-        get_worst_case(parameter),
-        get_violate_count(parameter),
+        {"type": "CCN(worst)", "value": get_worst_case(ccn)},
+        {"type": "CCN(violate)", "value": get_violate_count(ccn)},
+        {"type": "LOC(worst)", "value": get_worst_case(loc)},
+        {"type": "LOC(violate)", "value": get_violate_count(loc)},
+        {"type": "Parameter(worst)", "value": get_worst_case(parameter)},
+        {"type": "Parameter(violate)", "value": get_violate_count(parameter)},
     ]
 
 
@@ -97,23 +103,23 @@ if __name__ == "__main__":
     # Create output directory
     for html in lizard_index_list:
         dirname = html.parent.name
-        (args.output_dir / dirname).mkdir()
+        (args.output_dir / dirname).mkdir(exist_ok=True)
 
     for html in lcov_index_list:
-        coverage = get_lcov_coverage(html)
+        coverages = get_lcov_coverage(html)
 
-        filename = args.output_dir / html.parent.name / "coverage.txt"
+        filename = args.output_dir / html.parent.name / "coverage.csv"
         with open(filename, "w") as f:
-            for key, val in coverage.items():
-                f.write(f"{key} {val}\n")
+            writer = csv.DictWriter(f, fieldnames=coverages[0].keys())
+            writer.writeheader()
+            for coverage in coverages:
+                writer.writerow(coverage)
 
     for html in lizard_index_list:
         metrics = get_lizard_metrics(html)
-        filename = args.output_dir / html.parent.name / "lizard.txt"
+        filename = args.output_dir / html.parent.name / "lizard.csv"
         with open(filename, "w") as f:
-            f.write(f"CCN(worst): {metrics[0]}\n")
-            f.write(f"CCN(violate): {metrics[1]}\n")
-            f.write(f"LOC(worst): {metrics[2]}\n")
-            f.write(f"LOC(violate): {metrics[3]}\n")
-            f.write(f"Parameter(worst): {metrics[4]}\n")
-            f.write(f"Parameter(violate): {metrics[5]}\n")
+            writer = csv.DictWriter(f, fieldnames=metrics[0].keys())
+            writer.writeheader()
+            for item in metrics:
+                writer.writerow(item)
