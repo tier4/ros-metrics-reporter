@@ -1,3 +1,0 @@
-Lines: 86.1
-Functions: 80.0
-Branches: 32.5
