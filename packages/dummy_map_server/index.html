@@ -58,7 +58,7 @@ Code metrics       json_url = &#34;https://tier4.github.io/autoware_ci_monitor_s
 
 
 
-    <div class="wrapper ">
+    <div class="wrapper dark-mode-dim">
         <input type="checkbox" class="hidden" id="menu-control" />
         <header class="gdoc-header">
     <div class="container flex align-center justify-between">
@@ -627,9 +627,40 @@ Code metrics       json_url = &#34;https://tier4.github.io/autoware_ci_monitor_s
 
 
 <div class="gdoc-page__header flex flex-wrap
-     justify-end 
+     justify-between 
      hidden-mobile 
-     hidden " itemprop="breadcrumb">
+    " itemprop="breadcrumb">
+    
+    <div>
+        <svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"></use></svg>
+        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+            
+            
+            
+            
+    
+    
+        
+        
+        
+        
+    
+    
+        
+        
+        
+        
+    
+    
+        <li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/' href='https://tier4.github.io/autoware_ci_monitor_scripts/'><span itemprop='name'>Code quarity dashboard</span></a><meta itemprop='position' content='1' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/packages/' href='https://tier4.github.io/autoware_ci_monitor_scripts/packages/'><span itemprop='name'>Packages</span></a><meta itemprop='position' content='2' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><span itemprop='name'>dummy_map_server</span><meta itemprop='position' content='3' /></li>
+    
+
+    
+
+    
+
+        </ol>
+    </div>
     
     
 </div>
@@ -724,6 +755,10 @@ Plotly.d3.json(json_url, function(err, fig) {
         <span class="gdoc-footer__item">
             Built with <a href="https://gohugo.io/" class="gdoc-footer__link">Hugo</a> and
             <svg class="icon gdoc_heart"><use xlink:href="#gdoc_heart"></use></svg>
+        </span>
+        
+        <span class="gdoc-footer__item">
+            <a href="https://github.com/tier4/autoware_ci_monitor_scripts/blob/main/LICENSE" class="gdoc-footer__link">Legal Notice</a>
         </span>
         
         
