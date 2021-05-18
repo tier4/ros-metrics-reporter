@@ -70,7 +70,11 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: list):
         param = {}
         param["package"] = package
         lcov_csv = metrics_dir / package / "coverage.csv"
-        badge_names = {"line_badge": "Lines", "functions_badge": "Functions", "branches_badge": "Branches"}
+        badge_names = {
+            "line_badge": "Lines",
+            "functions_badge": "Functions",
+            "branches_badge": "Branches",
+        }
         for badge_name, type_name in badge_names.items():
             lcov_cov, lcov_color = read_lcov_result(lcov_csv, type_name)
             param[badge_name] = convert_hugo_style_img(
@@ -78,7 +82,11 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: list):
             )
 
         lizard_csv = Path("metrics", "latest", package, "lizard.csv")
-        badge_names = {"ccn_badge": "CCN(violate)", "loc_badge": "LOC(violate)", "parameter_badge": "Parameter(violate)"}
+        badge_names = {
+            "ccn_badge": "CCN(violate)",
+            "loc_badge": "LOC(violate)",
+            "parameter_badge": "Parameter(violate)",
+        }
         for badge_name, type_name in badge_names.items():
             lizard_count, lizard_color = read_lizard_result(lizard_csv, type_name)
             param[badge_name] = convert_hugo_style_img(
