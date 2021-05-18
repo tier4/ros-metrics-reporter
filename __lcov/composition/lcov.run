@@ -1,9 +1,7 @@
 TN:
-SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/listener_component.hpp
-end_of_record
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/server_component.hpp
 end_of_record
-SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/client_component.hpp
+SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/listener_component.hpp
 end_of_record
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/talker_component.hpp
 end_of_record
@@ -63,6 +61,8 @@ BRDA:54,0,6,1
 BRDA:54,0,7,0
 BRDA:54,0,8,0
 BRDA:54,0,9,0
+end_of_record
+SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/client_component.hpp
 end_of_record
 TN:
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/client_component.hpp
@@ -355,8 +355,6 @@ BRDA:67,0,6,0
 BRDA:67,0,7,0
 end_of_record
 TN:
-SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/talker_component.hpp
-end_of_record
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/src/talker_component.cpp
 FN:33,_ZN11composition6TalkerC2ERKN6rclcpp11NodeOptionsE
 FNDA:3,_ZN11composition6TalkerC2ERKN6rclcpp11NodeOptionsE
@@ -440,7 +438,11 @@ BRDA:52,0,4,0
 BRDA:52,0,5,0
 DA:53,5
 end_of_record
+SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/talker_component.hpp
+end_of_record
 TN:
+SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/listener_component.hpp
+end_of_record
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/src/listener_component.cpp
 FN:29,_ZN11composition8ListenerC2ERKN6rclcpp11NodeOptionsE
 FNDA:3,_ZN11composition8ListenerC2ERKN6rclcpp11NodeOptionsE
@@ -485,8 +487,6 @@ BRDA:45,0,13,0
 BRDA:45,0,14,0
 BRDA:45,0,15,0
 DA:46,3
-end_of_record
-SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/listener_component.hpp
 end_of_record
 TN:
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/src/linktime_composition.cpp

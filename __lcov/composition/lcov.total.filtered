@@ -4,8 +4,8 @@ FN:29,_ZN11composition6ClientC2ERKN6rclcpp11NodeOptionsE
 FN:39,_ZN11composition6Client8on_timerEv
 FN:68,_ZZN11composition6Client8on_timerEvENKUlSt13shared_futureISt10shared_ptrIN18example_interfaces3srv20AddTwoInts_Response_ISaIvEEEEEE_clES9_.isra.0
 FNDA:3,_ZN11composition6Client8on_timerEv
-FNDA:3,_ZZN11composition6Client8on_timerEvENKUlSt13shared_futureISt10shared_ptrIN18example_interfaces3srv20AddTwoInts_Response_ISaIvEEEEEE_clES9_.isra.0
 FNDA:3,_ZN11composition6ClientC2ERKN6rclcpp11NodeOptionsE
+FNDA:3,_ZZN11composition6Client8on_timerEvENKUlSt13shared_futureISt10shared_ptrIN18example_interfaces3srv20AddTwoInts_Response_ISaIvEEEEEE_clES9_.isra.0
 FNF:3
 FNH:3
 BRDA:30,0,0,3
@@ -625,8 +625,8 @@ TN:
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/src/talker_component.cpp
 FN:33,_ZN11composition6TalkerC2ERKN6rclcpp11NodeOptionsE
 FN:43,_ZN11composition6Talker8on_timerEv
-FNDA:5,_ZN11composition6Talker8on_timerEv
 FNDA:3,_ZN11composition6TalkerC2ERKN6rclcpp11NodeOptionsE
+FNDA:5,_ZN11composition6Talker8on_timerEv
 FNF:2
 FNH:2
 BRDA:34,0,0,3
