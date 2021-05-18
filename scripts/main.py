@@ -41,14 +41,18 @@ def get_trial_record(record_dir: Path) -> DataFrame:
             coverage_data = pd.read_csv(coverage_file)
             coverage_data["package_name"] = package_name
             coverage_data["date"] = date
-            all_package_metrics = pd.concat([all_package_metrics, coverage_data], axis=0)
+            all_package_metrics = pd.concat(
+                [all_package_metrics, coverage_data], axis=0
+            )
 
         lizard_file = package_dir / "lizard.csv"
         if lizard_file.exists():
             package_metrics = pd.read_csv(lizard_file)
             package_metrics["package_name"] = package_name
             package_metrics["date"] = date
-            all_package_metrics = pd.concat([all_package_metrics, package_metrics], axis=0)
+            all_package_metrics = pd.concat(
+                [all_package_metrics, package_metrics], axis=0
+            )
 
     return all_package_metrics
 
@@ -96,7 +100,7 @@ def run(
     copy_artifacts(lizard_result_path, lizard_dest)
 
     # Create markdown from template
-    copy_template(hugo_template_dir, hugo_root_dir, base_path / 'latest', packages)
+    copy_template(hugo_template_dir, hugo_root_dir, base_path / "latest", packages)
 
 
 if __name__ == "__main__":

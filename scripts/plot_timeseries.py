@@ -6,27 +6,32 @@ from pathlib import Path
 
 
 plot_name_list = [
-    { "coverage": [
-        "Lines",
-        "Functions",
-        "Branches",
-    ]},
-    { "metrics": [
-        "CCN(worst)",
-        "CCN(violate)",
-        "LOC(worst)",
-        "LOC(violate)",
-        "Parameter(worst)",
-        "Parameter(violate)",
-    ]},
+    {
+        "coverage": [
+            "Lines",
+            "Functions",
+            "Branches",
+        ]
+    },
+    {
+        "metrics": [
+            "CCN(worst)",
+            "CCN(violate)",
+            "LOC(worst)",
+            "LOC(violate)",
+            "Parameter(worst)",
+            "Parameter(violate)",
+        ]
+    },
 ]
+
 
 def plot_timeseries(df: DataFrame, output_path: Path):
     """Plot time-series and write to json"""
     for plot_group in plot_name_list:
         for plot_type, plot_items in plot_group.items():
 
-            df_filtered = df.query('type in @plot_items')
+            df_filtered = df.query("type in @plot_items")
             if df_filtered.empty:
                 continue
 
@@ -43,8 +48,12 @@ def plot_timeseries(df: DataFrame, output_path: Path):
                 rangeselector=dict(
                     buttons=list(
                         [
-                            dict(count=1, label="1m", step="month", stepmode="backward"),
-                            dict(count=6, label="6m", step="month", stepmode="backward"),
+                            dict(
+                                count=1, label="1m", step="month", stepmode="backward"
+                            ),
+                            dict(
+                                count=6, label="6m", step="month", stepmode="backward"
+                            ),
                             dict(count=1, label="YTD", step="year", stepmode="todate"),
                             dict(count=1, label="1y", step="year", stepmode="backward"),
                             dict(step="all"),

@@ -7,8 +7,10 @@ import csv
 
 from util import dir_path
 
+
 def classname_to_signal(classname: str) -> str:
     return re.sub("headerCovTableEntry", "", classname)
+
 
 def get_lcov_coverage(html_path: str) -> list:
     """ Get Lines, Functions, Branches coverage rate """
@@ -20,9 +22,9 @@ def get_lcov_coverage(html_path: str) -> list:
             percentage = tr.select("td:nth-of-type(7)")[0]
             if "%" in percentage.text:
                 rate = {}
-                rate['type'] = re.sub(":", "", coverage_type.text)
-                rate['value'] = re.sub(" %", "", percentage.text)
-                rate['signal'] = classname_to_signal(percentage['class'][0])
+                rate["type"] = re.sub(":", "", coverage_type.text)
+                rate["value"] = re.sub(" %", "", percentage.text)
+                rate["signal"] = classname_to_signal(percentage["class"][0])
                 rate_list.append(rate)
         except:
             continue
