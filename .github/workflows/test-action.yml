@@ -1,0 +1,22 @@
+name: Test github action
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: main
+
+jobs:
+  action-test:
+    runs-on: ubuntu-latest
+    container: osrf/ros:foxy-desktop
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+
+    - uses: tier4/autoware_ci_monitor_scripts@main
+
+    - name: Check results
+      run: ls -la ${GITHUB_WORKSPACE}/public/
