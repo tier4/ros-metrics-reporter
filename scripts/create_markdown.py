@@ -22,7 +22,7 @@ def convert_badge_url(label: str, message: str, color: str) -> str:
     return urllib.parse.quote(replaced, safe="/:")
 
 
-def read_lcov_result(file: Path) -> tuple:
+def read_lcov_result(file: Path, type: str) -> tuple:
     label_color = {
         "Lo": "red",
         "Med": "yellow",
@@ -35,7 +35,7 @@ def read_lcov_result(file: Path) -> tuple:
     with open(file) as f:
         reader = csv.DictReader(f)
         for row in reader:
-            if row["type"] == "Lines":
+            if row["type"] == type:
                 return row["value"], label_color[row["signal"]]
     return 0, label_color["Lo"]
 
@@ -47,14 +47,14 @@ def lizard_color(value: int) -> str:
         return "red"
 
 
-def read_lizard_result(file: Path) -> tuple:
+def read_lizard_result(file: Path, type: str) -> tuple:
     if not file.exists():
         return 0, lizard_color(0)
 
     with open(file) as f:
         reader = csv.DictReader(f)
         for row in reader:
-            if row["type"] == "CCN(violate)":
+            if row["type"] == type:
                 return row["value"], lizard_color(row["value"])
     return 0, lizard_color(0)
 
@@ -70,16 +70,21 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: list):
         param = {}
         param["package"] = package
         lcov_csv = metrics_dir / package / "coverage.csv"
-        lcov_cov, lcov_color = read_lcov_result(lcov_csv)
-        param["coverage_badge"] = convert_hugo_style_img(
-            convert_badge_url("coverage", str(lcov_cov), lcov_color)
-        )
+        badge_names = {"line_badge": "Lines", "functions_badge": "Functions", "branches_badge": "Branches"}
+        for badge_name, type_name in badge_names.items():
+            lcov_cov, lcov_color = read_lcov_result(lcov_csv, type_name)
+            param[badge_name] = convert_hugo_style_img(
+                convert_badge_url("coverage", str(lcov_cov), lcov_color)
+            )
 
         lizard_csv = Path("metrics", "latest", package, "lizard.csv")
-        lizard_count, lizard_color = read_lizard_result(lizard_csv)
-        param["metrics_badge"] = convert_hugo_style_img(
-            convert_badge_url("violations", str(lizard_count), lizard_color)
-        )
+        badge_names = {"ccn_badge": "CCN(violate)", "loc_badge": "LOC(violate)", "parameter_badge": "Parameter(violate)"}
+        for badge_name, type_name in badge_names.items():
+            lizard_count, lizard_color = read_lizard_result(lizard_csv, type_name)
+            param[badge_name] = convert_hugo_style_img(
+                convert_badge_url("violations", str(lizard_count), lizard_color)
+            )
+
         param_list.append(param)
 
     with open(file, "w") as f:
