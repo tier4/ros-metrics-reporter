@@ -96,7 +96,7 @@ def run(
     copy_artifacts(lizard_result_path, lizard_dest)
 
     # Create markdown from template
-    copy_template(hugo_template_dir, hugo_root_dir, packages)
+    copy_template(hugo_template_dir, hugo_root_dir, base_path / 'latest', packages)
 
 
 if __name__ == "__main__":

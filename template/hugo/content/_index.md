@@ -3,8 +3,8 @@ title: Code quarity dashboard
 geekdocCollapseSection: true
 ---
 
-| Package name | Coverage rate | Metrics |
+| Package name | Line coverage [%] | CCN violation |
 | :---: | :---: | :---: |
-{%- for package in packages %}
-| {{ package }} | __COVERAGE_BADGE__ | __METRICS_BADGE__ |
+{%- for param in param_list %}
+| {{ param.package }} | {{ param.coverage_badge }} | {{ param.metrics_badge }} |
 {%- endfor %}
