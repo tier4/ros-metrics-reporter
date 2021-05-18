@@ -1,0 +1,47 @@
+name: "Code quality visualizer"
+author: "Keisuke Shima"
+description: "Measure code metrics and generate result page"
+branding:
+  icon: "activity"
+  color: "blue"
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        apt-get update
+        apt-get install -y lcov git python3-pip hugo
+        rosdep update
+        rosdep install -y --from-paths . --ignore-src --rosdistro foxy
+        pip3 install jinja2 bs4 pandas plotly
+      shell: bash
+
+    - run: date -u '+%Y%m%d_%H%M%S' > ${{ github.workspace }}/timestamp.txt
+      shell: bash
+
+    - run: mkdir ${{ github.workspace }}/artifacts
+      shell: bash
+
+    - run: ${{ github.action_path }}/scripts/coverage.sh ${{ github.workspace }} ${{ github.workspace }}/timestamp.txt && mv ${{ github.workspace }}/lcov ${{ github.workspace }}/artifacts/
+      shell: bash
+
+    - run: ${{ github.action_path }}/scripts/lizard.sh ${{ github.workspace }} ${{ github.workspace }}/timestamp.txt && mv ${{ github.workspace }}/lizard_result ${{ github.workspace }}/artifacts/
+      shell: bash
+
+    - run: |
+        TIMESTAMP=$(cat ${{ github.workspace }}/timestamp.txt)
+        mkdir -p ${{ github.workspace }}/artifacts/metrics/$TIMESTAMP
+        python3 scripts/scraping.py --lcov_dir=${{ github.workspace }}/artifacts/lcov/$TIMESTAMP/ --lizard_dir=${{ github.workspace }}/artifacts/lizard_result/$TIMESTAMP/ --output_dir=${{ github.workspace }}/artifacts/metrics/$TIMESTAMP/
+        ln -nfrs ${{ github.workspace }}/artifacts/lcov/$TIMESTAMP ${{ github.workspace }}/artifacts/lcov/latest
+        ln -nfrs ${{ github.workspace }}/artifacts/lizard_result/$TIMESTAMP ${{ github.workspace }}/artifacts/lizard_result/latest
+        ln -nfrs ${{ github.workspace }}/artifacts/metrics/$TIMESTAMP ${{ github.workspace }}/artifacts/metrics/latest
+      shell: bash
+
+    - run: python scripts/main.py --input-dir=${{ github.workspace }}/artifacts/metrics/ --hugo-root-dir=${{ github.action_path }}/example/hugo-site/ --hugo-template-dir=${{ github.action_path }}/template/hugo/ --lcov-result-path=${{ github.workspace }}/artifacts/lcov/latest/ --lizard-result-path=${{ github.workspace }}/artifacts/lizard_result/latest/
+      shell: bash
+
+    - run: |
+        cp -r ${{ github.workspace }}/artifacts/lcov/ ${{ github.action_path }}/example/hugo-site
+        cp -r ${{ github.workspace }}/artifacts/lizard_result/ ${{ github.action_path }}/example/hugo-site
+        cd ${{ github.action_path }}/example/hugo-site && hugo -d ${{ github.workspace }}/public
+      shell: bash
