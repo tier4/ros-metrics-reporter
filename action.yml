@@ -9,12 +9,16 @@ runs:
   using: "composite"
   steps:
     - run: |
+        echo "Script is in ${{ github.action_path }}"
+        ls -l ${{ github.action_path }}
+        echo "Workspace is ${{ github.workspace }}"
+        ls -l ${{ github.workspace }}
         apt-get update
         apt-get install -y lcov git python3-pip hugo
         rosdep update
         rosdep install -y --from-paths . --ignore-src --rosdistro foxy
         pip3 install jinja2 bs4 pandas plotly
-        echo "Creating timestamp"
+        echo "Creating timestamp to ${{ github.workspace }}/timestamp.txt"
         date -u '+%Y%m%d_%H%M%S' > ${{ github.workspace }}/timestamp.txt
         echo "Outpu directory is ${{ github.workspace }}/artifacts"
         mkdir ${{ github.workspace }}/artifacts
