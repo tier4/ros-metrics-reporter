@@ -1,5 +1,5 @@
 TN:
-SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/CMakeCXXCompilerId.cpp
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/CMakeCXXCompilerId.cpp
 FN:637,main
 FNDA:0,main
 DA:637,0
@@ -11,7 +11,7 @@ DA:657,0
 DA:659,0
 end_of_record
 TN:
-SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/CMakeCCompilerId.c
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/CMakeCCompilerId.c
 FN:645,main
 FNDA:0,main
 DA:645,0
