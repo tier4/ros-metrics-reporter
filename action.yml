@@ -9,7 +9,9 @@ runs:
   using: "composite"
   steps:
     - run: |
-        echo "Script is in ${{ github.action_path }}"
+        echo "GITHUB_ACTION_PATH is ${GITHUB_ACTION_PATH}"
+        ls -l ${GITHUB_ACTION_PATH}
+        echo "github.action_path is ${{ github.action_path }}"
         ls -l ${{ github.action_path }}
         echo "Workspace is ${{ github.workspace }}"
         ls -l ${{ github.workspace }}
