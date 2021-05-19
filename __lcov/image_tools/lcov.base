@@ -324,8 +324,6 @@ BRDA:63,0,6,-
 BRDA:63,0,7,-
 end_of_record
 TN:
-SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/image_tools/src/policy_maps.hpp
-end_of_record
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/image_tools/src/showimage.cpp
 FN:38,_ZN11image_tools9ShowImageC2ERKN6rclcpp11NodeOptionsE
 FNDA:0,_ZN11image_tools9ShowImageC2ERKN6rclcpp11NodeOptionsE
@@ -584,6 +582,8 @@ DA:212,0
 BRDA:212,0,0,-
 BRDA:212,0,1,-
 DA:214,0
+end_of_record
+SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/image_tools/src/policy_maps.hpp
 end_of_record
 TN:
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/image_tools/src/burger.cpp
@@ -1192,7 +1192,7 @@ DA:286,0
 DA:287,0
 DA:288,0
 end_of_record
-SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/image_tools/src/burger.hpp
-end_of_record
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/image_tools/src/policy_maps.hpp
+end_of_record
+SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/image_tools/src/burger.hpp
 end_of_record
