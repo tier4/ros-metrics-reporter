@@ -20,6 +20,7 @@ cols = [
     "signal",
 ]
 
+
 def copy_artifacts(src: Path, dest: Path):
     dest.mkdir(exist_ok=True)
     for package_dir in src.iterdir():

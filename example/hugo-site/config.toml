@@ -1,4 +1,4 @@
-baseURL = "https://tier4.github.io/autoware_ci_monitor_scripts/"
+baseURL = "https://tier4.github.io/ros-metrics-reporter/"
 title = "ros2/demos"
 theme = "hugo-geekdoc"
 
@@ -59,7 +59,7 @@ enableGitInfo = true
 
   # (Optional, default none) Add a link to your Legal Notice page to the site footer.
   # It can be either a remote url or a local file path relative to your content directory.
-  geekdocLegalNotice = "https://github.com/tier4/autoware_ci_monitor_scripts/blob/main/LICENSE"
+  geekdocLegalNotice = "https://github.com/tier4/ros-metrics-reporter/blob/main/LICENSE"
 
   # (Optional, default none) Add a link to your Privacy Policy page to the site footer.
   # It can be either a remote url or a local file path relative to your content directory.
