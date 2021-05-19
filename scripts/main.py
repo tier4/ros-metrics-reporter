@@ -12,6 +12,13 @@ from util import dir_path
 from plot_timeseries import plot_timeseries
 from create_markdown import copy_template
 
+cols = [
+    "date",
+    "package_name",
+    "type",
+    "value",
+    "signal",
+]
 
 def copy_artifacts(src: Path, dest: Path):
     dest.mkdir(exist_ok=True)
@@ -23,13 +30,6 @@ def copy_artifacts(src: Path, dest: Path):
 
 
 def get_trial_record(record_dir: Path) -> DataFrame:
-    cols = [
-        "date",
-        "package_name",
-        "type",
-        "value",
-        "signal",
-    ]
     all_package_metrics = pd.DataFrame(index=[], columns=cols)
 
     for package_dir in record_dir.iterdir():
@@ -64,13 +64,6 @@ def run(
     lcov_result_path: Path,
     lizard_result_path: Path,
 ):
-    cols = [
-        "date",
-        "package_name",
-        "type",
-        "value",
-        "signal",
-    ]
     data_source = pd.DataFrame(index=[], columns=cols)
 
     for timestamp_dir in base_path.iterdir():
