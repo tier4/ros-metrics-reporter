@@ -12,8 +12,9 @@ runs:
         echo "GITHUB_ACTION_PATH is ${GITHUB_ACTION_PATH}"
         ls -l ${GITHUB_ACTION_PATH}
         echo "github.action_path is ${{ github.action_path }}"
+        echo "GITHUB_WORKSPACE is ${GITHUB_WORKSPACE}"
+        ls -l ${GITHUB_WORKSPACE}
         echo "Workspace is ${{ github.workspace }}"
-        ls -l ${{ github.workspace }}
         apt-get update
         apt-get install -y lcov git python3-pip hugo
         rosdep update
