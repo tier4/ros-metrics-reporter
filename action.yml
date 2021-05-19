@@ -16,7 +16,7 @@ runs:
         ls -l ${GITHUB_WORKSPACE}
         echo "Workspace is ${{ github.workspace }}"
         apt-get update
-        apt-get install -y lcov git python3-pip hugo
+        apt-get install -y lcov git python-is-python3 python3-pip hugo
         rosdep update
         rosdep install -y --from-paths . --ignore-src --rosdistro foxy
         pip3 install jinja2 bs4 pandas plotly
