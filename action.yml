@@ -12,7 +12,6 @@ runs:
         echo "GITHUB_ACTION_PATH is ${GITHUB_ACTION_PATH}"
         ls -l ${GITHUB_ACTION_PATH}
         echo "github.action_path is ${{ github.action_path }}"
-        ls -l ${{ github.action_path }}
         echo "Workspace is ${{ github.workspace }}"
         ls -l ${{ github.workspace }}
         apt-get update
@@ -22,12 +21,12 @@ runs:
         pip3 install jinja2 bs4 pandas plotly
         echo "Creating timestamp to ${{ github.workspace }}/timestamp.txt"
         date -u '+%Y%m%d_%H%M%S' > ${{ github.workspace }}/timestamp.txt
-        echo "Outpu directory is ${{ github.workspace }}/artifacts"
+        echo "Output directory is ${{ github.workspace }}/artifacts"
         mkdir ${{ github.workspace }}/artifacts
         echo "Run coverage.sh"
-        ${{ github.action_path }}/scripts/coverage.sh ${{ github.workspace }} ${{ github.workspace }}/timestamp.txt && mv ${{ github.workspace }}/lcov ${{ github.workspace }}/artifacts/
+        ${GITHUB_ACTION_PATH}/scripts/coverage.sh ${{ github.workspace }} ${{ github.workspace }}/timestamp.txt && mv ${{ github.workspace }}/lcov ${{ github.workspace }}/artifacts/
         echo "Run lizard.sh"
-        ${{ github.action_path }}/scripts/lizard.sh ${{ github.workspace }} ${{ github.workspace }}/timestamp.txt && mv ${{ github.workspace }}/lizard_result ${{ github.workspace }}/artifacts/
+        ${GITHUB_ACTION_PATH}/scripts/lizard.sh ${{ github.workspace }} ${{ github.workspace }}/timestamp.txt && mv ${{ github.workspace }}/lizard_result ${{ github.workspace }}/artifacts/
         TIMESTAMP=$(cat ${{ github.workspace }}/timestamp.txt)
         mkdir -p ${{ github.workspace }}/artifacts/metrics/$TIMESTAMP
         echo "Run scraping.py"
@@ -36,9 +35,9 @@ runs:
         ln -nfrs ${{ github.workspace }}/artifacts/lizard_result/$TIMESTAMP ${{ github.workspace }}/artifacts/lizard_result/latest
         ln -nfrs ${{ github.workspace }}/artifacts/metrics/$TIMESTAMP ${{ github.workspace }}/artifacts/metrics/latest
         echo "Run main.py"
-        python scripts/main.py --input-dir=${{ github.workspace }}/artifacts/metrics/ --hugo-root-dir=${{ github.action_path }}/example/hugo-site/ --hugo-template-dir=${{ github.action_path }}/template/hugo/ --lcov-result-path=${{ github.workspace }}/artifacts/lcov/latest/ --lizard-result-path=${{ github.workspace }}/artifacts/lizard_result/latest/
+        python scripts/main.py --input-dir=${{ github.workspace }}/artifacts/metrics/ --hugo-root-dir=${GITHUB_ACTION_PATH}/example/hugo-site/ --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${{ github.workspace }}/artifacts/lcov/latest/ --lizard-result-path=${{ github.workspace }}/artifacts/lizard_result/latest/
         echo "Copy artifacts"
-        cp -r ${{ github.workspace }}/artifacts/lcov/ ${{ github.action_path }}/example/hugo-site
-        cp -r ${{ github.workspace }}/artifacts/lizard_result/ ${{ github.action_path }}/example/hugo-site
-        cd ${{ github.action_path }}/example/hugo-site && hugo -d ${{ github.workspace }}/public
+        cp -r ${{ github.workspace }}/artifacts/lcov/ ${GITHUB_ACTION_PATH}/example/hugo-site
+        cp -r ${{ github.workspace }}/artifacts/lizard_result/ ${GITHUB_ACTION_PATH}/example/hugo-site
+        cd ${GITHUB_ACTION_PATH}/example/hugo-site && hugo -d ${{ github.workspace }}/public
       shell: bash
