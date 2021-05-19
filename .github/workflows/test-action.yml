@@ -16,7 +16,7 @@ jobs:
       with:
         submodules: true
 
-    - uses: tier4/autoware_ci_monitor_scripts@main
+    - uses: tier4/ros-metrics-reporter@main
 
     - name: Check results
       run: ls -la ${GITHUB_WORKSPACE}/public/
