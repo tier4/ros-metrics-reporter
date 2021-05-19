@@ -3,6 +3,8 @@ SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demo
 end_of_record
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/listener_component.hpp
 end_of_record
+SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/talker_component.hpp
+end_of_record
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/src/manual_composition.cpp
 FN:23,main
 FNDA:1,main
@@ -61,8 +63,6 @@ BRDA:54,0,8,0
 BRDA:54,0,9,0
 end_of_record
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/server_component.hpp
-end_of_record
-SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/talker_component.hpp
 end_of_record
 TN:
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/src/client_component.cpp
