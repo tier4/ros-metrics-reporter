@@ -1,9 +1,7 @@
 TN:
+SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/client_component.hpp
+end_of_record
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/talker_component.hpp
-end_of_record
-SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/server_component.hpp
-end_of_record
-SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/listener_component.hpp
 end_of_record
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/src/manual_composition.cpp
 FN:23,main
@@ -62,9 +60,13 @@ BRDA:54,0,7,-
 BRDA:54,0,8,-
 BRDA:54,0,9,-
 end_of_record
-SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/client_component.hpp
+SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/listener_component.hpp
+end_of_record
+SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/server_component.hpp
 end_of_record
 TN:
+SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/client_component.hpp
+end_of_record
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/src/client_component.cpp
 FN:29,_ZN11composition6ClientC2ERKN6rclcpp11NodeOptionsE
 FNDA:0,_ZN11composition6ClientC2ERKN6rclcpp11NodeOptionsE
@@ -157,9 +159,9 @@ BRDA:71,0,3,-
 BRDA:71,0,4,-
 BRDA:71,0,5,-
 end_of_record
-SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/client_component.hpp
-end_of_record
 TN:
+SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/node_like_listener_component.hpp
+end_of_record
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/src/node_like_listener_component.cpp
 FN:35,_ZN11composition16NodeLikeListenerC2ERKN6rclcpp11NodeOptionsE
 FNDA:0,_ZN11composition16NodeLikeListenerC2ERKN6rclcpp11NodeOptionsE
@@ -203,8 +205,6 @@ BRDA:51,0,15,-
 DA:52,0
 DA:55,0
 DA:57,0
-end_of_record
-SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/node_like_listener_component.hpp
 end_of_record
 TN:
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/src/server_component.cpp
@@ -427,8 +427,6 @@ BRDA:67,0,6,-
 BRDA:67,0,7,-
 end_of_record
 TN:
-SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/talker_component.hpp
-end_of_record
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/src/talker_component.cpp
 FN:33,_ZN11composition6TalkerC2ERKN6rclcpp11NodeOptionsE
 FNDA:0,_ZN11composition6TalkerC2ERKN6rclcpp11NodeOptionsE
@@ -512,7 +510,11 @@ BRDA:52,0,4,-
 BRDA:52,0,5,-
 DA:53,0
 end_of_record
+SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/talker_component.hpp
+end_of_record
 TN:
+SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/listener_component.hpp
+end_of_record
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/src/listener_component.cpp
 FN:29,_ZN11composition8ListenerC2ERKN6rclcpp11NodeOptionsE
 FNDA:0,_ZN11composition8ListenerC2ERKN6rclcpp11NodeOptionsE
@@ -557,8 +559,6 @@ BRDA:45,0,13,-
 BRDA:45,0,14,-
 BRDA:45,0,15,-
 DA:46,0
-end_of_record
-SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/include/composition/listener_component.hpp
 end_of_record
 TN:
 SF:/__w/autoware_ci_monitor_scripts/autoware_ci_monitor_scripts/example/src/demos/composition/src/linktime_composition.cpp
