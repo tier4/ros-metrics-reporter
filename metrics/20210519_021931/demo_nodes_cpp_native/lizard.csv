@@ -1,0 +1,7 @@
+type,value
+CCN(worst),1
+CCN(violate),0
+LOC(worst),25
+LOC(violate),0
+Parameter(worst),1
+Parameter(violate),0
