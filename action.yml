@@ -38,7 +38,8 @@ runs:
         echo "Run main.py"
         python scripts/main.py --input-dir=${GITHUB_WORKSPACE}/artifacts/metrics/ --hugo-root-dir=${GITHUB_ACTION_PATH}/example/hugo-site/ --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${GITHUB_WORKSPACE}/artifacts/lcov/latest/ --lizard-result-path=${GITHUB_WORKSPACE}/artifacts/lizard_result/latest/
         echo "Copy artifacts"
-        cp -r ${GITHUB_WORKSPACE}/artifacts/lcov/ ${GITHUB_ACTION_PATH}/example/hugo-site
-        cp -r ${GITHUB_WORKSPACE}/artifacts/lizard_result/ ${GITHUB_ACTION_PATH}/example/hugo-site
-        cd ${GITHUB_ACTION_PATH}/example/hugo-site && hugo -d ${GITHUB_WORKSPACE}/public
+        cp -r ${GITHUB_ACTION_PATH}/example/hugo-site ${GITHUB_WORKSPACE}
+        cp -r ${GITHUB_WORKSPACE}/artifacts/* ${GITHUB_WORKSPACE}/hugo-site
+        ls -l ${GITHUB_WORKSPACE}/hugo-site
+        cd ${GITHUB_WORKSPACE}/hugo-site && hugo -d ${GITHUB_WORKSPACE}/public
       shell: bash
