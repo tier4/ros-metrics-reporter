@@ -54,11 +54,11 @@ runs:
         echo "GITHUB_WORKSPACE is ${GITHUB_WORKSPACE}"
         ls -l ${GITHUB_WORKSPACE}
         echo "Workspace is ${{ github.workspace }}"
-        ARTIFACTS_DIR=$(eval echo ${${{ inputs.artifacts-dir }}%/})
+        ARTIFACTS_DIR=$(echo ${{ inputs.artifacts-dir }} | sed -e "s@/\$@@")
         echo "Artifacts directory is $ARTIFACTS_DIR"
-        HUGO_DIR=$(eval echo ${${{ inputs.hugo-dir }}%/})
+        HUGO_DIR=$(echo ${{ inputs.hugo-dir }} | sed -e "s@/\$@@")
         echo "Hugo directory is $HUGO_DIR"
-        OUTPUT_DIR=$(eval echo ${${{ inputs.output-dir }}%/})
+        OUTPUT_DIR=$(echo ${{ inputs.output-dir }} | sed -e "s@/\$@@")
         echo "Output directory is $OUTPUT_DIR"
       shell: bash
 
