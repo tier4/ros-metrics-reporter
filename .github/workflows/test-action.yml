@@ -16,7 +16,25 @@ jobs:
       with:
         submodules: true
 
+    - uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+        path: doc
+
     - uses: tier4/ros-metrics-reporter@main
+      with:
+        artifacts-dir: ${GITHUB_WORKSPACE}/doc/
+        CCN: 20
+        nloc: 200
+        arguments: 6
 
     - name: Check results
       run: ls -la ${GITHUB_WORKSPACE}/public/
+
+    - name: Deploy public to gh-pages (main branch only)
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+        keep_files: true

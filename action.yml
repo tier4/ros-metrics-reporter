@@ -5,41 +5,109 @@ branding:
   icon: "activity"
   color: "blue"
 
+inputs:
+  artifacts-dir:
+    description: "Path to Artifacts generated using this Action (must include lcov/ and lizard-result/ directory)"
+    required: true
+  ros-distro:
+    description: "ROS2 distribution"
+    required: true
+    default: "foxy"
+  hugo-dir:
+    description: "If you want to use your own hugo-site, specify the root directory"
+    required: true
+    default: "${GITHUB_ACTION_PATH}/example/hugo-site"
+  output-dir:
+    description: "Hugo output directory"
+    required: true
+    default: "${GITHUB_WORKSPACE}/public"
+  lcovrc-path:
+    description: "Path to .lcovrc file"
+    required: true
+    default: "${GITHUB_ACTION_PATH}/.lcovrc"
+  CCN:
+    description: "Threshold for cyclomatic complexity number warning. The default value is 15."
+    required: true
+    default: 15
+  nloc:
+    description: "Threshold for NLOC. The default value is 1000000."
+    required: true
+    default: 1000000
+  arguments:
+    description: "Limit for number of parameters. The default value is 100."
+    required: true
+    default: 100
+
+outputs:
+  output-dir:
+    description: "Hugo output directory"
+    value: ${{ inputs.output-dir }}
+
 runs:
   using: "composite"
   steps:
-    - run: |
+    - name: Install dependencies
+      run: |
         echo "GITHUB_ACTION_PATH is ${GITHUB_ACTION_PATH}"
         ls -l ${GITHUB_ACTION_PATH}
         echo "github.action_path is ${{ github.action_path }}"
         echo "GITHUB_WORKSPACE is ${GITHUB_WORKSPACE}"
         ls -l ${GITHUB_WORKSPACE}
         echo "Workspace is ${{ github.workspace }}"
+      shell: bash
+
+    - name: Install dependencies
+      run: |
         apt-get update
         apt-get install -y lcov git python-is-python3 python3-pip hugo
         rosdep update
-        rosdep install -y --from-paths . --ignore-src --rosdistro foxy
+        rosdep install -y --from-paths . --ignore-src --rosdistro ${{ inputs.ros-distro }}
         pip3 install jinja2 bs4 pandas plotly
+      shell: bash
+
+    - name: Set timestamp
+      run: |
         echo "Creating timestamp to ${GITHUB_WORKSPACE}/timestamp.txt"
         date -u '+%Y%m%d_%H%M%S' > ${GITHUB_WORKSPACE}/timestamp.txt
-        echo "Output directory is ${GITHUB_WORKSPACE}/artifacts"
-        mkdir ${GITHUB_WORKSPACE}/artifacts
+      shell: bash
+
+    - name: Measure code coverage
+      run: |
+        echo "Artifacts directory is ${{ inputs.artifacts-dir }}"
+        mkdir -p ${{ inputs.artifacts-dir }}
         echo "Run coverage.sh"
-        ${GITHUB_ACTION_PATH}/scripts/coverage.sh ${GITHUB_WORKSPACE} ${GITHUB_WORKSPACE}/timestamp.txt && mv ${GITHUB_WORKSPACE}/lcov ${GITHUB_WORKSPACE}/artifacts/
+        . /opt/ros/${{ inputs.ros-distro }}/setup.sh
+        ${GITHUB_ACTION_PATH}/scripts/coverage.sh ${GITHUB_WORKSPACE} ${{ inputs.artifacts-dir }} ${GITHUB_WORKSPACE}/timestamp.txt
+      shell: bash
+
+    - name: Measure code metrics
+      run: |
         echo "Run lizard.sh"
-        ${GITHUB_ACTION_PATH}/scripts/lizard.sh ${GITHUB_WORKSPACE} ${GITHUB_WORKSPACE}/timestamp.txt && mv ${GITHUB_WORKSPACE}/lizard_result ${GITHUB_WORKSPACE}/artifacts/
-        TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
-        mkdir -p ${GITHUB_WORKSPACE}/artifacts/metrics/$TIMESTAMP
+        ${GITHUB_ACTION_PATH}/scripts/lizard.sh ${GITHUB_WORKSPACE} ${{ inputs.artifacts-dir }} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt
+      shell: bash
+
+    - name: Scraping
+      run: |
         echo "Run scraping.py"
-        python3 scripts/scraping.py --lcov_dir=${GITHUB_WORKSPACE}/artifacts/lcov/$TIMESTAMP/ --lizard_dir=${GITHUB_WORKSPACE}/artifacts/lizard_result/$TIMESTAMP/ --output_dir=${GITHUB_WORKSPACE}/artifacts/metrics/$TIMESTAMP/
-        ln -nfrs ${GITHUB_WORKSPACE}/artifacts/lcov/$TIMESTAMP ${GITHUB_WORKSPACE}/artifacts/lcov/latest
-        ln -nfrs ${GITHUB_WORKSPACE}/artifacts/lizard_result/$TIMESTAMP ${GITHUB_WORKSPACE}/artifacts/lizard_result/latest
-        ln -nfrs ${GITHUB_WORKSPACE}/artifacts/metrics/$TIMESTAMP ${GITHUB_WORKSPACE}/artifacts/metrics/latest
+        TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
+        mkdir -p ${{ inputs.artifacts-dir }}/metrics/$TIMESTAMP
+        python3 scripts/scraping.py --lcov_dir=${{ inputs.artifacts-dir }}/lcov/$TIMESTAMP/ --lizard_dir=${{ inputs.artifacts-dir }}/lizard_result/$TIMESTAMP/ --output_dir=${{ inputs.artifacts-dir }}/metrics/$TIMESTAMP/
+      shell: bash
+
+    - name: Create static page
+      run: |
+        ln -nfrs ${{ inputs.artifacts-dir }}/lcov/$TIMESTAMP ${{ inputs.artifacts-dir }}/lcov/latest
+        ln -nfrs ${{ inputs.artifacts-dir }}/lizard_result/$TIMESTAMP ${{ inputs.artifacts-dir }}/lizard_result/latest
+        ln -nfrs ${{ inputs.artifacts-dir }}/metrics/$TIMESTAMP ${{ inputs.artifacts-dir }}/metrics/latest
         echo "Run main.py"
-        python scripts/main.py --input-dir=${GITHUB_WORKSPACE}/artifacts/metrics/ --hugo-root-dir=${GITHUB_ACTION_PATH}/example/hugo-site/ --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${GITHUB_WORKSPACE}/artifacts/lcov/latest/ --lizard-result-path=${GITHUB_WORKSPACE}/artifacts/lizard_result/latest/
+        python scripts/main.py --input-dir=${{ inputs.artifacts-dir }}/metrics/ --hugo-root-dir=${{ inputs.hugo-dir }} --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${{ inputs.artifacts-dir }}/lcov/latest/ --lizard-result-path=${{ inputs.artifacts-dir }}/lizard_result/latest/
+      shell: bash
+
+    - name: Generate pages
+      run: |
         echo "Copy artifacts"
-        cp -r ${GITHUB_ACTION_PATH}/example/hugo-site ${GITHUB_WORKSPACE}
-        cp -r ${GITHUB_WORKSPACE}/artifacts/* ${GITHUB_WORKSPACE}/hugo-site
-        ls -l ${GITHUB_WORKSPACE}/hugo-site
-        cd ${GITHUB_WORKSPACE}/hugo-site && hugo -d ${GITHUB_WORKSPACE}/public
+        cp -r ${{ inputs.hugo-dir }} /tmp/
+        cp -r ${{ inputs.artifacts-dir }}/* /tmp//hugo-site
+        ls -l /tmp/hugo-site
+        cd /tmp/hugo-site && hugo -d ${{ inputs.output-dir }}
       shell: bash

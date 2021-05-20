@@ -8,12 +8,14 @@ PACKAGE_LIST=$(colcon list --names-only)
 COVERAGE_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1"
 
 # Set generated timestamp
-if [ $# -eq 2 ]; then
-  TIMESTAMP=$(cat $2)
+if [ $# -eq 3 ]; then
+  TIMESTAMP=$(cat $3)
 else
   TIMESTAMP=$(date -u '+%Y%m%d_%H%M%S')
 fi
-OUTPUT_DIR=${BASE_DIR}/lcov/${TIMESTAMP}
+
+[ "$2" == "" ] && { echo "Please set output directory." ; exit 1; }
+OUTPUT_DIR=${2}/lcov/${TIMESTAMP}
 
 function get_package_coverage() {
   [ "$1" == "" ] && return 1
@@ -98,8 +100,6 @@ echo $TIMESTAMP > ${OUTPUT_DIR}/timestamp.txt
 
 # Save package list
 echo "$PACKAGE_LIST" > ${OUTPUT_DIR}/package_list.txt
-
-. /opt/ros/foxy/setup.sh
 
 for PACKAGE in $PACKAGE_LIST; do
   get_package_coverage $PACKAGE
