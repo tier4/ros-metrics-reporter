@@ -21,7 +21,8 @@ jobs:
         ref: gh-pages
         path: doc
 
-    - uses: tier4/ros-metrics-reporter@main
+    - id: metrics-reporter
+      uses: tier4/ros-metrics-reporter@main
       with:
         artifacts-dir: ${GITHUB_WORKSPACE}/doc/
         CCN: 20
@@ -36,5 +37,5 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
+        publish_dir: ${{ steps.metrics-reporter.outputs.output-dir }}
         keep_files: true
