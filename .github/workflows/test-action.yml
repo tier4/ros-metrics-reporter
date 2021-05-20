@@ -21,7 +21,7 @@ jobs:
         ref: gh-pages
         path: doc
 
-    - uses: tier4/autoware_ci_monitor_scripts@main
+    - uses: tier4/ros-metrics-reporter@main
       with:
         artifacts-dir: ${GITHUB_WORKSPACE}/doc/
         CCN: 20
