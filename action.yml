@@ -46,8 +46,9 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Preprocess
+    - name: Run jobs
       run: |
+        echo "--- Preprocess ---"
         echo "GITHUB_ACTION_PATH is ${GITHUB_ACTION_PATH}"
         ls -l ${GITHUB_ACTION_PATH}
         echo "github.action_path is ${{ github.action_path }}"
@@ -60,58 +61,34 @@ runs:
         echo "Hugo directory is $HUGO_DIR"
         OUTPUT_DIR=$(echo ${{ inputs.output-dir }} | sed -e "s@/\$@@")
         echo "Output directory is $OUTPUT_DIR"
-      shell: bash
-
-    - name: Install dependencies
-      run: |
+        echo "--- Install dependencies ---"
         apt-get update
         apt-get install -y lcov git python-is-python3 python3-pip hugo
         rosdep update
         rosdep install -y --from-paths . --ignore-src --rosdistro ${{ inputs.ros-distro }}
         pip3 install jinja2 bs4 pandas plotly
-      shell: bash
-
-    - name: Set timestamp
-      run: |
+        echo "--- Set timestamp ---"
         echo "Creating timestamp to ${GITHUB_WORKSPACE}/timestamp.txt"
         date -u '+%Y%m%d_%H%M%S' > ${GITHUB_WORKSPACE}/timestamp.txt
-      shell: bash
-
-    - name: Measure code coverage
-      run: |
+        echo "--- Measure code coverage ---"
         echo "Artifacts directory is ${ARTIFACTS_DIR}"
         mkdir -p ${ARTIFACTS_DIR}
         echo "Run coverage.sh"
         . /opt/ros/${{ inputs.ros-distro }}/setup.sh
         ${GITHUB_ACTION_PATH}/scripts/coverage.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt
-      shell: bash
-
-    - name: Measure code metrics
-      run: |
-        echo "Run lizard.sh"
+        echo "--- Measure code metrics ---"
         ${GITHUB_ACTION_PATH}/scripts/lizard.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt
-      shell: bash
-
-    - name: Scraping
-      run: |
-        echo "Run scraping.py"
+        echo "--- Scraping ---"
         TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
         mkdir -p ${ARTIFACTS_DIR}/metrics/$TIMESTAMP
         python3 scripts/scraping.py --lcov_dir=${ARTIFACTS_DIR}/lcov/$TIMESTAMP/ --lizard_dir=${ARTIFACTS_DIR}/lizard_result/$TIMESTAMP/ --output_dir=${ARTIFACTS_DIR}/metrics/$TIMESTAMP/
-      shell: bash
-
-    - name: Create static page
-      run: |
+        echo "--- Create static page ---"
         ln -nfrs ${ARTIFACTS_DIR}/lcov/$TIMESTAMP ${ARTIFACTS_DIR}/lcov/latest
         ln -nfrs ${ARTIFACTS_DIR}/lizard_result/$TIMESTAMP ${ARTIFACTS_DIR}/lizard_result/latest
         ln -nfrs ${ARTIFACTS_DIR}/metrics/$TIMESTAMP ${ARTIFACTS_DIR}/metrics/latest
         echo "Run main.py"
         python scripts/main.py --input-dir=${ARTIFACTS_DIR}/metrics/ --hugo-root-dir=${HUGO_DIR} --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${ARTIFACTS_DIR}/lcov/latest/ --lizard-result-path=${ARTIFACTS_DIR}/lizard_result/latest/
-      shell: bash
-
-    - name: Generate pages
-      run: |
-        echo "Copy artifacts"
+        echo "--- Generate pages ---"
         cp -r ${HUGO_DIR} /tmp/
         cp -r ${ARTIFACTS_DIR}/* /tmp//hugo-site
         ls -l /tmp/hugo-site
