@@ -21,7 +21,22 @@ inputs:
     description: "Hugo output directory"
     required: true
     default: "${GITHUB_WORKSPACE}/public"
-  # TODO: Add lcov / lizard metrics criteria
+  lcovrc-path:
+    description: "Path to .lcovrc file"
+    required: true
+    default: "${GITHUB_ACTION_PATH}/.lcovrc"
+  CCN:
+    description: "Threshold for cyclomatic complexity number warning. The default value is 15."
+    required: true
+    default: 15
+  nloc:
+    description: "Threshold for NLOC. The default value is 1000000."
+    required: true
+    default: 1000000
+  arguments:
+    description: "Limit for number of parameters. The default value is 100."
+    required: true
+    default: 100
 
 outputs:
   output-dir:
@@ -46,7 +61,7 @@ runs:
         apt-get update
         apt-get install -y lcov git python-is-python3 python3-pip hugo
         rosdep update
-        rosdep install -y --from-paths . --ignore-src --rosdistro foxy
+        rosdep install -y --from-paths . --ignore-src --rosdistro ${{ inputs.ros-distro }}
         pip3 install jinja2 bs4 pandas plotly
       shell: bash
 
@@ -61,13 +76,14 @@ runs:
         echo "Artifacts directory is ${{ inputs.artifacts-dir }}"
         mkdir -p ${{ inputs.artifacts-dir }}
         echo "Run coverage.sh"
+        . /opt/ros/${{ inputs.ros-distro }}/setup.sh
         ${GITHUB_ACTION_PATH}/scripts/coverage.sh ${GITHUB_WORKSPACE} ${{ inputs.artifacts-dir }} ${GITHUB_WORKSPACE}/timestamp.txt
       shell: bash
 
     - name: Measure code metrics
       run: |
         echo "Run lizard.sh"
-        ${GITHUB_ACTION_PATH}/scripts/lizard.sh ${GITHUB_WORKSPACE} ${{ inputs.artifacts-dir }} ${GITHUB_WORKSPACE}/timestamp.txt
+        ${GITHUB_ACTION_PATH}/scripts/lizard.sh ${GITHUB_WORKSPACE} ${{ inputs.artifacts-dir }} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt
       shell: bash
 
     - name: Scraping
@@ -84,14 +100,14 @@ runs:
         ln -nfrs ${{ inputs.artifacts-dir }}/lizard_result/$TIMESTAMP ${{ inputs.artifacts-dir }}/lizard_result/latest
         ln -nfrs ${{ inputs.artifacts-dir }}/metrics/$TIMESTAMP ${{ inputs.artifacts-dir }}/metrics/latest
         echo "Run main.py"
-        python scripts/main.py --input-dir=${{ inputs.artifacts-dir }}/metrics/ --hugo-root-dir=${GITHUB_ACTION_PATH}/example/hugo-site/ --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${{ inputs.artifacts-dir }}/lcov/latest/ --lizard-result-path=${{ inputs.artifacts-dir }}/lizard_result/latest/
+        python scripts/main.py --input-dir=${{ inputs.artifacts-dir }}/metrics/ --hugo-root-dir=${{ inputs.hugo-dir }} --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${{ inputs.artifacts-dir }}/lcov/latest/ --lizard-result-path=${{ inputs.artifacts-dir }}/lizard_result/latest/
       shell: bash
 
     - name: Generate pages
       run: |
         echo "Copy artifacts"
-        cp -r ${GITHUB_ACTION_PATH}/example/hugo-site /tmp/
+        cp -r ${{ inputs.hugo-dir }} /tmp/
         cp -r ${{ inputs.artifacts-dir }}/* /tmp//hugo-site
         ls -l /tmp/hugo-site
-        cd /tmp/hugo-site && hugo -d ${GITHUB_WORKSPACE}/public
+        cd /tmp/hugo-site && hugo -d ${{ inputs.output-dir }}
       shell: bash

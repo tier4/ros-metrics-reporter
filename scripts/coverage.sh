@@ -101,8 +101,6 @@ echo $TIMESTAMP > ${OUTPUT_DIR}/timestamp.txt
 # Save package list
 echo "$PACKAGE_LIST" > ${OUTPUT_DIR}/package_list.txt
 
-. /opt/ros/foxy/setup.sh
-
 for PACKAGE in $PACKAGE_LIST; do
   get_package_coverage $PACKAGE
   if [ $? -eq 1 ]; then
