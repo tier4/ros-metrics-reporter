@@ -10,7 +10,7 @@ inputs:
     description: "Path to Artifacts generated using this Action (must include lcov/ and lizard-result/ directory)"
     required: true
   ros-distro:
-    description: "ROS2 distribution"
+    description: "ROS distribution"
     required: true
     default: "foxy"
   hugo-dir:

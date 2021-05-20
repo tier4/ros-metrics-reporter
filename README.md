@@ -1,4 +1,84 @@
 # ros-metrics-reporter
 
-[![Push to gh-pages](https://github.com/tier4/ros-metrics-reporter/actions/workflows/push-gh-pages.yml/badge.svg?branch=main)](https://github.com/tier4/ros-metrics-reporter/actions/workflows/push-gh-pages.yml)
+[![Test github action](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action.yml/badge.svg?branch=main)](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action.yml)
 [![GitHub pages](https://img.shields.io/badge/-GitHub%20pages-orange)](https://tier4.github.io/ros-metrics-reporter/)
+
+## Overview
+
+`ros-metrics-reporter` collects tests for the ROS packages of a project and generates HTML reports. The results can be saved as github-pages or artifacts.
+This project is using [LCOV](https://github.com/linux-test-project/lcov) and [Lizard](https://github.com/terryyin/lizard) as backend. I would like to express my deepest gratitude for their contributions.
+
+Warning: the results will include your source code, so be careful about the scope of publication if you have a private repository. (Even if your project is private, the scope of the GitHub Pages will be public.
+
+## Action setup
+
+### Create orphan branch (First time only)
+
+Before running this job, you need to create orphan branch.
+
+```sh
+git clone https://github/your-project.git
+cd your-project
+mkdir doc
+cd doc
+git init
+git remote add origin https://github/your-project.git
+touch .gitignore
+git add .
+git commit -m 'initial commit'
+git push origin master:gh-pages
+```
+
+### Example workflow
+
+```yml
+name: Generate metrics report
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: main
+
+jobs:
+  action-test:
+    runs-on: ubuntu-latest
+    container: osrf/ros:foxy-desktop
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+        path: doc
+
+    - id: metrics-reporter
+      uses: tier4/ros-metrics-reporter@main
+      with:
+        artifacts-dir: ${GITHUB_WORKSPACE}/doc
+        CCN: 20
+        nloc: 200
+        arguments: 6
+
+    - name: Deploy public to gh-pages (main branch only)
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ${{ steps.metrics-reporter.outputs.output-dir }}
+        keep_files: true
+```
+
+## Available options
+
+| Option | Default Value | Description | Required | Example |
+| :----- | :------------ | :---------- | :------- | :------ |
+| `artifacts-dir` | N/A | Path to Artifacts generated using this Action (must include lcov/ and lizard-result/ directory) | `true` | `${GITHUB_WORKSPACE}/doc` |
+| `ros-distro` | `foxy` | ROS distribution | `true` | `foxy` |
+| `hugo-dir` | `"${GITHUB_ACTION_PATH}/example/hugo-site"` | If you want to use your own hugo-site, specify the root directory | `true` | `"${GITHUB_WORKSPACE}/hugo-site"` |
+| `output-dir` | `"${GITHUB_WORKSPACE}/public"` | Hugo output directory | `true` | `"${GITHUB_WORKSPACE}/output-dir"` |
+| `lcovrc-path` | `"${GITHUB_ACTION_PATH}/.lcovrc"` | Path to .lcovrc file | `true` | `"${GITHUB_WORKSPACE}/.lcovrc"` |
+| `CCN` | `15` | Threshold for cyclomatic complexity number warning | `true` | `20` |
+| `nloc` | `1000000` | Threshold for NLOC | `true` | `200` |
+| `arguments` | `100` | Limit for number of parameters | `true` | `100` |
