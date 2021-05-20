@@ -13,8 +13,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        submodules: true
+
+    - name: Clone dependency packages
+      run: |
+        vcs import . < ros-metrics-reporter.repos
+        apt-get -y update
+        rosdep update
+        rosdep install -y --from-paths . --ignore-src --rosdistro foxy
 
     - uses: actions/checkout@v2
       with:
