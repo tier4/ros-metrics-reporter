@@ -8,12 +8,14 @@ PACKAGE_LIST=$(colcon list --names-only)
 PACKAGE_LIST_FULL=$(colcon list)
 
 # Set generated timestamp
-if [ $# -eq 2 ]; then
-  TIMESTAMP=$(cat $2)
+if [ $# -eq 3 ]; then
+  TIMESTAMP=$(cat $3)
 else
   TIMESTAMP=$(date -u '+%Y%m%d_%H%M%S')
 fi
-OUTPUT_DIR=${BASE_DIR}/lizard_result/${TIMESTAMP}
+
+[ "$2" == "" ] && { echo "Please set output directory." ; exit 1; }
+OUTPUT_DIR=${2}/lizard_result/${TIMESTAMP}
 
 function get_package_path() {
   [ "$1" == "" ] && return 1
