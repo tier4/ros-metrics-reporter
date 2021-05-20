@@ -46,7 +46,7 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Install dependencies
+    - name: Preprocess
       run: |
         echo "GITHUB_ACTION_PATH is ${GITHUB_ACTION_PATH}"
         ls -l ${GITHUB_ACTION_PATH}
@@ -54,6 +54,12 @@ runs:
         echo "GITHUB_WORKSPACE is ${GITHUB_WORKSPACE}"
         ls -l ${GITHUB_WORKSPACE}
         echo "Workspace is ${{ github.workspace }}"
+        ARTIFACTS_DIR=${${ARTIFACTS_DIR}%/}
+        echo "Artifacts directory is $ARTIFACTS_DIR"
+        HUGO_DIR=${${{ inputs.hugo-dir }}%/}
+        echo "Hugo directory is $HUGO_DIR"
+        OUTPUT_DIR=${${{ inputs.output-dir }}%/}
+        echo "Output directory is $OUTPUT_DIR"
       shell: bash
 
     - name: Install dependencies
@@ -73,41 +79,41 @@ runs:
 
     - name: Measure code coverage
       run: |
-        echo "Artifacts directory is ${{ inputs.artifacts-dir }}"
-        mkdir -p ${{ inputs.artifacts-dir }}
+        echo "Artifacts directory is ${ARTIFACTS_DIR}"
+        mkdir -p ${ARTIFACTS_DIR}
         echo "Run coverage.sh"
         . /opt/ros/${{ inputs.ros-distro }}/setup.sh
-        ${GITHUB_ACTION_PATH}/scripts/coverage.sh ${GITHUB_WORKSPACE} ${{ inputs.artifacts-dir }} ${GITHUB_WORKSPACE}/timestamp.txt
+        ${GITHUB_ACTION_PATH}/scripts/coverage.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt
       shell: bash
 
     - name: Measure code metrics
       run: |
         echo "Run lizard.sh"
-        ${GITHUB_ACTION_PATH}/scripts/lizard.sh ${GITHUB_WORKSPACE} ${{ inputs.artifacts-dir }} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt
+        ${GITHUB_ACTION_PATH}/scripts/lizard.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt
       shell: bash
 
     - name: Scraping
       run: |
         echo "Run scraping.py"
         TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
-        mkdir -p ${{ inputs.artifacts-dir }}/metrics/$TIMESTAMP
-        python3 scripts/scraping.py --lcov_dir=${{ inputs.artifacts-dir }}/lcov/$TIMESTAMP/ --lizard_dir=${{ inputs.artifacts-dir }}/lizard_result/$TIMESTAMP/ --output_dir=${{ inputs.artifacts-dir }}/metrics/$TIMESTAMP/
+        mkdir -p ${ARTIFACTS_DIR}/metrics/$TIMESTAMP
+        python3 scripts/scraping.py --lcov_dir=${ARTIFACTS_DIR}/lcov/$TIMESTAMP/ --lizard_dir=${ARTIFACTS_DIR}/lizard_result/$TIMESTAMP/ --output_dir=${ARTIFACTS_DIR}/metrics/$TIMESTAMP/
       shell: bash
 
     - name: Create static page
       run: |
-        ln -nfrs ${{ inputs.artifacts-dir }}/lcov/$TIMESTAMP ${{ inputs.artifacts-dir }}/lcov/latest
-        ln -nfrs ${{ inputs.artifacts-dir }}/lizard_result/$TIMESTAMP ${{ inputs.artifacts-dir }}/lizard_result/latest
-        ln -nfrs ${{ inputs.artifacts-dir }}/metrics/$TIMESTAMP ${{ inputs.artifacts-dir }}/metrics/latest
+        ln -nfrs ${ARTIFACTS_DIR}/lcov/$TIMESTAMP ${ARTIFACTS_DIR}/lcov/latest
+        ln -nfrs ${ARTIFACTS_DIR}/lizard_result/$TIMESTAMP ${ARTIFACTS_DIR}/lizard_result/latest
+        ln -nfrs ${ARTIFACTS_DIR}/metrics/$TIMESTAMP ${ARTIFACTS_DIR}/metrics/latest
         echo "Run main.py"
-        python scripts/main.py --input-dir=${{ inputs.artifacts-dir }}/metrics/ --hugo-root-dir=${{ inputs.hugo-dir }} --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${{ inputs.artifacts-dir }}/lcov/latest/ --lizard-result-path=${{ inputs.artifacts-dir }}/lizard_result/latest/
+        python scripts/main.py --input-dir=${ARTIFACTS_DIR}/metrics/ --hugo-root-dir=${HUGO_DIR} --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${ARTIFACTS_DIR}/lcov/latest/ --lizard-result-path=${ARTIFACTS_DIR}/lizard_result/latest/
       shell: bash
 
     - name: Generate pages
       run: |
         echo "Copy artifacts"
-        cp -r ${{ inputs.hugo-dir }} /tmp/
-        cp -r ${{ inputs.artifacts-dir }}/* /tmp//hugo-site
+        cp -r ${HUGO_DIR} /tmp/
+        cp -r ${ARTIFACTS_DIR}/* /tmp//hugo-site
         ls -l /tmp/hugo-site
-        cd /tmp/hugo-site && hugo -d ${{ inputs.output-dir }}
+        cd /tmp/hugo-site && hugo -d ${OUTPUT_DIR}
       shell: bash
