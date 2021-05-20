@@ -1,4 +1,0 @@
-[submodule "example/src/demos"]
-	path = example/src/demos
-	url = https://github.com/ros2/demos.git
-	branch = foxy
