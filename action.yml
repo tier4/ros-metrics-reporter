@@ -54,7 +54,7 @@ runs:
         echo "GITHUB_WORKSPACE is ${GITHUB_WORKSPACE}"
         ls -l ${GITHUB_WORKSPACE}
         echo "Workspace is ${{ github.workspace }}"
-        ARTIFACTS_DIR=${${ARTIFACTS_DIR}%/}
+        ARTIFACTS_DIR=${${{ inputs.artifacts-dir }}%/}
         echo "Artifacts directory is $ARTIFACTS_DIR"
         HUGO_DIR=${${{ inputs.hugo-dir }}%/}
         echo "Hugo directory is $HUGO_DIR"
