@@ -89,8 +89,8 @@ runs:
         echo "Run main.py"
         python scripts/main.py --input-dir=${ARTIFACTS_DIR}/metrics/ --hugo-root-dir=${HUGO_DIR} --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${ARTIFACTS_DIR}/lcov/latest/ --lizard-result-path=${ARTIFACTS_DIR}/lizard_result/latest/
         echo "--- Generate pages ---"
-        cp -r ${HUGO_DIR} /tmp/
-        cp -r ${ARTIFACTS_DIR}/* /tmp//hugo-site
-        ls -l /tmp/hugo-site
-        cd /tmp/hugo-site && hugo -d ${OUTPUT_DIR}
+        cp -r ${HUGO_DIR} ${GITHUB_WORKSPACE}
+        cp -r ${ARTIFACTS_DIR}/* ${GITHUB_WORKSPACE}
+        ls -l ${GITHUB_WORKSPACE}/hugo-site
+        cd ${GITHUB_WORKSPACE}/hugo-site && hugo -d ${OUTPUT_DIR}
       shell: bash
