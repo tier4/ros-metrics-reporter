@@ -8,7 +8,7 @@ import csv
 
 
 def add_package_link(package_name: str) -> str:
-    return f"<a href=\"{{{{< relref \"/packages/{package_name}\" >}}}}\">{package_name}</a>"
+    return f'<a href="{{{{< relref "/packages/{package_name}" >}}}}">{package_name}</a>'
 
 
 def convert_color_cell(message: str, color_code: str) -> str:
@@ -85,7 +85,7 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: list):
 
         param_list.append(param)
 
-    param_list = sorted(param_list, key=lambda x: x['package'])
+    param_list = sorted(param_list, key=lambda x: x["package"])
 
     with open(file, "w") as f:
         f.write(template.render(param_list=param_list))

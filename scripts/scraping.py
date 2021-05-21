@@ -41,12 +41,14 @@ def get_worst_case(metrics: list) -> int:
     else:
         return 0
 
+
 def get_average(metrics: list) -> int:
     """ Get average """
     if metrics:
         return mean([int(item.get_text()) for item in metrics])
     else:
         return 0
+
 
 def get_violate_count(metrics: list) -> int:
     """ Get number of functions that violated the criteria """
