@@ -98,8 +98,8 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: list):
 
 
 def replace_token(package: str) -> dict:
-    lcov_html = "/__lcov/" + package + "/index.html"
-    lizard_html = "/__lizard/" + package + "/index.html"
+    lcov_html = "/lcov/" + package + "/index.html"
+    lizard_html = "/lizard/" + package + "/index.html"
     coverage_json = package + "/coverage.json"
     ccn_json = package + "/ccn.json"
     loc_json = package + "/loc.json"

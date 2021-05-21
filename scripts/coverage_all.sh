@@ -14,7 +14,7 @@ else
 fi
 
 [ "$2" == "" ] && { echo "Please set output directory." ; exit 1; }
-OUTPUT_DIR=${2}/lcov/${TIMESTAMP}/all
+OUTPUT_DIR=${2}/lcov_result/${TIMESTAMP}/all
 
 function get_package_coverage() {
   # Build with correct flags
