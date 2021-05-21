@@ -27,7 +27,7 @@ jobs:
         path: doc
 
     - id: metrics-reporter
-      uses: tier4/ros-metrics-reporter@${GITHUB_SHA}
+      uses: tier4/ros-metrics-reporter@fix-missing-artifacts
       with:
         artifacts-dir: ${GITHUB_WORKSPACE}/doc/
         CCN: 20
