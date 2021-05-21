@@ -61,6 +61,8 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: list):
     # Get badge
     param_list = []
     for package in packages:
+        if package == "all":
+            continue
         param = {}
         param["package"] = add_package_link(package)
         lcov_csv = metrics_dir / package / "coverage.csv"
@@ -87,8 +89,12 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: list):
 
     param_list = sorted(param_list, key=lambda x: x["package"])
 
+    render_dict = replace_token("all")
+
+    render_dict["param_list"] = param_list
+
     with open(file, "w") as f:
-        f.write(template.render(param_list=param_list))
+        f.write(template.render(render_dict))
 
 
 def replace_token(package: str) -> dict:
@@ -134,6 +140,8 @@ def copy_template(src: Path, dest: Path, metrics_dir: Path, packages: list):
     # Create package detail page
     template = Path(dest, "content", "packages", "TEMPLATE.md")
     for package in packages:
+        if package == "all":
+            continue
         filename = dest / "content" / "packages" / (package + ".md")
         shutil.copy(template, filename)
         # Peplace token
