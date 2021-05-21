@@ -5,6 +5,8 @@ import bs4
 import re
 import csv
 
+from numpy.core.fromnumeric import mean
+
 from util import dir_path
 
 
@@ -39,6 +41,12 @@ def get_worst_case(metrics: list) -> int:
     else:
         return 0
 
+def get_average(metrics: list) -> int:
+    """ Get average """
+    if metrics:
+        return mean([int(item.get_text()) for item in metrics])
+    else:
+        return 0
 
 def get_violate_count(metrics: list) -> int:
     """ Get number of functions that violated the criteria """
@@ -53,13 +61,19 @@ def get_lizard_metrics(html_path: str) -> list:
     Get following information
       Cyclomatic complexity
         Worst case
+        Average
         Number of functions that violated the criteria (described "greater-value" in html)
       LOC
         Worst case
+        Average
         Number of functions that violated the criteria (described "greater-value" in html)
       Parameter count
         Worst case
+        Average
         Number of functions that violated the criteria (described "greater-value" in html)
+    Token count
+        Worst case
+        Average
     """
     soup = bs4.BeautifulSoup(open(html_path), "html.parser")
     table = soup.select("body > center > table:nth-of-type(1)")[0]
@@ -67,21 +81,28 @@ def get_lizard_metrics(html_path: str) -> list:
     ccn = []
     loc = []
     parameter = []
+    token = []
 
     for tr in table.find_all("tr"):
         tds = tr.select("td")
         if len(tds) == 6:
             ccn.append(tds[2])
             loc.append(tds[3])
+            token.append(tds[4])
             parameter.append(tds[5])
 
     return [
         {"type": "CCN(worst)", "value": get_worst_case(ccn)},
+        {"type": "CCN(average)", "value": get_average(ccn)},
         {"type": "CCN(violate)", "value": get_violate_count(ccn)},
         {"type": "LOC(worst)", "value": get_worst_case(loc)},
+        {"type": "LOC(average)", "value": get_average(loc)},
         {"type": "LOC(violate)", "value": get_violate_count(loc)},
         {"type": "Parameter(worst)", "value": get_worst_case(parameter)},
+        {"type": "Parameter(average)", "value": get_average(parameter)},
         {"type": "Parameter(violate)", "value": get_violate_count(parameter)},
+        {"type": "Token(worst)", "value": get_worst_case(token)},
+        {"type": "Token(average)", "value": get_average(token)},
     ]
 
 

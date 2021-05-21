@@ -21,7 +21,17 @@ title: {{ package_name }}
 
 {% raw %}
 {{< load-plotly >}}
-{{< plotly json="plotly/{% endraw %}{{ plotly_metrics_figure_name }}{% raw %}" height="400px" >}}
+{{< plotly json="plotly/{% endraw %}{{ plotly_metrics_ccn_figure_name }}{% raw %}" height="400px" >}}
+{% endraw %}
+
+{% raw %}
+{{< load-plotly >}}
+{{< plotly json="plotly/{% endraw %}{{ plotly_metrics_loc_figure_name }}{% raw %}" height="400px" >}}
+{% endraw %}
+
+{% raw %}
+{{< load-plotly >}}
+{{< plotly json="plotly/{% endraw %}{{ plotly_metrics_parameter_figure_name }}{% raw %}" height="400px" >}}
 {% endraw %}
 
 [You can access more detailed data on code metrics here.]({{ lizard_result_html_link }})

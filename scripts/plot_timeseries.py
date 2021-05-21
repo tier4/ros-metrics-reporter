@@ -15,13 +15,30 @@ plot_name_list = [
         }
     },
     {
-        "metrics": {
+        "ccn": {
             "CCN(worst)": "CCN (Worst case)",
+            "CCN(average)": "CCN (Average)",
             "CCN(violate)": "CCN (Violation count)",
+        }
+    },
+    {
+        "loc": {
             "LOC(worst)": "LOC (Worst case)",
+            "LOC(average)": "LOC (Average)",
             "LOC(violate)": "LOC (Violation count)",
+        }
+    },
+    {
+        "parameter": {
             "Parameter(worst)": "Parameter count (Worst case)",
+            "Parameter(average)": "Parameter count (average)",
             "Parameter(violate)": "Parameter count (Violation count)",
+        }
+    },
+    {
+        "token": {
+            "Token(worst)": "Token count (Worst case)",
+            "Token(average)": "Token count (average)",
         }
     },
 ]

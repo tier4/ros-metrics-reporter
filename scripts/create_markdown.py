@@ -95,14 +95,20 @@ def replace_token(package: str) -> dict:
     lcov_html = "/__lcov/" + package + "/index.html"
     lizard_html = "/__lizard/" + package + "/index.html"
     coverage_json = package + "/coverage.json"
-    metrics_json = package + "/metrics.json"
+    ccn_json = package + "/ccn.json"
+    loc_json = package + "/loc.json"
+    parameter_json = package + "/parameter.json"
+    token_json = package + "/token.json"
 
     return {
         "package_name": package,
         "lcov_result_html_link": lcov_html,
         "lizard_result_html_link": lizard_html,
         "plotly_lcov_figure_name": coverage_json,
-        "plotly_metrics_figure_name": metrics_json,
+        "plotly_metrics_ccn_figure_name": ccn_json,
+        "plotly_metrics_loc_figure_name": loc_json,
+        "plotly_metrics_parameter_figure_name": parameter_json,
+        "plotly_metrics_token_figure_name": token_json,
     }
 
 
