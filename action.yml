@@ -71,21 +71,25 @@ runs:
         echo "--- Measure code coverage ---"
         echo "Artifacts directory is ${ARTIFACTS_DIR}"
         mkdir -p ${ARTIFACTS_DIR}
-        echo "Run coverage.sh"
+        echo "Run coverage_all.sh"
         . /opt/ros/${{ inputs.ros-distro }}/setup.sh
+        ${GITHUB_ACTION_PATH}/scripts/coverage_all.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt
+        echo "Run coverage.sh"
         ${GITHUB_ACTION_PATH}/scripts/coverage.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt
+        echo "--- Measure code metrics for all packages ---"
+        ${GITHUB_ACTION_PATH}/scripts/lizard_all.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt
         echo "--- Measure code metrics ---"
         ${GITHUB_ACTION_PATH}/scripts/lizard.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt
         echo "--- Scraping ---"
         TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
         mkdir -p ${ARTIFACTS_DIR}/metrics/$TIMESTAMP
-        python3 scripts/scraping.py --lcov_dir=${ARTIFACTS_DIR}/lcov/$TIMESTAMP/ --lizard_dir=${ARTIFACTS_DIR}/lizard_result/$TIMESTAMP/ --output_dir=${ARTIFACTS_DIR}/metrics/$TIMESTAMP/
+        python3 scripts/scraping.py --lcov_dir=${ARTIFACTS_DIR}/lcov_result/$TIMESTAMP/ --lizard_dir=${ARTIFACTS_DIR}/lizard_result/$TIMESTAMP/ --output_dir=${ARTIFACTS_DIR}/metrics/$TIMESTAMP/
         echo "--- Create static page ---"
-        ln -nfrs ${ARTIFACTS_DIR}/lcov/$TIMESTAMP ${ARTIFACTS_DIR}/lcov/latest
+        ln -nfrs ${ARTIFACTS_DIR}/lcov_result/$TIMESTAMP ${ARTIFACTS_DIR}/lcov_result/latest
         ln -nfrs ${ARTIFACTS_DIR}/lizard_result/$TIMESTAMP ${ARTIFACTS_DIR}/lizard_result/latest
         ln -nfrs ${ARTIFACTS_DIR}/metrics/$TIMESTAMP ${ARTIFACTS_DIR}/metrics/latest
         echo "Run main.py"
-        python scripts/main.py --input-dir=${ARTIFACTS_DIR}/metrics/ --hugo-root-dir=${HUGO_DIR} --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${ARTIFACTS_DIR}/lcov/latest/ --lizard-result-path=${ARTIFACTS_DIR}/lizard_result/latest/
+        python scripts/main.py --input-dir=${ARTIFACTS_DIR}/metrics/ --hugo-root-dir=${HUGO_DIR} --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${ARTIFACTS_DIR}/lcov_result/latest/ --lizard-result-path=${ARTIFACTS_DIR}/lizard_result/latest/
         echo "--- Generate pages ---"
         cp -r ${HUGO_DIR} ${GITHUB_WORKSPACE}
         cp -r ${ARTIFACTS_DIR}/* ${GITHUB_WORKSPACE}

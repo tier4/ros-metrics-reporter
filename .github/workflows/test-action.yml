@@ -35,7 +35,9 @@ jobs:
         arguments: 6
 
     - name: Check results
-      run: ls -la ${GITHUB_WORKSPACE}/public/
+      run: |
+        apt install -y tree
+        tree -L 2 ${GITHUB_WORKSPACE}/public/
 
     - name: Deploy public to gh-pages (main branch only)
       if: github.ref == 'refs/heads/main'
