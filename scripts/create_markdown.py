@@ -5,28 +5,22 @@ import shutil
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 import csv
-import urllib.parse
 
 
-def convert_hugo_style_img(url: str) -> str:
-    return "![" + url + "](" + url + ")"
+def add_package_link(package_name: str) -> str:
+    return f"<a href=\"{{{{< relref \"/packages/{package_name}\" >}}}}\">{package_name}</a>"
 
 
-def convert_badge_url(label: str, message: str, color: str) -> str:
-    url = "https://img.shields.io/badge/<LABEL>-<MESSAGE>-<COLOR>"
-    replaced = (
-        url.replace("<LABEL>", label)
-        .replace("<MESSAGE>", message)
-        .replace("<COLOR>", color)
-    )
-    return urllib.parse.quote(replaced, safe="/:")
+def convert_color_cell(message: str, color_code: str) -> str:
+    template = "<td bgcolor=COLOR>MESSAGE"
+    return template.replace("MESSAGE", message).replace("COLOR", color_code)
 
 
 def read_lcov_result(file: Path, type: str) -> tuple:
     label_color = {
-        "Lo": "red",
-        "Med": "yellow",
-        "Hi": "brightgreen",
+        "Lo": "D9634C",
+        "Med": "D6AF22",
+        "Hi": "4FC921",
     }
 
     if not file.exists():
@@ -42,9 +36,9 @@ def read_lcov_result(file: Path, type: str) -> tuple:
 
 def lizard_color(value: int) -> str:
     if value == 0:
-        return "brightgreen"
+        return "4FC921"
     else:
-        return "red"
+        return "D9634C"
 
 
 def read_lizard_result(file: Path, type: str) -> tuple:
@@ -68,7 +62,7 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: list):
     param_list = []
     for package in packages:
         param = {}
-        param["package"] = package
+        param["package"] = add_package_link(package)
         lcov_csv = metrics_dir / package / "coverage.csv"
         badge_names = {
             "line_badge": "Lines",
@@ -77,9 +71,7 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: list):
         }
         for badge_name, type_name in badge_names.items():
             lcov_cov, lcov_color = read_lcov_result(lcov_csv, type_name)
-            param[badge_name] = convert_hugo_style_img(
-                convert_badge_url("coverage", str(lcov_cov), lcov_color)
-            )
+            param[badge_name] = convert_color_cell(str(lcov_cov), lcov_color)
 
         lizard_csv = Path("metrics", "latest", package, "lizard.csv")
         badge_names = {
@@ -89,11 +81,11 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: list):
         }
         for badge_name, type_name in badge_names.items():
             lizard_count, lizard_color = read_lizard_result(lizard_csv, type_name)
-            param[badge_name] = convert_hugo_style_img(
-                convert_badge_url("violations", str(lizard_count), lizard_color)
-            )
+            param[badge_name] = convert_color_cell(str(lizard_count), lizard_color)
 
         param_list.append(param)
+
+    param_list = sorted(param_list, key=lambda x: x['package'])
 
     with open(file, "w") as f:
         f.write(template.render(param_list=param_list))
