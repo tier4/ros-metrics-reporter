@@ -19,14 +19,14 @@ Before running this job, you need to create orphan branch.
 ```sh
 git clone https://github/your-project.git
 cd your-project
-mkdir doc
-cd doc
+mkdir data
+cd data
 git init
 git remote add origin https://github/your-project.git
 touch .gitignore
 git add .
 git commit -m 'initial commit'
-git push origin master:gh-pages
+git push origin master:data
 ```
 
 ### Example workflow
@@ -44,37 +44,43 @@ jobs:
   action-test:
     runs-on: ubuntu-latest
     container: osrf/ros:foxy-desktop
+    env:
+      ARTIFACTS_DIR: data
 
     steps:
     - uses: actions/checkout@v2
 
     - uses: actions/checkout@v2
       with:
-        ref: gh-pages
-        path: doc
+        ref: data
+        path: ${{ env.ARTIFACTS_DIR }}
 
     - id: metrics-reporter
       uses: tier4/ros-metrics-reporter@v0.2.0
       with:
-        artifacts-dir: ${GITHUB_WORKSPACE}/doc
-        CCN: 20
-        nloc: 200
-        arguments: 6
+        artifacts-dir: ${{ env.ARTIFACTS_DIR }}
+
+    - name: Push artifacts
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ${{ env.ARTIFACTS_DIR }}
+        publish_branch: data
 
     - name: Deploy public to gh-pages (main branch only)
       if: github.ref == 'refs/heads/main'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ${{ steps.metrics-reporter.outputs.output-dir }}
-        keep_files: true
+        publish_dir: public
 ```
 
 ## Available options
 
 | Option | Default Value | Description | Required | Example |
 | :----- | :------------ | :---------- | :------- | :------ |
-| `artifacts-dir` | N/A | Path to Artifacts generated using this Action (must include lcov/ and lizard-result/ directory) | `true` | `${GITHUB_WORKSPACE}/doc` |
+| `artifacts-dir` | N/A | Path to Artifacts generated using this Action (must include lcov-result/ and lizard-result/ directory) | `true` | `${GITHUB_WORKSPACE}/doc` |
 | `ros-distro` | `foxy` | ROS distribution | `true` | `foxy` |
 | `hugo-dir` | `"${GITHUB_ACTION_PATH}/example/hugo-site"` | If you want to use your own hugo-site, specify the root directory | `true` | `"${GITHUB_WORKSPACE}/hugo-site"` |
 | `output-dir` | `"${GITHUB_WORKSPACE}/public"` | Hugo output directory | `true` | `"${GITHUB_WORKSPACE}/output-dir"` |
