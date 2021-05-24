@@ -54,7 +54,7 @@ jobs:
         path: doc
 
     - id: metrics-reporter
-      uses: tier4/ros-metrics-reporter@main
+      uses: tier4/ros-metrics-reporter@v0.2.0
       with:
         artifacts-dir: ${GITHUB_WORKSPACE}/doc
         CCN: 20

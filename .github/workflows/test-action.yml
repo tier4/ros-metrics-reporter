@@ -10,6 +10,8 @@ jobs:
   action-test:
     runs-on: ubuntu-latest
     container: osrf/ros:foxy-desktop
+    env:
+      ARTIFACTS_DIR: ${GITHUB_WORKSPACE}/data
 
     steps:
     - uses: actions/checkout@v2
@@ -23,13 +25,13 @@ jobs:
 
     - uses: actions/checkout@v2
       with:
-        ref: gh-pages
-        path: doc
+        ref: data
+        path: ${{ env.ARTIFACTS_DIR }}
 
     - id: metrics-reporter
       uses: tier4/ros-metrics-reporter@main
       with:
-        artifacts-dir: ${GITHUB_WORKSPACE}/doc/
+        artifacts-dir: ${{ env.ARTIFACTS_DIR }}
         CCN: 20
         nloc: 200
         arguments: 6
@@ -39,10 +41,17 @@ jobs:
         apt install -y tree
         tree -L 2 ${GITHUB_WORKSPACE}/public/
 
+    - name: Push artifacts
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ${{ env.ARTIFACTS_DIR }}
+        publish_branch: data
+
     - name: Deploy public to gh-pages (main branch only)
       if: github.ref == 'refs/heads/main'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ${{ steps.metrics-reporter.outputs.output-dir }}
-        keep_files: true
