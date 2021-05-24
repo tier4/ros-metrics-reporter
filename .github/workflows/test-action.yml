@@ -42,7 +42,7 @@ jobs:
         tree -L 2 ${GITHUB_WORKSPACE}/public/
 
     - name: Debug
-      run |
+      run: |
         ls -la ${{ env.ARTIFACTS_DIR }}
         ls -la ${{ steps.metrics-reporter.outputs.output-dir }}
 
@@ -55,7 +55,7 @@ jobs:
         publish_branch: data
 
     - name: Debug
-      run |
+      run: |
         ls -la ${{ env.ARTIFACTS_DIR }}
         ls -la ${{ steps.metrics-reporter.outputs.output-dir }}
 
