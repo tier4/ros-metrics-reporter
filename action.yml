@@ -57,6 +57,7 @@ runs:
         echo "Workspace is ${{ github.workspace }}"
         ARTIFACTS_DIR=$(echo ${{ inputs.artifacts-dir }} | sed -e "s@/\$@@")
         echo "Artifacts directory is $ARTIFACTS_DIR"
+        ls -l ${ARTIFACTS_DIR}
         HUGO_DIR=$(echo ${{ inputs.hugo-dir }} | sed -e "s@/\$@@")
         echo "Hugo directory is $HUGO_DIR"
         OUTPUT_DIR=$(echo ${{ inputs.output-dir }} | sed -e "s@/\$@@")
@@ -91,9 +92,8 @@ runs:
         echo "Run main.py"
         python scripts/main.py --input-dir=${ARTIFACTS_DIR}/metrics/ --hugo-root-dir=${HUGO_DIR} --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${ARTIFACTS_DIR}/lcov_result/latest/ --lizard-result-path=${ARTIFACTS_DIR}/lizard_result/latest/
         echo "--- Generate pages ---"
-        cp -r ${HUGO_DIR} ${GITHUB_WORKSPACE}
-        HUGO_BASENAME=$(basename ${HUGO_DIR})
-        cp -r ${ARTIFACTS_DIR}/* ${GITHUB_WORKSPACE}/${HUGO_BASENAME}
-        ls -l ${GITHUB_WORKSPACE}/hugo-site
-        cd ${GITHUB_WORKSPACE}/hugo-site && hugo -d ${OUTPUT_DIR}
+        cd ${HUGO_DIR} && hugo -d ${OUTPUT_DIR}
+        cp -r -v ${ARTIFACTS_DIR}/lcov_result ${OUTPUT_DIR}
+        cp -r -v ${ARTIFACTS_DIR}/lizard_result ${OUTPUT_DIR}
+        cp -r -v ${ARTIFACTS_DIR}/metrics ${OUTPUT_DIR}
       shell: bash
