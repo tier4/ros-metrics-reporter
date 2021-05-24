@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     container: osrf/ros:foxy-desktop
     env:
-      ARTIFACTS_DIR: ${GITHUB_WORKSPACE}/data
+      ARTIFACTS_DIR: data
 
     steps:
     - uses: actions/checkout@v2
