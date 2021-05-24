@@ -20,3 +20,8 @@
     --header-background: #07579E;
   }
 }
+
+.wrapped {
+  overflow: auto;
+  white-space: nowrap;
+}
