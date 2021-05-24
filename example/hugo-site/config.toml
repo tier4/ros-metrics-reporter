@@ -8,7 +8,7 @@ canonifyurls = true
 pygmentsUseClasses = true
 pygmentsCodeFences = true
 disablePathToLower = true
-enableGitInfo = true
+# enableGitInfo = true
 
 [markup]
   [markup.goldmark.renderer]
