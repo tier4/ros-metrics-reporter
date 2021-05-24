@@ -41,6 +41,11 @@ jobs:
         apt install -y tree
         tree -L 2 ${GITHUB_WORKSPACE}/public/
 
+    - name: Debug
+      run |
+        ls -la ${{ env.ARTIFACTS_DIR }}
+        ls -la ${{ steps.metrics-reporter.outputs.output-dir }}
+
     - name: Push artifacts
       if: github.ref == 'refs/heads/main'
       uses: peaceiris/actions-gh-pages@v3
@@ -48,6 +53,11 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ${{ env.ARTIFACTS_DIR }}
         publish_branch: data
+
+    - name: Debug
+      run |
+        ls -la ${{ env.ARTIFACTS_DIR }}
+        ls -la ${{ steps.metrics-reporter.outputs.output-dir }}
 
     - name: Deploy public to gh-pages (main branch only)
       if: github.ref == 'refs/heads/main'
