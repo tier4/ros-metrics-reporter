@@ -103,7 +103,4 @@ echo "$PACKAGE_LIST" > ${OUTPUT_DIR}/package_list.txt
 
 for PACKAGE in $PACKAGE_LIST; do
   get_package_coverage $PACKAGE
-  if [ $? -eq 1 ]; then
-    exit 1
-  fi
 done
