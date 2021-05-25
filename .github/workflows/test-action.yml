@@ -24,14 +24,17 @@ jobs:
           # Foxy Fitzroy (June 2020 - May 2023)
           - docker_image: osrf/ros:foxy-desktop
             ros_distribution: foxy
+            vcs_file: ros-metrics-reporter-foxy.repos
 
           # Galactic Geochelone (May 2021 - November 2022)
           - docker_image: osrf/ros:galactic-desktop
             ros_distribution: galactic
+            vcs_file: ros-metrics-reporter-galactic.repos
 
           # Rolling Ridley (June 2020 -)
           - docker_image: osrf/ros:rolling-desktop
             ros_distribution: rolling
+            vcs_file: ros-metrics-reporter-rolling.repos
 
     container:
       image: ${{ matrix.docker_image }}
@@ -41,7 +44,7 @@ jobs:
 
     - name: Clone dependency packages
       run: |
-        vcs import . < ros-metrics-reporter.repos
+        vcs import . < ${{ matrix.vcs_file }}
         apt-get -y update
         rosdep update
         rosdep install -y --from-paths . --ignore-src --rosdistro ${{ matrix.ros_distribution }}
