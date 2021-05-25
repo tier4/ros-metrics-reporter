@@ -56,7 +56,7 @@ jobs:
         path: ${{ env.ARTIFACTS_DIR }}
 
     - id: metrics-reporter
-      uses: tier4/ros-metrics-reporter@v0.2.0
+      uses: tier4/ros-metrics-reporter@v0.2
       with:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
 
