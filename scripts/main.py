@@ -175,7 +175,7 @@ if __name__ == "__main__":
         args.lcov_result_path,
         args.lizard_result_path,
     )
-    replace_hugo_config(args.input_dir, args.base_url)
+    replace_hugo_config(args.hugo_root_dir, args.base_url)
     generate_markdown(
         args.input_dir,
         args.hugo_root_dir,
