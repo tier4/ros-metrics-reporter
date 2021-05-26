@@ -9,6 +9,9 @@ inputs:
   artifacts-dir:
     description: "Path to Artifacts generated using this Action (must include lcov-result/ and lizard-result/ directory)"
     required: true
+  base-url:
+    description: "If you use example/hugo-site in this repository, please specify the baseURL."
+    required: true
   ros-distro:
     description: "ROS distribution"
     required: true
@@ -74,9 +77,9 @@ runs:
         mkdir -p ${ARTIFACTS_DIR}
         echo "Run coverage_all.sh"
         . /opt/ros/${{ inputs.ros-distro }}/setup.sh
-        ${GITHUB_ACTION_PATH}/scripts/coverage_all.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt
+        ${GITHUB_ACTION_PATH}/scripts/coverage_all.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt || true
         echo "Run coverage.sh"
-        ${GITHUB_ACTION_PATH}/scripts/coverage.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt
+        ${GITHUB_ACTION_PATH}/scripts/coverage.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt || true
         echo "--- Measure code metrics for all packages ---"
         ${GITHUB_ACTION_PATH}/scripts/lizard_all.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt
         echo "--- Measure code metrics ---"
@@ -90,7 +93,7 @@ runs:
         ln -nfrs ${ARTIFACTS_DIR}/lizard_result/$TIMESTAMP ${ARTIFACTS_DIR}/lizard_result/latest
         ln -nfrs ${ARTIFACTS_DIR}/metrics/$TIMESTAMP ${ARTIFACTS_DIR}/metrics/latest
         echo "Run main.py"
-        python ${GITHUB_ACTION_PATH}/scripts/main.py --input-dir=${ARTIFACTS_DIR}/metrics/ --hugo-root-dir=${HUGO_DIR} --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${ARTIFACTS_DIR}/lcov_result/latest/ --lizard-result-path=${ARTIFACTS_DIR}/lizard_result/latest/
+        python ${GITHUB_ACTION_PATH}/scripts/main.py --input-dir=${ARTIFACTS_DIR}/metrics/ --hugo-root-dir=${HUGO_DIR} --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${ARTIFACTS_DIR}/lcov_result/latest/ --lizard-result-path=${ARTIFACTS_DIR}/lizard_result/latest/ --base-url=${{ inputs.base-url }}
         echo "--- Generate pages ---"
         cd ${HUGO_DIR} && hugo -d ${OUTPUT_DIR}
       shell: bash

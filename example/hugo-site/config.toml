@@ -1,4 +1,4 @@
-baseURL = "https://tier4.github.io/ros-metrics-reporter/"
+baseURL = {{ base_url }}
 title = "ros2/demos"
 theme = "hugo-geekdoc"
 

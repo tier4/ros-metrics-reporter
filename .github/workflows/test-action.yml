@@ -9,19 +9,45 @@ on:
 jobs:
   action-test:
     runs-on: ubuntu-latest
-    container: osrf/ros:foxy-desktop
     env:
       ARTIFACTS_DIR: data
+
+    strategy:
+      fail-fast: false
+      matrix:
+        ros_distribution:
+          - foxy
+          - galactic
+          - rolling
+
+        include:
+          # Foxy Fitzroy (June 2020 - May 2023)
+          - docker_image: osrf/ros:foxy-desktop
+            ros_distribution: foxy
+            vcs_file: ros-metrics-reporter-foxy.repos
+
+          # Galactic Geochelone (May 2021 - November 2022)
+          - docker_image: osrf/ros:galactic-desktop
+            ros_distribution: galactic
+            vcs_file: ros-metrics-reporter-galactic.repos
+
+          # Rolling Ridley (June 2020 -)
+          - docker_image: osrf/ros:rolling-desktop
+            ros_distribution: rolling
+            vcs_file: ros-metrics-reporter-rolling.repos
+
+    container:
+      image: ${{ matrix.docker_image }}
 
     steps:
     - uses: actions/checkout@v2
 
     - name: Clone dependency packages
       run: |
-        vcs import . < ros-metrics-reporter.repos
+        vcs import . < ${{ matrix.vcs_file }}
         apt-get -y update
         rosdep update
-        rosdep install -y --from-paths . --ignore-src --rosdistro foxy
+        rosdep install -y --from-paths . --ignore-src --rosdistro ${{ matrix.ros_distribution }}
 
     - uses: actions/checkout@v2
       with:
@@ -32,6 +58,8 @@ jobs:
       uses: tier4/ros-metrics-reporter@main
       with:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
+        base-url: "https://tier4.github.io/ros-metrics-reporter/"
+        ros-distro: ${{ matrix.ros_distribution }}
         CCN: 20
         nloc: 200
         arguments: 6
@@ -42,7 +70,7 @@ jobs:
         tree -L 2 ${GITHUB_WORKSPACE}/public/
 
     - name: Push artifacts
-      if: github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/main' && matrix.ros_distribution == 'foxy'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -50,7 +78,7 @@ jobs:
         publish_branch: data
 
     - name: Deploy public to gh-pages (main branch only)
-      if: github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/main' && matrix.ros_distribution == 'foxy'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
