@@ -1,5 +1,5 @@
 baseURL = "{{ base_url }}"
-title = "ros2/demos"
+title = "{{ title }}"
 theme = "hugo-geekdoc"
 
 canonifyurls = true

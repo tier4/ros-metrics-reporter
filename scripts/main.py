@@ -105,6 +105,7 @@ def copy_html(
 def replace_hugo_config(
     hugo_root_dir: Path,
     base_url: str,
+    title: str,
 ):
     config_file = hugo_root_dir / "config.toml"
 
@@ -116,6 +117,7 @@ def replace_hugo_config(
             template.render(
                 {
                     "base_url": base_url,
+                    "title": title,
                 }
             )
         )
@@ -166,6 +168,12 @@ if __name__ == "__main__":
         type=str,
     )
 
+    parser.add_argument(
+        "--title",
+        help="Title",
+        type=str,
+    )
+
     args = parser.parse_args()
 
     df = read_data_source(args.input_dir)
@@ -175,7 +183,11 @@ if __name__ == "__main__":
         args.lcov_result_path,
         args.lizard_result_path,
     )
-    replace_hugo_config(args.hugo_root_dir, args.base_url)
+    replace_hugo_config(
+        args.hugo_root_dir,
+        args.base_url,
+        args.title,
+    )
     generate_markdown(
         args.input_dir,
         args.hugo_root_dir,

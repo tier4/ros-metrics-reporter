@@ -59,6 +59,7 @@ jobs:
       with:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
         base-url: "https://tier4.github.io/ros-metrics-reporter/"
+        title: "ros2/demos"
         ros-distro: ${{ matrix.ros_distribution }}
         CCN: 20
         nloc: 200
