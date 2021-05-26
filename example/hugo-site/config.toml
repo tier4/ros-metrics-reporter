@@ -1,4 +1,4 @@
-baseURL = {{ base_url }}
+baseURL = "{{ base_url }}"
 title = "ros2/demos"
 theme = "hugo-geekdoc"
 
