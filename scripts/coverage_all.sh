@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -xe
+set -e
 
 [ "$1" == "" ] && { echo "Please set base directory." ; exit 1; }
 BASE_DIR=$1
@@ -65,6 +65,8 @@ function get_package_coverage() {
           "*/CMakeCCompilerId.c" \
           "*/CMakeCXXCompilerId.cpp" \
           "*_msgs/*" \
+          "/usr/*" \
+          "/opt/*" \
     -o "${OUTPUT_DIR}/lcov.total.filtered" || { echo "Filtering failed."; return 1; }
 
   genhtml \
