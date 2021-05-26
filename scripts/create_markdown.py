@@ -75,7 +75,7 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: list):
             lcov_cov, lcov_color = read_lcov_result(lcov_csv, type_name)
             param[badge_name] = convert_color_cell(str(lcov_cov), lcov_color)
 
-        lizard_csv = Path("metrics", "latest", package, "lizard.csv")
+        lizard_csv = metrics_dir / package / "lizard.csv"
         badge_names = {
             "ccn_badge": "CCN(violate)",
             "loc_badge": "LOC(violate)",
@@ -138,7 +138,7 @@ def copy_template(src: Path, dest: Path, metrics_dir: Path, packages: list):
     replace_summary_page(summary_page, metrics_dir, packages)
 
     # Create package detail page
-    template = Path(dest, "content", "packages", "TEMPLATE.md")
+    template = dest / "content" / "packages" / "TEMPLATE.md"
     for package in packages:
         if package == "all":
             continue
@@ -150,6 +150,6 @@ def copy_template(src: Path, dest: Path, metrics_dir: Path, packages: list):
     template.unlink()
 
     # Copy layouts to hugo layouts directory
-    layout_dir_src = Path(src, "layouts", "shortcodes")
-    layout_dir_dest = Path(dest, "layouts", "shortcodes")
+    layout_dir_src = src / "layouts" / "shortcodes"
+    layout_dir_dest = dest / "layouts" / "shortcodes"
     dir_util.copy_tree(layout_dir_src, str(layout_dir_dest))
