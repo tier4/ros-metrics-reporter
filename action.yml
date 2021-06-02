@@ -92,9 +92,9 @@ runs:
         mkdir -p ${ARTIFACTS_DIR}/metrics/$TIMESTAMP
         python ${GITHUB_ACTION_PATH}/scripts/scraping.py --lcov_dir=${ARTIFACTS_DIR}/lcov_result/$TIMESTAMP/ --lizard_dir=${ARTIFACTS_DIR}/lizard_result/$TIMESTAMP/ --output_dir=${ARTIFACTS_DIR}/metrics/$TIMESTAMP/
         echo "--- Create static page ---"
-        ln -nfrs ${ARTIFACTS_DIR}/lcov_result/$TIMESTAMP ${ARTIFACTS_DIR}/lcov_result/latest
-        ln -nfrs ${ARTIFACTS_DIR}/lizard_result/$TIMESTAMP ${ARTIFACTS_DIR}/lizard_result/latest
-        ln -nfrs ${ARTIFACTS_DIR}/metrics/$TIMESTAMP ${ARTIFACTS_DIR}/metrics/latest
+        ${GITHUB_ACTION_PATH}/scripts/create_link.sh ${ARTIFACTS_DIR}/lcov_result/$TIMESTAMP ${ARTIFACTS_DIR}/lcov_result/latest
+        ${GITHUB_ACTION_PATH}/scripts/create_link.sh ${ARTIFACTS_DIR}/lizard_result/$TIMESTAMP ${ARTIFACTS_DIR}/lizard_result/latest
+        ${GITHUB_ACTION_PATH}/scripts/create_link.sh ${ARTIFACTS_DIR}/metrics/$TIMESTAMP ${ARTIFACTS_DIR}/metrics/latest
         echo "Run main.py"
         python ${GITHUB_ACTION_PATH}/scripts/main.py --input-dir=${ARTIFACTS_DIR}/metrics/ --hugo-root-dir=${HUGO_DIR} --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${ARTIFACTS_DIR}/lcov_result/latest/ --lizard-result-path=${ARTIFACTS_DIR}/lizard_result/latest/ --base-url=${{ inputs.base-url }} --title=${{ inputs.title }}
         echo "--- Generate pages ---"
