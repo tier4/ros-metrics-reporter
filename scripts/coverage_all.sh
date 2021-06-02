@@ -6,12 +6,8 @@ set -e
 BASE_DIR=$1
 COVERAGE_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1"
 
-# Set generated timestamp
-if [ $# -eq 3 ]; then
-  TIMESTAMP=$(cat $3)
-else
-  TIMESTAMP=$(date -u '+%Y%m%d_%H%M%S')
-fi
+TIMESTAMP=$(cat $3)
+LCOVRC=$4
 
 [ "$2" == "" ] && { echo "Please set output directory." ; exit 1; }
 OUTPUT_DIR=${2}/lcov_result/${TIMESTAMP}/all
@@ -25,7 +21,7 @@ function get_package_coverage() {
 
   # Get a zero-coverage baseline
   lcov \
-    --config-file .lcovrc \
+    --config-file "${LCOVRC}" \
     --base-directory "${BASE_DIR}" \
     --capture \
     --directory "${BASE_DIR}/build" \
@@ -38,7 +34,7 @@ function get_package_coverage() {
 
   # Get coverage
   lcov \
-    --config-file .lcovrc \
+    --config-file "${LCOVRC}" \
     --base-directory "${BASE_DIR}" \
     --capture \
     --directory "${BASE_DIR}/build" \
@@ -52,13 +48,13 @@ function get_package_coverage() {
 
   # Combine zero-coverage with coverage information.
   lcov \
-    --config-file .lcovrc \
+    --config-file "${LCOVRC}" \
     -a "${OUTPUT_DIR}/lcov.base" \
     -a "${OUTPUT_DIR}/lcov.run" \
     -o "${OUTPUT_DIR}/lcov.total" || { echo "Coverage combination failed."; return 1; }
 
   # Filter test, build, and install files and generate html
-  lcov --config-file .lcovrc -r "${OUTPUT_DIR}/lcov.total" \
+  lcov --config-file "${LCOVRC}" -r "${OUTPUT_DIR}/lcov.total" \
     "${BASE_DIR}/build/*" \
     "${BASE_DIR}/install/*" \
           "${BASE_DIR}/test/*" \
@@ -70,7 +66,7 @@ function get_package_coverage() {
     -o "${OUTPUT_DIR}/lcov.total.filtered" || { echo "Filtering failed."; return 1; }
 
   genhtml \
-    --config-file .lcovrc \
+    --config-file "${LCOVRC}" \
     -p "${BASE_DIR}" \
     --legend \
     --demangle-cpp \
