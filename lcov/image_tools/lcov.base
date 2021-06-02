@@ -514,6 +514,8 @@ DA:153,0
 DA:157,0
 end_of_record
 TN:
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/image_tools/src/policy_maps.hpp
+end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/image_tools/src/burger.hpp
 end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/image_tools/src/cam2image.cpp
@@ -931,8 +933,6 @@ DA:285,0
 DA:286,0
 DA:287,0
 DA:288,0
-end_of_record
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/image_tools/src/policy_maps.hpp
 end_of_record
 TN:
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/image_tools/src/policy_maps.hpp
