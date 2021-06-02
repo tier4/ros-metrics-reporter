@@ -65,8 +65,8 @@ function get_package_coverage() {
           "*/CMakeCCompilerId.c" \
           "*/CMakeCXXCompilerId.cpp" \
           "*_msgs/*" \
-          "/usr/*" \
-          "/opt/*" \
+          "*/usr/*" \
+          "*/opt/*" \
     -o "${OUTPUT_DIR}/lcov.total.filtered" || { echo "Filtering failed."; return 1; }
 
   genhtml \
