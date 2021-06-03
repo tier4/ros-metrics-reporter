@@ -34,15 +34,15 @@ inputs:
   CCN:
     description: "Threshold for cyclomatic complexity number warning. The default value is 15."
     required: true
-    default: 15
+    default: "15"
   nloc:
     description: "Threshold for NLOC. The default value is 1000000."
     required: true
-    default: 1000000
+    default: "1000000"
   arguments:
     description: "Limit for number of parameters. The default value is 100."
     required: true
-    default: 100
+    default: "100"
 
 outputs:
   output-dir:

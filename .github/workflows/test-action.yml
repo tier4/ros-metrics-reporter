@@ -69,9 +69,9 @@ jobs:
         base-url: "https://tier4.github.io/ros-metrics-reporter/"
         title: "ros2/demos"
         ros-distro: ${{ matrix.ros_distribution }}
-        CCN: 20
-        nloc: 200
-        arguments: 6
+        CCN: "20"
+        nloc: "200"
+        arguments: "6"
 
     - name: Check results
       run: |
