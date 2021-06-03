@@ -72,7 +72,7 @@ function get_package_coverage() {
   lcov --config-file "${LCOVRC}" -r "${OUTPUT_DIR}/$1/lcov.total" \
     "${BASE_DIR}/build/*" \
     "${BASE_DIR}/install/*" \
-          "${BASE_DIR}/$1/test/*" \
+          "*/test/*" \
           "*/CMakeCCompilerId.c" \
           "*/CMakeCXXCompilerId.cpp" \
           "*_msgs/*" \
