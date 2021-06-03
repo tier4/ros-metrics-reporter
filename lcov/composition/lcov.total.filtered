@@ -410,8 +410,8 @@ TN:
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/listener_component.cpp
 FN:29,_ZN11composition8ListenerC2ERKN6rclcpp11NodeOptionsE
 FN:35,_ZZN11composition8ListenerC4ERKN6rclcpp11NodeOptionsEENKUlSt10shared_ptrIN8std_msgs3msg7String_ISaIvEEEEE_clESB_.isra.0
-FNDA:10,_ZZN11composition8ListenerC4ERKN6rclcpp11NodeOptionsEENKUlSt10shared_ptrIN8std_msgs3msg7String_ISaIvEEEEE_clESB_.isra.0
 FNDA:6,_ZN11composition8ListenerC2ERKN6rclcpp11NodeOptionsE
+FNDA:10,_ZZN11composition8ListenerC4ERKN6rclcpp11NodeOptionsEENKUlSt10shared_ptrIN8std_msgs3msg7String_ISaIvEEEEE_clESB_.isra.0
 FNF:2
 FNH:2
 BRDA:30,0,0,6
@@ -527,9 +527,9 @@ SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/
 FN:35,_ZN11composition16NodeLikeListenerC2ERKN6rclcpp11NodeOptionsE
 FN:41,_ZZN11composition16NodeLikeListenerC4ERKN6rclcpp11NodeOptionsEENKUlSt10shared_ptrIN8std_msgs3msg7String_ISaIvEEEEE_clESB_.isra.0
 FN:55,_ZNK11composition16NodeLikeListener23get_node_base_interfaceEv
-FNDA:0,_ZN11composition16NodeLikeListenerC2ERKN6rclcpp11NodeOptionsE
-FNDA:0,_ZZN11composition16NodeLikeListenerC4ERKN6rclcpp11NodeOptionsEENKUlSt10shared_ptrIN8std_msgs3msg7String_ISaIvEEEEE_clESB_.isra.0
 FNDA:0,_ZNK11composition16NodeLikeListener23get_node_base_interfaceEv
+FNDA:0,_ZZN11composition16NodeLikeListenerC4ERKN6rclcpp11NodeOptionsEENKUlSt10shared_ptrIN8std_msgs3msg7String_ISaIvEEEEE_clESB_.isra.0
+FNDA:0,_ZN11composition16NodeLikeListenerC2ERKN6rclcpp11NodeOptionsE
 FNF:3
 FNH:0
 BRDA:43,0,0,-
@@ -625,8 +625,8 @@ TN:
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/talker_component.cpp
 FN:33,_ZN11composition6TalkerC2ERKN6rclcpp11NodeOptionsE
 FN:43,_ZN11composition6Talker8on_timerEv
-FNDA:10,_ZN11composition6Talker8on_timerEv
 FNDA:6,_ZN11composition6TalkerC2ERKN6rclcpp11NodeOptionsE
+FNDA:10,_ZN11composition6Talker8on_timerEv
 FNF:2
 FNH:2
 BRDA:34,0,0,6
