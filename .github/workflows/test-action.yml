@@ -42,14 +42,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    # https://github.com/osrf/docker_images/issues/535
-    - name: Temporarily fix GPG problem
-      run: |
-        sudo rm /etc/apt/sources.list.d/ros2-latest.list
-        sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
-        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
-        sudo apt-get -y update
-
     - name: Clone dependency packages
       run: |
         vcs import . < ${{ matrix.vcs_file }}
