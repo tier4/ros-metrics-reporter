@@ -1480,6 +1480,8 @@ BRDA:348,0,1,-
 DA:350,0
 end_of_record
 TN:
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/logging_demo/include/logging_demo/logger_config_component.hpp
+end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/logging_demo/src/logging_demo_main.cpp
 FN:21,main
 FNDA:0,main
@@ -1522,8 +1524,6 @@ BRDA:39,0,6,-
 BRDA:39,0,7,-
 BRDA:39,0,8,-
 BRDA:39,0,9,-
-end_of_record
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/logging_demo/include/logging_demo/logger_config_component.hpp
 end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/logging_demo/include/logging_demo/logger_usage_component.hpp
 end_of_record

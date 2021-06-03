@@ -1,4 +1,6 @@
 TN:
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/listener_component.hpp
+end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/listener_component.cpp
 FN:29,_ZN11composition8ListenerC2ERKN6rclcpp11NodeOptionsE
 FNDA:6,_ZN11composition8ListenerC2ERKN6rclcpp11NodeOptionsE
@@ -43,8 +45,6 @@ BRDA:45,0,13,0
 BRDA:45,0,14,0
 BRDA:45,0,15,0
 DA:46,6
-end_of_record
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/listener_component.hpp
 end_of_record
 TN:
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/server_component.hpp
@@ -388,8 +388,6 @@ BRDA:65,0,6,0
 BRDA:65,0,7,0
 end_of_record
 TN:
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/client_component.hpp
-end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/client_component.cpp
 FN:29,_ZN11composition6ClientC2ERKN6rclcpp11NodeOptionsE
 FNDA:6,_ZN11composition6ClientC2ERKN6rclcpp11NodeOptionsE
@@ -482,7 +480,15 @@ BRDA:71,0,3,0
 BRDA:71,0,4,0
 BRDA:71,0,5,0
 end_of_record
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/client_component.hpp
+end_of_record
 TN:
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/listener_component.hpp
+end_of_record
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/talker_component.hpp
+end_of_record
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/client_component.hpp
+end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/manual_composition.cpp
 FN:23,main
 FNDA:2,main
@@ -539,12 +545,6 @@ BRDA:54,0,6,2
 BRDA:54,0,7,0
 BRDA:54,0,8,0
 BRDA:54,0,9,0
-end_of_record
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/talker_component.hpp
-end_of_record
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/client_component.hpp
-end_of_record
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/listener_component.hpp
 end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/server_component.hpp
 end_of_record

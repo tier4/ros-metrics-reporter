@@ -36,9 +36,9 @@ SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/
 FN:29,_ZN11composition6ClientC2ERKN6rclcpp11NodeOptionsE
 FN:39,_ZN11composition6Client8on_timerEv
 FN:68,_ZZN11composition6Client8on_timerEvENKUlSt13shared_futureISt10shared_ptrIN18example_interfaces3srv20AddTwoInts_Response_ISaIvEEEEEE_clES9_.isra.0
-FNDA:6,_ZN11composition6Client8on_timerEv
 FNDA:6,_ZN11composition6ClientC2ERKN6rclcpp11NodeOptionsE
 FNDA:6,_ZZN11composition6Client8on_timerEvENKUlSt13shared_futureISt10shared_ptrIN18example_interfaces3srv20AddTwoInts_Response_ISaIvEEEEEE_clES9_.isra.0
+FNDA:6,_ZN11composition6Client8on_timerEv
 FNF:3
 FNH:3
 BRDA:30,0,0,6
