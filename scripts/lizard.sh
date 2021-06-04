@@ -4,14 +4,18 @@ set -e
 
 PACKAGE_LIST=$(colcon list --names-only)
 PACKAGE_LIST_FULL=$(colcon list)
-ACTION_DIR=$3
+SCRIPT_DIR=$3
 
-# Set generated timestamp
-if [ $# -eq 7 ]; then
-  TIMESTAMP=$(cat $7)
-else
-  TIMESTAMP=$(date -u '+%Y%m%d_%H%M%S')
-fi
+TIMESTAMP=$(cat $7)
+
+# Parse exclude path
+args=("$@")
+argn=$#
+
+exclude=()
+for ((i=5; i <= argn; i++)); do
+  exclude+=( "${args[$i-1]}" )
+done
 
 [ "$2" == "" ] && { echo "Please set output directory." ; exit 1; }
 OUTPUT_DIR=${2}/lizard_result/${TIMESTAMP}
@@ -26,13 +30,17 @@ function get_package_path() {
 function exec_lizard() {
   [ "$1" == "" ] && return 1
 
+  PACKAGE_PATH=$(get_package_path "$1")
+  if python "$SCRIPT_DIR"/scripts/path_match.py "$PACKAGE_PATH" "${exclude[@]}" 2>&1 >/dev/null ; then
+    echo "Skipped $1"
+    return 0
+  fi
+
   if [ ! -d ${OUTPUT_DIR}/$1 ]; then
     mkdir -p ${OUTPUT_DIR}/$1
   fi
 
-  PACKAGE_PATH=$(get_package_path "$1")
-
-  python3 ${ACTION_DIR}/lizard/lizard.py \
+  python3 ${SCRIPT_DIR}/lizard/lizard.py \
     -l cpp \
     -l python \
     -x "*test*" \
@@ -43,8 +51,8 @@ function exec_lizard() {
     --html $PACKAGE_PATH > ${OUTPUT_DIR}/$1/index.html || true
 }
 
-if [ ! -d $ACTION_DIR/lizard ]; then
-  git clone https://github.com/terryyin/lizard.git $ACTION_DIR/lizard
+if [ ! -d $SCRIPT_DIR/lizard ]; then
+  git clone https://github.com/terryyin/lizard.git $SCRIPT_DIR/lizard
 fi
 
 for PACKAGE in $PACKAGE_LIST; do

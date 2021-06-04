@@ -43,6 +43,9 @@ inputs:
     description: "Limit for number of parameters. The default value is 100."
     required: true
     default: "100"
+  exclude:
+    description: "Space separated list of exclude paths."
+    required: false
 
 outputs:
   output-dir:
@@ -82,11 +85,11 @@ runs:
         . /opt/ros/${{ inputs.ros-distro }}/setup.sh
         ${GITHUB_ACTION_PATH}/scripts/coverage_all.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt ${{ inputs.lcovrc-path }} || true
         echo "Run coverage.sh"
-        ${GITHUB_ACTION_PATH}/scripts/coverage.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt ${{ inputs.lcovrc-path }} || true
+        ${GITHUB_ACTION_PATH}/scripts/coverage.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt ${{ inputs.lcovrc-path }} ${{ inputs.exclude }} || true
         echo "--- Measure code metrics for all packages ---"
         ${GITHUB_ACTION_PATH}/scripts/lizard_all.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_ACTION_PATH} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt
         echo "--- Measure code metrics ---"
-        ${GITHUB_ACTION_PATH}/scripts/lizard.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_ACTION_PATH} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt
+        ${GITHUB_ACTION_PATH}/scripts/lizard.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_ACTION_PATH} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt ${{ inputs.exclude }}
         echo "--- Scraping ---"
         TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
         mkdir -p ${ARTIFACTS_DIR}/metrics/$TIMESTAMP

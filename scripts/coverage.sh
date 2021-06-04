@@ -5,19 +5,42 @@ set -e
 [ "$1" == "" ] && { echo "Please set base directory." ; exit 1; }
 BASE_DIR=$1
 PACKAGE_LIST=$(colcon list --names-only)
+PACKAGE_LIST_FULL=$(colcon list)
 COVERAGE_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1"
+SCRIPT_DIR=$(cd "$(dirname "$0")"; pwd)
 
-TIMESTAMP=$(cat $3)
+TIMESTAMP=$(cat "$3")
 LCOVRC=$4
 
+# Parse exclude path
+args=("$@")
+argn=$#
+
+exclude=()
+for ((i=5; i <= argn; i++)); do
+  exclude+=( "${args[$i-1]}" )
+done
 
 [ "$2" == "" ] && { echo "Please set output directory." ; exit 1; }
 OUTPUT_DIR=${2}/lcov_result/${TIMESTAMP}
 
+function get_package_path() {
+  [ "$1" == "" ] && return 1
+
+  echo "$PACKAGE_LIST_FULL" | grep -w "$1" | awk '{ print $2 }'
+  return 0
+}
+
 function get_package_coverage() {
   [ "$1" == "" ] && return 1
 
-  if [[ $1 == *_msgs ]] ; then
+  if [[ $1 == *_msgs ]]; then
+    echo "Skipped $1"
+    return 0
+  fi
+
+  PACKAGE_PATH=$(get_package_path "$1")
+  if python "$SCRIPT_DIR"/scripts/path_match.py "$PACKAGE_PATH" "${exclude[@]}" 2>&1 >/dev/null ; then
     echo "Skipped $1"
     return 0
   fi
