@@ -43,7 +43,7 @@ function exec_lizard() {
     --html $PACKAGE_PATH > ${OUTPUT_DIR}/$1/index.html || true
 }
 
-if [ ! -d "lizard" ]; then
+if [ ! -d $ACTION_DIR/lizard ]; then
   git clone https://github.com/terryyin/lizard.git $ACTION_DIR/lizard
 fi
 

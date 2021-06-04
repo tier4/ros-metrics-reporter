@@ -34,7 +34,7 @@ function exec_lizard() {
     --html $1 > ${OUTPUT_DIR}/index.html || true
 }
 
-if [ ! -d $3/lizard ]; then
+if [ ! -d $ACTION_DIR/lizard ]; then
   git clone https://github.com/terryyin/lizard.git $ACTION_DIR/lizard
 fi
 
