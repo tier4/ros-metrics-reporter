@@ -85,6 +85,7 @@ jobs:
 | `artifacts-dir` | N/A | Path to Artifacts generated using this Action (must include lcov-result/ and lizard-result/ directory) | `true` | `"${GITHUB_WORKSPACE}/doc"` |
 | `base-url` | N/A | If you use example/hugo-site in this repository, please specify the baseURL. | `true` | `"https://tier4.github.io/ros-metrics-reporter/"` |
 | `title` | N/A | If you use example/hugo-site in this repository, please specify the title. | `true` | `"ros2/demos"` |
+| `exclude` | N/A | Space separated list of exclude paths. | `false` | `"**/vendor/*"` |
 | `ros-distro` | `"foxy"` | ROS distribution | `true` | `"foxy"` |
 | `hugo-dir` | `"${GITHUB_ACTION_PATH}/example/hugo-site"` | If you want to use your own hugo-site, specify the root directory | `true` | `"${GITHUB_WORKSPACE}/hugo-site"` |
 | `output-dir` | `"${GITHUB_WORKSPACE}/public"` | Hugo output directory | `true` | `"${GITHUB_WORKSPACE}/output-dir"` |
