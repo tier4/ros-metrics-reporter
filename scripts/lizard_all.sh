@@ -38,4 +38,4 @@ if [ ! -d $ACTION_DIR/lizard ]; then
   git clone https://github.com/terryyin/lizard.git $ACTION_DIR/lizard
 fi
 
-exec_lizard $BASE_DIR $3 $4 $5
+exec_lizard $BASE_DIR $4 $5 $6
