@@ -44,7 +44,7 @@ function exec_lizard() {
 }
 
 if [ ! -d "lizard" ]; then
-  git clone https://github.com/terryyin/lizard.git $ACTION_DIR
+  git clone https://github.com/terryyin/lizard.git $ACTION_DIR/lizard
 fi
 
 for PACKAGE in $PACKAGE_LIST; do

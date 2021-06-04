@@ -23,7 +23,7 @@ function exec_lizard() {
     mkdir -p ${OUTPUT_DIR}
   fi
 
-  python3 $ACTION_DIR/$lizard/lizard.py \
+  python3 $ACTION_DIR/lizard/lizard.py \
     -l cpp \
     -l python \
     -x "*test*" \
@@ -35,7 +35,7 @@ function exec_lizard() {
 }
 
 if [ ! -d $3/lizard ]; then
-  git clone https://github.com/terryyin/lizard.git $ACTION_DIR
+  git clone https://github.com/terryyin/lizard.git $ACTION_DIR/lizard
 fi
 
 exec_lizard $BASE_DIR $3 $4 $5
