@@ -23,5 +23,14 @@
 
 .wrapped {
   overflow: auto;
-  white-space: nowrap;
+}
+
+.wrapped table {
+  table-layout: fixed;
+  width: auto;
+}
+
+table td {
+  width: 20px;
+  overflow-wrap: break-word;
 }
