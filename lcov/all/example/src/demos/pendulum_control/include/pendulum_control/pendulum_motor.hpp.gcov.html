@@ -32,16 +32,16 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">43</td>
+            <td class="headerCovTableEntry">55</td>
             <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2021-06-08 04:48:17</td>
+            <td class="headerValue">2021-06-15 08:11:13</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">8</td>
             <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
@@ -57,7 +57,7 @@
             <td></td>
             <td class="headerItem">Branches:</td>
             <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">24</td>
+            <td class="headerCovTableEntry">20</td>
             <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr><td><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
@@ -124,7 +124,7 @@
 <a name="46"><span class="lineNum">      46 </span>                :            : };</a>
 <a name="47"><span class="lineNum">      47 </span>                :            : </a>
 <a name="48"><span class="lineNum">      48 </span>                :            : /// Struct representing the dynamic/kinematic state of the pendulum.</a>
-<a name="49"><span class="lineNum">      49 </span>                :<span class="lineNoCov">          0 : struct PendulumState</span></a>
+<a name="49"><span class="lineNum">      49 </span>                :            : struct PendulumState</a>
 <a name="50"><span class="lineNum">      50 </span>                :            : {</a>
 <a name="51"><span class="lineNum">      51 </span>                :            :   // Angle from the ground in radians</a>
 <a name="52"><span class="lineNum">      52 </span>                :            :   double position = 0;</a>
@@ -147,12 +147,12 @@
 <a name="69"><span class="lineNum">      69 </span>                :            :    */</a>
 <a name="70"><span class="lineNum">      70 </span>                :<span class="lineNoCov">          0 :   PendulumMotor(std::chrono::nanoseconds period, PendulumProperties properties)</span></a>
 <a name="71"><span class="lineNum">      71 </span>                :<span class="lineNoCov">          0 :   : publish_period_(period), properties_(properties),</span></a>
-<a name="72"><span class="lineNum">      72 </span>                :            :     physics_update_period_(std::chrono::nanoseconds(1000000)),</a>
+<a name="72"><span class="lineNum">      72 </span>                :<span class="lineNoCov">          0 :     physics_update_period_(std::chrono::nanoseconds(1000000)),</span></a>
 <a name="73"><span class="lineNum">      73 </span>                :<span class="lineNoCov">          0 :     message_ready_(false), done_(false)</span></a>
 <a name="74"><span class="lineNum">      74 </span>                :            :   {</a>
 <a name="75"><span class="lineNum">      75 </span>                :            :     // Calculate physics engine timestep.</a>
 <a name="76"><span class="lineNum">      76 </span>                :<span class="lineNoCov">          0 :     dt_ = physics_update_period_.count() / (1000.0 * 1000.0 * 1000.0);</span></a>
-<a name="77"><span class="lineNum">      77 </span>                :            :     long_to_timespec(physics_update_period_.count(), &amp;physics_update_timespec_);</a>
+<a name="77"><span class="lineNum">      77 </span>                :<span class="lineNoCov">          0 :     long_to_timespec(physics_update_period_.count(), &amp;physics_update_timespec_);</span></a>
 <a name="78"><span class="lineNum">      78 </span>                :            : </a>
 <a name="79"><span class="lineNum">      79 </span>                :            :     // Initialize a separate high-priority thread to run the physics update loop.</a>
 <a name="80"><span class="lineNum">      80 </span>                :<span class="lineNoCov">          0 :     pthread_attr_init(&amp;thread_attr_);</span></a>
@@ -161,7 +161,7 @@
 <a name="83"><span class="lineNum">      83 </span>                :<span class="lineNoCov">          0 :     pthread_attr_setschedparam(&amp;thread_attr_, &amp;thread_param);</span></a>
 <a name="84"><span class="lineNum">      84 </span>                :<span class="lineNoCov">          0 :     pthread_attr_setschedpolicy(&amp;thread_attr_, SCHED_RR);</span></a>
 <a name="85"><span class="lineNum">      85 </span>                :<span class="lineNoCov">          0 :     pthread_create(</span></a>
-<a name="86"><span class="lineNum">      86 </span>                :            :       &amp;physics_update_thread_, &amp;thread_attr_,</a>
+<a name="86"><span class="lineNum">      86 </span>                :<span class="lineNoCov">          0 :       &amp;physics_update_thread_, &amp;thread_attr_,</span></a>
 <a name="87"><span class="lineNum">      87 </span>                :            :       &amp;pendulum_control::PendulumMotor::physics_update_wrapper, this);</a>
 <a name="88"><span class="lineNum">      88 </span>                :<span class="lineNoCov">          0 :   }</span></a>
 <a name="89"><span class="lineNum">      89 </span>                :            : </a>
@@ -169,7 +169,7 @@
 <a name="91"><span class="lineNum">      91 </span>                :            :   // \param[in] msg Received command.</a>
 <a name="92"><span class="lineNum">      92 </span>                :<span class="lineNoCov">          0 :   void on_command_message(pendulum_msgs::msg::JointCommand::ConstSharedPtr msg)</span></a>
 <a name="93"><span class="lineNum">      93 </span>                :            :   {</a>
-<a name="94"><span class="lineNum">      94 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     ++messages_received;</span></a>
+<a name="94"><span class="lineNum">      94 </span>                :<span class="lineNoCov">          0 :     ++messages_received;</span></a>
 <a name="95"><span class="lineNum">      95 </span>                :            :     // Assume direct, instantaneous position control</a>
 <a name="96"><span class="lineNum">      96 </span>                :            :     // (It would be more realistic to simulate a motor model)</a>
 <a name="97"><span class="lineNum">      97 </span>                :<span class="lineNoCov">          0 :     state_.position = msg-&gt;position;</span></a>
@@ -188,24 +188,24 @@
 <a name="110"><span class="lineNum">     110 </span>                :            : </a>
 <a name="111"><span class="lineNum">     111 </span>                :            :   /// Return the next sensor message calculated by the physics engine.</a>
 <a name="112"><span class="lineNum">     112 </span>                :            :   // \return The sensor message</a>
-<a name="113"><span class="lineNum">     113 </span>                :            :   const pendulum_msgs::msg::JointState &amp; get_next_sensor_message() const</a>
+<a name="113"><span class="lineNum">     113 </span>                :<span class="lineNoCov">          0 :   const pendulum_msgs::msg::JointState &amp; get_next_sensor_message() const</span></a>
 <a name="114"><span class="lineNum">     114 </span>                :            :   {</a>
-<a name="115"><span class="lineNum">     115 </span>                :            :     return sensor_message_;</a>
+<a name="115"><span class="lineNum">     115 </span>                :<span class="lineNoCov">          0 :     return sensor_message_;</span></a>
 <a name="116"><span class="lineNum">     116 </span>                :            :   }</a>
 <a name="117"><span class="lineNum">     117 </span>                :            : </a>
 <a name="118"><span class="lineNum">     118 </span>                :            :   /// Get the status of the next message</a>
 <a name="119"><span class="lineNum">     119 </span>                :            :   // \return True if the message is ready to be published.</a>
-<a name="120"><span class="lineNum">     120 </span>                :            :   bool next_message_ready() const</a>
+<a name="120"><span class="lineNum">     120 </span>                :<span class="lineNoCov">          0 :   bool next_message_ready() const</span></a>
 <a name="121"><span class="lineNum">     121 </span>                :            :   {</a>
-<a name="122"><span class="lineNum">     122 </span>                :            :     return message_ready_;</a>
+<a name="122"><span class="lineNum">     122 </span>                :<span class="lineNoCov">          0 :     return message_ready_;</span></a>
 <a name="123"><span class="lineNum">     123 </span>                :            :   }</a>
 <a name="124"><span class="lineNum">     124 </span>                :            : </a>
 <a name="125"><span class="lineNum">     125 </span>                :            :   /// Set the boolean to signal that the physics engine should finish.</a>
 <a name="126"><span class="lineNum">     126 </span>                :            :   // \param[in] done True if the physics engine should stop.</a>
-<a name="127"><span class="lineNum">     127 </span>                :            :   void set_done(bool done)</a>
+<a name="127"><span class="lineNum">     127 </span>                :<span class="lineNoCov">          0 :   void set_done(bool done)</span></a>
 <a name="128"><span class="lineNum">     128 </span>                :            :   {</a>
-<a name="129"><span class="lineNum">     129 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     done_ = done;</span></a>
-<a name="130"><span class="lineNum">     130 </span>                :            :   }</a>
+<a name="129"><span class="lineNum">     129 </span>                :<span class="lineNoCov">          0 :     done_ = done;</span></a>
+<a name="130"><span class="lineNum">     130 </span>                :<span class="lineNoCov">          0 :   }</span></a>
 <a name="131"><span class="lineNum">     131 </span>                :            : </a>
 <a name="132"><span class="lineNum">     132 </span>                :            :   /// Get the status of the physics engine.</a>
 <a name="133"><span class="lineNum">     133 </span>                :            :   // \return True if the physics engine is running, false otherwise.</a>
@@ -216,9 +216,9 @@
 <a name="138"><span class="lineNum">     138 </span>                :            : </a>
 <a name="139"><span class="lineNum">     139 </span>                :            :   /// Get the update rate of the publisher.</a>
 <a name="140"><span class="lineNum">     140 </span>                :            :   // \return The update rate as a std::chrono::duration.</a>
-<a name="141"><span class="lineNum">     141 </span>                :            :   std::chrono::nanoseconds get_publish_period() const</a>
+<a name="141"><span class="lineNum">     141 </span>                :<span class="lineNoCov">          0 :   std::chrono::nanoseconds get_publish_period() const</span></a>
 <a name="142"><span class="lineNum">     142 </span>                :            :   {</a>
-<a name="143"><span class="lineNum">     143 </span>                :            :     return publish_period_;</a>
+<a name="143"><span class="lineNum">     143 </span>                :<span class="lineNoCov">          0 :     return publish_period_;</span></a>
 <a name="144"><span class="lineNum">     144 </span>                :            :   }</a>
 <a name="145"><span class="lineNum">     145 </span>                :            : </a>
 <a name="146"><span class="lineNum">     146 </span>                :            :   /// Get the current position of the pendulum.</a>
@@ -261,9 +261,9 @@
 <a name="183"><span class="lineNum">     183 </span>                :            : private:</a>
 <a name="184"><span class="lineNum">     184 </span>                :<span class="lineNoCov">          0 :   static void * physics_update_wrapper(void * args)</span></a>
 <a name="185"><span class="lineNum">     185 </span>                :            :   {</a>
-<a name="186"><span class="lineNum">     186 </span>                :            :     PendulumMotor * motor = static_cast&lt;PendulumMotor *&gt;(args);</a>
+<a name="186"><span class="lineNum">     186 </span>                :<span class="lineNoCov">          0 :     PendulumMotor * motor = static_cast&lt;PendulumMotor *&gt;(args);</span></a>
 <a name="187"><span class="lineNum">     187 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (!motor) {</span></a>
-<a name="188"><span class="lineNum">     188 </span>                :            :       return NULL;</a>
+<a name="188"><span class="lineNum">     188 </span>                :<span class="lineNoCov">          0 :       return NULL;</span></a>
 <a name="189"><span class="lineNum">     189 </span>                :            :     }</a>
 <a name="190"><span class="lineNum">     190 </span>                :<span class="lineNoCov">          0 :     return motor-&gt;physics_update();</span></a>
 <a name="191"><span class="lineNum">     191 </span>                :            :   }</a>

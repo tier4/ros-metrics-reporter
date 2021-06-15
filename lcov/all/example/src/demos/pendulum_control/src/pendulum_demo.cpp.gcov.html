@@ -32,16 +32,16 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">74</td>
+            <td class="headerCovTableEntry">86</td>
             <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2021-06-08 04:48:17</td>
+            <td class="headerValue">2021-06-15 08:11:13</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntry">9</td>
             <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
@@ -57,7 +57,7 @@
             <td></td>
             <td class="headerItem">Branches:</td>
             <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">154</td>
+            <td class="headerCovTableEntry">124</td>
             <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
@@ -142,8 +142,7 @@
 <a name="64"><span class="lineNum">      64 </span>                :            : </a>
 <a name="65"><span class="lineNum">      65 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (running) {</span></a>
 <a name="66"><span class="lineNum">      66 </span>                :<span class="lineNoCov">          0 :     fprintf(stderr, &quot;Called malloc during realtime execution phase!\n&quot;);</span></a>
-<a name="67"><span class="lineNum">      67 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :     rclcpp::shutdown();</span></a>
-<span class="lineNum">         </span>   <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
+<a name="67"><span class="lineNum">      67 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     rclcpp::shutdown();</span></a>
 <a name="68"><span class="lineNum">      68 </span>                :<span class="lineNoCov">          0 :     exit(-1);</span></a>
 <a name="69"><span class="lineNum">      69 </span>                :            :   }</a>
 <a name="70"><span class="lineNum">      70 </span>                :            : </a>
@@ -185,10 +184,10 @@
 <a name="106"><span class="lineNum">     106 </span>                :            :   // and provide a sensor message for the current position.</a>
 <a name="107"><span class="lineNum">     107 </span>                :            :   // Run the callback for the motor slightly faster than the executor update loop.</a>
 <a name="108"><span class="lineNum">     108 </span>                :            :   auto pendulum_motor = std::make_shared&lt;pendulum_control::PendulumMotor&gt;(</a>
-<a name="109"><span class="lineNum">     109 </span>                :<span class="lineNoCov">          0 :     std::chrono::nanoseconds(970000), properties);</span></a>
+<a name="109"><span class="lineNum">     109 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     std::chrono::nanoseconds(970000), properties);</span></a>
 <a name="110"><span class="lineNum">     110 </span>                :            : </a>
 <a name="111"><span class="lineNum">     111 </span>                :            :   // Create the properties of the PID controller.</a>
-<a name="112"><span class="lineNum">     112 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   pendulum_control::PIDProperties pid;</span></a>
+<a name="112"><span class="lineNum">     112 </span>                :<span class="lineNoCov">          0 :   pendulum_control::PIDProperties pid;</span></a>
 <a name="113"><span class="lineNum">     113 </span>                :            :   // Instantiate a PendulumController class which will calculate the next motor command.</a>
 <a name="114"><span class="lineNum">     114 </span>                :            :   // Run the callback for the controller slightly faster than the executor update loop.</a>
 <a name="115"><span class="lineNum">     115 </span>                :            :   auto pendulum_controller = std::make_shared&lt;pendulum_control::PendulumController&gt;(</a>
@@ -200,8 +199,7 @@
 <a name="121"><span class="lineNum">     121 </span>                :            : </a>
 <a name="122"><span class="lineNum">     122 </span>                :            :   // Pass the input arguments to rclcpp and initialize the signal handler.</a>
 <a name="123"><span class="lineNum">     123 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :   rclcpp::init(argc, argv);</span></a>
-<span class="lineNum">         </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span> 
-<span class="lineNum">         </span>            <span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
 <a name="124"><span class="lineNum">     124 </span>                :            : </a>
 <a name="125"><span class="lineNum">     125 </span>                :            :   // The MessagePoolMemoryStrategy preallocates a pool of messages to be used by the subscription.</a>
 <a name="126"><span class="lineNum">     126 </span>                :            :   // Typically, one MessagePoolMemoryStrategy is used per subscription type, and the size of the</a>
@@ -209,18 +207,18 @@
 <a name="128"><span class="lineNum">     128 </span>                :            :   // to the subscription).</a>
 <a name="129"><span class="lineNum">     129 </span>                :            :   // Since this example is single-threaded, we choose a message pool size of 1 for each strategy.</a>
 <a name="130"><span class="lineNum">     130 </span>                :            :   auto state_msg_strategy =</a>
-<a name="131"><span class="lineNum">     131 </span>                :            :     std::make_shared&lt;MessagePoolMemoryStrategy&lt;pendulum_msgs::msg::JointState, 1&gt;&gt;();</a>
+<a name="131"><span class="lineNum">     131 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     std::make_shared&lt;MessagePoolMemoryStrategy&lt;pendulum_msgs::msg::JointState, 1&gt;&gt;();</span></a>
 <a name="132"><span class="lineNum">     132 </span>                :            :   auto command_msg_strategy =</a>
-<a name="133"><span class="lineNum">     133 </span>                :            :     std::make_shared&lt;MessagePoolMemoryStrategy&lt;pendulum_msgs::msg::JointCommand, 1&gt;&gt;();</a>
+<a name="133"><span class="lineNum">     133 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     std::make_shared&lt;MessagePoolMemoryStrategy&lt;pendulum_msgs::msg::JointCommand, 1&gt;&gt;();</span></a>
 <a name="134"><span class="lineNum">     134 </span>                :            :   auto setpoint_msg_strategy =</a>
-<a name="135"><span class="lineNum">     135 </span>                :            :     std::make_shared&lt;MessagePoolMemoryStrategy&lt;pendulum_msgs::msg::JointCommand, 1&gt;&gt;();</a>
+<a name="135"><span class="lineNum">     135 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     std::make_shared&lt;MessagePoolMemoryStrategy&lt;pendulum_msgs::msg::JointCommand, 1&gt;&gt;();</span></a>
 <a name="136"><span class="lineNum">     136 </span>                :            : </a>
 <a name="137"><span class="lineNum">     137 </span>                :            :   // The controller node represents user code. This example implements a simple PID controller.</a>
-<a name="138"><span class="lineNum">     138 </span>                :            :   auto controller_node = rclcpp::Node::make_shared(&quot;pendulum_controller&quot;);</a>
+<a name="138"><span class="lineNum">     138 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto controller_node = rclcpp::Node::make_shared(&quot;pendulum_controller&quot;);</span></a>
 <a name="139"><span class="lineNum">     139 </span>                :            : </a>
 <a name="140"><span class="lineNum">     140 </span>                :            :   // The &quot;motor&quot; node simulates motors and sensors.</a>
 <a name="141"><span class="lineNum">     141 </span>                :            :   // It provides sensor data and changes the physical model based on the command.</a>
-<a name="142"><span class="lineNum">     142 </span>                :            :   auto motor_node = rclcpp::Node::make_shared(&quot;pendulum_motor&quot;);</a>
+<a name="142"><span class="lineNum">     142 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto motor_node = rclcpp::Node::make_shared(&quot;pendulum_motor&quot;);</span></a>
 <a name="143"><span class="lineNum">     143 </span>                :            : </a>
 <a name="144"><span class="lineNum">     144 </span>                :            :   // The quality of service profile is tuned for real-time performance.</a>
 <a name="145"><span class="lineNum">     145 </span>                :            :   // More QoS settings may be exposed by the rmw interface in the future to fulfill real-time</a>
@@ -239,8 +237,7 @@
 <a name="158"><span class="lineNum">     158 </span>                :            : </a>
 <a name="159"><span class="lineNum">     159 </span>                :            :   // Initialize the publisher for the sensor message (the current position of the pendulum).</a>
 <a name="160"><span class="lineNum">     160 </span>                :            :   auto sensor_pub =</a>
-<a name="161"><span class="lineNum">     161 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :     motor_node-&gt;create_publisher&lt;pendulum_msgs::msg::JointState&gt;(&quot;pendulum_sensor&quot;, qos);</span></a>
-<span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
+<a name="161"><span class="lineNum">     161 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     motor_node-&gt;create_publisher&lt;pendulum_msgs::msg::JointState&gt;(&quot;pendulum_sensor&quot;, qos);</span></a>
 <a name="162"><span class="lineNum">     162 </span>                :            : </a>
 <a name="163"><span class="lineNum">     163 </span>                :            :   // Create a lambda function to invoke the motor callback when a command is received.</a>
 <a name="164"><span class="lineNum">     164 </span>                :            :   auto motor_subscribe_callback =</a>
@@ -254,28 +251,25 @@
 <a name="172"><span class="lineNum">     172 </span>                :            :   auto command_sub = motor_node-&gt;create_subscription&lt;pendulum_msgs::msg::JointCommand&gt;(</a>
 <a name="173"><span class="lineNum">     173 </span>                :            :     &quot;pendulum_command&quot;, qos, motor_subscribe_callback,</a>
 <a name="174"><span class="lineNum">     174 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :     rclcpp::SubscriptionOptions(), command_msg_strategy);</span></a>
-<span class="lineNum">         </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span> 
-<span class="lineNum">         </span>            <span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
 <a name="175"><span class="lineNum">     175 </span>                :            : </a>
 <a name="176"><span class="lineNum">     176 </span>                :            :   // Create a lambda function to invoke the controller callback when a command is received.</a>
 <a name="177"><span class="lineNum">     177 </span>                :            :   auto controller_subscribe_callback =</a>
 <a name="178"><span class="lineNum">     178 </span>                :<span class="lineNoCov">          0 :     [&amp;pendulum_controller](pendulum_msgs::msg::JointState::ConstSharedPtr msg) -&gt; void</span></a>
 <a name="179"><span class="lineNum">     179 </span>                :            :     {</a>
 <a name="180"><span class="lineNum">     180 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       pendulum_controller-&gt;on_sensor_message(msg);</span></a>
-<a name="181"><span class="lineNum">     181 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     };</span></a>
+<a name="181"><span class="lineNum">     181 </span>                :<span class="lineNoCov">          0 :     };</span></a>
 <a name="182"><span class="lineNum">     182 </span>                :            : </a>
 <a name="183"><span class="lineNum">     183 </span>                :            :   // Initialize the publisher for the command message.</a>
 <a name="184"><span class="lineNum">     184 </span>                :            :   auto command_pub = controller_node-&gt;create_publisher&lt;pendulum_msgs::msg::JointCommand&gt;(</a>
-<a name="185"><span class="lineNum">     185 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :     &quot;pendulum_command&quot;, qos);</span></a>
-<span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
+<a name="185"><span class="lineNum">     185 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     &quot;pendulum_command&quot;, qos);</span></a>
 <a name="186"><span class="lineNum">     186 </span>                :            : </a>
 <a name="187"><span class="lineNum">     187 </span>                :            :   // Initialize the subscriber for the sensor message.</a>
 <a name="188"><span class="lineNum">     188 </span>                :            :   // Notice that we pass the MessageMemoryPoolStrategy&lt;JointState&gt; initialized above.</a>
 <a name="189"><span class="lineNum">     189 </span>                :            :   auto sensor_sub = controller_node-&gt;create_subscription&lt;pendulum_msgs::msg::JointState&gt;(</a>
 <a name="190"><span class="lineNum">     190 </span>                :            :     &quot;pendulum_sensor&quot;, qos, controller_subscribe_callback,</a>
 <a name="191"><span class="lineNum">     191 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :     rclcpp::SubscriptionOptions(), state_msg_strategy);</span></a>
-<span class="lineNum">         </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span> 
-<span class="lineNum">         </span>            <span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
 <a name="192"><span class="lineNum">     192 </span>                :            : </a>
 <a name="193"><span class="lineNum">     193 </span>                :            :   // Create a lambda function to accept user input to command the pendulum</a>
 <a name="194"><span class="lineNum">     194 </span>                :            :   auto controller_command_callback =</a>
@@ -291,13 +285,11 @@
 <a name="204"><span class="lineNum">     204 </span>                :            :   auto setpoint_sub = controller_node-&gt;create_subscription&lt;pendulum_msgs::msg::JointCommand&gt;(</a>
 <a name="205"><span class="lineNum">     205 </span>                :            :     &quot;pendulum_setpoint&quot;, qos_setpoint_sub, controller_command_callback,</a>
 <a name="206"><span class="lineNum">     206 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :     rclcpp::SubscriptionOptions(), setpoint_msg_strategy);</span></a>
-<span class="lineNum">         </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span> 
-<span class="lineNum">         </span>      <span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>]
+<span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
 <a name="207"><span class="lineNum">     207 </span>                :            : </a>
 <a name="208"><span class="lineNum">     208 </span>                :            :   // Initialize the logger publisher.</a>
 <a name="209"><span class="lineNum">     209 </span>                :            :   auto logger_pub = controller_node-&gt;create_publisher&lt;pendulum_msgs::msg::RttestResults&gt;(</a>
-<a name="210"><span class="lineNum">     210 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :     &quot;pendulum_statistics&quot;, qos);</span></a>
-<span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
+<a name="210"><span class="lineNum">     210 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     &quot;pendulum_statistics&quot;, qos);</span></a>
 <a name="211"><span class="lineNum">     211 </span>                :<span class="lineNoCov">          0 :   std::chrono::nanoseconds logger_publisher_period(1000000);</span></a>
 <a name="212"><span class="lineNum">     212 </span>                :            : </a>
 <a name="213"><span class="lineNum">     213 </span>                :            :   // Initialize the executor.</a>
@@ -305,11 +297,11 @@
 <a name="215"><span class="lineNum">     215 </span>                :            :   // One of the arguments passed to the Executor is the memory strategy, which delegates the</a>
 <a name="216"><span class="lineNum">     216 </span>                :            :   // runtime-execution allocations to the TLSF allocator.</a>
 <a name="217"><span class="lineNum">     217 </span>                :            :   rclcpp::memory_strategy::MemoryStrategy::SharedPtr memory_strategy =</a>
-<a name="218"><span class="lineNum">     218 </span>                :<span class="lineNoCov">          0 :     std::make_shared&lt;AllocatorMemoryStrategy&lt;TLSFAllocator&lt;void&gt;&gt;&gt;();</span></a>
-<a name="219"><span class="lineNum">     219 </span>                :            :   options.memory_strategy = memory_strategy;</a>
+<a name="218"><span class="lineNum">     218 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     std::make_shared&lt;AllocatorMemoryStrategy&lt;TLSFAllocator&lt;void&gt;&gt;&gt;();</span></a>
+<a name="219"><span class="lineNum">     219 </span>                :<span class="lineNoCov">          0 :   options.memory_strategy = memory_strategy;</span></a>
 <a name="220"><span class="lineNum">     220 </span>                :            :   // RttExecutor is a special single-threaded executor instrumented to calculate and record</a>
 <a name="221"><span class="lineNum">     221 </span>                :            :   // real-time performance statistics.</a>
-<a name="222"><span class="lineNum">     222 </span>                :            :   auto executor = std::make_shared&lt;pendulum_control::RttExecutor&gt;(options);</a>
+<a name="222"><span class="lineNum">     222 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto executor = std::make_shared&lt;pendulum_control::RttExecutor&gt;(options);</span></a>
 <a name="223"><span class="lineNum">     223 </span>                :            : </a>
 <a name="224"><span class="lineNum">     224 </span>                :            :   // Add the motor and controller nodes to the executor.</a>
 <a name="225"><span class="lineNum">     225 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   executor-&gt;add_node(motor_node);</span></a>
@@ -317,48 +309,46 @@
 <a name="227"><span class="lineNum">     227 </span>                :            : </a>
 <a name="228"><span class="lineNum">     228 </span>                :            :   // Create a lambda function that will fire regularly to publish the next sensor message.</a>
 <a name="229"><span class="lineNum">     229 </span>                :            :   auto motor_publish_callback =</a>
-<a name="230"><span class="lineNum">     230 </span>                :            :     [&amp;sensor_pub, &amp;pendulum_motor]()</a>
+<a name="230"><span class="lineNum">     230 </span>                :<span class="lineNoCov">          0 :     [&amp;sensor_pub, &amp;pendulum_motor]()</span></a>
 <a name="231"><span class="lineNum">     231 </span>                :            :     {</a>
 <a name="232"><span class="lineNum">     232 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       if (pendulum_motor-&gt;next_message_ready()) {</span></a>
 <a name="233"><span class="lineNum">     233 </span>                :<span class="lineNoCov">          0 :         auto msg = pendulum_motor-&gt;get_next_sensor_message();</span></a>
-<a name="234"><span class="lineNum">     234 </span>                :<span class="lineNoCov">          0 :         sensor_pub-&gt;publish(msg);</span></a>
+<a name="234"><span class="lineNum">     234 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         sensor_pub-&gt;publish(msg);</span></a>
 <a name="235"><span class="lineNum">     235 </span>                :            :       }</a>
 <a name="236"><span class="lineNum">     236 </span>                :<span class="lineNoCov">          0 :     };</span></a>
 <a name="237"><span class="lineNum">     237 </span>                :            : </a>
 <a name="238"><span class="lineNum">     238 </span>                :            :   // Create a lambda function that will fire regularly to publish the next command message.</a>
 <a name="239"><span class="lineNum">     239 </span>                :            :   auto controller_publish_callback =</a>
-<a name="240"><span class="lineNum">     240 </span>                :            :     [&amp;command_pub, &amp;pendulum_controller]()</a>
+<a name="240"><span class="lineNum">     240 </span>                :<span class="lineNoCov">          0 :     [&amp;command_pub, &amp;pendulum_controller]()</span></a>
 <a name="241"><span class="lineNum">     241 </span>                :            :     {</a>
 <a name="242"><span class="lineNum">     242 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       if (pendulum_controller-&gt;next_message_ready()) {</span></a>
 <a name="243"><span class="lineNum">     243 </span>                :<span class="lineNoCov">          0 :         auto msg = pendulum_controller-&gt;get_next_command_message();</span></a>
-<a name="244"><span class="lineNum">     244 </span>                :<span class="lineNoCov">          0 :         command_pub-&gt;publish(msg);</span></a>
+<a name="244"><span class="lineNum">     244 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         command_pub-&gt;publish(msg);</span></a>
 <a name="245"><span class="lineNum">     245 </span>                :            :       }</a>
 <a name="246"><span class="lineNum">     246 </span>                :<span class="lineNoCov">          0 :     };</span></a>
 <a name="247"><span class="lineNum">     247 </span>                :            : </a>
 <a name="248"><span class="lineNum">     248 </span>                :            :   // Create a lambda function that will fire regularly to publish the next results message.</a>
 <a name="249"><span class="lineNum">     249 </span>                :            :   auto logger_publish_callback =</a>
 <a name="250"><span class="lineNum">     250 </span>                :<span class="lineNoCov">          0 :     [&amp;logger_pub, &amp;executor, &amp;pendulum_motor, &amp;pendulum_controller]() {</span></a>
-<a name="251"><span class="lineNum">     251 </span>                :            :       pendulum_msgs::msg::RttestResults results_msg;</a>
+<a name="251"><span class="lineNum">     251 </span>                :<span class="lineNoCov">          0 :       pendulum_msgs::msg::RttestResults results_msg;</span></a>
 <a name="252"><span class="lineNum">     252 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       if (!executor-&gt;set_rtt_results_message(results_msg)) {</span></a>
 <a name="253"><span class="lineNum">     253 </span>                :            :         // No data is available, just get out instead of publishing bogus data.</a>
 <a name="254"><span class="lineNum">     254 </span>                :<span class="lineNoCov">          0 :         return;</span></a>
 <a name="255"><span class="lineNum">     255 </span>                :            :       }</a>
 <a name="256"><span class="lineNum">     256 </span>                :<span class="lineNoCov">          0 :       results_msg.command = pendulum_controller-&gt;get_next_command_message();</span></a>
 <a name="257"><span class="lineNum">     257 </span>                :<span class="lineNoCov">          0 :       results_msg.state = pendulum_motor-&gt;get_next_sensor_message();</span></a>
-<a name="258"><span class="lineNum">     258 </span>                :<span class="lineNoCov">          0 :       logger_pub-&gt;publish(results_msg);</span></a>
-<a name="259"><span class="lineNum">     259 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     };</span></a>
+<a name="258"><span class="lineNum">     258 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       logger_pub-&gt;publish(results_msg);</span></a>
+<a name="259"><span class="lineNum">     259 </span>                :<span class="lineNoCov">          0 :     };</span></a>
 <a name="260"><span class="lineNum">     260 </span>                :            : </a>
 <a name="261"><span class="lineNum">     261 </span>                :            :   // Add a timer to enable regular publication of sensor messages.</a>
 <a name="262"><span class="lineNum">     262 </span>                :            :   auto motor_publisher_timer = motor_node-&gt;create_wall_timer(</a>
-<a name="263"><span class="lineNum">     263 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :     pendulum_motor-&gt;get_publish_period(), motor_publish_callback);</span></a>
-<span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
+<a name="263"><span class="lineNum">     263 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     pendulum_motor-&gt;get_publish_period(), motor_publish_callback);</span></a>
 <a name="264"><span class="lineNum">     264 </span>                :            :   // Add a timer to enable regular publication of command messages.</a>
 <a name="265"><span class="lineNum">     265 </span>                :            :   auto controller_publisher_timer = controller_node-&gt;create_wall_timer(</a>
-<a name="266"><span class="lineNum">     266 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :     pendulum_controller-&gt;get_publish_period(), controller_publish_callback);</span></a>
-<span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
+<a name="266"><span class="lineNum">     266 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     pendulum_controller-&gt;get_publish_period(), controller_publish_callback);</span></a>
 <a name="267"><span class="lineNum">     267 </span>                :            :   // Add a timer to enable regular publication of results messages.</a>
 <a name="268"><span class="lineNum">     268 </span>                :            :   auto logger_publisher_timer = controller_node-&gt;create_wall_timer(</a>
-<a name="269"><span class="lineNum">     269 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     logger_publisher_period, logger_publish_callback);</span></a>
+<a name="269"><span class="lineNum">     269 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     logger_publisher_period, logger_publish_callback);</span></a>
 <a name="270"><span class="lineNum">     270 </span>                :            : </a>
 <a name="271"><span class="lineNum">     271 </span>                :            :   // Set the priority of this thread to the maximum safe value, and set its scheduling policy to a</a>
 <a name="272"><span class="lineNum">     272 </span>                :            :   // deterministic (real-time safe) algorithm, round robin.</a>
@@ -381,13 +371,13 @@
 <a name="289"><span class="lineNum">     289 </span>                :            :   // End initialization phase</a>
 <a name="290"><span class="lineNum">     290 </span>                :            : </a>
 <a name="291"><span class="lineNum">     291 </span>                :            :   // Execution phase</a>
-<a name="292"><span class="lineNum">     292 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   running = true;</span></a>
+<a name="292"><span class="lineNum">     292 </span>                :<span class="lineNoCov">          0 :   running = true;</span></a>
 <a name="293"><span class="lineNum">     293 </span>                :            : </a>
 <a name="294"><span class="lineNum">     294 </span>                :            :   // Unlike the default SingleThreadedExecutor::spin function, RttExecutor::spin runs in</a>
 <a name="295"><span class="lineNum">     295 </span>                :            :   // bounded time (for as many iterations as specified in the rttest parameters).</a>
 <a name="296"><span class="lineNum">     296 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   executor-&gt;spin();</span></a>
 <a name="297"><span class="lineNum">     297 </span>                :            :   // Once the executor has exited, notify the physics simulation to stop running.</a>
-<a name="298"><span class="lineNum">     298 </span>                :            :   pendulum_motor-&gt;set_done(true);</a>
+<a name="298"><span class="lineNum">     298 </span>                :<span class="lineNoCov">          0 :   pendulum_motor-&gt;set_done(true);</span></a>
 <a name="299"><span class="lineNum">     299 </span>                :            : </a>
 <a name="300"><span class="lineNum">     300 </span>                :            :   // End execution phase</a>
 <a name="301"><span class="lineNum">     301 </span>                :            : </a>
@@ -398,11 +388,9 @@
 <a name="306"><span class="lineNum">     306 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   printf(&quot;PendulumMotor received %zu messages\n&quot;, pendulum_motor-&gt;messages_received);</span></a>
 <a name="307"><span class="lineNum">     307 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   printf(&quot;PendulumController received %zu messages\n&quot;, pendulum_controller-&gt;messages_received);</span></a>
 <a name="308"><span class="lineNum">     308 </span>                :            : </a>
-<a name="309"><span class="lineNum">     309 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :   rclcpp::shutdown();</span></a>
-<span class="lineNum">         </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span> 
-<span class="lineNum">         </span>            <span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<a name="309"><span class="lineNum">     309 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   rclcpp::shutdown();</span></a>
 <a name="310"><span class="lineNum">     310 </span>                :            : </a>
-<a name="311"><span class="lineNum">     311 </span>                :            :   return 0;</a>
+<a name="311"><span class="lineNum">     311 </span>                :<span class="lineNoCov">          0 :   return 0;</span></a>
 <a name="312"><span class="lineNum">     312 </span>                :            : }</a>
 </pre>
       </td>

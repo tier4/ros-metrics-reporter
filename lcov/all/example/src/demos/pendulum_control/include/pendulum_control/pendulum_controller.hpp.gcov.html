@@ -32,16 +32,16 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">32</td>
+            <td class="headerCovTableEntry">40</td>
             <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2021-06-08 04:48:17</td>
+            <td class="headerValue">2021-06-15 08:11:13</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">7</td>
             <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
@@ -57,7 +57,7 @@
             <td></td>
             <td class="headerItem">Branches:</td>
             <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">22</td>
+            <td class="headerCovTableEntry">20</td>
             <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr><td><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
@@ -131,12 +131,13 @@
 <a name="53"><span class="lineNum">      53 </span>                :            :    */</a>
 <a name="54"><span class="lineNum">      54 </span>                :<span class="lineNoCov">          0 :   PendulumController(std::chrono::nanoseconds period, PIDProperties pid)</span></a>
 <a name="55"><span class="lineNum">      55 </span>                :<span class="lineNoCov">          0 :   : publish_period_(period), pid_(pid),</span></a>
-<a name="56"><span class="lineNum">      56 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     message_ready_(false)</span></a>
+<a name="56"><span class="lineNum">      56 </span>                :<span class="lineNoCov">          0 :     message_ready_(false)</span></a>
 <a name="57"><span class="lineNum">      57 </span>                :            :   {</a>
 <a name="58"><span class="lineNum">      58 </span>                :<span class="lineNoCov">          0 :     command_message_.position = pid_.command;</span></a>
 <a name="59"><span class="lineNum">      59 </span>                :            :     // Calculate the controller timestep (for discrete differentiation/integration).</a>
 <a name="60"><span class="lineNum">      60 </span>                :<span class="lineNoCov">          0 :     dt_ = publish_period_.count() / (1000.0 * 1000.0 * 1000.0);</span></a>
-<a name="61"><span class="lineNum">      61 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (std::isnan(dt_) || dt_ == 0) {</span></a>
+<a name="61"><span class="lineNum">      61 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :     if (std::isnan(dt_) || dt_ == 0) {</span></a>
+<span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
 <a name="62"><span class="lineNum">      62 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       throw std::runtime_error(&quot;Invalid dt_ calculated in PendulumController constructor&quot;);</span></a>
 <a name="63"><span class="lineNum">      63 </span>                :            :     }</a>
 <a name="64"><span class="lineNum">      64 </span>                :<span class="lineNoCov">          0 :   }</span></a>
@@ -145,7 +146,7 @@
 <a name="67"><span class="lineNum">      67 </span>                :            :   // \param[in] msg Received sensor message.</a>
 <a name="68"><span class="lineNum">      68 </span>                :<span class="lineNoCov">          0 :   void on_sensor_message(pendulum_msgs::msg::JointState::ConstSharedPtr msg)</span></a>
 <a name="69"><span class="lineNum">      69 </span>                :            :   {</a>
-<a name="70"><span class="lineNum">      70 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     ++messages_received;</span></a>
+<a name="70"><span class="lineNum">      70 </span>                :<span class="lineNoCov">          0 :     ++messages_received;</span></a>
 <a name="71"><span class="lineNum">      71 </span>                :            : </a>
 <a name="72"><span class="lineNum">      72 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (std::isnan(msg-&gt;position)) {</span></a>
 <a name="73"><span class="lineNum">      73 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       throw std::runtime_error(&quot;Sensor value was NaN in on_sensor_message callback&quot;);</span></a>
@@ -184,23 +185,23 @@
 <a name="106"><span class="lineNum">     106 </span>                :            : </a>
 <a name="107"><span class="lineNum">     107 </span>                :            :   /// Retrieve the command calculated from the last sensor message.</a>
 <a name="108"><span class="lineNum">     108 </span>                :            :   // \return Command message</a>
-<a name="109"><span class="lineNum">     109 </span>                :            :   const pendulum_msgs::msg::JointCommand &amp; get_next_command_message() const</a>
+<a name="109"><span class="lineNum">     109 </span>                :<span class="lineNoCov">          0 :   const pendulum_msgs::msg::JointCommand &amp; get_next_command_message() const</span></a>
 <a name="110"><span class="lineNum">     110 </span>                :            :   {</a>
-<a name="111"><span class="lineNum">     111 </span>                :            :     return command_message_;</a>
+<a name="111"><span class="lineNum">     111 </span>                :<span class="lineNoCov">          0 :     return command_message_;</span></a>
 <a name="112"><span class="lineNum">     112 </span>                :            :   }</a>
 <a name="113"><span class="lineNum">     113 </span>                :            : </a>
 <a name="114"><span class="lineNum">     114 </span>                :            :   /// True if the command message has been initialized.</a>
 <a name="115"><span class="lineNum">     115 </span>                :            :   // \return True if the message is ready.</a>
-<a name="116"><span class="lineNum">     116 </span>                :            :   bool next_message_ready() const</a>
+<a name="116"><span class="lineNum">     116 </span>                :<span class="lineNoCov">          0 :   bool next_message_ready() const</span></a>
 <a name="117"><span class="lineNum">     117 </span>                :            :   {</a>
-<a name="118"><span class="lineNum">     118 </span>                :            :     return message_ready_;</a>
+<a name="118"><span class="lineNum">     118 </span>                :<span class="lineNoCov">          0 :     return message_ready_;</span></a>
 <a name="119"><span class="lineNum">     119 </span>                :            :   }</a>
 <a name="120"><span class="lineNum">     120 </span>                :            : </a>
 <a name="121"><span class="lineNum">     121 </span>                :            :   /// Get the update period of the controller.</a>
 <a name="122"><span class="lineNum">     122 </span>                :            :   // \return Duration struct representing the update period in nanoseconds.</a>
-<a name="123"><span class="lineNum">     123 </span>                :            :   std::chrono::nanoseconds get_publish_period() const</a>
+<a name="123"><span class="lineNum">     123 </span>                :<span class="lineNoCov">          0 :   std::chrono::nanoseconds get_publish_period() const</span></a>
 <a name="124"><span class="lineNum">     124 </span>                :            :   {</a>
-<a name="125"><span class="lineNum">     125 </span>                :            :     return publish_period_;</a>
+<a name="125"><span class="lineNum">     125 </span>                :<span class="lineNoCov">          0 :     return publish_period_;</span></a>
 <a name="126"><span class="lineNum">     126 </span>                :            :   }</a>
 <a name="127"><span class="lineNum">     127 </span>                :            : </a>
 <a name="128"><span class="lineNum">     128 </span>                :            :   /// Set the properties of the PID controller (gains and desired output).</a>
@@ -219,10 +220,10 @@
 <a name="141"><span class="lineNum">     141 </span>                :            : </a>
 <a name="142"><span class="lineNum">     142 </span>                :            :   /// Set the commanded position of the controller.</a>
 <a name="143"><span class="lineNum">     143 </span>                :            :   // \param[in] command The new commanded position (in radians).</a>
-<a name="144"><span class="lineNum">     144 </span>                :            :   void set_command(double command)</a>
+<a name="144"><span class="lineNum">     144 </span>                :<span class="lineNoCov">          0 :   void set_command(double command)</span></a>
 <a name="145"><span class="lineNum">     145 </span>                :            :   {</a>
 <a name="146"><span class="lineNum">     146 </span>                :<span class="lineNoCov">          0 :     pid_.command = command;</span></a>
-<a name="147"><span class="lineNum">     147 </span>                :            :   }</a>
+<a name="147"><span class="lineNum">     147 </span>                :<span class="lineNoCov">          0 :   }</span></a>
 <a name="148"><span class="lineNum">     148 </span>                :            : </a>
 <a name="149"><span class="lineNum">     149 </span>                :            :   /// Get the commanded position of the controller.</a>
 <a name="150"><span class="lineNum">     150 </span>                :            :   // \return The commanded position.</a>

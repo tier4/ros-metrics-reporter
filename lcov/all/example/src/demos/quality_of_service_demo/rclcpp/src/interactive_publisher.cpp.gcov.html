@@ -32,16 +32,16 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">61</td>
+            <td class="headerCovTableEntry">88</td>
             <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2021-06-08 04:48:17</td>
+            <td class="headerValue">2021-06-15 08:11:13</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">6</td>
             <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
@@ -57,7 +57,7 @@
             <td></td>
             <td class="headerItem">Branches:</td>
             <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">130</td>
+            <td class="headerCovTableEntry">156</td>
             <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr><td><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
@@ -114,35 +114,35 @@
 <a name="36"><span class="lineNum">      36 </span>                :<span class="lineNoCov">          0 : void print_usage(const char * progname)</span></a>
 <a name="37"><span class="lineNum">      37 </span>                :            : {</a>
 <a name="38"><span class="lineNum">      38 </span>                :<span class="lineNoCov">          0 :   std::cout &lt;&lt; progname &lt;&lt; &quot; [OPTIONS]&quot; &lt;&lt; std::endl &lt;&lt;</span></a>
-<a name="39"><span class="lineNum">      39 </span>                :            :     std::endl &lt;&lt; &quot;Options when starting the demo:&quot; &lt;&lt; std::endl &lt;&lt;</a>
-<a name="40"><span class="lineNum">      40 </span>                :            :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; OPTION_HELP &lt;&lt;</a>
-<a name="41"><span class="lineNum">      41 </span>                :            :     &quot;print this help message&quot; &lt;&lt; std::endl &lt;&lt;</a>
-<a name="42"><span class="lineNum">      42 </span>                :            :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; OPTION_PUBLISH_DELAY &lt;&lt;</a>
-<a name="43"><span class="lineNum">      43 </span>                :            :     &quot;the amount of delay between publishing subsequent messages&quot; &lt;&lt; std::endl &lt;&lt;</a>
-<a name="44"><span class="lineNum">      44 </span>                :            :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; OPTION_DEADLINE_PERIOD &lt;&lt;</a>
-<a name="45"><span class="lineNum">      45 </span>                :            :     &quot;deadline period in seconds&quot; &lt;&lt; std::endl &lt;&lt;</a>
-<a name="46"><span class="lineNum">      46 </span>                :            :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; OPTION_LIVELINESS_KIND &lt;&lt;</a>
-<a name="47"><span class="lineNum">      47 </span>                :            :     &quot;liveliness kind&quot; &lt;&lt; std::endl &lt;&lt;</a>
-<a name="48"><span class="lineNum">      48 </span>                :            :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; OPTION_LEASE_DURATION &lt;&lt;</a>
-<a name="49"><span class="lineNum">      49 </span>                :            :     &quot;lease duration for liveliness in seconds&quot; &lt;&lt; std::endl &lt;&lt;</a>
-<a name="50"><span class="lineNum">      50 </span>                :            :     std::endl &lt;&lt;</a>
+<a name="39"><span class="lineNum">      39 </span>                :<span class="lineNoCov">          0 :     std::endl &lt;&lt; &quot;Options when starting the demo:&quot; &lt;&lt; std::endl &lt;&lt;</span></a>
+<a name="40"><span class="lineNum">      40 </span>                :<span class="lineNoCov">          0 :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; OPTION_HELP &lt;&lt;</span></a>
+<a name="41"><span class="lineNum">      41 </span>                :<span class="lineNoCov">          0 :     &quot;print this help message&quot; &lt;&lt; std::endl &lt;&lt;</span></a>
+<a name="42"><span class="lineNum">      42 </span>                :<span class="lineNoCov">          0 :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; OPTION_PUBLISH_DELAY &lt;&lt;</span></a>
+<a name="43"><span class="lineNum">      43 </span>                :<span class="lineNoCov">          0 :     &quot;the amount of delay between publishing subsequent messages&quot; &lt;&lt; std::endl &lt;&lt;</span></a>
+<a name="44"><span class="lineNum">      44 </span>                :<span class="lineNoCov">          0 :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; OPTION_DEADLINE_PERIOD &lt;&lt;</span></a>
+<a name="45"><span class="lineNum">      45 </span>                :<span class="lineNoCov">          0 :     &quot;deadline period in seconds&quot; &lt;&lt; std::endl &lt;&lt;</span></a>
+<a name="46"><span class="lineNum">      46 </span>                :<span class="lineNoCov">          0 :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; OPTION_LIVELINESS_KIND &lt;&lt;</span></a>
+<a name="47"><span class="lineNum">      47 </span>                :<span class="lineNoCov">          0 :     &quot;liveliness kind&quot; &lt;&lt; std::endl &lt;&lt;</span></a>
+<a name="48"><span class="lineNum">      48 </span>                :<span class="lineNoCov">          0 :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; OPTION_LEASE_DURATION &lt;&lt;</span></a>
+<a name="49"><span class="lineNum">      49 </span>                :<span class="lineNoCov">          0 :     &quot;lease duration for liveliness in seconds&quot; &lt;&lt; std::endl &lt;&lt;</span></a>
+<a name="50"><span class="lineNum">      50 </span>                :<span class="lineNoCov">          0 :     std::endl &lt;&lt;</span></a>
 <a name="51"><span class="lineNum">      51 </span>                :            : </a>
-<a name="52"><span class="lineNum">      52 </span>                :            :     &quot;Commands when the demo is running:&quot; &lt;&lt; std::endl &lt;&lt;</a>
-<a name="53"><span class="lineNum">      53 </span>                :            :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; 'p' &lt;&lt;</a>
+<a name="52"><span class="lineNum">      52 </span>                :<span class="lineNoCov">          0 :     &quot;Commands when the demo is running:&quot; &lt;&lt; std::endl &lt;&lt;</span></a>
+<a name="53"><span class="lineNum">      53 </span>                :<span class="lineNoCov">          0 :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; 'p' &lt;&lt;</span></a>
 <a name="54"><span class="lineNum">      54 </span>                :<span class="lineNoCov">          0 :     &quot;manually assert the liveliness of the publisher&quot; &lt;&lt; std::endl &lt;&lt;</span></a>
-<a name="55"><span class="lineNum">      55 </span>                :            :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; 's' &lt;&lt;</a>
+<a name="55"><span class="lineNum">      55 </span>                :<span class="lineNoCov">          0 :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; 's' &lt;&lt;</span></a>
 <a name="56"><span class="lineNum">      56 </span>                :<span class="lineNoCov">          0 :     &quot;toggle start/stop of publishing messages&quot; &lt;&lt; std::endl &lt;&lt;</span></a>
-<a name="57"><span class="lineNum">      57 </span>                :            :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; 'q' &lt;&lt;</a>
+<a name="57"><span class="lineNum">      57 </span>                :<span class="lineNoCov">          0 :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; 'q' &lt;&lt;</span></a>
 <a name="58"><span class="lineNum">      58 </span>                :<span class="lineNoCov">          0 :     &quot;print the QoS settings of the publisher&quot; &lt;&lt; std::endl &lt;&lt;</span></a>
-<a name="59"><span class="lineNum">      59 </span>                :            :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; 'x' &lt;&lt;</a>
+<a name="59"><span class="lineNum">      59 </span>                :<span class="lineNoCov">          0 :     std::left &lt;&lt; std::setw(14) &lt;&lt; std::setfill(' ') &lt;&lt; 'x' &lt;&lt;</span></a>
 <a name="60"><span class="lineNum">      60 </span>                :<span class="lineNoCov">          0 :     &quot;exit the demo&quot; &lt;&lt; std::endl &lt;&lt;</span></a>
-<a name="61"><span class="lineNum">      61 </span>                :            :     std::endl;</a>
+<a name="61"><span class="lineNum">      61 </span>                :<span class="lineNoCov">          0 :     std::endl;</span></a>
 <a name="62"><span class="lineNum">      62 </span>                :<span class="lineNoCov">          0 : }</span></a>
 <a name="63"><span class="lineNum">      63 </span>                :            : </a>
 <a name="64"><span class="lineNum">      64 </span>                :            : class PublisherCommandHandler : public CommandGetter</a>
 <a name="65"><span class="lineNum">      65 </span>                :            : {</a>
 <a name="66"><span class="lineNum">      66 </span>                :            : public:</a>
-<a name="67"><span class="lineNum">      67 </span>                :            :   PublisherCommandHandler(</a>
+<a name="67"><span class="lineNum">      67 </span>                :<span class="lineNoCov">          0 :   PublisherCommandHandler(</span></a>
 <a name="68"><span class="lineNum">      68 </span>                :            :     rclcpp::executors::SingleThreadedExecutor &amp; exec,</a>
 <a name="69"><span class="lineNum">      69 </span>                :            :     std::weak_ptr&lt;Talker&gt; publisher)</a>
 <a name="70"><span class="lineNum">      70 </span>                :<span class="lineNoCov">          0 :   : exec_(exec), publisher_(publisher) {}</span></a>
@@ -153,7 +153,7 @@
 <a name="75"><span class="lineNum">      75 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (cmd == 'x') {</span></a>
 <a name="76"><span class="lineNum">      76 </span>                :            :       // signal program exit</a>
 <a name="77"><span class="lineNum">      77 </span>                :<span class="lineNoCov">          0 :       exec_.cancel();</span></a>
-<a name="78"><span class="lineNum">      78 </span>                :            :       std::cout &lt;&lt; &quot;exiting the demo...&quot; &lt;&lt; std::endl;</a>
+<a name="78"><span class="lineNum">      78 </span>                :<span class="lineNoCov">          0 :       std::cout &lt;&lt; &quot;exiting the demo...&quot; &lt;&lt; std::endl;</span></a>
 <a name="79"><span class="lineNum">      79 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     } else if (auto publisher = publisher_.lock()) {</span></a>
 <a name="80"><span class="lineNum">      80 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       if (cmd == 'p') {</span></a>
 <a name="81"><span class="lineNum">      81 </span>                :            :         // manually assert liveliness of publisher</a>
@@ -175,8 +175,9 @@
 <a name="97"><span class="lineNum">      97 </span>                :            : </a>
 <a name="98"><span class="lineNum">      98 </span>                :<span class="lineNoCov">          0 : int main(int argc, char * argv[])</span></a>
 <a name="99"><span class="lineNum">      99 </span>                :            : {</a>
-<a name="100"><span class="lineNum">     100 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   rclcpp::init(argc, argv);</span></a>
-<a name="101"><span class="lineNum">     101 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   rclcpp::executors::SingleThreadedExecutor exec;</span></a>
+<a name="100"><span class="lineNum">     100 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :   rclcpp::init(argc, argv);</span></a>
+<span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
+<a name="101"><span class="lineNum">     101 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   rclcpp::executors::SingleThreadedExecutor exec;</span></a>
 <a name="102"><span class="lineNum">     102 </span>                :            : </a>
 <a name="103"><span class="lineNum">     103 </span>                :            :   // Required arguments</a>
 <a name="104"><span class="lineNum">     104 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   rclcpp::QoS qos_settings(10);</span></a>
@@ -185,19 +186,20 @@
 <a name="107"><span class="lineNum">     107 </span>                :            :   // Optional argument parsing</a>
 <a name="108"><span class="lineNum">     108 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (rcutils_cli_option_exist(argv, argv + argc, OPTION_HELP)) {</span></a>
 <a name="109"><span class="lineNum">     109 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     print_usage(argv[0]);</span></a>
-<a name="110"><span class="lineNum">     110 </span>                :            :     return 0;</a>
+<a name="110"><span class="lineNum">     110 </span>                :<span class="lineNoCov">          0 :     return 0;</span></a>
 <a name="111"><span class="lineNum">     111 </span>                :            :   }</a>
 <a name="112"><span class="lineNum">     112 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (rcutils_cli_option_exist(argv, argv + argc, OPTION_PUBLISH_DELAY)) {</span></a>
-<a name="113"><span class="lineNum">     113 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     publish_delay = std::chrono::milliseconds(</span></a>
-<a name="114"><span class="lineNum">     114 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       static_cast&lt;int&gt;(1000 *</span></a>
-<a name="115"><span class="lineNum">     115 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :       std::stof(rcutils_cli_get_option(argv, argv + argc, OPTION_PUBLISH_DELAY))));</span></a>
+<a name="113"><span class="lineNum">     113 </span>                :<span class="lineNoCov">          0 :     publish_delay = std::chrono::milliseconds(</span></a>
+<a name="114"><span class="lineNum">     114 </span>                :<span class="lineNoCov">          0 :       static_cast&lt;int&gt;(1000 *</span></a>
+<a name="115"><span class="lineNum">     115 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :       std::stof(rcutils_cli_get_option(argv, argv + argc, OPTION_PUBLISH_DELAY))));</span></a>
+<span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
 <a name="116"><span class="lineNum">     116 </span>                :            :   }</a>
 <a name="117"><span class="lineNum">     117 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (rcutils_cli_option_exist(argv, argv + argc, OPTION_DEADLINE_PERIOD)) {</span></a>
 <a name="118"><span class="lineNum">     118 </span>                :            :     auto period = std::chrono::milliseconds(</a>
-<a name="119"><span class="lineNum">     119 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       static_cast&lt;int&gt;(1000 *</span></a>
+<a name="119"><span class="lineNum">     119 </span>                :<span class="lineNoCov">          0 :       static_cast&lt;int&gt;(1000 *</span></a>
 <a name="120"><span class="lineNum">     120 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :       std::stof(rcutils_cli_get_option(argv, argv + argc, OPTION_DEADLINE_PERIOD))));</span></a>
 <span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
-<a name="121"><span class="lineNum">     121 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     qos_settings.deadline(period);</span></a>
+<a name="121"><span class="lineNum">     121 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     qos_settings.deadline(period);</span></a>
 <a name="122"><span class="lineNum">     122 </span>                :            :   }</a>
 <a name="123"><span class="lineNum">     123 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (rcutils_cli_option_exist(argv, argv + argc, OPTION_LIVELINESS_KIND)) {</span></a>
 <a name="124"><span class="lineNum">     124 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     std::string kind = rcutils_cli_get_option(argv, argv + argc, OPTION_LIVELINESS_KIND);</span></a>
@@ -206,38 +208,40 @@
 <a name="127"><span class="lineNum">     127 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     } else if (kind == &quot;MANUAL_BY_TOPIC&quot;) {</span></a>
 <a name="128"><span class="lineNum">     128 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       qos_settings.liveliness(RMW_QOS_POLICY_LIVELINESS_MANUAL_BY_TOPIC);</span></a>
 <a name="129"><span class="lineNum">     129 </span>                :            :     } else {</a>
-<a name="130"><span class="lineNum">     130 </span>                :            :       std::cout &lt;&lt; &quot;error: invalid liveliness kind specified&quot; &lt;&lt; std::endl &lt;&lt;</a>
-<a name="131"><span class="lineNum">     131 </span>                :            :         &quot;must be one of: AUTOMATIC, MANUAL_BY_TOPIC&quot; &lt;&lt; std::endl;</a>
-<a name="132"><span class="lineNum">     132 </span>                :            :       return -1;</a>
+<a name="130"><span class="lineNum">     130 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :       std::cout &lt;&lt; &quot;error: invalid liveliness kind specified&quot; &lt;&lt; std::endl &lt;&lt;</span></a>
+<a name="131"><span class="lineNum">     131 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :         &quot;must be one of: AUTOMATIC, MANUAL_BY_TOPIC&quot; &lt;&lt; std::endl;</span></a>
+<a name="132"><span class="lineNum">     132 </span>                :<span class="lineNoCov">          0 :       return -1;</span></a>
 <a name="133"><span class="lineNum">     133 </span>                :            :     }</a>
 <a name="134"><span class="lineNum">     134 </span>                :            :   }</a>
 <a name="135"><span class="lineNum">     135 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (rcutils_cli_option_exist(argv, argv + argc, OPTION_LEASE_DURATION)) {</span></a>
 <a name="136"><span class="lineNum">     136 </span>                :            :     auto duration = std::chrono::milliseconds(</a>
-<a name="137"><span class="lineNum">     137 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       static_cast&lt;int&gt;(1000 *</span></a>
+<a name="137"><span class="lineNum">     137 </span>                :<span class="lineNoCov">          0 :       static_cast&lt;int&gt;(1000 *</span></a>
 <a name="138"><span class="lineNum">     138 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :       std::stof(rcutils_cli_get_option(argv, argv + argc, OPTION_LEASE_DURATION))));</span></a>
 <span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
-<a name="139"><span class="lineNum">     139 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     qos_settings.liveliness_lease_duration(duration);</span></a>
+<a name="139"><span class="lineNum">     139 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     qos_settings.liveliness_lease_duration(duration);</span></a>
 <a name="140"><span class="lineNum">     140 </span>                :            :   }</a>
 <a name="141"><span class="lineNum">     141 </span>                :            : </a>
 <a name="142"><span class="lineNum">     142 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto talker = std::make_shared&lt;Talker&gt;(qos_settings, DEFAULT_TOPIC_NAME, 0, publish_delay);</span></a>
-<a name="143"><span class="lineNum">     143 </span>                :            :   talker-&gt;get_options().event_callbacks.deadline_callback =</a>
+<a name="143"><span class="lineNum">     143 </span>                :<span class="lineNoCov">          0 :   talker-&gt;get_options().event_callbacks.deadline_callback =</span></a>
 <a name="144"><span class="lineNum">     144 </span>                :<span class="lineNoCov">          0 :     [node = talker.get()](rclcpp::QOSDeadlineOfferedInfo &amp; event) {</span></a>
 <a name="145"><span class="lineNum">     145 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :       RCLCPP_INFO(</span></a>
 <span class="lineNum">         </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span> 
-<span class="lineNum">         </span>            <span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span><span class="branchNoExec" title="Branch 12 was not executed"> # </span><span class="branchNoExec" title="Branch 13 was not executed"> # </span> 
+<span class="lineNum">         </span>   <span class="branchNoExec" title="Branch 14 was not executed"> # </span><span class="branchNoExec" title="Branch 15 was not executed"> # </span><span class="branchNoExec" title="Branch 16 was not executed"> # </span><span class="branchNoExec" title="Branch 17 was not executed"> # </span>]
 <a name="146"><span class="lineNum">     146 </span>                :            :         node-&gt;get_logger(), &quot;Deadline missed - total %d (delta %d)&quot;,</a>
 <a name="147"><span class="lineNum">     147 </span>                :            :         event.total_count, event.total_count_change);</a>
-<a name="148"><span class="lineNum">     148 </span>                :<span class="lineNoCov">          0 :     };</span></a>
-<a name="149"><span class="lineNum">     149 </span>                :            :   talker-&gt;get_options().event_callbacks.liveliness_callback =</a>
+<a name="148"><span class="lineNum">     148 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     };</span></a>
+<a name="149"><span class="lineNum">     149 </span>                :<span class="lineNoCov">          0 :   talker-&gt;get_options().event_callbacks.liveliness_callback =</span></a>
 <a name="150"><span class="lineNum">     150 </span>                :<span class="lineNoCov">          0 :     [node = talker.get()](rclcpp::QOSLivelinessLostInfo &amp; event) {</span></a>
 <a name="151"><span class="lineNum">     151 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :       RCLCPP_INFO(</span></a>
 <span class="lineNum">         </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span> 
-<span class="lineNum">         </span>            <span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span><span class="branchNoExec" title="Branch 12 was not executed"> # </span><span class="branchNoExec" title="Branch 13 was not executed"> # </span> 
+<span class="lineNum">         </span>   <span class="branchNoExec" title="Branch 14 was not executed"> # </span><span class="branchNoExec" title="Branch 15 was not executed"> # </span><span class="branchNoExec" title="Branch 16 was not executed"> # </span><span class="branchNoExec" title="Branch 17 was not executed"> # </span>]
 <a name="152"><span class="lineNum">     152 </span>                :            :         node-&gt;get_logger(), &quot;Liveliness lost - total %d (delta %d)&quot;,</a>
 <a name="153"><span class="lineNum">     153 </span>                :            :         event.total_count, event.total_count_change);</a>
-<a name="154"><span class="lineNum">     154 </span>                :<span class="lineNoCov">          0 :     };</span></a>
+<a name="154"><span class="lineNum">     154 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     };</span></a>
 <a name="155"><span class="lineNum">     155 </span>                :            : </a>
-<a name="156"><span class="lineNum">     156 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   PublisherCommandHandler cmd_handler(exec, talker);</span></a>
+<a name="156"><span class="lineNum">     156 </span>                :<span class="lineNoCov">          0 :   PublisherCommandHandler cmd_handler(exec, talker);</span></a>
 <a name="157"><span class="lineNum">     157 </span>                :            : </a>
 <a name="158"><span class="lineNum">     158 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   talker-&gt;initialize();</span></a>
 <a name="159"><span class="lineNum">     159 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   talker-&gt;print_qos();</span></a>
@@ -248,10 +252,9 @@
 <a name="164"><span class="lineNum">     164 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   exec.remove_node(talker);</span></a>
 <a name="165"><span class="lineNum">     165 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   cmd_handler.stop();</span></a>
 <a name="166"><span class="lineNum">     166 </span>                :            : </a>
-<a name="167"><span class="lineNum">     167 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :   rclcpp::shutdown();</span></a>
-<span class="lineNum">         </span>   <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
+<a name="167"><span class="lineNum">     167 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   rclcpp::shutdown();</span></a>
 <a name="168"><span class="lineNum">     168 </span>                :            : </a>
-<a name="169"><span class="lineNum">     169 </span>                :            :   return 0;</a>
+<a name="169"><span class="lineNum">     169 </span>                :<span class="lineNoCov">          0 :   return 0;</span></a>
 <a name="170"><span class="lineNum">     170 </span>                :            : }</a>
 </pre>
       </td>

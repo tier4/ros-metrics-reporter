@@ -31,18 +31,18 @@
             <td class="headerValue">lcov.total.filtered</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">12</td>
-            <td class="headerCovTableEntryLo">0.0 %</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">16</td>
+            <td class="headerCovTableEntryLo">6.2 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2021-06-08 04:51:20</td>
+            <td class="headerValue">2021-06-15 08:13:42</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">2</td>
-            <td class="headerCovTableEntryLo">0.0 %</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntryLo">33.3 %</td>
           </tr>
           <tr>
             <td class="headerItem">Legend:</td>
@@ -56,9 +56,9 @@
 </td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">24</td>
-            <td class="headerCovTableEntryLo">0.0 %</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">54</td>
+            <td class="headerCovTableEntryLo">9.3 %</td>
           </tr>
           <tr><td><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -125,20 +125,22 @@
 <a name="47"><span class="lineNum">      47 </span>                :            :         // Print the serialized data message in HEX representation</a>
 <a name="48"><span class="lineNum">      48 </span>                :            :         // This output corresponds to what you would see in e.g. Wireshark</a>
 <a name="49"><span class="lineNum">      49 </span>                :            :         // when tracing the RTPS packets.</a>
-<a name="50"><span class="lineNum">      50 </span>                :<span class="lineNoCov">          0 :         std::cout &lt;&lt; &quot;I heard data of length: &quot; &lt;&lt; msg-&gt;size() &lt;&lt; std::endl;</span></a>
-<a name="51"><span class="lineNum">      51 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         for (size_t i = 0; i &lt; msg-&gt;size(); ++i) {</span></a>
-<a name="52"><span class="lineNum">      52 </span>                :<span class="lineNoCov">          0 :           printf(&quot;%02x &quot;, msg-&gt;get_rcl_serialized_message().buffer[i]);</span></a>
+<a name="50"><span class="lineNum">      50 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :         std::cout &lt;&lt; &quot;I heard data of length: &quot; &lt;&lt; msg-&gt;size() &lt;&lt; std::endl;</span></a>
+<span class="lineNum">         </span>   <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
+<a name="51"><span class="lineNum">      51 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :         for (size_t i = 0; i &lt; msg-&gt;size(); ++i) {</span></a>
+<a name="52"><span class="lineNum">      52 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :           printf(&quot;%02x &quot;, msg-&gt;get_rcl_serialized_message().buffer[i]);</span></a>
 <a name="53"><span class="lineNum">      53 </span>                :            :         }</a>
-<a name="54"><span class="lineNum">      54 </span>                :            :         printf(&quot;\n&quot;);</a>
+<a name="54"><span class="lineNum">      54 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         printf(&quot;\n&quot;);</span></a>
 <a name="55"><span class="lineNum">      55 </span>                :            : </a>
 <a name="56"><span class="lineNum">      56 </span>                :            :         // In order to deserialize the message we have to manually create a ROS2</a>
 <a name="57"><span class="lineNum">      57 </span>                :            :         // message in which we want to convert the serialized data.</a>
 <a name="58"><span class="lineNum">      58 </span>                :            :         using MessageT = std_msgs::msg::String;</a>
-<a name="59"><span class="lineNum">      59 </span>                :<span class="lineNoCov">          0 :         MessageT string_msg;</span></a>
-<a name="60"><span class="lineNum">      60 </span>                :            :         auto serializer = rclcpp::Serialization&lt;MessageT&gt;();</a>
+<a name="59"><span class="lineNum">      59 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         MessageT string_msg;</span></a>
+<a name="60"><span class="lineNum">      60 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         auto serializer = rclcpp::Serialization&lt;MessageT&gt;();</span></a>
 <a name="61"><span class="lineNum">      61 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         serializer.deserialize_message(msg.get(), &amp;string_msg);</span></a>
 <a name="62"><span class="lineNum">      62 </span>                :            :         // Finally print the ROS2 message data</a>
-<a name="63"><span class="lineNum">      63 </span>                :            :         std::cout &lt;&lt; &quot;serialized data after deserialization: &quot; &lt;&lt; string_msg.data &lt;&lt; std::endl;</a>
+<a name="63"><span class="lineNum">      63 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :         std::cout &lt;&lt; &quot;serialized data after deserialization: &quot; &lt;&lt; string_msg.data &lt;&lt; std::endl;</span></a>
+<span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
 <a name="64"><span class="lineNum">      64 </span>                :<span class="lineNoCov">          0 :       };</span></a>
 <a name="65"><span class="lineNum">      65 </span>                :            :     // Create a subscription to the topic which can be matched with one or more compatible ROS</a>
 <a name="66"><span class="lineNum">      66 </span>                :            :     // publishers.</a>
@@ -146,8 +148,7 @@
 <a name="68"><span class="lineNum">      68 </span>                :            :     // they must have compatible Quality of Service policies.</a>
 <a name="69"><span class="lineNum">      69 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :     sub_ = create_subscription&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10, callback);</span></a>
 <span class="lineNum">         </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span> 
-<span class="lineNum">         </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span><span class="branchNoExec" title="Branch 12 was not executed"> # </span><span class="branchNoExec" title="Branch 13 was not executed"> # </span> 
-<span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 14 was not executed"> # </span><span class="branchNoExec" title="Branch 15 was not executed"> # </span>]
+<span class="lineNum">         </span>            <span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
 <a name="70"><span class="lineNum">      70 </span>                :<span class="lineNoCov">          0 :   }</span></a>
 <a name="71"><span class="lineNum">      71 </span>                :            : </a>
 <a name="72"><span class="lineNum">      72 </span>                :            : private:</a>
@@ -156,7 +157,9 @@
 <a name="75"><span class="lineNum">      75 </span>                :            : </a>
 <a name="76"><span class="lineNum">      76 </span>                :            : }  // namespace demo_nodes_cpp</a>
 <a name="77"><span class="lineNum">      77 </span>                :            : </a>
-<a name="78"><span class="lineNum">      78 </span>                :            : RCLCPP_COMPONENTS_REGISTER_NODE(demo_nodes_cpp::SerializedMessageListener)</a>
+<a name="78"><span class="lineNum">      78 </span>  [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 4 times"> + </span> :<span class="lineCov">          4 : RCLCPP_COMPONENTS_REGISTER_NODE(demo_nodes_cpp::SerializedMessageListener)</span></a>
+<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchCov" title="Branch 8 was taken 4 times"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
 </pre>
       </td>
     </tr>
