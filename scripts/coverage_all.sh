@@ -4,7 +4,7 @@ set -e
 
 [ "$1" == "" ] && { echo "Please set base directory." ; exit 1; }
 BASE_DIR=$1
-COVERAGE_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1"
+COVERAGE_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1 -O0"
 
 TIMESTAMP=$(cat $3)
 LCOVRC=$4
@@ -15,7 +15,7 @@ OUTPUT_DIR=${2}/lcov_result/${TIMESTAMP}/all
 function get_package_coverage() {
   # Build with correct flags
   colcon build --event-handlers console_cohesion+ \
-    --cmake-args -DCMAKE_BUILD_TYPE=Release \
+    --cmake-args -DCMAKE_BUILD_TYPE=Debug \
     -DCMAKE_CXX_FLAGS="$COVERAGE_FLAGS" \
     -DCMAKE_C_FLAGS="$COVERAGE_FLAGS" || { echo "Build failed." ; return 1; }
 

@@ -6,7 +6,7 @@ set -e
 BASE_DIR=$1
 PACKAGE_LIST=$(colcon list --names-only)
 PACKAGE_LIST_FULL=$(colcon list)
-COVERAGE_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1"
+COVERAGE_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1 -O0"
 SCRIPT_DIR=$(cd "$(dirname "$0")"; pwd)
 
 TIMESTAMP=$(cat "$3")
@@ -47,7 +47,7 @@ function get_package_coverage() {
 
   # Build with correct flags
   colcon build --event-handlers console_cohesion+ \
-    --cmake-args -DCMAKE_BUILD_TYPE=Release \
+    --cmake-args -DCMAKE_BUILD_TYPE=Debug \
     -DCMAKE_CXX_FLAGS="$COVERAGE_FLAGS" \
     -DCMAKE_C_FLAGS="$COVERAGE_FLAGS" \
     --packages-up-to $1 || { echo "Build failed." ; return 1; }
