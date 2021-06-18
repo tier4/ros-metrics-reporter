@@ -32,7 +32,7 @@ function exec_lizard() {
 
   PACKAGE_PATH=$(get_package_path "$1")
   if python "$SCRIPT_DIR"/scripts/path_match.py "$PACKAGE_PATH" "${exclude[@]}" 2>&1 >/dev/null ; then
-    echo "Skipped $1"
+    echo "Match exclude path. Skipped $1"
     return 0
   fi
 

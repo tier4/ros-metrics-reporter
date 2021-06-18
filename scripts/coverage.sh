@@ -41,7 +41,7 @@ function get_package_coverage() {
 
   PACKAGE_PATH=$(get_package_path "$1")
   if python "$SCRIPT_DIR"/scripts/path_match.py "$PACKAGE_PATH" "${exclude[@]}" 2>&1 >/dev/null ; then
-    echo "Skipped $1"
+    echo "Match exclude path. Skipped $1"
     return 0
   fi
 
@@ -80,7 +80,7 @@ function get_package_coverage() {
 
   # Return if lcov.run is empty
   if [ ! -s ${OUTPUT_DIR}/$1/lcov.run ]; then
-    echo "Skipped $1"
+    echo "lcov.run is empty. Skipped $1"
     return 0
   fi
 
