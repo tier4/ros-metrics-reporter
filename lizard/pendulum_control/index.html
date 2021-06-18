@@ -55,7 +55,7 @@
 <table>
 
   <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>example/src/demos/pendulum_control/src/pendulum_teleop.cpp</b></td></tr>
+  Source file: <b>example/src/demos/pendulum_control/include/pendulum_control/pendulum_controller.hpp</b></td></tr>
 
 <tr><th>Function name</th><th></th><th>
 Cyclomatic complexity
@@ -68,86 +68,18 @@ Cyclomatic complexity
 
   
   <tr>
-    <td style="background-color:LightSteelBlue">main</td>
+    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::PendulumController</td>
     <td></td>
     
-       <td class="lesser-value">2</td>
+       <td class="lesser-value">3</td>
     
 
     
-       <td class="lesser-value">26</td>
+       <td class="lesser-value">10</td>
     
 
     
-       <td class="value">185</td>
-    
-
-    
-       <td class="lesser-value">2</td>
-    
-  </tr>
-  
-
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>example/src/demos/pendulum_control/src/pendulum_logger.cpp</b></td></tr>
-
-<tr><th>Function name</th><th></th><th>
-Cyclomatic complexity
-(20)
-</th><th>LOC (200)</th><th>
-    
-       Token count
-    
-</th><th>Parameter count (6)</th></tr>
-
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">main</td>
-    <td></td>
-    
-       <td class="lesser-value">1</td>
-    
-
-    
-       <td class="lesser-value">45</td>
-    
-
-    
-       <td class="value">352</td>
-    
-
-    
-       <td class="lesser-value">2</td>
-    
-  </tr>
-  
-
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>example/src/demos/pendulum_control/src/pendulum_demo.cpp</b></td></tr>
-
-<tr><th>Function name</th><th></th><th>
-Cyclomatic complexity
-(20)
-</th><th>LOC (200)</th><th>
-    
-       Token count
-    
-</th><th>Parameter count (6)</th></tr>
-
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">testing_malloc</td>
-    <td></td>
-    
-       <td class="lesser-value">2</td>
-    
-
-    
-       <td class="lesser-value">13</td>
-    
-
-    
-       <td class="value">62</td>
+       <td class="value">82</td>
     
 
     
@@ -156,18 +88,58 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">init_malloc_hook</td>
+    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::on_sensor_message</td>
     <td></td>
-    
-       <td class="lesser-value">1</td>
-    
-
     
        <td class="lesser-value">5</td>
     
 
     
-       <td class="value">13</td>
+       <td class="lesser-value">22</td>
+    
+
+    
+       <td class="value">162</td>
+    
+
+    
+       <td class="lesser-value">1</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::on_pendulum_setpoint</td>
+    <td></td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">6</td>
+    
+
+    
+       <td class="value">34</td>
+    
+
+    
+       <td class="lesser-value">1</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::get_next_command_message</td>
+    <td></td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">4</td>
+    
+
+    
+       <td class="value">9</td>
     
 
     
@@ -176,22 +148,122 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">main</td>
+    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::next_message_ready</td>
     <td></td>
     
-       <td class="lesser-value">6</td>
+       <td class="lesser-value">1</td>
     
 
     
-       <td class="lesser-value">110</td>
+       <td class="lesser-value">4</td>
     
 
     
-       <td class="value">794</td>
+       <td class="value">9</td>
     
 
     
-       <td class="lesser-value">2</td>
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::get_publish_period</td>
+    <td></td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">4</td>
+    
+
+    
+       <td class="value">9</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::set_pid_properties</td>
+    <td></td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">4</td>
+    
+
+    
+       <td class="value">13</td>
+    
+
+    
+       <td class="lesser-value">1</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::get_pid_properties</td>
+    <td></td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">4</td>
+    
+
+    
+       <td class="value">9</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::set_command</td>
+    <td></td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">4</td>
+    
+
+    
+       <td class="value">13</td>
+    
+
+    
+       <td class="lesser-value">1</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::get_command</td>
+    <td></td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">4</td>
+    
+
+    
+       <td class="value">11</td>
+    
+
+    
+       <td class="lesser-value">0</td>
     
   </tr>
   
@@ -625,7 +697,7 @@ Cyclomatic complexity
   
 
   <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>example/src/demos/pendulum_control/include/pendulum_control/pendulum_controller.hpp</b></td></tr>
+  Source file: <b>example/src/demos/pendulum_control/src/pendulum_teleop.cpp</b></td></tr>
 
 <tr><th>Function name</th><th></th><th>
 Cyclomatic complexity
@@ -638,18 +710,52 @@ Cyclomatic complexity
 
   
   <tr>
-    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::PendulumController</td>
+    <td style="background-color:LightSteelBlue">main</td>
     <td></td>
     
-       <td class="lesser-value">3</td>
+       <td class="lesser-value">2</td>
     
 
     
-       <td class="lesser-value">10</td>
+       <td class="lesser-value">26</td>
     
 
     
-       <td class="value">82</td>
+       <td class="value">185</td>
+    
+
+    
+       <td class="lesser-value">2</td>
+    
+  </tr>
+  
+
+  <tr><td colspan="7" style="background-color:LightBlue;">
+  Source file: <b>example/src/demos/pendulum_control/src/pendulum_demo.cpp</b></td></tr>
+
+<tr><th>Function name</th><th></th><th>
+Cyclomatic complexity
+(20)
+</th><th>LOC (200)</th><th>
+    
+       Token count
+    
+</th><th>Parameter count (6)</th></tr>
+
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">testing_malloc</td>
+    <td></td>
+    
+       <td class="lesser-value">2</td>
+    
+
+    
+       <td class="lesser-value">13</td>
+    
+
+    
+       <td class="value">62</td>
     
 
     
@@ -658,182 +764,76 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::on_sensor_message</td>
+    <td style="background-color:LightSteelBlue">init_malloc_hook</td>
     <td></td>
+    
+       <td class="lesser-value">1</td>
+    
+
     
        <td class="lesser-value">5</td>
     
 
     
-       <td class="lesser-value">22</td>
+       <td class="value">13</td>
     
 
     
-       <td class="value">162</td>
-    
-
-    
-       <td class="lesser-value">1</td>
+       <td class="lesser-value">0</td>
     
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::on_pendulum_setpoint</td>
+    <td style="background-color:LightSteelBlue">main</td>
     <td></td>
-    
-       <td class="lesser-value">1</td>
-    
-
     
        <td class="lesser-value">6</td>
     
 
     
-       <td class="value">34</td>
+       <td class="lesser-value">110</td>
     
 
     
-       <td class="lesser-value">1</td>
+       <td class="value">794</td>
+    
+
+    
+       <td class="lesser-value">2</td>
     
   </tr>
   
+
+  <tr><td colspan="7" style="background-color:LightBlue;">
+  Source file: <b>example/src/demos/pendulum_control/src/pendulum_logger.cpp</b></td></tr>
+
+<tr><th>Function name</th><th></th><th>
+Cyclomatic complexity
+(20)
+</th><th>LOC (200)</th><th>
+    
+       Token count
+    
+</th><th>Parameter count (6)</th></tr>
+
+  
   <tr>
-    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::get_next_command_message</td>
+    <td style="background-color:LightSteelBlue">main</td>
     <td></td>
     
        <td class="lesser-value">1</td>
     
 
     
-       <td class="lesser-value">4</td>
+       <td class="lesser-value">45</td>
     
 
     
-       <td class="value">9</td>
+       <td class="value">352</td>
     
 
     
-       <td class="lesser-value">0</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::next_message_ready</td>
-    <td></td>
-    
-       <td class="lesser-value">1</td>
-    
-
-    
-       <td class="lesser-value">4</td>
-    
-
-    
-       <td class="value">9</td>
-    
-
-    
-       <td class="lesser-value">0</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::get_publish_period</td>
-    <td></td>
-    
-       <td class="lesser-value">1</td>
-    
-
-    
-       <td class="lesser-value">4</td>
-    
-
-    
-       <td class="value">9</td>
-    
-
-    
-       <td class="lesser-value">0</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::set_pid_properties</td>
-    <td></td>
-    
-       <td class="lesser-value">1</td>
-    
-
-    
-       <td class="lesser-value">4</td>
-    
-
-    
-       <td class="value">13</td>
-    
-
-    
-       <td class="lesser-value">1</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::get_pid_properties</td>
-    <td></td>
-    
-       <td class="lesser-value">1</td>
-    
-
-    
-       <td class="lesser-value">4</td>
-    
-
-    
-       <td class="value">9</td>
-    
-
-    
-       <td class="lesser-value">0</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::set_command</td>
-    <td></td>
-    
-       <td class="lesser-value">1</td>
-    
-
-    
-       <td class="lesser-value">4</td>
-    
-
-    
-       <td class="value">13</td>
-    
-
-    
-       <td class="lesser-value">1</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">pendulum_control::PendulumController::get_command</td>
-    <td></td>
-    
-       <td class="lesser-value">1</td>
-    
-
-    
-       <td class="lesser-value">4</td>
-    
-
-    
-       <td class="value">11</td>
-    
-
-    
-       <td class="lesser-value">0</td>
+       <td class="lesser-value">2</td>
     
   </tr>
   
@@ -844,7 +844,7 @@ Cyclomatic complexity
 <br>
 <table width="100%" border=0 cellspacing=0 cellpadding=0>
     <tr><td class="footer">Generated by
-    <a href="http://www.lizard.ws/">Lizard</a> on 2021-06-15 08:17
+    <a href="http://www.lizard.ws/">Lizard</a> on 2021-06-18 09:11
     </td></tr>
 </table>
  </body>
