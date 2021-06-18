@@ -4,8 +4,6 @@ import sys
 import re
 import fnmatch
 
-print(len(sys.argv))
-
 target_path = sys.argv[1]
 
 for i in range(2, len(sys.argv)):
