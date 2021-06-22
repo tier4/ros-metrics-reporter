@@ -498,8 +498,6 @@ DA:447,2
 DA:448,2
 end_of_record
 TN:
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/logging_demo/include/logging_demo/logger_config_component.hpp
-end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/logging_demo/src/logger_config_component.cpp
 FN:29,_ZN12logging_demo12LoggerConfigC2EN6rclcpp11NodeOptionsE
 FNDA:2,_ZN12logging_demo12LoggerConfigC2EN6rclcpp11NodeOptionsE
@@ -741,6 +739,8 @@ BRDA:166,0,2,-
 BRDA:166,0,3,-
 DA:169,0
 DA:171,0
+end_of_record
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/logging_demo/include/logging_demo/logger_config_component.hpp
 end_of_record
 TN:
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/logging_demo/src/logging_demo_main.cpp
