@@ -30,8 +30,9 @@ function get_package_path() {
 function exec_lizard() {
   [ "$1" == "" ] && return 1
 
-  PACKAGE_PATH=$(get_package_path "$1")
-  if python "$SCRIPT_DIR"/path_match.py "$PACKAGE_PATH" "${exclude[@]}" 2>&1 >/dev/null ; then
+  PACKAGE_PATH=$(get_package_path "$1")"/"
+  RET=$(python "$SCRIPT_DIR"/path_match.py "$PACKAGE_PATH" "${exclude[@]}")
+  if [ "$RET" -eq "0" ] ; then
     echo "Match exclude path. Skipped $1"
     return 0
   fi
