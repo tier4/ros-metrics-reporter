@@ -65,6 +65,7 @@ jobs:
         CCN: "20"
         nloc: "200"
         arguments: "6"
+        exclude: "**/pendulum_control/*"
 
     - name: Check results
       run: |
