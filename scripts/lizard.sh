@@ -4,7 +4,7 @@ set -e
 
 PACKAGE_LIST=$(colcon list --names-only)
 PACKAGE_LIST_FULL=$(colcon list)
-SCRIPT_DIR=$3
+SCRIPT_DIR=$(cd "$(dirname "$0")"; pwd)
 
 TIMESTAMP=$(cat $7)
 
