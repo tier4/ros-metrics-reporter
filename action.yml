@@ -101,7 +101,7 @@ runs:
         colcon build --mixin release compile-commands
         export PATH="${PWD}/codechecker/build/CodeChecker/bin:$PATH"
         CodeChecker analyze ${GITHUB_WORKSPACE}/build/compile_commands.json --config ${GITHUB_ACTION_PATH}/codechecker-config.json --output ./reports
-        CodeChecker parse -e html ./reports -o ${ARTIFACTS_DIR}/tidy-reports/$TIMESTAMP --trim-path-prefix ${GITHUB_WORKSPACE}
+        CodeChecker parse -e html ./reports -o ${ARTIFACTS_DIR}/tidy-reports/$TIMESTAMP --trim-path-prefix ${GITHUB_WORKSPACE} || true
         echo "Run coverage.sh"
         ${GITHUB_ACTION_PATH}/scripts/coverage.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt ${{ inputs.lcovrc-path }} ${{ inputs.exclude }} || true
         echo "--- Measure code metrics for all packages ---"
