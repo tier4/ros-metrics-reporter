@@ -59,33 +59,30 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Run jobs
+    - name: Filtering input
+      id: filtered
       run: |
-        echo "--- Preprocess ---"
-        echo "GITHUB_ACTION_PATH is ${GITHUB_ACTION_PATH}"
-        ls -l ${GITHUB_ACTION_PATH}
-        echo "github.action_path is ${{ github.action_path }}"
-        echo "GITHUB_WORKSPACE is ${GITHUB_WORKSPACE}"
-        ls -l ${GITHUB_WORKSPACE}
-        echo "Workspace is ${{ github.workspace }}"
-        ARTIFACTS_DIR=$(echo ${{ inputs.artifacts-dir }} | sed -e "s@/\$@@")
-        echo "Artifacts directory is $ARTIFACTS_DIR"
-        ls -l ${ARTIFACTS_DIR}
-        HUGO_DIR=$(echo ${{ inputs.hugo-dir }} | sed -e "s@/\$@@")
-        echo "Hugo directory is $HUGO_DIR"
-        OUTPUT_DIR=$(echo ${{ inputs.output-dir }} | sed -e "s@/\$@@")
-        echo "Output directory is $OUTPUT_DIR"
-        echo "--- Install dependencies ---"
-        apt-get update -q
+        echo ::set-output name=ARTIFACTS_DIR::$(${{ inputs.artifacts-dir }} | sed -e "s@/\$@@")
+        echo ::set-output name=HUGO_DIR::$(${{ inputs.hugo-dir }} | sed -e "s@/\$@@")
+        echo ::set-output name=OUTPUT_DIR::$(${{ inputs.output-dir }} | sed -e "s@/\$@@")
+      shell: bash
+
+    - name: Install dependencies
+      run: |
+        apt-get update
         apt-get install -y lcov git python-is-python3 python3-pip hugo
         pip3 install jinja2 bs4 pandas plotly
-        echo "--- Set timestamp ---"
-        echo "Creating timestamp to ${GITHUB_WORKSPACE}/timestamp.txt"
+      shell: bash
+
+    - name: Set timestamp
+      run: |
         date -u '+%Y%m%d_%H%M%S' > ${GITHUB_WORKSPACE}/timestamp.txt
-        echo "--- Measure code coverage ---"
-        echo "Artifacts directory is ${ARTIFACTS_DIR}"
-        mkdir -p ${ARTIFACTS_DIR}
-        echo "Run coverage_all.sh"
+      shell: bash
+
+    - name: Measure code coverage
+      run: |
+        echo "Artifacts directory is ${{ steps.filtered.outputs.ARTIFACTS_DIR }}"
+        mkdir -p ${{ steps.filtered.outputs.ARTIFACTS_DIR }}
         . /opt/ros/${{ inputs.ros-distro }}/setup.sh
         ${GITHUB_ACTION_PATH}/scripts/coverage_all.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt ${{ inputs.lcovrc-path }} || true
         echo "Run clang-tidy"
@@ -115,14 +112,34 @@ runs:
         ${GITHUB_ACTION_PATH}/scripts/lizard.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_ACTION_PATH} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt ${{ inputs.exclude }}
         echo "--- Scraping ---"
         TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
-        mkdir -p ${ARTIFACTS_DIR}/metrics/$TIMESTAMP
-        python ${GITHUB_ACTION_PATH}/scripts/scraping.py --lcov_dir=${ARTIFACTS_DIR}/lcov_result/$TIMESTAMP/ --lizard_dir=${ARTIFACTS_DIR}/lizard_result/$TIMESTAMP/ --output_dir=${ARTIFACTS_DIR}/metrics/$TIMESTAMP/
-        echo "--- Create static page ---"
-        ${GITHUB_ACTION_PATH}/scripts/create_link.sh ${ARTIFACTS_DIR}/lcov_result/$TIMESTAMP ${ARTIFACTS_DIR}/lcov_result/latest
-        ${GITHUB_ACTION_PATH}/scripts/create_link.sh ${ARTIFACTS_DIR}/lizard_result/$TIMESTAMP ${ARTIFACTS_DIR}/lizard_result/latest
-        ${GITHUB_ACTION_PATH}/scripts/create_link.sh ${ARTIFACTS_DIR}/metrics/$TIMESTAMP ${ARTIFACTS_DIR}/metrics/latest
+        python ${GITHUB_ACTION_PATH}/scripts/ros_metrics_reporter.py --base-dir=${GITHUB_WORKSPACE} --output-dir=${{ steps.filtered.outputs.ARTIFACTS_DIR }} --timestamp=${TIMESTAMP} --lcovrc=${{ inputs.lcovrc-path }} --exclude=${{ inputs.exclude }} || true
+      shell: bash
+
+    - name: Measure code metrics
+      run: |
+        echo "Measure code metrics for all packages"
+        ${GITHUB_ACTION_PATH}/scripts/lizard_all.sh ${GITHUB_WORKSPACE} ${{ steps.filtered.outputs.ARTIFACTS_DIR }} ${GITHUB_ACTION_PATH} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt
+        echo "Measure code metrics"
+        ${GITHUB_ACTION_PATH}/scripts/lizard.sh ${GITHUB_WORKSPACE} ${{ steps.filtered.outputs.ARTIFACTS_DIR }} ${GITHUB_ACTION_PATH} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt ${{ inputs.exclude }}
+      shell: bash
+
+    - name: Scraping
+      run: |
+        TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
+        mkdir -p ${{ steps.filtered.outputs.ARTIFACTS_DIR }}/metrics/$TIMESTAMP
+        python ${GITHUB_ACTION_PATH}/scripts/scraping.py --lcov_dir=${{ steps.filtered.outputs.ARTIFACTS_DIR }}/lcov_result/$TIMESTAMP/ --lizard_dir=${{ steps.filtered.outputs.ARTIFACTS_DIR }}/lizard_result/$TIMESTAMP/ --output_dir=${{ steps.filtered.outputs.ARTIFACTS_DIR }}/metrics/$TIMESTAMP/
+      shell: bash
+
+    - name: Create static page
+      run: |
+        ${GITHUB_ACTION_PATH}/scripts/create_link.sh ${{ steps.filtered.outputs.ARTIFACTS_DIR }}/lcov_result/$TIMESTAMP ${{ steps.filtered.outputs.ARTIFACTS_DIR }}/lcov_result/latest
+        ${GITHUB_ACTION_PATH}/scripts/create_link.sh ${{ steps.filtered.outputs.ARTIFACTS_DIR }}/lizard_result/$TIMESTAMP ${{ steps.filtered.outputs.ARTIFACTS_DIR }}/lizard_result/latest
+        ${GITHUB_ACTION_PATH}/scripts/create_link.sh ${{ steps.filtered.outputs.ARTIFACTS_DIR }}/metrics/$TIMESTAMP ${{ steps.filtered.outputs.ARTIFACTS_DIR }}/metrics/latest
         echo "Run main.py"
-        python ${GITHUB_ACTION_PATH}/scripts/main.py --input-dir=${ARTIFACTS_DIR}/metrics/ --hugo-root-dir=${HUGO_DIR} --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${ARTIFACTS_DIR}/lcov_result/latest/ --lizard-result-path=${ARTIFACTS_DIR}/lizard_result/latest/ --tidy-result-path=${ARTIFACTS_DIR}/tidy-reports/ --base-url=${{ inputs.base-url }} --title=${{ inputs.title }}
-        echo "--- Generate pages ---"
-        cd ${HUGO_DIR} && hugo -d ${OUTPUT_DIR}
+        python ${GITHUB_ACTION_PATH}/scripts/main.py --input-dir=${{ steps.filtered.outputs.ARTIFACTS_DIR }}/metrics/ --hugo-root-dir=${HUGO_DIR} --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${{ steps.filtered.outputs.ARTIFACTS_DIR }}/lcov_result/latest/ --lizard-result-path=${{ steps.filtered.outputs.ARTIFACTS_DIR }}/lizard_result/latest/ --base-url=${{ inputs.base-url }} --title=${{ inputs.title }}
+      shell: bash
+
+    - name: Generate pages
+      run: |
+        cd ${{ steps.filtered.outputs.HUGO_DIR }} && hugo -d ${{ steps.filtered.outputs.OUTPUT_DIR }}
       shell: bash

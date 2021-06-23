@@ -1,13 +1,10 @@
 #! /usr/bin/env python3
 
-import sys
-import re
 import fnmatch
 
-target_path = sys.argv[1]
 
-for i in range(2, len(sys.argv)):
-    if fnmatch.fnmatch(target_path, sys.argv[i]):
-        print("0")
-        sys.exit(0)
-print("1")
+def path_match(target_path: str, pattern_list: list) -> bool:
+    for pattern in pattern_list:
+        if fnmatch.fnmatch(target_path, pattern):
+            return True
+    return False
