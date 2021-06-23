@@ -85,7 +85,7 @@ runs:
         . /opt/ros/${{ inputs.ros-distro }}/setup.sh
         ${GITHUB_ACTION_PATH}/scripts/coverage_all.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt ${{ inputs.lcovrc-path }} || true
         echo "Run clang-tidy"
-        apt-get install -y clang-11 clang-tidy-11 libomp-dev
+        apt-get install -y clang-11 clang-tidy-11 libomp-dev libomp-10-dev
         update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-11 9999
         update-alternatives --install /usr/bin/clang clang /usr/bin/clang-11 9999
         update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-11 9999
