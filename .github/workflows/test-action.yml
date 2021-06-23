@@ -56,7 +56,7 @@ jobs:
         path: ${{ env.ARTIFACTS_DIR }}
 
     - id: metrics-reporter
-      uses: tier4/ros-metrics-reporter@main
+      uses: tier4/ros-metrics-reporter@feature/clang-tidy
       with:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
         base-url: "https://tier4.github.io/ros-metrics-reporter/"
@@ -79,6 +79,13 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ${{ env.ARTIFACTS_DIR }}
         publish_branch: data
+
+    - name: Archive artifacts
+      if: ${{ github.event.pull_request }} && matrix.ros_distribution == 'foxy'
+      uses: actions/upload-artifact@v2
+      with:
+        name: static-pages
+        path: ${{ env.ARTIFACTS_DIR }}
 
     - name: Deploy public to gh-pages (main branch only)
       if: github.ref == 'refs/heads/main' && matrix.ros_distribution == 'foxy'
