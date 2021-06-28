@@ -10,9 +10,9 @@ from pandas.core.frame import DataFrame
 from pandas.io.parsers import read_csv
 from jinja2 import Environment, FileSystemLoader
 
-from util import dir_path
-from plot_timeseries import plot_timeseries
-from create_markdown import copy_template
+from .util import dir_path
+from .plot_timeseries import plot_timeseries
+from .create_markdown import copy_template
 
 cols = [
     "date",
@@ -44,18 +44,14 @@ def get_trial_record(record_dir: Path) -> DataFrame:
             coverage_data = pd.read_csv(coverage_file)
             coverage_data["package_name"] = package_name
             coverage_data["date"] = date
-            all_package_metrics = pd.concat(
-                [all_package_metrics, coverage_data], axis=0
-            )
+            all_package_metrics = pd.concat([all_package_metrics, coverage_data], axis=0)
 
         lizard_file = package_dir / "lizard.csv"
         if lizard_file.exists():
             package_metrics = pd.read_csv(lizard_file)
             package_metrics["package_name"] = package_name
             package_metrics["date"] = date
-            all_package_metrics = pd.concat(
-                [all_package_metrics, package_metrics], axis=0
-            )
+            all_package_metrics = pd.concat([all_package_metrics, package_metrics], axis=0)
 
     return all_package_metrics
 
@@ -137,11 +133,40 @@ def generate_markdown(
     copy_template(hugo_template_dir, hugo_root_dir, base_path / "latest", packages)
 
 
+def create_static_page(
+    input_dir: Path,
+    hugo_root_dir: Path,
+    hugo_template_dir: Path,
+    lcov_result_path: Path,
+    lizard_result_path: Path,
+    tidy_result_path: Path,
+    base_url: str,
+    title: str,
+):
+    df = read_data_source(input_dir)
+    generate_graph(hugo_root_dir, df)
+    copy_html(
+        hugo_root_dir,
+        lcov_result_path,
+        lizard_result_path,
+        tidy_result_path,
+    )
+    replace_hugo_config(
+        hugo_root_dir,
+        base_url,
+        title,
+    )
+    generate_markdown(
+        input_dir,
+        hugo_root_dir,
+        hugo_template_dir,
+        df["package_name"].unique(),
+    )
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--input-dir", help="Path to coverage artifacts", type=dir_path, required=True
-    )
+    parser.add_argument("--input-dir", help="Path to coverage artifacts", type=dir_path, required=True)
     parser.add_argument(
         "--hugo-root-dir",
         help="Path to hugo directory to output files",
@@ -185,23 +210,13 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-
-    df = read_data_source(args.input_dir)
-    generate_graph(args.hugo_root_dir, df)
-    copy_html(
-        args.hugo_root_dir,
-        args.lcov_result_path,
-        args.lizard_result_path,
-        args.tidy_result_path,
-    )
-    replace_hugo_config(
-        args.hugo_root_dir,
-        args.base_url,
-        args.title,
-    )
-    generate_markdown(
-        args.input_dir,
-        args.hugo_root_dir,
-        args.hugo_template_dir,
-        df["package_name"].unique(),
+    create_static_page(
+        input_dir=args.input_dir,
+        hugo_root_dir=args.hugo_root_dir,
+        hugo_template_dir=args.hugo_template_dir,
+        lcov_result_path=args.lcov_result_path,
+        lizard_result_path=args.lizard_result_path,
+        tidy_result_path=args.tidy_result_path,
+        base_url=args.base_url,
+        title=args.title,
     )
