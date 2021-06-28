@@ -43,3 +43,7 @@ geekdocCollapseSection: true
 {% endraw %}
 
 [You can access more detailed data on code metrics here.]({{ lizard_result_html_link }})
+
+## Clang-tidy
+
+[You can access the clang-tidy results here.]({{ tidy_result_html_link }})

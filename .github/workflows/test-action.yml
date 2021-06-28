@@ -80,12 +80,12 @@ jobs:
         publish_dir: ${{ env.ARTIFACTS_DIR }}
         publish_branch: data
 
-    - name: Archive artifacts
+    - name: Save page as artifacts
       if: ${{ github.event.pull_request }} && matrix.ros_distribution == 'foxy'
       uses: actions/upload-artifact@v2
       with:
         name: static-pages
-        path: ${{ env.ARTIFACTS_DIR }}
+        path: public
 
     - name: Deploy public to gh-pages (main branch only)
       if: github.ref == 'refs/heads/main' && matrix.ros_distribution == 'foxy'
