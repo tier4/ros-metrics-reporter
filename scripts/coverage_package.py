@@ -4,12 +4,15 @@ from pathlib import Path
 from .util import run_command, run_command_pipe
 from .run_lcov import initialize_lcov, run_lcov
 from .path_match import path_match
+import shlex
 
 
 COVERAGE_FLAGS = "-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1 -O0"
 
 
-def coverage_single_package(package_name: str, package_path: str, base_dir: Path, output_dir: Path, timestamp: str, lcovrc: Path, exclude: list):
+def coverage_single_package(
+    package_name: str, package_path: str, base_dir: Path, output_dir: Path, lcovrc: Path, exclude: list
+):
 
     if "_msgs" in package_name:
         print("Skipped " + package_name)
@@ -19,21 +22,18 @@ def coverage_single_package(package_name: str, package_path: str, base_dir: Path
         print("Match exclude path. Skipped " + package_name)
         return
 
-
     # Build with correct flags
     if not run_command(
-        args=[
-            "colcon",
-            "build",
-            "--event-handlers",
-            "console_cohesion+",
-            "--cmake-args",
-            "-DCMAKE_BUILD_TYPE=Debug",
-            '-DCMAKE_CXX_FLAGS="{}"'.format(COVERAGE_FLAGS),
-            '-DCMAKE_C_FLAGS="{}"'.format(COVERAGE_FLAGS),
-            "--packages-up-to",
-            package_name,
-        ]
+        args=shlex.split(
+            'colcon build \
+            --event-handlers console_cohesion+ \
+            --cmake-args -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_CXX_FLAGS="{0}" \
+            -DCMAKE_C_FLAGS="{0}" \
+            --packages-up-to {1}'.format(
+                package_name, COVERAGE_FLAGS
+            ),
+        )
     ):
         print("Build failed.")
         return
@@ -46,15 +46,14 @@ def coverage_single_package(package_name: str, package_path: str, base_dir: Path
         return
 
     if not run_command(
-        args=[
-            "colcon",
-            "test",
-            "--event-handlers",
-            "console_cohesion+",
-            "--packages-select",
-            package_name,
-            "--return-code-on-test-failure",
-        ]
+        args=shlex.split(
+            "colcon test \
+            --event-handlers console_cohesion+ \
+            --packages-select {} \
+            --return-code-on-test-failure".format(
+                package_name
+            )
+        )
     ):
         print("Unit/integration testing failed.")
         return
@@ -71,4 +70,11 @@ def coverage_package(base_dir: Path, output_dir: Path, timestamp: str, lcovrc: P
     package_list = run_command_pipe(["colcon", "list"]).splitlines()
     for line in package_list:
         package = line.split()
-        coverage_single_package(package_name=package[0], package_path=package[1], base_dir=base_dir, output_dir=output_dir, timestamp=timestamp, lcovrc=lcovrc, exclude=exclude)
+        coverage_single_package(
+            package_name=package[0],
+            package_path=package[1],
+            base_dir=base_dir,
+            output_dir=output_dir,
+            lcovrc=lcovrc,
+            exclude=exclude,
+        )

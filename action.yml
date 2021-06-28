@@ -115,14 +115,6 @@ runs:
         python ${GITHUB_ACTION_PATH}/scripts/ros_metrics_reporter.py --base-dir=${GITHUB_WORKSPACE} --output-dir=${{ steps.filtered.outputs.ARTIFACTS_DIR }} --timestamp=${TIMESTAMP} --lcovrc=${{ inputs.lcovrc-path }} --exclude=${{ inputs.exclude }} || true
       shell: bash
 
-    - name: Measure code metrics
-      run: |
-        echo "Measure code metrics for all packages"
-        ${GITHUB_ACTION_PATH}/scripts/lizard_all.sh ${GITHUB_WORKSPACE} ${{ steps.filtered.outputs.ARTIFACTS_DIR }} ${GITHUB_ACTION_PATH} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt
-        echo "Measure code metrics"
-        ${GITHUB_ACTION_PATH}/scripts/lizard.sh ${GITHUB_WORKSPACE} ${{ steps.filtered.outputs.ARTIFACTS_DIR }} ${GITHUB_ACTION_PATH} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt ${{ inputs.exclude }}
-      shell: bash
-
     - name: Scraping
       run: |
         TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)

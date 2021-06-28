@@ -27,3 +27,12 @@ def run_command_pipe(args: list) -> str:
         return proc.stdout
     except CalledProcessError:
         return ""
+
+
+def run_command_redirect(args: list, output_file: Path) -> bool:
+    try:
+        with open(output_file, "w") as out:
+            subprocess.run(args=args, check=True, stdout=out)
+    except CalledProcessError:
+        return False
+    return True
