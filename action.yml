@@ -115,13 +115,6 @@ runs:
         python ${GITHUB_ACTION_PATH}/scripts/ros_metrics_reporter.py --base-dir=${GITHUB_WORKSPACE} --output-dir=${{ steps.filtered.outputs.ARTIFACTS_DIR }} --timestamp=${TIMESTAMP} --lcovrc=${{ inputs.lcovrc-path }} --exclude=${{ inputs.exclude }} || true
       shell: bash
 
-    - name: Scraping
-      run: |
-        TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
-        mkdir -p ${{ steps.filtered.outputs.ARTIFACTS_DIR }}/metrics/$TIMESTAMP
-        python ${GITHUB_ACTION_PATH}/scripts/scraping.py --lcov_dir=${{ steps.filtered.outputs.ARTIFACTS_DIR }}/lcov_result/$TIMESTAMP/ --lizard_dir=${{ steps.filtered.outputs.ARTIFACTS_DIR }}/lizard_result/$TIMESTAMP/ --output_dir=${{ steps.filtered.outputs.ARTIFACTS_DIR }}/metrics/$TIMESTAMP/
-      shell: bash
-
     - name: Create static page
       run: |
         ${GITHUB_ACTION_PATH}/scripts/create_link.sh ${{ steps.filtered.outputs.ARTIFACTS_DIR }}/lcov_result/$TIMESTAMP ${{ steps.filtered.outputs.ARTIFACTS_DIR }}/lcov_result/latest

@@ -7,6 +7,7 @@ from .util import dir_path
 from pathlib import Path
 from .lizard_all import lizard_all
 from .lizard_package import lizard_package
+from .scraping import scraping
 
 
 def ros_metrics_reporter(args):
@@ -40,6 +41,13 @@ def ros_metrics_reporter(args):
         nloc=args.nloc,
         arguments=args.arguments,
     )
+
+    lcov_dir = args.output_dir / "lcov_result" / args.timestamp
+    lizard_dir = args.output_dir / "lizard_result" / args.timestamp
+    metrics_output_dir = args.output_dir / "metrics" / args.timestamp
+
+    # Scraping
+    scraping(lcov_dir=lcov_dir, lizard_dir=lizard_dir, output_dir=metrics_output_dir)
 
 
 if __name__ == "__main__":
