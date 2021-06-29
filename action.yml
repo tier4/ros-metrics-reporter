@@ -79,13 +79,8 @@ runs:
         date -u '+%Y%m%d_%H%M%S' > ${GITHUB_WORKSPACE}/timestamp.txt
       shell: bash
 
-    - name: Measure code coverage
+    - name: Run clang-tidy
       run: |
-        echo "Artifacts directory is ${{ steps.filtered.outputs.ARTIFACTS_DIR }}"
-        mkdir -p ${{ steps.filtered.outputs.ARTIFACTS_DIR }}
-        . /opt/ros/${{ inputs.ros-distro }}/setup.sh
-        ${GITHUB_ACTION_PATH}/scripts/coverage_all.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt ${{ inputs.lcovrc-path }} || true
-        echo "Run clang-tidy"
         apt-get install -y clang-11 clang-tidy-11 libomp-dev libomp-10-dev
         update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-11 9999
         update-alternatives --install /usr/bin/clang clang /usr/bin/clang-11 9999
@@ -101,18 +96,28 @@ runs:
         colcon mixin update default
         colcon build --mixin release compile-commands
         export PATH="${PWD}/codechecker/build/CodeChecker/bin:$PATH"
+        TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
         CodeChecker analyze ${GITHUB_WORKSPACE}/build/compile_commands.json --config ${{ inputs.codechecker-config-path }} --ignore "${GITHUB_ACTION_PATH}"/codechecker-skip-list.txt --output ./reports
         CodeChecker parse -e html ./reports -o ${ARTIFACTS_DIR}/tidy-reports/$TIMESTAMP --trim-path-prefix ${GITHUB_WORKSPACE} || true
         deactivate
-        echo "Run coverage.sh"
-        ${GITHUB_ACTION_PATH}/scripts/coverage.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt ${{ inputs.lcovrc-path }} ${{ inputs.exclude }} || true
-        echo "--- Measure code metrics for all packages ---"
-        ${GITHUB_ACTION_PATH}/scripts/lizard_all.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_ACTION_PATH} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt
-        echo "--- Measure code metrics ---"
-        ${GITHUB_ACTION_PATH}/scripts/lizard.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_ACTION_PATH} ${{ inputs.CCN }} ${{ inputs.nloc }} ${{ inputs.arguments }} ${GITHUB_WORKSPACE}/timestamp.txt ${{ inputs.exclude }}
-        echo "--- Scraping ---"
+      shell: bash
+
+    - name: Measure code quality index
+      run: |
+        echo "Artifacts directory is ${{ steps.filtered.outputs.ARTIFACTS_DIR }}"
+        mkdir -p ${{ steps.filtered.outputs.ARTIFACTS_DIR }}
         TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
-        python ${GITHUB_ACTION_PATH}/scripts/ros_metrics_reporter.py --base-dir=${GITHUB_WORKSPACE} --action-dir=${GITHUB_ACTION_PATH} --output-dir=${{ steps.filtered.outputs.ARTIFACTS_DIR }} --timestamp=${TIMESTAMP} --lcovrc=${{ inputs.lcovrc-path }} --hugo-root-dir=${{ steps.filtered.outputs.HUGO_DIR }} --base-url=${{ inputs.base-url }} --title=${{ inputs.title }} --exclude=${{ inputs.exclude }} || true
+        . /opt/ros/${{ inputs.ros-distro }}/setup.sh
+        python ${GITHUB_ACTION_PATH}/scripts/ros_metrics_reporter.py \
+          --base-dir=${GITHUB_WORKSPACE} \
+          --action-dir=${GITHUB_ACTION_PATH} \
+          --output-dir=${{ steps.filtered.outputs.ARTIFACTS_DIR }} \
+          --timestamp=${TIMESTAMP} \
+          --lcovrc=${{ inputs.lcovrc-path }} \
+          --hugo-root-dir=${{ steps.filtered.outputs.HUGO_DIR }} \
+          --base-url=${{ inputs.base-url }} \
+          --title=${{ inputs.title }} \
+          --exclude=${{ inputs.exclude }}
       shell: bash
 
     - name: Generate pages

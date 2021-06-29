@@ -14,7 +14,12 @@ from .create_static_page import create_static_page
 
 def ros_metrics_reporter(args):
     # Measure code coverage
-    coverage_all(base_dir=args.base_dir, output_dir=args.output_dir, timestamp=args.timestamp, lcovrc=args.lcovrc)
+    coverage_all(
+        base_dir=args.base_dir,
+        output_dir=args.output_dir,
+        timestamp=args.timestamp,
+        lcovrc=args.lcovrc,
+    )
     coverage_package(
         base_dir=args.base_dir,
         output_dir=args.output_dir,
@@ -69,6 +74,7 @@ def ros_metrics_reporter(args):
         hugo_template_dir=hugo_template_dir,
         lcov_result_path=lcov_latest_dir,
         lizard_result_path=lizard_latest_dir,
+        tidy_result_path=tidy_result_dir,
         base_url=args.base_url,
         title=args.title,
     )
@@ -76,12 +82,28 @@ def ros_metrics_reporter(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--base-dir", help="Path to source file directory", type=dir_path, required=True)
-    parser.add_argument("--action-dir", help="Path to ros-metrics-reporter directory", type=dir_path, required=True)
-    parser.add_argument("--output-dir", help="Path to artifacts directory", type=dir_path, required=True)
-    parser.add_argument("--timestamp", help="Timestamp. Required format is %Y%m%d_%H%M%S", type=str, required=True)
+    parser.add_argument(
+        "--base-dir", help="Path to source file directory", type=dir_path, required=True
+    )
+    parser.add_argument(
+        "--action-dir",
+        help="Path to ros-metrics-reporter directory",
+        type=dir_path,
+        required=True,
+    )
+    parser.add_argument(
+        "--output-dir", help="Path to artifacts directory", type=dir_path, required=True
+    )
+    parser.add_argument(
+        "--timestamp",
+        help="Timestamp. Required format is %Y%m%d_%H%M%S",
+        type=str,
+        required=True,
+    )
     parser.add_argument("--lcovrc", help="Path to .lcovrc", type=Path, required=True)
-    parser.add_argument("--hugo-root-dir", help="Hugo root directory", type=dir_path, required=True)
+    parser.add_argument(
+        "--hugo-root-dir", help="Hugo root directory", type=dir_path, required=True
+    )
     parser.add_argument("--base-url", help="baseURL", type=str, required=True)
     parser.add_argument("--title", help="Title", type=str, required=True)
     parser.add_argument("--exclude", help="Exclude path", type=list, required=False)
