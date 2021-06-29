@@ -104,7 +104,7 @@ runs:
         colcon mixin update default
         colcon build --mixin release compile-commands
         export PATH="${PWD}/codechecker/build/CodeChecker/bin:$PATH"
-        CodeChecker analyze ${GITHUB_WORKSPACE}/build/compile_commands.json --config ${{ inputs.codechecker-config }} --ignore "${GITHUB_ACTION_PATH}"/codechecker-skip-list.txt --output ./reports
+        CodeChecker analyze ${GITHUB_WORKSPACE}/build/compile_commands.json --config ${{ inputs.codechecker-config-path }} --ignore "${GITHUB_ACTION_PATH}"/codechecker-skip-list.txt --output ./reports
         CodeChecker parse -e html ./reports -o ${ARTIFACTS_DIR}/tidy-reports/$TIMESTAMP --trim-path-prefix ${GITHUB_WORKSPACE} || true
         deactivate
         echo "Run coverage.sh"
