@@ -92,6 +92,7 @@ runs:
         . "${PWD}/venv/bin/activate"
         BUILD_UI_DIST=NO make package || true
         cd ..
+        . /opt/ros/${{ inputs.ros-distro }}/setup.sh
         colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/1ddb69bedfd1f04c2f000e95452f7c24a4d6176b/index.yaml
         colcon mixin update default
         colcon build --mixin release compile-commands

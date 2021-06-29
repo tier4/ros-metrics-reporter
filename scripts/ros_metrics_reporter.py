@@ -68,6 +68,8 @@ def ros_metrics_reporter(args):
 
     # Create static page
     hugo_template_dir = args.action_dir / "template" / "hugo"
+    tidy_result_dir = args.output_dir / "tidy-reports" / args.timestamp
+
     create_static_page(
         input_dir=metrics_dir,
         hugo_root_dir=args.hugo_root_dir,
