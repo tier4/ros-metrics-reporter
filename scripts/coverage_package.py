@@ -11,7 +11,12 @@ COVERAGE_FLAGS = "-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1 -O0"
 
 
 def coverage_single_package(
-    package_name: str, package_path: str, base_dir: Path, output_dir: Path, lcovrc: Path, exclude: list
+    package_name: str,
+    package_path: str,
+    base_dir: Path,
+    output_dir: Path,
+    lcovrc: Path,
+    exclude: list,
 ):
 
     if "_msgs" in package_name:
@@ -42,7 +47,12 @@ def coverage_single_package(
     if not output_package_dir.exists():
         output_package_dir.mkdir(parents=True)
 
-    if not initialize_lcov(base_dir=base_dir, output_dir=output_package_dir, lcovrc=lcovrc, package_name=package_name):
+    if not initialize_lcov(
+        base_dir=base_dir,
+        output_dir=output_package_dir,
+        lcovrc=lcovrc,
+        package_name=package_name,
+    ):
         return
 
     if not run_command(
@@ -58,10 +68,17 @@ def coverage_single_package(
         print("Unit/integration testing failed.")
         return
 
-    run_lcov(base_dir=base_dir, output_dir=output_package_dir, lcovrc=lcovrc, package_name=package_name)
+    run_lcov(
+        base_dir=base_dir,
+        output_dir=output_package_dir,
+        lcovrc=lcovrc,
+        package_name=package_name,
+    )
 
 
-def coverage_package(base_dir: Path, output_dir: Path, timestamp: str, lcovrc: Path, exclude: list):
+def coverage_package(
+    base_dir: Path, output_dir: Path, timestamp: str, lcovrc: Path, exclude: list
+):
 
     output_lcov_dir = output_dir / "lcov_result" / timestamp
     if not output_lcov_dir.exists():

@@ -6,7 +6,13 @@ import shlex
 
 
 def lizard_all(
-    base_dir: Path, output_dir: Path, gh_action_dir: Path, timestamp: str, ccn: int, nloc: int, arguments: int
+    base_dir: Path,
+    output_dir: Path,
+    gh_action_dir: Path,
+    timestamp: str,
+    ccn: int,
+    nloc: int,
+    arguments: int,
 ):
 
     output_lizard_dir = output_dir / "lizard_result" / timestamp / "all"

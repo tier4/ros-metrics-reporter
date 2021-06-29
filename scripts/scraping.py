@@ -140,9 +140,17 @@ def scraping(lcov_dir: Path, lizard_dir: Path, output_dir: Path):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--lcov_dir", help="Path to lcov result", type=dir_path, required=True)
-    parser.add_argument("--lizard_dir", help="Path to lizard result", type=dir_path, required=True)
-    parser.add_argument("--output_dir", help="Path to output directory", type=dir_path, required=True)
+    parser.add_argument(
+        "--lcov_dir", help="Path to lcov result", type=dir_path, required=True
+    )
+    parser.add_argument(
+        "--lizard_dir", help="Path to lizard result", type=dir_path, required=True
+    )
+    parser.add_argument(
+        "--output_dir", help="Path to output directory", type=dir_path, required=True
+    )
 
     args = parser.parse_args()
-    scraping(lcov_dir=args.lcov_dir, lizard_dir=args.lizard_dir, output_dir=args.output_dir)
+    scraping(
+        lcov_dir=args.lcov_dir, lizard_dir=args.lizard_dir, output_dir=args.output_dir
+    )

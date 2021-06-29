@@ -17,7 +17,9 @@ def format_output_dir(base_dir: str, append_dir: str, file_name: str) -> str:
     return '"{}"'.format(Path(base_dir, append_dir, file_name))
 
 
-def initialize_lcov(base_dir: Path, output_dir: Path, lcovrc: Path, package_name: str = "") -> bool:
+def initialize_lcov(
+    base_dir: Path, output_dir: Path, lcovrc: Path, package_name: str = ""
+) -> bool:
     # Get a zero-coverage baseline
     if not run_command(
         args=shlex.split(

@@ -30,7 +30,9 @@ def coverage_all(base_dir: Path, output_dir: Path, timestamp: str, lcovrc: Path)
         print("Build failed.")
         return
 
-    if not initialize_lcov(base_dir=base_dir, output_dir=output_lcov_dir, lcovrc=lcovrc):
+    if not initialize_lcov(
+        base_dir=base_dir, output_dir=output_lcov_dir, lcovrc=lcovrc
+    ):
         return
 
     if not run_command(

@@ -44,14 +44,18 @@ def get_trial_record(record_dir: Path) -> DataFrame:
             coverage_data = pd.read_csv(coverage_file)
             coverage_data["package_name"] = package_name
             coverage_data["date"] = date
-            all_package_metrics = pd.concat([all_package_metrics, coverage_data], axis=0)
+            all_package_metrics = pd.concat(
+                [all_package_metrics, coverage_data], axis=0
+            )
 
         lizard_file = package_dir / "lizard.csv"
         if lizard_file.exists():
             package_metrics = pd.read_csv(lizard_file)
             package_metrics["package_name"] = package_name
             package_metrics["date"] = date
-            all_package_metrics = pd.concat([all_package_metrics, package_metrics], axis=0)
+            all_package_metrics = pd.concat(
+                [all_package_metrics, package_metrics], axis=0
+            )
 
     return all_package_metrics
 
@@ -166,7 +170,9 @@ def create_static_page(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input-dir", help="Path to coverage artifacts", type=dir_path, required=True)
+    parser.add_argument(
+        "--input-dir", help="Path to coverage artifacts", type=dir_path, required=True
+    )
     parser.add_argument(
         "--hugo-root-dir",
         help="Path to hugo directory to output files",
