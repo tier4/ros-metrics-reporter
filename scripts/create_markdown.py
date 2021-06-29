@@ -98,8 +98,9 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: list):
 
 
 def replace_token(package: str) -> dict:
-    lcov_html = "/lcov/" + package + "/index.html"
-    lizard_html = "/lizard/" + package + "/index.html"
+    lcov_html = "/lcov/" + package
+    lizard_html = "/lizard/" + package
+    tidy_html = "/tidy"
     coverage_json = package + "/coverage.json"
     ccn_json = package + "/ccn.json"
     loc_json = package + "/loc.json"
@@ -110,6 +111,7 @@ def replace_token(package: str) -> dict:
         "package_name": package,
         "lcov_result_html_link": lcov_html,
         "lizard_result_html_link": lizard_html,
+        "tidy_result_html_link": tidy_html,
         "plotly_lcov_figure_name": coverage_json,
         "plotly_metrics_ccn_figure_name": ccn_json,
         "plotly_metrics_loc_figure_name": loc_json,

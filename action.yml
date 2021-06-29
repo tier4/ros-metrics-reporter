@@ -46,6 +46,10 @@ inputs:
   exclude:
     description: "Space separated list of exclude paths."
     required: false
+  codechecker-config-path:
+    description: "Path to codechecker-config.json file"
+    required: true
+    default: ${GITHUB_ACTION_PATH}/codechecker-config.json
 
 outputs:
   output-dir:
@@ -72,7 +76,7 @@ runs:
         OUTPUT_DIR=$(echo ${{ inputs.output-dir }} | sed -e "s@/\$@@")
         echo "Output directory is $OUTPUT_DIR"
         echo "--- Install dependencies ---"
-        apt-get update
+        apt-get update -q
         apt-get install -y lcov git python-is-python3 python3-pip hugo
         pip3 install jinja2 bs4 pandas plotly
         echo "--- Set timestamp ---"
@@ -84,6 +88,25 @@ runs:
         echo "Run coverage_all.sh"
         . /opt/ros/${{ inputs.ros-distro }}/setup.sh
         ${GITHUB_ACTION_PATH}/scripts/coverage_all.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt ${{ inputs.lcovrc-path }} || true
+        echo "Run clang-tidy"
+        apt-get install -y clang-11 clang-tidy-11 libomp-dev libomp-10-dev
+        update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-11 9999
+        update-alternatives --install /usr/bin/clang clang /usr/bin/clang-11 9999
+        update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-11 9999
+        git clone https://github.com/Ericsson/codechecker.git
+        apt-get install -y gcc-multilib python3-venv
+        cd codechecker
+        make venv || true
+        . "${PWD}/venv/bin/activate"
+        BUILD_UI_DIST=NO make package || true
+        cd ..
+        colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/1ddb69bedfd1f04c2f000e95452f7c24a4d6176b/index.yaml
+        colcon mixin update default
+        colcon build --mixin release compile-commands
+        export PATH="${PWD}/codechecker/build/CodeChecker/bin:$PATH"
+        CodeChecker analyze ${GITHUB_WORKSPACE}/build/compile_commands.json --config ${{ inputs.codechecker-config }} --ignore="${GITHUB_ACTION_PATH}"/codechecker-skip-list.txt --output ./reports
+        CodeChecker parse -e html ./reports -o ${ARTIFACTS_DIR}/tidy-reports/$TIMESTAMP --trim-path-prefix ${GITHUB_WORKSPACE} || true
+        deactivate
         echo "Run coverage.sh"
         ${GITHUB_ACTION_PATH}/scripts/coverage.sh ${GITHUB_WORKSPACE} ${ARTIFACTS_DIR} ${GITHUB_WORKSPACE}/timestamp.txt ${{ inputs.lcovrc-path }} ${{ inputs.exclude }} || true
         echo "--- Measure code metrics for all packages ---"
@@ -99,7 +122,7 @@ runs:
         ${GITHUB_ACTION_PATH}/scripts/create_link.sh ${ARTIFACTS_DIR}/lizard_result/$TIMESTAMP ${ARTIFACTS_DIR}/lizard_result/latest
         ${GITHUB_ACTION_PATH}/scripts/create_link.sh ${ARTIFACTS_DIR}/metrics/$TIMESTAMP ${ARTIFACTS_DIR}/metrics/latest
         echo "Run main.py"
-        python ${GITHUB_ACTION_PATH}/scripts/main.py --input-dir=${ARTIFACTS_DIR}/metrics/ --hugo-root-dir=${HUGO_DIR} --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${ARTIFACTS_DIR}/lcov_result/latest/ --lizard-result-path=${ARTIFACTS_DIR}/lizard_result/latest/ --base-url=${{ inputs.base-url }} --title=${{ inputs.title }}
+        python ${GITHUB_ACTION_PATH}/scripts/main.py --input-dir=${ARTIFACTS_DIR}/metrics/ --hugo-root-dir=${HUGO_DIR} --hugo-template-dir=${GITHUB_ACTION_PATH}/template/hugo/ --lcov-result-path=${ARTIFACTS_DIR}/lcov_result/latest/ --lizard-result-path=${ARTIFACTS_DIR}/lizard_result/latest/ --tidy-result-path=${ARTIFACTS_DIR}/tidy-reports/ --base-url=${{ inputs.base-url }} --title=${{ inputs.title }}
         echo "--- Generate pages ---"
         cd ${HUGO_DIR} && hugo -d ${OUTPUT_DIR}
       shell: bash

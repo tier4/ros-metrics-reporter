@@ -93,6 +93,7 @@ def copy_html(
     hugo_root_dir: Path,
     lcov_result_path: Path,
     lizard_result_path: Path,
+    tidy_result_path: Path,
 ):
     # Copy artifacts
     lcov_dest = hugo_root_dir / "static" / "lcov"
@@ -100,6 +101,9 @@ def copy_html(
 
     lizard_dest = hugo_root_dir / "static" / "lizard"
     copy_artifacts(lizard_result_path, lizard_dest)
+
+    tidy_dest = hugo_root_dir / "static" / "tidy"
+    dir_util.copy_tree(tidy_result_path, str(tidy_dest))
 
 
 def replace_hugo_config(
@@ -163,6 +167,12 @@ if __name__ == "__main__":
         required=True,
     )
     parser.add_argument(
+        "--tidy-result-path",
+        help="Path to clang-tidy result directory",
+        type=dir_path,
+        required=True,
+    )
+    parser.add_argument(
         "--base-url",
         help="baseURL",
         type=str,
@@ -182,6 +192,7 @@ if __name__ == "__main__":
         args.hugo_root_dir,
         args.lcov_result_path,
         args.lizard_result_path,
+        args.tidy_result_path,
     )
     replace_hugo_config(
         args.hugo_root_dir,

@@ -1,0 +1,9 @@
+{
+  "analyzer": [
+    "--jobs=2",
+    "--analyzers=clang-tidy",
+    "--timeout=300",
+    "--clean",
+    "--disable=bugprone-infinite-loop"
+  ]
+}
