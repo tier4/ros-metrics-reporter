@@ -98,9 +98,9 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: list):
 
 
 def replace_token(package: str) -> dict:
-    lcov_html = "/lcov/" + package + "/index.html"
-    lizard_html = "/lizard/" + package + "/index.html"
-    tidy_html = "/tidy/index.html"
+    lcov_html = "/lcov/" + package
+    lizard_html = "/lizard/" + package
+    tidy_html = "/tidy"
     coverage_json = package + "/coverage.json"
     ccn_json = package + "/ccn.json"
     loc_json = package + "/loc.json"

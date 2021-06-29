@@ -44,6 +44,6 @@ geekdocCollapseSection: true
 
 [You can access more detailed data on code metrics here.]({{ lizard_result_html_link }})
 
-## Clang-tidy
+## Clang-Tidy
 
-[You can access the clang-tidy results here.]({{ tidy_result_html_link }})
+[You can access the Clang-Tidy results here.]({{ tidy_result_html_link }})
