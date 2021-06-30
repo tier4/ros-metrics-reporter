@@ -62,7 +62,7 @@ def lizard_package(
     if not lizard_dir.exists():
         run_command(
             args=shlex.split(
-                "git clone https://github.com/terryyin/lizard.git " + lizard_dir,
+                "git clone https://github.com/terryyin/lizard.git " + str(lizard_dir)
             )
         )
 

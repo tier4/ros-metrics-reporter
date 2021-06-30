@@ -90,14 +90,14 @@ runs:
         update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-11 9999
         update-alternatives --install /usr/bin/clang clang /usr/bin/clang-11 9999
         update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-11 9999
-        git clone https://github.com/Ericsson/codechecker.git
+        git clone https://github.com/Ericsson/codechecker.git ${GITHUB_ACTION_PATH}/codechecker
         apt-get install -y gcc-multilib python3-venv
-        cd codechecker
+        pushd ${GITHUB_ACTION_PATH}/codechecker
         make venv || true
         . "${PWD}/venv/bin/activate"
         BUILD_UI_DIST=NO make package || true
-        cd ..
-        export PATH="${PWD}/codechecker/build/CodeChecker/bin:$PATH"
+        popd
+        export PATH="${GITHUB_ACTION_PATH}/codechecker/build/CodeChecker/bin:$PATH"
         TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
         CodeChecker analyze ${GITHUB_WORKSPACE}/build/compile_commands.json --config ${{ inputs.codechecker-config-path }} --ignore "${GITHUB_ACTION_PATH}"/codechecker-skip-list.txt --output ./reports
         CodeChecker parse -e html ./reports -o ${{ steps.filtered.outputs.ARTIFACTS_DIR }}/tidy-reports/$TIMESTAMP --trim-path-prefix ${GITHUB_WORKSPACE} || true
