@@ -109,6 +109,10 @@ if __name__ == "__main__":
     parser.add_argument("--base-url", help="baseURL", type=str, required=True)
     parser.add_argument("--title", help="Title", type=str, required=True)
     parser.add_argument("--exclude", help="Exclude path", type=list, required=False)
+    parser.add_argument("--ccn", help="CCN", type=int, required=True)
+    parser.add_argument("--nloc", help="NLOC", type=int, required=True)
+    parser.add_argument("--arguments", help="arguments", type=int, required=True)
+
     args = parser.parse_args()
 
     ros_metrics_reporter(args)
