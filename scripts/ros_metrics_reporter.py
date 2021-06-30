@@ -13,6 +13,8 @@ from create_static_page import create_static_page
 
 
 def ros_metrics_reporter(args):
+    exclude = args.exclude.split()
+
     # Measure code coverage
     coverage_all(
         base_dir=args.base_dir,
@@ -25,7 +27,7 @@ def ros_metrics_reporter(args):
         output_dir=args.output_dir,
         timestamp=args.timestamp,
         lcovrc=args.lcovrc,
-        exclude=args.exclude,
+        exclude=exclude,
     )
 
     # Measure code metrics
@@ -42,7 +44,7 @@ def ros_metrics_reporter(args):
         output_dir=args.output_dir,
         gh_action_dir=args.action_dir,
         timestamp=args.timestamp,
-        exclude=args.exclude,
+        exclude=exclude,
         ccn=args.ccn,
         nloc=args.nloc,
         arguments=args.arguments,
@@ -107,7 +109,7 @@ if __name__ == "__main__":
     )
     parser.add_argument("--base-url", help="baseURL", type=str, required=True)
     parser.add_argument("--title", help="Title", type=str, required=True)
-    parser.add_argument("--exclude", help="Exclude path", type=list, required=False)
+    parser.add_argument("--exclude", help="Exclude path", type=str, required=False)
     parser.add_argument("--ccn", help="CCN", type=int, required=True)
     parser.add_argument("--nloc", help="NLOC", type=int, required=True)
     parser.add_argument("--arguments", help="arguments", type=int, required=True)

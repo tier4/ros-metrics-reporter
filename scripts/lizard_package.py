@@ -19,6 +19,12 @@ def lizard_single_package(
 
     if path_match(package_path, exclude):
         print("Match exclude path. Skipped " + package_name)
+        print(
+            "DEBUG: in lizard_package PATH="
+            + package_path
+            + " exclude="
+            + " ".join(exclude)
+        )
         return
 
     output_package_dir = output_dir / package_name
