@@ -62,12 +62,12 @@ runs:
     - name: Filtering input
       id: filtered
       run: |
-        echo $(${{ inputs.artifacts-dir }} | sed -e "s@/\$@@")
-        echo $(${{ inputs.hugo-dir }} | sed -e "s@/\$@@")
-        echo $(${{ inputs.output-dir }} | sed -e "s@/\$@@")
-        echo ::set-output name=ARTIFACTS_DIR::$(${{ inputs.artifacts-dir }} | sed -e "s@/\$@@")
-        echo ::set-output name=HUGO_DIR::$(${{ inputs.hugo-dir }} | sed -e "s@/\$@@")
-        echo ::set-output name=OUTPUT_DIR::$(${{ inputs.output-dir }} | sed -e "s@/\$@@")
+        echo ${{ inputs.artifacts-dir }} | sed -e "s@/\$@@"
+        echo ${{ inputs.hugo-dir }} | sed -e "s@/\$@@"
+        echo ${{ inputs.output-dir }} | sed -e "s@/\$@@"
+        echo ::set-output name=ARTIFACTS_DIR::${{ inputs.artifacts-dir }} | sed -e "s@/\$@@"
+        echo ::set-output name=HUGO_DIR::${{ inputs.hugo-dir }} | sed -e "s@/\$@@"
+        echo ::set-output name=OUTPUT_DIR::${{ inputs.output-dir }} | sed -e "s@/\$@@"
       shell: bash
 
     - name: Install dependencies
