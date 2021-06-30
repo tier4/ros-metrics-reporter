@@ -22,7 +22,7 @@ def coverage_all(base_dir: Path, output_dir: Path, timestamp: str, lcovrc: Path)
             'colcon build \
             --event-handlers console_cohesion+ \
             --cmake-args -DCMAKE_BUILD_TYPE=Debug \
-            -DCMAKE_CXX_FLAGS="{}" -DCMAKE_C_FLAGS="{}"'.format(
+            -DCMAKE_CXX_FLAGS="{0}" -DCMAKE_C_FLAGS="{0}"'.format(
                 COVERAGE_FLAGS
             )
         )

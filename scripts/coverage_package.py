@@ -36,7 +36,7 @@ def coverage_single_package(
             -DCMAKE_CXX_FLAGS="{0}" \
             -DCMAKE_C_FLAGS="{0}" \
             --packages-up-to {1}'.format(
-                package_name, COVERAGE_FLAGS
+                COVERAGE_FLAGS, package_name
             ),
         )
     ):
