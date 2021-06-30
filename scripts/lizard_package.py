@@ -45,7 +45,6 @@ def lizard_single_package(
 
 
 def lizard_package(
-    base_dir: Path,
     output_dir: Path,
     gh_action_dir: Path,
     timestamp: str,
@@ -72,7 +71,7 @@ def lizard_package(
         package = line.split()
         lizard_single_package(
             package_name=package[0],
-            package_path=package[1],
+            package_path=package[1] + "/",
             output_dir=output_lizard_dir,
             lizard_dir=lizard_dir,
             exclude=exclude,

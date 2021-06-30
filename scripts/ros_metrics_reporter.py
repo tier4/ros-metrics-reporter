@@ -32,7 +32,7 @@ def ros_metrics_reporter(args):
     lizard_all(
         base_dir=args.base_dir,
         output_dir=args.output_dir,
-        gh_action_dir=args.gh_action_dir,
+        gh_action_dir=args.action_dir,
         timestamp=args.timestamp,
         ccn=args.ccn,
         nloc=args.nloc,
@@ -41,7 +41,7 @@ def ros_metrics_reporter(args):
     lizard_package(
         base_dir=args.base_dir,
         output_dir=args.output_dir,
-        gh_action_dir=args.gh_action_dir,
+        gh_action_dir=args.action_dir,
         timestamp=args.timestamp,
         exclude=args.exclude,
         ccn=args.ccn,

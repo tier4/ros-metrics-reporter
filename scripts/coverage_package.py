@@ -89,7 +89,7 @@ def coverage_package(
         package = line.split()
         coverage_single_package(
             package_name=package[0],
-            package_path=package[1],
+            package_path=package[1] + "/",
             base_dir=base_dir,
             output_dir=output_dir,
             lcovrc=lcovrc,
