@@ -7,7 +7,7 @@ import csv
 
 from numpy.core.fromnumeric import mean
 
-from .util import dir_path
+from util import dir_path
 from pathlib import Path
 
 

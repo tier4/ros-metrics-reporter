@@ -10,9 +10,9 @@ from pandas.core.frame import DataFrame
 from pandas.io.parsers import read_csv
 from jinja2 import Environment, FileSystemLoader
 
-from .util import dir_path
-from .plot_timeseries import plot_timeseries
-from .create_markdown import copy_template
+from util import dir_path
+from plot_timeseries import plot_timeseries
+from create_markdown import copy_template
 
 cols = [
     "date",

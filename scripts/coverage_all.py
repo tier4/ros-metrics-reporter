@@ -1,8 +1,8 @@
 #! /usr/bin/env python3
 
 from pathlib import Path
-from .util import run_command
-from .run_lcov import initialize_lcov, run_lcov
+from util import run_command
+from run_lcov import initialize_lcov, run_lcov
 
 import shlex
 

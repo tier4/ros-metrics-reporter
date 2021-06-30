@@ -1,8 +1,8 @@
 #! /usr/bin/env python3
 
 from pathlib import Path
-from .util import run_command, run_command_pipe, run_command_redirect
-from .path_match import path_match
+from util import run_command, run_command_pipe, run_command_redirect
+from path_match import path_match
 import shlex
 
 

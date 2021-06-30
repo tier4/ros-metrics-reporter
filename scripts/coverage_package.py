@@ -1,9 +1,9 @@
 #! /usr/bin/env python3
 
 from pathlib import Path
-from .util import run_command, run_command_pipe
-from .run_lcov import initialize_lcov, run_lcov
-from .path_match import path_match
+from util import run_command, run_command_pipe
+from run_lcov import initialize_lcov, run_lcov
+from path_match import path_match
 import shlex
 
 

@@ -1,15 +1,15 @@
 #! /usr/bin/env python3
 
 import argparse
-from .coverage_all import coverage_all
-from .coverage_package import coverage_package
-from .util import dir_path
+from coverage_all import coverage_all
+from coverage_package import coverage_package
+from util import dir_path
 from pathlib import Path
-from .lizard_all import lizard_all
-from .lizard_package import lizard_package
-from .scraping import scraping
-from .create_link import create_link
-from .create_static_page import create_static_page
+from lizard_all import lizard_all
+from lizard_package import lizard_package
+from scraping import scraping
+from create_link import create_link
+from create_static_page import create_static_page
 
 
 def ros_metrics_reporter(args):
