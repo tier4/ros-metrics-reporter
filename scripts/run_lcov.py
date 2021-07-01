@@ -3,6 +3,7 @@
 from pathlib import Path
 from util import run_command
 import shlex
+import os
 
 
 def concat_build_dir(base_dir: Path, append_dir: str) -> str:
@@ -63,7 +64,7 @@ def run_lcov(base_dir: Path, output_dir: Path, lcovrc: Path, package_name: str =
         return
 
     # Return if lcov.run is empty
-    if not (output_dir / "lcov.run").exists():
+    if os.stat(output_dir / "lcov.run").st_size() == 0:
         print("Skipped")
         return
 
