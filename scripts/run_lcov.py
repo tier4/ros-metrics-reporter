@@ -5,16 +5,16 @@ from util import run_command
 import shlex
 
 
-def concat_build_dir(base_dir: str, append_dir: str) -> str:
+def concat_build_dir(base_dir: Path, append_dir: str) -> str:
     if append_dir:
-        build_dir = '"{0}/build/{1}"'.format(base_dir, append_dir)
+        build_dir = '"{0}/build/{1}"'.format(str(base_dir), append_dir)
     else:
-        build_dir = '"{}/build"'.format(base_dir)
+        build_dir = '"{}/build"'.format(str(base_dir))
     return build_dir
 
 
-def concat_output_path(base_dir: str, file_name: str) -> str:
-    return '"{}"'.format(Path(base_dir, file_name))
+def concat_output_path(base_dir: Path, file_name: str) -> str:
+    return '"{}"'.format(str(base_dir / file_name))
 
 
 def initialize_lcov(
@@ -32,8 +32,8 @@ def initialize_lcov(
             --initial".format(
                 str(lcovrc),
                 str(base_dir),
-                concat_build_dir(str(base_dir), package_name),
-                concat_output_path(str(output_dir), "lcov.base"),
+                concat_build_dir(base_dir, package_name),
+                concat_output_path(output_dir, "lcov.base"),
             )
         )
     ):
@@ -54,8 +54,8 @@ def run_lcov(base_dir: Path, output_dir: Path, lcovrc: Path, package_name: str =
             --output-file {3}".format(
                 str(lcovrc),
                 str(base_dir),
-                concat_build_dir(str(base_dir), package_name),
-                concat_output_path(str(output_dir), "lcov.run"),
+                concat_build_dir(base_dir, package_name),
+                concat_output_path(output_dir, "lcov.run"),
             )
         )
     ):
@@ -63,7 +63,7 @@ def run_lcov(base_dir: Path, output_dir: Path, lcovrc: Path, package_name: str =
         return
 
     # Return if lcov.run is empty
-    if not Path(concat_output_path(str(output_dir), "lcov.run")).exists():
+    if not (output_dir / "lcov.run").exists():
         print("Skipped")
         return
 
@@ -76,9 +76,9 @@ def run_lcov(base_dir: Path, output_dir: Path, lcovrc: Path, package_name: str =
             -a {2} \
             -o {3}".format(
                 str(lcovrc),
-                concat_output_path(str(output_dir), "lcov.base"),
-                concat_output_path(str(output_dir), "lcov.run"),
-                concat_output_path(str(output_dir), "lcov.total"),
+                concat_output_path(output_dir, "lcov.base"),
+                concat_output_path(output_dir, "lcov.run"),
+                concat_output_path(output_dir, "lcov.total"),
             )
         )
     ):
@@ -103,7 +103,7 @@ def run_lcov(base_dir: Path, output_dir: Path, lcovrc: Path, package_name: str =
                 str(lcovrc),
                 str(output_dir),
                 str(base_dir),
-                concat_output_path(str(output_dir), "lcov.total.filtered"),
+                concat_output_path(output_dir, "lcov.total.filtered"),
             )
         )
     ):
@@ -120,7 +120,7 @@ def run_lcov(base_dir: Path, output_dir: Path, lcovrc: Path, package_name: str =
             -o {3}".format(
                 str(lcovrc),
                 str(base_dir),
-                concat_output_path(str(output_dir), "lcov.total.filtered"),
+                concat_output_path(output_dir, "lcov.total.filtered"),
                 str(output_dir),
             )
         )
