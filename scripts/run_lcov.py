@@ -64,7 +64,7 @@ def run_lcov(base_dir: Path, output_dir: Path, lcovrc: Path, package_name: str =
         return
 
     # Return if lcov.run is empty
-    if os.stat(output_dir / "lcov.run").st_size() == 0:
+    if os.stat(output_dir / "lcov.run").st_size == 0:
         print("Skipped")
         return
 
