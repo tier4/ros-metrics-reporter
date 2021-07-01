@@ -82,13 +82,10 @@ def coverage_single_package(
     )
 
 
-def coverage_package(
-    base_dir: Path, output_dir: Path, timestamp: str, lcovrc: Path, exclude: list
-):
+def coverage_package(base_dir: Path, output_dir: Path, lcovrc: Path, exclude: list):
 
-    output_lcov_dir = output_dir / "lcov_result" / timestamp
-    if not output_lcov_dir.exists():
-        output_lcov_dir.mkdir(parents=True)
+    if not output_dir.exists():
+        output_dir.mkdir(parents=True)
 
     package_list = run_command_pipe(["colcon", "list"]).splitlines()
     for line in package_list:

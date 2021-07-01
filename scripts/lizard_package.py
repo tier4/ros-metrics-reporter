@@ -53,16 +53,14 @@ def lizard_single_package(
 def lizard_package(
     output_dir: Path,
     gh_action_dir: Path,
-    timestamp: str,
     exclude: list,
     ccn: int,
     nloc: int,
     arguments: int,
 ):
 
-    output_lizard_dir = output_dir / "lizard_result" / timestamp
-    if not output_lizard_dir.exists():
-        output_lizard_dir.mkdir(parents=True)
+    if not output_dir.exists():
+        output_dir.mkdir(parents=True)
 
     lizard_dir = gh_action_dir / "lizard"
     if not lizard_dir.exists():
@@ -78,7 +76,7 @@ def lizard_package(
         lizard_single_package(
             package_name=package[0],
             package_path=package[1] + "/",
-            output_dir=output_lizard_dir,
+            output_dir=output_dir,
             lizard_dir=lizard_dir,
             exclude=exclude,
             ccn=ccn,

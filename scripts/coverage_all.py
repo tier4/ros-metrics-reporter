@@ -10,9 +10,9 @@ import shlex
 COVERAGE_FLAGS = "-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1 -O0"
 
 
-def coverage_all(base_dir: Path, output_dir: Path, timestamp: str, lcovrc: Path):
+def coverage_all(base_dir: Path, output_dir: Path, lcovrc: Path):
 
-    output_lcov_dir = output_dir / "lcov_result" / timestamp / "all"
+    output_lcov_dir = output_dir / "all"
     if not output_lcov_dir.exists():
         output_lcov_dir.mkdir(parents=True)
 

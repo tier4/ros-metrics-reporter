@@ -119,7 +119,7 @@ runs:
           --hugo-root-dir=${{ steps.filtered.outputs.HUGO_DIR }} \
           --base-url=${{ inputs.base-url }} \
           --title=${{ inputs.title }} \
-          --exclude=${{ inputs.exclude }} \
+          --exclude="${{ inputs.exclude }}" \
           --ccn=${{ inputs.CCN }} \
           --nloc=${{ inputs.nloc }} \
           --arguments=${{ inputs.arguments }}

@@ -16,26 +16,25 @@ def ros_metrics_reporter(args):
     exclude = args.exclude.split()
 
     # Measure code coverage
+    lcov_dir = args.output_dir / "lcov_result" / args.timestamp
     coverage_all(
         base_dir=args.base_dir,
-        output_dir=args.output_dir,
-        timestamp=args.timestamp,
+        output_dir=lcov_dir,
         lcovrc=args.lcovrc,
     )
     coverage_package(
         base_dir=args.base_dir,
-        output_dir=args.output_dir,
-        timestamp=args.timestamp,
+        output_dir=lcov_dir,
         lcovrc=args.lcovrc,
         exclude=exclude,
     )
 
     # Measure code metrics
+    lizard_dir = args.output_dir / "lizard_result" / args.timestamp
     lizard_all(
         base_dir=args.base_dir,
         output_dir=args.output_dir,
         gh_action_dir=args.action_dir,
-        timestamp=args.timestamp,
         ccn=args.ccn,
         nloc=args.nloc,
         arguments=args.arguments,
@@ -43,29 +42,24 @@ def ros_metrics_reporter(args):
     lizard_package(
         output_dir=args.output_dir,
         gh_action_dir=args.action_dir,
-        timestamp=args.timestamp,
         exclude=exclude,
         ccn=args.ccn,
         nloc=args.nloc,
         arguments=args.arguments,
     )
 
-    lcov_dir = args.output_dir / "lcov_result" / args.timestamp
-    lizard_dir = args.output_dir / "lizard_result" / args.timestamp
-    metrics_dir = args.output_dir / "metrics"
-    metrics_output_dir = metrics_dir / args.timestamp
-
     # Scraping
-    scraping(lcov_dir=lcov_dir, lizard_dir=lizard_dir, output_dir=metrics_output_dir)
+    metrics_dir = args.output_dir / "metrics" / args.timestamp
+    scraping(lcov_dir=lcov_dir, lizard_dir=lizard_dir, output_dir=metrics_dir)
 
     # Create symbolic link
     lcov_latest_dir = lcov_dir = args.output_dir / "lcov_result" / "latest"
     lizard_latest_dir = args.output_dir / "lizard_result" / "latest"
-    metrics_latest_dir = metrics_dir / "latest"
+    metrics_latest_dir = args.output_dir / "metrics" / "latest"
 
     create_link(target=lcov_dir, link_from=lcov_latest_dir)
     create_link(target=lizard_dir, link_from=lizard_latest_dir)
-    create_link(target=metrics_output_dir, link_from=metrics_latest_dir)
+    create_link(target=metrics_dir, link_from=metrics_latest_dir)
 
     # Create static page
     hugo_template_dir = args.action_dir / "template" / "hugo"
