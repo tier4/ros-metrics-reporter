@@ -7,6 +7,7 @@ from util import dir_path
 from pathlib import Path
 from lizard_all import lizard_all
 from lizard_package import lizard_package
+from clang_tidy import clang_tidy
 from scraping import scraping
 from create_link import create_link
 from create_static_page import create_static_page
@@ -48,6 +49,15 @@ def ros_metrics_reporter(args):
         arguments=args.arguments,
     )
 
+    # Run Clang-Tidy
+    tidy_result_dir = args.output_dir / "tidy-reports" / args.timestamp
+    clang_tidy(
+        base_dir=args.base_dir,
+        output_dir=tidy_result_dir,
+        gh_action_dir=args.action_dir,
+        config_path=args.cppchecker_config,
+    )
+
     # Scraping
     metrics_dir = args.output_dir / "metrics" / args.timestamp
     metrics_dir.mkdir(parents=True, exist_ok=True)
@@ -64,7 +74,6 @@ def ros_metrics_reporter(args):
 
     # Create static page
     hugo_template_dir = args.action_dir / "template" / "hugo"
-    tidy_result_dir = args.output_dir / "tidy-reports" / args.timestamp
 
     create_static_page(
         input_dir=metrics_dir.parent,
@@ -99,6 +108,12 @@ if __name__ == "__main__":
         required=True,
     )
     parser.add_argument("--lcovrc", help="Path to .lcovrc", type=Path, required=True)
+    parser.add_argument(
+        "--cppchecker-config",
+        help="Path to cppchecker-config.json",
+        type=Path,
+        required=True,
+    )
     parser.add_argument(
         "--hugo-root-dir", help="Hugo root directory", type=dir_path, required=True
     )

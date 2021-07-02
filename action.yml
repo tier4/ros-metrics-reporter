@@ -71,37 +71,26 @@ runs:
       run: |
         apt-get update
         apt-get install -y lcov git python-is-python3 python3-pip hugo
+        apt-get install -y clang-11 clang-tidy-11 libomp-dev libomp-10-dev
+        update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-11 9999
+        update-alternatives --install /usr/bin/clang clang /usr/bin/clang-11 9999
+        update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-11 9999
+        apt-get install -y gcc-multilib python3-venv
         pip3 install jinja2 bs4 pandas plotly
+      shell: bash
+
+    - name: Build codechecker
+      run: |
+        git clone https://github.com/Ericsson/codechecker.git ${GITHUB_ACTION_PATH}/codechecker
+        cd ${GITHUB_ACTION_PATH}/codechecker
+        make venv || true
+        . "${PWD}/venv/bin/activate"
+        BUILD_UI_DIST=NO make package || true
       shell: bash
 
     - name: Set timestamp
       run: |
         date -u '+%Y%m%d_%H%M%S' > ${GITHUB_WORKSPACE}/timestamp.txt
-      shell: bash
-
-    - name: Run clang-tidy
-      run: |
-        . /opt/ros/${{ inputs.ros-distro }}/setup.sh
-        colcon build --event-handlers console_cohesion+ \
-                      --cmake-args \
-                        -DCMAKE_BUILD_TYPE=Release \
-                        -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-        apt-get install -y clang-11 clang-tidy-11 libomp-dev libomp-10-dev
-        update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-11 9999
-        update-alternatives --install /usr/bin/clang clang /usr/bin/clang-11 9999
-        update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-11 9999
-        git clone https://github.com/Ericsson/codechecker.git ${GITHUB_ACTION_PATH}/codechecker
-        apt-get install -y gcc-multilib python3-venv
-        pushd ${GITHUB_ACTION_PATH}/codechecker
-        make venv || true
-        . "${PWD}/venv/bin/activate"
-        BUILD_UI_DIST=NO make package || true
-        popd
-        export PATH="${GITHUB_ACTION_PATH}/codechecker/build/CodeChecker/bin:$PATH"
-        TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
-        CodeChecker analyze ${GITHUB_WORKSPACE}/build/compile_commands.json --config ${{ inputs.codechecker-config-path }} --ignore "${GITHUB_ACTION_PATH}"/codechecker-skip-list.txt --output ./reports
-        CodeChecker parse -e html ./reports -o ${{ steps.filtered.outputs.ARTIFACTS_DIR }}/tidy-reports/$TIMESTAMP --trim-path-prefix ${GITHUB_WORKSPACE} || true
-        deactivate
       shell: bash
 
     - name: Measure code quality index
@@ -116,6 +105,7 @@ runs:
           --output-dir=${{ steps.filtered.outputs.ARTIFACTS_DIR }} \
           --timestamp=${TIMESTAMP} \
           --lcovrc=${{ inputs.lcovrc-path }} \
+          --cppchecker-config=${{ inputs.codechecker-config-path }} \
           --hugo-root-dir=${{ steps.filtered.outputs.HUGO_DIR }} \
           --base-url=${{ inputs.base-url }} \
           --title=${{ inputs.title }} \
