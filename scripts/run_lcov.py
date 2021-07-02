@@ -6,6 +6,12 @@ import shlex
 import os
 
 
+def get_file_size(file: Path) -> int:
+    if file.exists():
+        return os.stat(file).st_size
+    return -1
+
+
 def concat_build_dir(base_dir: Path, append_dir: str) -> str:
     if append_dir:
         build_dir = '"{0}/build/{1}"'.format(str(base_dir), append_dir)
@@ -64,7 +70,7 @@ def run_lcov(base_dir: Path, output_dir: Path, lcovrc: Path, package_name: str =
         return
 
     # Return if lcov.run is empty
-    if os.stat(output_dir / "lcov.run").st_size == 0:
+    if get_file_size(output_dir / "lcov.run") <= 0:
         print("Skipped")
         return
 

@@ -1,5 +1,16 @@
 from pathlib import Path
-from scripts.run_lcov import concat_build_dir, concat_output_path
+from scripts.run_lcov import concat_build_dir, concat_output_path, get_file_size
+
+
+def test_get_file_size(tmp_path):
+    test_file = Path(tmp_path, "foo.txt")
+    test_file.touch()
+    assert get_file_size(test_file) == 0
+
+    test_file.write_text("foo")
+    assert get_file_size(test_file) == 3
+
+    assert get_file_size(Path(tmp_path, "bar.txt")) == -1
 
 
 def test_concat_build_dir():
