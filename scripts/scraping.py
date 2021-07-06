@@ -8,6 +8,7 @@ import csv
 from numpy.core.fromnumeric import mean
 
 from util import dir_path
+from pathlib import Path
 
 
 def classname_to_signal(classname: str) -> str:
@@ -15,7 +16,7 @@ def classname_to_signal(classname: str) -> str:
 
 
 def get_lcov_coverage(html_path: str) -> list:
-    """ Get Lines, Functions, Branches coverage rate """
+    """Get Lines, Functions, Branches coverage rate"""
     soup = bs4.BeautifulSoup(open(html_path), "html.parser")
     rate_list = []
     for tr in soup.select("body > table:nth-of-type(1) > tr > td > table > tr"):
@@ -35,7 +36,7 @@ def get_lcov_coverage(html_path: str) -> list:
 
 
 def get_worst_case(metrics: list) -> int:
-    """ Get worst case """
+    """Get worst case"""
     if metrics:
         return max(int(item.get_text()) for item in metrics)
     else:
@@ -43,7 +44,7 @@ def get_worst_case(metrics: list) -> int:
 
 
 def get_average(metrics: list) -> int:
-    """ Get average """
+    """Get average"""
     if metrics:
         return mean([int(item.get_text()) for item in metrics])
     else:
@@ -51,7 +52,7 @@ def get_average(metrics: list) -> int:
 
 
 def get_violate_count(metrics: list) -> int:
-    """ Get number of functions that violated the criteria """
+    """Get number of functions that violated the criteria"""
     if metrics:
         return sum(item["class"][0] == "greater-value" for item in metrics)
     else:
@@ -108,6 +109,35 @@ def get_lizard_metrics(html_path: str) -> list:
     ]
 
 
+def scraping(lcov_dir: Path, lizard_dir: Path, output_dir: Path):
+    lcov_index_list = list(lcov_dir.glob("*/index.html"))
+    lizard_index_list = list(lizard_dir.glob("*/index.html"))
+
+    # Create output directory
+    for html in lizard_index_list:
+        dirname = html.parent.name
+        (output_dir / dirname).mkdir(exist_ok=True, parents=True)
+
+    for html in lcov_index_list:
+        coverages = get_lcov_coverage(html)
+
+        filename = output_dir / html.parent.name / "coverage.csv"
+        with open(filename, "w") as f:
+            writer = csv.DictWriter(f, fieldnames=coverages[0].keys())
+            writer.writeheader()
+            for coverage in coverages:
+                writer.writerow(coverage)
+
+    for html in lizard_index_list:
+        metrics = get_lizard_metrics(html)
+        filename = output_dir / html.parent.name / "lizard.csv"
+        with open(filename, "w") as f:
+            writer = csv.DictWriter(f, fieldnames=metrics[0].keys())
+            writer.writeheader()
+            for item in metrics:
+                writer.writerow(item)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -121,30 +151,6 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-
-    lcov_index_list = list(args.lcov_dir.glob("*/index.html"))
-    lizard_index_list = list(args.lizard_dir.glob("*/index.html"))
-
-    # Create output directory
-    for html in lizard_index_list:
-        dirname = html.parent.name
-        (args.output_dir / dirname).mkdir(exist_ok=True)
-
-    for html in lcov_index_list:
-        coverages = get_lcov_coverage(html)
-
-        filename = args.output_dir / html.parent.name / "coverage.csv"
-        with open(filename, "w") as f:
-            writer = csv.DictWriter(f, fieldnames=coverages[0].keys())
-            writer.writeheader()
-            for coverage in coverages:
-                writer.writerow(coverage)
-
-    for html in lizard_index_list:
-        metrics = get_lizard_metrics(html)
-        filename = args.output_dir / html.parent.name / "lizard.csv"
-        with open(filename, "w") as f:
-            writer = csv.DictWriter(f, fieldnames=metrics[0].keys())
-            writer.writeheader()
-            for item in metrics:
-                writer.writerow(item)
+    scraping(
+        lcov_dir=args.lcov_dir, lizard_dir=args.lizard_dir, output_dir=args.output_dir
+    )
