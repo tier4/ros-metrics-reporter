@@ -102,12 +102,6 @@ if __name__ == "__main__":
     )
     parser.add_argument("--lcovrc", help="Path to .lcovrc", type=Path, required=True)
     parser.add_argument(
-        "--cppchecker-config",
-        help="Path to cppchecker-config.json",
-        type=Path,
-        required=True,
-    )
-    parser.add_argument(
         "--hugo-root-dir", help="Hugo root directory", type=dir_path, required=True
     )
     parser.add_argument("--base-url", help="baseURL", type=str, required=True)
