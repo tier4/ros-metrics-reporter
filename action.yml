@@ -103,7 +103,7 @@ runs:
             --ignore "${GITHUB_ACTION_PATH}"/codechecker-skip-list.txt \
             --output ./reports
         codechecker/build/CodeChecker/bin/CodeChecker parse -e html ./reports \
-            -o ${ARTIFACTS_DIR}/tidy-reports/$TIMESTAMP \
+            -o ${GITHUB_WORKSPACE}/${ARTIFACTS_DIR}/tidy-reports/$TIMESTAMP \
             --trim-path-prefix ${GITHUB_WORKSPACE} || true
       shell: bash
 
