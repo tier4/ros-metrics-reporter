@@ -7,7 +7,6 @@ from util import dir_path
 from pathlib import Path
 from lizard_all import lizard_all
 from lizard_package import lizard_package
-from clang_tidy import clang_tidy
 from scraping import scraping
 from create_link import create_link
 from create_static_page import create_static_page
@@ -49,14 +48,8 @@ def ros_metrics_reporter(args):
         arguments=args.arguments,
     )
 
-    # Run Clang-Tidy
+    # Set Clang-Tidy result dir
     tidy_result_dir = args.output_dir / "tidy-reports" / args.timestamp
-    clang_tidy(
-        base_dir=args.base_dir,
-        output_dir=tidy_result_dir,
-        gh_action_dir=args.action_dir,
-        config_path=args.cppchecker_config,
-    )
 
     # Scraping
     metrics_dir = args.output_dir / "metrics" / args.timestamp

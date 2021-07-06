@@ -79,13 +79,26 @@ runs:
         pip3 install jinja2 bs4 pandas plotly
       shell: bash
 
-    - name: Build codechecker
+    - name: Run CodeCShecker
       run: |
-        git clone https://github.com/Ericsson/codechecker.git ${GITHUB_ACTION_PATH}/codechecker
+        . /opt/ros/${{ inputs.ros-distro }}/setup.sh
+        colcon build \
+            --event-handlers console_cohesion+ \
+            --cmake-args -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+        git clone https://github.com/Ericsson/codechecker.git --depth 1 ${GITHUB_ACTION_PATH}/codechecker
         cd ${GITHUB_ACTION_PATH}/codechecker
         make venv || true
         . "${PWD}/venv/bin/activate"
         BUILD_UI_DIST=NO make package || true
+        cd ..
+        build/CodeChecker/bin/CodeChecker analyze ${GITHUB_WORKSPACE}/build/compile_commands.json \
+            --config ${{ inputs.codechecker-config-path }} \
+            --ignore "${GITHUB_ACTION_PATH}"/codechecker-skip-list.txt \
+            --output ./reports
+        build/CodeChecker/bin/CodeChecker parse -e html ./reports \
+            -o ${ARTIFACTS_DIR}/tidy-reports/$TIMESTAMP \
+            --trim-path-prefix ${GITHUB_WORKSPACE} || true
       shell: bash
 
     - name: Set timestamp
