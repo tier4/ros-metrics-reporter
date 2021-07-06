@@ -79,9 +79,15 @@ runs:
         pip3 install jinja2 bs4 pandas plotly
       shell: bash
 
+    - name: Set timestamp
+      run: |
+        date -u '+%Y%m%d_%H%M%S' > ${GITHUB_WORKSPACE}/timestamp.txt
+      shell: bash
+
     - name: Run CodeCShecker
       run: |
         . /opt/ros/${{ inputs.ros-distro }}/setup.sh
+        TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
         colcon build \
             --event-handlers console_cohesion+ \
             --cmake-args -DCMAKE_BUILD_TYPE=Release \
@@ -99,11 +105,6 @@ runs:
         codechecker/build/CodeChecker/bin/CodeChecker parse -e html ./reports \
             -o ${ARTIFACTS_DIR}/tidy-reports/$TIMESTAMP \
             --trim-path-prefix ${GITHUB_WORKSPACE} || true
-      shell: bash
-
-    - name: Set timestamp
-      run: |
-        date -u '+%Y%m%d_%H%M%S' > ${GITHUB_WORKSPACE}/timestamp.txt
       shell: bash
 
     - name: Measure code quality index
