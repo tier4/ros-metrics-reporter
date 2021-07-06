@@ -84,7 +84,7 @@ runs:
         date -u '+%Y%m%d_%H%M%S' > ${GITHUB_WORKSPACE}/timestamp.txt
       shell: bash
 
-    - name: Run CodeCShecker
+    - name: Run CodeChecker
       run: |
         . /opt/ros/${{ inputs.ros-distro }}/setup.sh
         TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
