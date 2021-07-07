@@ -101,7 +101,7 @@ runs:
         codechecker/build/CodeChecker/bin/CodeChecker analyze ${GITHUB_WORKSPACE}/build/compile_commands.json \
           --config ${{ inputs.codechecker-config-path }} \
           --ignore "${GITHUB_ACTION_PATH}"/codechecker-skip-list.txt \
-          --output ./reports
+          --output ./reports || true
         codechecker/build/CodeChecker/bin/CodeChecker parse -e html ./reports \
           -o ${GITHUB_WORKSPACE}/${ARTIFACTS_DIR}/tidy-reports/$TIMESTAMP \
           --trim-path-prefix ${GITHUB_WORKSPACE} || true
