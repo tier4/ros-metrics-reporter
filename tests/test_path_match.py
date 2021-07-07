@@ -8,6 +8,8 @@ def test_path_match_true():
         "**/bar/*",
     ]
     assert True == path_match("/home/user/project/foo/", pattern)
+    assert True == path_match("/home/user/project/bar/", pattern)
+    assert True == path_match("/home/user/project/foo/bar/", pattern)
 
 
 def test_path_match_false():

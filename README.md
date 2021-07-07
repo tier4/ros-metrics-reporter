@@ -86,10 +86,12 @@ jobs:
 | `base-url` | N/A | If you use example/hugo-site in this repository, please specify the baseURL. | `true` | `"https://tier4.github.io/ros-metrics-reporter/"` |
 | `title` | N/A | If you use example/hugo-site in this repository, please specify the title. | `true` | `"ros2/demos"` |
 | `exclude` | N/A | Space separated list of exclude paths. | `false` | `"**/vendor/*"` |
-| `ros-distro` | `"foxy"` | ROS distribution | `true` | `"foxy"` |
-| `hugo-dir` | `"${GITHUB_ACTION_PATH}/example/hugo-site"` | If you want to use your own hugo-site, specify the root directory | `true` | `"${GITHUB_WORKSPACE}/hugo-site"` |
-| `output-dir` | `"${GITHUB_WORKSPACE}/public"` | Hugo output directory | `true` | `"${GITHUB_WORKSPACE}/output-dir"` |
-| `lcovrc-path` | `"${GITHUB_ACTION_PATH}/.lcovrc"` | Path to .lcovrc file | `true` | `"${GITHUB_WORKSPACE}/.lcovrc"` |
-| `CCN` | `"15"` | Threshold for cyclomatic complexity number warning | `true` | `"20"` |
-| `nloc` | `"1000000"` | Threshold for NLOC | `true` | `"200"` |
-| `arguments` | `"100"` | Limit for number of parameters | `true` | `"100"` |
+| `ros-distro` | `"foxy"` | ROS distribution | `false` | `"foxy"` |
+| `hugo-dir` | `"${GITHUB_ACTION_PATH}/example/hugo-site"` | If you want to use your own hugo-site, specify the root directory | `false` | `"${GITHUB_WORKSPACE}/hugo-site"` |
+| `output-dir` | `"${GITHUB_WORKSPACE}/public"` | Hugo output directory | `false` | `"${GITHUB_WORKSPACE}/output-dir"` |
+| `lcovrc-path` | `"${GITHUB_ACTION_PATH}/.lcovrc"` | Path to .lcovrc file | `false` | `"${GITHUB_WORKSPACE}/.lcovrc"` |
+| `CCN` | `"15"` | Threshold for cyclomatic complexity number warning | `false` | `"20"` |
+| `nloc` | `"1000000"` | Threshold for NLOC | `false` | `"200"` |
+| `arguments` | `"100"` | Limit for number of parameters | `false` | `"100"` |
+| `codechecker-config-path` | `"${GITHUB_ACTION_PATH}/codechecker-config.json"` | Path to codechecker-config.json file | `false` | `"codechecker-config.json"` |
+| `codechecker-skip-list` | `"${GITHUB_ACTION_PATH}/codechecker-skip-list.txt"` | Path to codechecker-skip-list | `false` | `"codechecker-skip-list.txt"` |

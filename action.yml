@@ -50,6 +50,10 @@ inputs:
     description: "Path to codechecker-config.json file"
     required: true
     default: "${GITHUB_ACTION_PATH}/codechecker-config.json"
+  codechecker-skip-list:
+    description: "Path to codechecker-skip-list"
+    required: true
+    default: "${GITHUB_ACTION_PATH}/codechecker-skip-list.txt"
 
 outputs:
   output-dir:
@@ -98,7 +102,7 @@ runs:
         cd ..
         codechecker/build/CodeChecker/bin/CodeChecker analyze ${GITHUB_WORKSPACE}/build/compile_commands.json \
           --config ${{ inputs.codechecker-config-path }} \
-          --ignore "${GITHUB_ACTION_PATH}"/codechecker-skip-list.txt \
+          --ignore ${{ inputs.codechecker-skip-list }} \
           --output ./reports || true
         codechecker/build/CodeChecker/bin/CodeChecker parse -e html ./reports \
           -o ${GITHUB_WORKSPACE}/${ARTIFACTS_DIR}/tidy-reports/$TIMESTAMP \
