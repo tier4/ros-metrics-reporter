@@ -28,10 +28,6 @@
   </url>
   
   <url>
-    <loc>https://tier4.github.io/ros-metrics-reporter/packages/codechecker/</loc>
-  </url>
-  
-  <url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/composition/</loc>
   </url>
   
