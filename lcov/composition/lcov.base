@@ -61,6 +61,8 @@ end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/node_like_listener_component.hpp
 end_of_record
 TN:
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/listener_component.hpp
+end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/listener_component.cpp
 FN:29,_ZN11composition8ListenerC2ERKN6rclcpp11NodeOptionsE
 FNDA:0,_ZN11composition8ListenerC2ERKN6rclcpp11NodeOptionsE
@@ -119,8 +121,6 @@ BRDA:55,0,6,-
 BRDA:55,0,7,-
 BRDA:55,0,8,-
 BRDA:55,0,9,-
-end_of_record
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/listener_component.hpp
 end_of_record
 TN:
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/talker_component.cpp
@@ -217,6 +217,8 @@ end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/talker_component.hpp
 end_of_record
 TN:
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/server_component.hpp
+end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/server_component.cpp
 FN:27,_ZN11composition6ServerC2ERKN6rclcpp11NodeOptionsE
 FNDA:0,_ZN11composition6ServerC2ERKN6rclcpp11NodeOptionsE
@@ -271,8 +273,6 @@ BRDA:53,0,6,-
 BRDA:53,0,7,-
 BRDA:53,0,8,-
 BRDA:53,0,9,-
-end_of_record
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/server_component.hpp
 end_of_record
 TN:
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/manual_composition.cpp
@@ -332,8 +332,6 @@ BRDA:54,0,3,-
 DA:56,0
 end_of_record
 TN:
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/client_component.hpp
-end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/client_component.cpp
 FN:29,_ZN11composition6ClientC2ERKN6rclcpp11NodeOptionsE
 FNDA:0,_ZN11composition6ClientC2ERKN6rclcpp11NodeOptionsE
@@ -487,6 +485,8 @@ BRDA:81,0,6,-
 BRDA:81,0,7,-
 BRDA:81,0,8,-
 BRDA:81,0,9,-
+end_of_record
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/client_component.hpp
 end_of_record
 TN:
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/linktime_composition.cpp
