@@ -63,7 +63,7 @@ def get_trial_record(record_dir: Path) -> DataFrame:
 def read_data_source(base_path: Path) -> pd.DataFrame:
     data_source = pd.DataFrame(index=[], columns=cols)
 
-    for timestamp_dir in base_path.iterdir():
+    for timestamp_dir in sorted(base_path.iterdir()):
         # Skip latest directory
         if "latest" in timestamp_dir.name:
             continue
