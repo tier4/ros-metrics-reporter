@@ -21,6 +21,7 @@ def ros_metrics_reporter(args):
         base_dir=args.base_dir,
         output_dir=lcov_dir,
         lcovrc=args.lcovrc,
+        exclude=exclude,
     )
     coverage_package(
         base_dir=args.base_dir,
@@ -38,6 +39,7 @@ def ros_metrics_reporter(args):
         ccn=args.ccn,
         nloc=args.nloc,
         arguments=args.arguments,
+        exclude=exclude,
     )
     lizard_package(
         base_dir=args.base_dir,
