@@ -48,12 +48,10 @@ inputs:
     required: false
   codechecker-config-path:
     description: "Path to codechecker-config.json file"
-    required: true
-    default: "${GITHUB_ACTION_PATH}/codechecker-config.json"
+    required: false
   codechecker-skip-list:
     description: "Path to codechecker-skip-list"
-    required: true
-    default: "${GITHUB_ACTION_PATH}/codechecker-skip-list.txt"
+    required: false
 
 outputs:
   output-dir:
@@ -69,6 +67,8 @@ runs:
         echo ::set-output name=ARTIFACTS_DIR::$(echo ${{ inputs.artifacts-dir }} | sed -e "s@/\$@@")
         echo ::set-output name=HUGO_DIR::$(echo ${{ inputs.hugo-dir }} | sed -e "s@/\$@@")
         echo ::set-output name=OUTPUT_DIR::$(echo ${{ inputs.output-dir }} | sed -e "s@/\$@@")
+        echo ::set-output name=CODECHECKER_CONFIG_PATH::${GITHUB_WORKSPACE}/${{ inputs.codechecker-config-path }}:-"${GITHUB_ACTION_PATH}/codechecker-config.json"
+        echo ::set-output name=CODECHECKER_SKIP_LIST::${GITHUB_WORKSPACE}/${{ inputs.codechecker-skip-list }}:-"${GITHUB_ACTION_PATH}/codechecker-skip-list.txt"
       shell: bash
 
     - name: Install dependencies
@@ -101,8 +101,8 @@ runs:
         BUILD_UI_DIST=NO make package || true
         cd ..
         codechecker/build/CodeChecker/bin/CodeChecker analyze ${GITHUB_WORKSPACE}/build/compile_commands.json \
-          --config ${{ inputs.codechecker-config-path }} \
-          --ignore ${{ inputs.codechecker-skip-list }} \
+          --config ${{ steps.filtered.CODECHECKER_CONFIG_PATH }} \
+          --ignore ${{ steps.filtered.CODECHECKER_SKIP_LIST }} \
           --output ./reports || true
         codechecker/build/CodeChecker/bin/CodeChecker parse -e html ./reports \
           -o ${GITHUB_WORKSPACE}/${ARTIFACTS_DIR}/tidy-reports/$TIMESTAMP \
