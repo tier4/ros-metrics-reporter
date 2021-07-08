@@ -90,9 +90,10 @@ def coverage_package(base_dir: Path, output_dir: Path, lcovrc: Path, exclude: li
     package_list = run_command_pipe(["colcon", "list"]).splitlines()
     for line in package_list:
         package = line.split()
+        package_full_path = str(base_dir / package[1]) + "/"
         coverage_single_package(
             package_name=package[0],
-            package_path=package[1] + "/",
+            package_path=package_full_path,
             base_dir=base_dir,
             output_dir=output_dir,
             lcovrc=lcovrc,

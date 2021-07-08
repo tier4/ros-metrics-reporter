@@ -51,6 +51,7 @@ def lizard_single_package(
 
 
 def lizard_package(
+    base_dir: Path,
     output_dir: Path,
     gh_action_dir: Path,
     exclude: list,
@@ -73,9 +74,10 @@ def lizard_package(
     package_list = run_command_pipe(["colcon", "list"]).splitlines()
     for line in package_list:
         package = line.split()
+        package_full_path = str(base_dir / package[1]) + "/"
         lizard_single_package(
             package_name=package[0],
-            package_path=package[1] + "/",
+            package_path=package_full_path,
             output_dir=output_dir,
             lizard_dir=lizard_dir,
             exclude=exclude,

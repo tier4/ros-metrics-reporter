@@ -40,6 +40,7 @@ def ros_metrics_reporter(args):
         arguments=args.arguments,
     )
     lizard_package(
+        base_dir=args.base_dir,
         output_dir=lizard_dir,
         gh_action_dir=args.action_dir,
         exclude=exclude,
