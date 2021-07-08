@@ -20,7 +20,7 @@ def coverage_single_package(
 ):
 
     if "_msgs" in package_name:
-        print("Skipped " + package_name)
+        print("Skipped message package: " + package_name)
         return
 
     if path_match(package_path, exclude):
@@ -80,6 +80,8 @@ def coverage_single_package(
         lcovrc=lcovrc,
         package_name=package_name,
     )
+
+    print("Generated package coverage: " + package_name)
 
 
 def coverage_package(base_dir: Path, output_dir: Path, lcovrc: Path, exclude: list):

@@ -16,6 +16,9 @@ def lizard_single_package(
     nloc: int,
     arguments: int,
 ):
+    if "_msgs" in package_name:
+        print("Skipped message package: " + package_name)
+        return
 
     if path_match(package_path, exclude):
         print("Match exclude path. Skipped " + package_name)
@@ -48,6 +51,8 @@ def lizard_single_package(
         ),
         output_file=(output_package_dir / "index.html"),
     )
+
+    print("Generated package metrics: " + package_name)
 
 
 def lizard_package(
