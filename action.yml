@@ -56,90 +56,21 @@ inputs:
 outputs:
   output-dir:
     description: "Hugo output directory"
-    value: ${{ inputs.output-dir }}
 
 runs:
-  using: "composite"
-  steps:
-    - name: Filtering input
-      id: filtered
-      env:
-        CODECHECKER_CONFIG_PATH: ${{ inputs.codechecker-config-path }}
-        CODECHECKER_SKIP_LIST: ${{ inputs.codechecker-skip-list }}
-      run: |
-        echo ::set-output name=ARTIFACTS_DIR::$(echo ${{ inputs.artifacts-dir }} | sed -e "s@/\$@@")
-        echo ::set-output name=HUGO_DIR::$(echo ${{ inputs.hugo-dir }} | sed -e "s@/\$@@")
-        echo ::set-output name=OUTPUT_DIR::$(echo ${{ inputs.output-dir }} | sed -e "s@/\$@@")
-      shell: bash
-
-    - name: Install dependencies
-      run: |
-        apt-get update
-        apt-get install -y lcov git python-is-python3 python3-pip hugo
-        apt-get install -y clang-tidy-11
-        update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-11 9999
-        apt-get install -y gcc-multilib python3-venv
-        pip3 install jinja2 bs4 pandas plotly
-      shell: bash
-
-    - name: Set timestamp
-      run: |
-        date -u '+%Y%m%d_%H%M%S' > ${GITHUB_WORKSPACE}/timestamp.txt
-      shell: bash
-
-    - name: Run CodeChecker
-      run: |
-        . /opt/ros/${{ inputs.ros-distro }}/setup.sh
-        TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
-        colcon build \
-          --event-handlers console_cohesion+ \
-          --cmake-args -DCMAKE_BUILD_TYPE=Release \
-          -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-        git clone https://github.com/Ericsson/codechecker.git --depth 1 ${GITHUB_ACTION_PATH}/codechecker
-        cd ${GITHUB_ACTION_PATH}/codechecker
-        make venv || true
-        . "${PWD}/venv/bin/activate"
-        BUILD_UI_DIST=NO make package || true
-        cd ..
-        CODECHECKER_CONFIG_PATH=${CODECHECKER_CONFIG_PATH:+$GITHUB_WORKSPACE"/"$CODECHECKER_CONFIG_PATH}
-        CODECHECKER_CONFIG_PATH=${CODECHECKER_CONFIG_PATH:-$GITHUB_ACTION_PATH"/codechecker-config.json"}
-        CODECHECKER_SKIP_LIST=${CODECHECKER_SKIP_LIST:+$GITHUB_WORKSPACE"/"$CODECHECKER_SKIP_LIST}
-        CODECHECKER_SKIP_LIST=${CODECHECKER_SKIP_LIST:-$GITHUB_ACTION_PATH"/codechecker-skip-list.txt"}
-        echo "Debug: CODECHECKER_CONFIG_PATH=${{ steps.filtered.CODECHECKER_CONFIG_PATH }}"
-        echo "Debug: CODECHECKER_CONFIG_PATH=$CODECHECKER_CONFIG_PATH"
-        echo "Debug: CODECHECKER_SKIP_LIST=${{ steps.filtered.CODECHECKER_SKIP_LIST }}"
-        echo "Debug: CODECHECKER_SKIP_LIST=$CODECHECKER_SKIP_LIST"
-        codechecker/build/CodeChecker/bin/CodeChecker analyze ${GITHUB_WORKSPACE}/build/compile_commands.json \
-          --config $CODECHECKER_CONFIG_PATH \
-          --ignore $CODECHECKER_SKIP_LIST \
-          --output ./reports || true
-        codechecker/build/CodeChecker/bin/CodeChecker parse -e html ./reports \
-          -o ${GITHUB_WORKSPACE}/${ARTIFACTS_DIR}/tidy-reports/$TIMESTAMP \
-          --trim-path-prefix ${GITHUB_WORKSPACE} || true
-      shell: bash
-
-    - name: Measure code quality index
-      run: |
-        echo "Artifacts directory is ${{ steps.filtered.outputs.ARTIFACTS_DIR }}"
-        mkdir -p ${{ steps.filtered.outputs.ARTIFACTS_DIR }}
-        TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
-        . /opt/ros/${{ inputs.ros-distro }}/setup.sh
-        python ${GITHUB_ACTION_PATH}/scripts/ros_metrics_reporter.py \
-          --base-dir=${GITHUB_WORKSPACE} \
-          --action-dir=${GITHUB_ACTION_PATH} \
-          --output-dir=${{ steps.filtered.outputs.ARTIFACTS_DIR }} \
-          --timestamp=${TIMESTAMP} \
-          --lcovrc=${{ inputs.lcovrc-path }} \
-          --hugo-root-dir=${{ steps.filtered.outputs.HUGO_DIR }} \
-          --base-url=${{ inputs.base-url }} \
-          --title=${{ inputs.title }} \
-          --exclude="${{ inputs.exclude }}" \
-          --ccn=${{ inputs.CCN }} \
-          --nloc=${{ inputs.nloc }} \
-          --arguments=${{ inputs.arguments }}
-      shell: bash
-
-    - name: Generate pages
-      run: |
-        cd ${{ steps.filtered.outputs.HUGO_DIR }} && hugo -d ${{ steps.filtered.outputs.OUTPUT_DIR }}
-      shell: bash
+  using: "docker"
+  image: "Dockerfile"
+  env:
+    ARTIFACTS_DIR: ${{ inputs.artifacts-dir }}
+    BASE_URL: ${{ inputs.base-url }}
+    TITLE: ${{ inputs.title }}
+    ROS_DISTRO: ${{ inputs.ros-distro }}
+    HUGO_DIR: ${{ inputs.hugo-dir }}
+    OUTPUT_DIR: ${{ inputs.output-dir }}
+    LCOVRC_PATH: ${{ inputs.lcovrc-path }}
+    CCN: ${{ inputs.CCN }}
+    NLOC: ${{ inputs.nloc }}
+    ARGUMENTS: ${{ inputs.arguments }}
+    EXCLUDE: ${{ inputs.exclude }}
+    CODECHECKER_CONFIG_PATH: ${{ inputs.codechecker-config-path }}
+    CODECHECKER_SKIP_LIST: ${{ inputs.codechecker-skip-list }}
