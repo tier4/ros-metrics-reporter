@@ -4,6 +4,7 @@ import argparse
 from pathlib import Path
 from datetime import datetime
 from distutils import dir_util
+from typing import List
 import pandas as pd
 from pandas.core import base
 from pandas.core.frame import DataFrame
@@ -32,12 +33,15 @@ def copy_artifacts(src: Path, dest: Path):
             dir_util.copy_tree(package_dir, str(package_dest))
 
 
-def get_trial_record(record_dir: Path) -> DataFrame:
+def get_trial_record(record_dir: Path, allowed_packages: List[str]) -> DataFrame:
     all_package_metrics = pd.DataFrame(index=[], columns=cols)
 
     for package_dir in record_dir.iterdir():
-        date = datetime.strptime(record_dir.name, "%Y%m%d_%H%M%S")
         package_name = package_dir.name
+        if not package_name in allowed_packages:
+            continue
+
+        date = datetime.strptime(record_dir.name, "%Y%m%d_%H%M%S")
 
         coverage_file = package_dir / "coverage.csv"
         if coverage_file.exists():
@@ -60,15 +64,24 @@ def get_trial_record(record_dir: Path) -> DataFrame:
     return all_package_metrics
 
 
+def get_package_list_from_latest_dir(latest_dir: Path) -> List[str]:
+    packages = []
+    for package_path in sorted(latest_dir.iterdir()):
+        packages.append(package_path.name)
+    return packages
+
+
 def read_data_source(base_path: Path) -> pd.DataFrame:
     data_source = pd.DataFrame(index=[], columns=cols)
+
+    packages = get_package_list_from_latest_dir(base_path / "latest")
 
     for timestamp_dir in sorted(base_path.iterdir()):
         # Skip latest directory
         if "latest" in timestamp_dir.name:
             continue
 
-        single_record = get_trial_record(timestamp_dir)
+        single_record = get_trial_record(timestamp_dir, packages)
         data_source = pd.concat([data_source, single_record], axis=0)
     return data_source
 
