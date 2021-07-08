@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 
 from pathlib import Path
+from typing import List
 from util import run_command, run_command_redirect
 import shlex
 
@@ -12,6 +13,7 @@ def lizard_all(
     ccn: int,
     nloc: int,
     arguments: int,
+    exclude: List[str],
 ):
 
     output_lizard_dir = output_dir / "all"
@@ -27,6 +29,8 @@ def lizard_all(
         )
 
     # TODO: Consider call lizard script from python
+    exclude_list_str = " ".join(['-x "' + s + '"' for s in exclude])
+
     run_command_redirect(
         args=shlex.split(
             'python3 {0} \
@@ -34,11 +38,17 @@ def lizard_all(
             -l python \
             -x "*test*" \
             -x "*lizard*" \
+            {5} \
             --CCN {1} \
             -T nloc={2} \
             --arguments {3} \
             --html {4}'.format(
-                str(lizard_dir / "lizard.py"), ccn, nloc, arguments, base_dir
+                str(lizard_dir / "lizard.py"),
+                ccn,
+                nloc,
+                arguments,
+                base_dir,
+                exclude_list_str,
             )
         ),
         output_file=(output_lizard_dir / "index.html"),

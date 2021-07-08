@@ -4,6 +4,7 @@ from pathlib import Path
 import subprocess
 from subprocess import CalledProcessError, PIPE
 import sys
+from typing import List
 
 
 def dir_path(input):
@@ -13,7 +14,7 @@ def dir_path(input):
         raise NotADirectoryError(input)
 
 
-def run_command(args: list, cwd: Path = None) -> bool:
+def run_command(args: List[str], cwd: Path = None) -> bool:
     try:
         subprocess.run(
             args=args, check=True, stdout=sys.stdout, stderr=sys.stderr, cwd=cwd
@@ -23,7 +24,7 @@ def run_command(args: list, cwd: Path = None) -> bool:
     return True
 
 
-def run_command_pipe(args: list, cwd: Path = None) -> str:
+def run_command_pipe(args: List[str], cwd: Path = None) -> str:
     try:
         proc = subprocess.run(
             args=args, check=True, capture_output=True, text=True, cwd=cwd

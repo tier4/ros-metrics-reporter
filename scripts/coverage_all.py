@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 
 from pathlib import Path
+from typing import List
 from util import run_command
 from run_lcov import initialize_lcov, run_lcov
 
@@ -10,7 +11,7 @@ import shlex
 COVERAGE_FLAGS = "-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1 -O0"
 
 
-def coverage_all(base_dir: Path, output_dir: Path, lcovrc: Path):
+def coverage_all(base_dir: Path, output_dir: Path, lcovrc: Path, exclude: List[str]):
 
     output_lcov_dir = output_dir / "all"
     if not output_lcov_dir.exists():
@@ -46,4 +47,6 @@ def coverage_all(base_dir: Path, output_dir: Path, lcovrc: Path):
         print("Unit/integration testing failed.")
         return
 
-    run_lcov(base_dir=base_dir, output_dir=output_lcov_dir, lcovrc=lcovrc)
+    run_lcov(
+        base_dir=base_dir, output_dir=output_lcov_dir, lcovrc=lcovrc, exclude=exclude
+    )

@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 
 import argparse
+from typing import List
 import bs4
 import re
 import csv
@@ -15,7 +16,7 @@ def classname_to_signal(classname: str) -> str:
     return re.sub("headerCovTableEntry", "", classname)
 
 
-def get_lcov_coverage(html_path: str) -> list:
+def get_lcov_coverage(html_path: str) -> List[dict]:
     """Get Lines, Functions, Branches coverage rate"""
     soup = bs4.BeautifulSoup(open(html_path), "html.parser")
     rate_list = []

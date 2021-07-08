@@ -3,6 +3,7 @@
 from distutils import dir_util
 import shutil
 from pathlib import Path
+from typing import List
 from jinja2 import Environment, FileSystemLoader
 import csv
 
@@ -53,7 +54,7 @@ def read_lizard_result(file: Path, type: str) -> tuple:
     return 0, lizard_color(0)
 
 
-def replace_summary_page(file: Path, metrics_dir: Path, packages: list):
+def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
     # Read file, replace token and overwrite file
     env = Environment(loader=FileSystemLoader(str(file.parent)))
     template = env.get_template(file.name)
@@ -129,7 +130,7 @@ def replace_contents(file: Path, package: str):
         f.write(template.render(replace_token(package)))
 
 
-def copy_template(src: Path, dest: Path, metrics_dir: Path, packages: list):
+def copy_template(src: Path, dest: Path, metrics_dir: Path, packages: List[str]):
     # Copy all files from template/hugo/content/ to hugo content directory
     markdown_dir_src = src / "content"
     markdown_dir_dest = dest / "content"

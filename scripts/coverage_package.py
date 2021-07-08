@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 
 from pathlib import Path
+from typing import List
 from util import run_command, run_command_pipe
 from run_lcov import initialize_lcov, run_lcov
 from path_match import path_match
@@ -16,7 +17,7 @@ def coverage_single_package(
     base_dir: Path,
     output_dir: Path,
     lcovrc: Path,
-    exclude: list,
+    exclude: List[str],
 ):
 
     if "_msgs" in package_name:
@@ -84,7 +85,9 @@ def coverage_single_package(
     print("Generated package coverage: " + package_name)
 
 
-def coverage_package(base_dir: Path, output_dir: Path, lcovrc: Path, exclude: list):
+def coverage_package(
+    base_dir: Path, output_dir: Path, lcovrc: Path, exclude: List[str]
+):
 
     if not output_dir.exists():
         output_dir.mkdir(parents=True)

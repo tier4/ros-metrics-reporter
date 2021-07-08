@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 
 from pathlib import Path
+from typing import List
 from util import run_command
 import shlex
 import os
@@ -49,7 +50,13 @@ def initialize_lcov(
     return True
 
 
-def run_lcov(base_dir: Path, output_dir: Path, lcovrc: Path, package_name: str = ""):
+def run_lcov(
+    base_dir: Path,
+    output_dir: Path,
+    lcovrc: Path,
+    package_name: str = "",
+    exclude: List[str] = [],
+):
     # Get coverage
     if not run_command(
         args=shlex.split(
@@ -93,6 +100,8 @@ def run_lcov(base_dir: Path, output_dir: Path, lcovrc: Path, package_name: str =
         return
 
     # Filter test, build, and install files and generate html
+    exclude_list_str = " ".join(['"' + s + '"' for s in exclude])
+
     if not run_command(
         args=shlex.split(
             'lcov \
@@ -106,11 +115,13 @@ def run_lcov(base_dir: Path, output_dir: Path, lcovrc: Path, package_name: str =
             "*_msgs/*" \
             "*/usr/*" \
             "*/opt/*" \
+            {4} \
             -o {3}'.format(
                 str(lcovrc),
                 str(output_dir),
                 str(base_dir),
                 concat_output_path(output_dir, "lcov.total.filtered"),
+                exclude_list_str,
             )
         )
     ):
