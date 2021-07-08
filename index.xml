@@ -153,17 +153,6 @@ Code metrics    json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#3
     </item>
     
     <item>
-      <title>lizard</title>
-      <link>https://tier4.github.io/ros-metrics-reporter/packages/lizard/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://tier4.github.io/ros-metrics-reporter/packages/lizard/</guid>
-      <description>lizard
- Test result Code coverage     json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/lizard/coverage.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/lizard\/coverage.json&#39;, fig.data, fig.layout, {responsive: true}); });  You can access more detailed data on code coverage here.
-Code metrics    json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/lizard/ccn.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/lizard\/ccn.json&#39;, fig.data, fig.layout, {responsive: true}); });     json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/lizard/loc.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/lizard\/loc.json&#39;, fig.</description>
-    </item>
-    
-    <item>
       <title>logging_demo</title>
       <link>https://tier4.github.io/ros-metrics-reporter/packages/logging_demo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -172,28 +161,6 @@ Code metrics    json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#3
       <description>logging_demo
  Test result Code coverage     json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/logging_demo/coverage.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/logging_demo\/coverage.json&#39;, fig.data, fig.layout, {responsive: true}); });  You can access more detailed data on code coverage here.
 Code metrics    json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/logging_demo/ccn.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/logging_demo\/ccn.json&#39;, fig.data, fig.layout, {responsive: true}); });     json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/logging_demo/loc.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/logging_demo\/loc.json&#39;, fig.</description>
-    </item>
-    
-    <item>
-      <title>pendulum_control</title>
-      <link>https://tier4.github.io/ros-metrics-reporter/packages/pendulum_control/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://tier4.github.io/ros-metrics-reporter/packages/pendulum_control/</guid>
-      <description>pendulum_control
- Test result Code coverage     json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/pendulum_control/coverage.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/pendulum_control\/coverage.json&#39;, fig.data, fig.layout, {responsive: true}); });  You can access more detailed data on code coverage here.
-Code metrics    json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/pendulum_control/ccn.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/pendulum_control\/ccn.json&#39;, fig.data, fig.layout, {responsive: true}); });     json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/pendulum_control/loc.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/pendulum_control\/loc.json&#39;, fig.</description>
-    </item>
-    
-    <item>
-      <title>pendulum_msgs</title>
-      <link>https://tier4.github.io/ros-metrics-reporter/packages/pendulum_msgs/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://tier4.github.io/ros-metrics-reporter/packages/pendulum_msgs/</guid>
-      <description>pendulum_msgs
- Test result Code coverage     json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/pendulum_msgs/coverage.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/pendulum_msgs\/coverage.json&#39;, fig.data, fig.layout, {responsive: true}); });  You can access more detailed data on code coverage here.
-Code metrics    json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/pendulum_msgs/ccn.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/pendulum_msgs\/ccn.json&#39;, fig.data, fig.layout, {responsive: true}); });     json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/pendulum_msgs/loc.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/pendulum_msgs\/loc.json&#39;, fig.</description>
     </item>
     
     <item>
