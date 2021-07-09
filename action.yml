@@ -101,13 +101,13 @@ runs:
         . "${PWD}/venv/bin/activate"
         BUILD_UI_DIST=NO make package || true
         cd ..
+        echo "Debug: Original CODECHECKER_CONFIG_PATH=$CODECHECKER_CONFIG_PATH"
+        echo "Debug: Original CODECHECKER_SKIP_LIST=$CODECHECKER_SKIP_LIST"
         CODECHECKER_CONFIG_PATH=${CODECHECKER_CONFIG_PATH:+$GITHUB_WORKSPACE"/"$CODECHECKER_CONFIG_PATH}
         CODECHECKER_CONFIG_PATH=${CODECHECKER_CONFIG_PATH:-$GITHUB_ACTION_PATH"/codechecker-config.json"}
         CODECHECKER_SKIP_LIST=${CODECHECKER_SKIP_LIST:+$GITHUB_WORKSPACE"/"$CODECHECKER_SKIP_LIST}
         CODECHECKER_SKIP_LIST=${CODECHECKER_SKIP_LIST:-$GITHUB_ACTION_PATH"/codechecker-skip-list.txt"}
-        echo "Debug: CODECHECKER_CONFIG_PATH=${{ steps.filtered.CODECHECKER_CONFIG_PATH }}"
         echo "Debug: CODECHECKER_CONFIG_PATH=$CODECHECKER_CONFIG_PATH"
-        echo "Debug: CODECHECKER_SKIP_LIST=${{ steps.filtered.CODECHECKER_SKIP_LIST }}"
         echo "Debug: CODECHECKER_SKIP_LIST=$CODECHECKER_SKIP_LIST"
         codechecker/build/CodeChecker/bin/CodeChecker analyze ${GITHUB_WORKSPACE}/build/compile_commands.json \
           --config $CODECHECKER_CONFIG_PATH \
