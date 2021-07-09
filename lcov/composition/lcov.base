@@ -332,6 +332,8 @@ BRDA:54,0,3,-
 DA:56,0
 end_of_record
 TN:
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/client_component.hpp
+end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/client_component.cpp
 FN:29,_ZN11composition6ClientC2ERKN6rclcpp11NodeOptionsE
 FNDA:0,_ZN11composition6ClientC2ERKN6rclcpp11NodeOptionsE
@@ -485,8 +487,6 @@ BRDA:81,0,6,-
 BRDA:81,0,7,-
 BRDA:81,0,8,-
 BRDA:81,0,9,-
-end_of_record
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/client_component.hpp
 end_of_record
 TN:
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/linktime_composition.cpp
