@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2021-07-09 02:08:33</td>
+            <td class="headerValue">2021-07-09 03:30:42</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">3</td>
@@ -196,37 +196,37 @@
 <a name="108"><span class="lineNum">     108 </span>                :<span class="lineCov">          1 :     y.resize(num_burgers);</span></a>
 <a name="109"><span class="lineNum">     109 </span>                :<span class="lineCov">          1 :     x_inc.resize(num_burgers);</span></a>
 <a name="110"><span class="lineNum">     110 </span>                :<span class="lineCov">          1 :     y_inc.resize(num_burgers);</span></a>
-<a name="111"><span class="lineNum">     111 </span>        [<span class="branchCov" title="Branch 0 was taken 9 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">         10 :     for (int b = 0; b &lt; num_burgers; b++) {</span></a>
-<a name="112"><span class="lineNum">     112 </span>        [<span class="branchCov" title="Branch 0 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          9 :       if (width - burger_template.size().width &gt; 0) {</span></a>
-<a name="113"><span class="lineNum">     113 </span>                :<span class="lineCov">          9 :         x[b] = rand() % (width - burger_template.size().width);  // NOLINT</span></a>
+<a name="111"><span class="lineNum">     111 </span>        [<span class="branchCov" title="Branch 0 was taken 10 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">         11 :     for (int b = 0; b &lt; num_burgers; b++) {</span></a>
+<a name="112"><span class="lineNum">     112 </span>        [<span class="branchCov" title="Branch 0 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         10 :       if (width - burger_template.size().width &gt; 0) {</span></a>
+<a name="113"><span class="lineNum">     113 </span>                :<span class="lineCov">         10 :         x[b] = rand() % (width - burger_template.size().width);  // NOLINT</span></a>
 <a name="114"><span class="lineNum">     114 </span>                :            :       } else {</a>
 <a name="115"><span class="lineNum">     115 </span>                :<span class="lineNoCov">          0 :         x[b] = 0;</span></a>
 <a name="116"><span class="lineNum">     116 </span>                :            :       }</a>
-<a name="117"><span class="lineNum">     117 </span>        [<span class="branchCov" title="Branch 0 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          9 :       if (height - burger_template.size().height &gt; 0) {</span></a>
-<a name="118"><span class="lineNum">     118 </span>                :<span class="lineCov">          9 :         y[b] = rand() % (height - burger_template.size().height);  // NOLINT</span></a>
+<a name="117"><span class="lineNum">     117 </span>        [<span class="branchCov" title="Branch 0 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         10 :       if (height - burger_template.size().height &gt; 0) {</span></a>
+<a name="118"><span class="lineNum">     118 </span>                :<span class="lineCov">         10 :         y[b] = rand() % (height - burger_template.size().height);  // NOLINT</span></a>
 <a name="119"><span class="lineNum">     119 </span>                :            :       } else {</a>
 <a name="120"><span class="lineNum">     120 </span>                :<span class="lineNoCov">          0 :         y[b] = 0;</span></a>
 <a name="121"><span class="lineNum">     121 </span>                :            :       }</a>
-<a name="122"><span class="lineNum">     122 </span>                :<span class="lineCov">          9 :       x_inc[b] = rand() % 3 + 1;  // NOLINT</span></a>
-<a name="123"><span class="lineNum">     123 </span>                :<span class="lineCov">          9 :       y_inc[b] = rand() % 3 + 1;  // NOLINT</span></a>
+<a name="122"><span class="lineNum">     122 </span>                :<span class="lineCov">         10 :       x_inc[b] = rand() % 3 + 1;  // NOLINT</span></a>
+<a name="123"><span class="lineNum">     123 </span>                :<span class="lineCov">         10 :       y_inc[b] = rand() % 3 + 1;  // NOLINT</span></a>
 <a name="124"><span class="lineNum">     124 </span>                :            :     }</a>
 <a name="125"><span class="lineNum">     125 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     burger_buf = cv::Mat(height_i, width_i, CV_8UC3);</span></a>
 <a name="126"><span class="lineNum">     126 </span>                :            :   }</a>
 <a name="127"><span class="lineNum">     127 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   burger_buf = cv::Scalar(0, 0, 0);</span></a>
-<a name="128"><span class="lineNum">     128 </span>        [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">         20 :   for (int b = 0; b &lt; static_cast&lt;int&gt;(x.size()); b++) {</span></a>
-<a name="129"><span class="lineNum">     129 </span>  [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         18 :     burger_template.copyTo(</span></a>
-<a name="130"><span class="lineNum">     130 </span>        [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         36 :       burger_buf(</span></a>
-<a name="131"><span class="lineNum">     131 </span>                :<span class="lineCov">         18 :         cv::Rect(</span></a>
-<a name="132"><span class="lineNum">     132 </span>                :<span class="lineCov">         18 :           x[b],</span></a>
-<a name="133"><span class="lineNum">     133 </span>                :<span class="lineCov">         18 :           y[b],</span></a>
-<a name="134"><span class="lineNum">     134 </span>        [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         18 :           burger_template.size().height,</span></a>
-<a name="135"><span class="lineNum">     135 </span>        [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         36 :           burger_template.size().width</span></a>
-<a name="136"><span class="lineNum">     136 </span>                :<span class="lineCov">         18 :         )), burger_mask);</span></a>
-<a name="137"><span class="lineNum">     137 </span>                :<span class="lineCov">         18 :     x[b] += x_inc[b];</span></a>
-<a name="138"><span class="lineNum">     138 </span>                :<span class="lineCov">         18 :     y[b] += y_inc[b];</span></a>
+<a name="128"><span class="lineNum">     128 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">         22 :   for (int b = 0; b &lt; static_cast&lt;int&gt;(x.size()); b++) {</span></a>
+<a name="129"><span class="lineNum">     129 </span>  [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         20 :     burger_template.copyTo(</span></a>
+<a name="130"><span class="lineNum">     130 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         40 :       burger_buf(</span></a>
+<a name="131"><span class="lineNum">     131 </span>                :<span class="lineCov">         20 :         cv::Rect(</span></a>
+<a name="132"><span class="lineNum">     132 </span>                :<span class="lineCov">         20 :           x[b],</span></a>
+<a name="133"><span class="lineNum">     133 </span>                :<span class="lineCov">         20 :           y[b],</span></a>
+<a name="134"><span class="lineNum">     134 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :           burger_template.size().height,</span></a>
+<a name="135"><span class="lineNum">     135 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         40 :           burger_template.size().width</span></a>
+<a name="136"><span class="lineNum">     136 </span>                :<span class="lineCov">         20 :         )), burger_mask);</span></a>
+<a name="137"><span class="lineNum">     137 </span>                :<span class="lineCov">         20 :     x[b] += x_inc[b];</span></a>
+<a name="138"><span class="lineNum">     138 </span>                :<span class="lineCov">         20 :     y[b] += y_inc[b];</span></a>
 <a name="139"><span class="lineNum">     139 </span>                :            :     // bounce as needed</a>
-<a name="140"><span class="lineNum">     140 </span>  [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         18 :     if (x[b] &lt; 0 || x[b] &gt; width_i - burger_template.size().width - 1) {</span></a>
-<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 18 times"> + </span>]
+<a name="140"><span class="lineNum">     140 </span>  [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         20 :     if (x[b] &lt; 0 || x[b] &gt; width_i - burger_template.size().width - 1) {</span></a>
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 20 times"> + </span>]
 <a name="141"><span class="lineNum">     141 </span>                :<span class="lineNoCov">          0 :       x_inc[b] *= -1;</span></a>
 <a name="142"><span class="lineNum">     142 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       if (x[b] &lt; 0) {</span></a>
 <a name="143"><span class="lineNum">     143 </span>                :<span class="lineNoCov">          0 :         x[b] = 0;</span></a>
@@ -234,8 +234,8 @@
 <a name="145"><span class="lineNum">     145 </span>                :<span class="lineNoCov">          0 :         x[b] = width_i - burger_template.size().width;</span></a>
 <a name="146"><span class="lineNum">     146 </span>                :            :       }</a>
 <a name="147"><span class="lineNum">     147 </span>                :            :     }</a>
-<a name="148"><span class="lineNum">     148 </span>  [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         18 :     if (y[b] &lt; 0 || y[b] &gt; height_i - burger_template.size().height - 1) {</span></a>
-<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 18 times"> + </span>]
+<a name="148"><span class="lineNum">     148 </span>  [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         20 :     if (y[b] &lt; 0 || y[b] &gt; height_i - burger_template.size().height - 1) {</span></a>
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 20 times"> + </span>]
 <a name="149"><span class="lineNum">     149 </span>                :<span class="lineNoCov">          0 :       y_inc[b] *= -1;</span></a>
 <a name="150"><span class="lineNum">     150 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       if (y[b] &lt; 0) {</span></a>
 <a name="151"><span class="lineNum">     151 </span>                :<span class="lineNoCov">          0 :         y[b] = 0;</span></a>
