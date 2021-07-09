@@ -64,20 +64,20 @@ runs:
     - name: Filtering input
       id: filtered
       env:
-        CODECHECKER_CONFIG_PATH: ${{ inputs.codechecker-config-path }}
-        CODECHECKER_SKIP_LIST: ${{ inputs.codechecker-skip-list }}
+        _CODECHECKER_CONFIG_PATH: ${{ inputs.codechecker-config-path }}
+        _CODECHECKER_SKIP_LIST: ${{ inputs.codechecker-skip-list }}
       run: |
         echo ::set-output name=ARTIFACTS_DIR::$(echo ${{ inputs.artifacts-dir }} | sed -e "s@/\$@@")
         echo ::set-output name=HUGO_DIR::$(echo ${{ inputs.hugo-dir }} | sed -e "s@/\$@@")
         echo ::set-output name=OUTPUT_DIR::$(echo ${{ inputs.output-dir }} | sed -e "s@/\$@@")
-        CODECHECKER_CONFIG_PATH=${CODECHECKER_CONFIG_PATH:+$GITHUB_WORKSPACE"/"$CODECHECKER_CONFIG_PATH}
-        CODECHECKER_CONFIG_PATH=${CODECHECKER_CONFIG_PATH:-$GITHUB_ACTION_PATH"/codechecker-config.json"}
-        echo "Debug: CODECHECKER_CONFIG_PATH=$CODECHECKER_CONFIG_PATH"
-        echo ::set-output name=CODECHECKER_CONFIG_PATH::$CODECHECKER_CONFIG_PATH
-        CODECHECKER_SKIP_LIST=${CODECHECKER_SKIP_LIST:+$GITHUB_WORKSPACE"/"CODECHECKER_SKIP_LIST}
-        CODECHECKER_SKIP_LIST=${CODECHECKER_SKIP_LIST:-$GITHUB_ACTION_PATH"/codechecker-skip-list.txt"}
-        echo "Debug: CODECHECKER_SKIP_LIST=$CODECHECKER_SKIP_LIST"
-        echo ::set-output name=CODECHECKER_SKIP_LIST::$CODECHECKER_SKIP_LIST
+        _CODECHECKER_CONFIG_PATH=${_CODECHECKER_CONFIG_PATH:+$GITHUB_WORKSPACE"/"$_CODECHECKER_CONFIG_PATH}
+        _CODECHECKER_CONFIG_PATH=${_CODECHECKER_CONFIG_PATH:-$GITHUB_ACTION_PATH"/codechecker-config.json"}
+        echo "Debug: CODECHECKER_CONFIG_PATH=$_CODECHECKER_CONFIG_PATH"
+        echo ::set-output name=CODECHECKER_CONFIG_PATH::$_CODECHECKER_CONFIG_PATH
+        _CODECHECKER_SKIP_LIST=${_CODECHECKER_SKIP_LIST:+$GITHUB_WORKSPACE"/"$_CODECHECKER_SKIP_LIST}
+        _CODECHECKER_SKIP_LIST=${_CODECHECKER_SKIP_LIST:-$GITHUB_ACTION_PATH"/codechecker-skip-list.txt"}
+        echo "Debug: CODECHECKER_SKIP_LIST=$_CODECHECKER_SKIP_LIST"
+        echo ::set-output name=CODECHECKER_SKIP_LIST::$_CODECHECKER_SKIP_LIST
       shell: bash
 
     - name: Install dependencies
