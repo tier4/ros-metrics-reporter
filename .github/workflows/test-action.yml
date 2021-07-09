@@ -66,6 +66,7 @@ jobs:
         nloc: "200"
         arguments: "6"
         exclude: "**/pendulum_control/*"
+        codechecker-skip-list: "codechecker-skip-list.txt"
 
     - name: Check results
       run: |
