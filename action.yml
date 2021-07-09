@@ -63,9 +63,6 @@ runs:
   steps:
     - name: Filtering input
       id: filtered
-      env:
-        CODECHECKER_CONFIG_PATH: ${{ inputs.codechecker-config-path }}
-        CODECHECKER_SKIP_LIST: ${{ inputs.codechecker-skip-list }}
       run: |
         echo ::set-output name=ARTIFACTS_DIR::$(echo ${{ inputs.artifacts-dir }} | sed -e "s@/\$@@")
         echo ::set-output name=HUGO_DIR::$(echo ${{ inputs.hugo-dir }} | sed -e "s@/\$@@")
@@ -101,6 +98,8 @@ runs:
         . "${PWD}/venv/bin/activate"
         BUILD_UI_DIST=NO make package || true
         cd ..
+        CODECHECKER_CONFIG_PATH=${{ inputs.codechecker-config-path }}
+        CODECHECKER_SKIP_LIST=${{ inputs.codechecker-skip-list }}
         echo "Debug: Original CODECHECKER_CONFIG_PATH=$CODECHECKER_CONFIG_PATH"
         echo "Debug: Original CODECHECKER_SKIP_LIST=$CODECHECKER_SKIP_LIST"
         CODECHECKER_CONFIG_PATH=${CODECHECKER_CONFIG_PATH:+$GITHUB_WORKSPACE"/"$CODECHECKER_CONFIG_PATH}
