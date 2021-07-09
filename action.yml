@@ -59,7 +59,7 @@ outputs:
 
 runs:
   using: "docker"
-  image: "Dockerfile"
+  image: "Dockerfile.${{ inputs.ros-distro }}"
   env:
     ARTIFACTS_DIR: ${{ inputs.artifacts-dir }}
     BASE_URL: ${{ inputs.base-url }}
