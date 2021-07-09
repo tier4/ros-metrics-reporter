@@ -63,12 +63,17 @@ runs:
   steps:
     - name: Filtering input
       id: filtered
+      env:
+        CODECHECKER_CONFIG_PATH: ${{ inputs.codechecker-config-path }}
+        CODECHECKER_SKIP_LIST: ${{ inputs.codechecker-skip-list }}
       run: |
         echo ::set-output name=ARTIFACTS_DIR::$(echo ${{ inputs.artifacts-dir }} | sed -e "s@/\$@@")
         echo ::set-output name=HUGO_DIR::$(echo ${{ inputs.hugo-dir }} | sed -e "s@/\$@@")
         echo ::set-output name=OUTPUT_DIR::$(echo ${{ inputs.output-dir }} | sed -e "s@/\$@@")
-        echo ::set-output name=CODECHECKER_CONFIG_PATH::${GITHUB_WORKSPACE}/${{ inputs.codechecker-config-path }}:-"${GITHUB_ACTION_PATH}/codechecker-config.json"
-        echo ::set-output name=CODECHECKER_SKIP_LIST::${GITHUB_WORKSPACE}/${{ inputs.codechecker-skip-list }}:-"${GITHUB_ACTION_PATH}/codechecker-skip-list.txt"
+        CODECHECKER_CONFIG_PATH=${CODECHECKER_CONFIG_PATH:+$GITHUB_WORKSPACE"/"$CODECHECKER_CONFIG_PATH}
+        echo ::set-output name=CODECHECKER_CONFIG_PATH::${CODECHECKER_CONFIG_PATH:-$GITHUB_ACTION_PATH"/codechecker-config.json"}
+        CODECHECKER_SKIP_LIST=${CODECHECKER_SKIP_LIST:+$GITHUB_WORKSPACE"/"CODECHECKER_SKIP_LIST}
+        echo ::set-output name=CODECHECKER_SKIP_LIST::${CODECHECKER_SKIP_LIST:-$GITHUB_ACTION_PATH"/codechecker-skip-list.txt"}
       shell: bash
 
     - name: Install dependencies
