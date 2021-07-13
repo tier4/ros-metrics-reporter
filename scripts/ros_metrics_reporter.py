@@ -10,6 +10,7 @@ from lizard_package import lizard_package
 from scraping import scraping
 from create_link import create_link
 from create_static_page import create_static_page
+from clang_tidy import clang_tidy
 
 
 def ros_metrics_reporter(args):
@@ -51,8 +52,15 @@ def ros_metrics_reporter(args):
         arguments=args.arguments,
     )
 
-    # Set Clang-Tidy result dir
+    # Run Clang-Tidy
     tidy_result_dir = args.output_dir / "tidy-reports" / args.timestamp
+    clang_tidy(
+        base_dir=args.base_dir,
+        output_dir=tidy_result_dir,
+        gh_action_dir=args.action_dir,
+        config_path=args.tidy_config_path,
+        ignore_path=args.tidy_ignore_path,
+    )
 
     # Scraping
     metrics_dir = args.output_dir / "metrics" / args.timestamp
@@ -113,6 +121,18 @@ if __name__ == "__main__":
     parser.add_argument("--ccn", help="CCN", type=int, required=True)
     parser.add_argument("--nloc", help="NLOC", type=int, required=True)
     parser.add_argument("--arguments", help="arguments", type=int, required=True)
+    parser.add_argument(
+        "--tidy-config-path",
+        help="Path to codechecker-config.json",
+        type=Path,
+        required=True,
+    )
+    parser.add_argument(
+        "--tidy-ignore-path",
+        help="Path to codechecker-skip-list.txt",
+        type=Path,
+        required=True,
+    )
 
     args = parser.parse_args()
 
