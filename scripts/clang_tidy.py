@@ -17,7 +17,7 @@ def clang_tidy(
     # Build
     if not run_command(
         args=shlex.split(
-            "bash -c 'source /opt/ros/foxy/setup.bash && colcon build \
+            "bash -c 'colcon build \
             --event-handlers console_cohesion+ \
             --cmake-args -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'"
