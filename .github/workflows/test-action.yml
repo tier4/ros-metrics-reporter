@@ -56,7 +56,7 @@ jobs:
         path: ${{ env.ARTIFACTS_DIR }}
 
     - id: metrics-reporter
-      uses: tier4/ros-metrics-reporter@feature/clang-tidy-py
+      uses: tier4/ros-metrics-reporter@main
       with:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
         base-url: "https://tier4.github.io/ros-metrics-reporter/"
