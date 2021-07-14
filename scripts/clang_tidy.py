@@ -15,7 +15,7 @@ def clang_tidy(
 ):
 
     # Build
-    if not run_command(
+    run_command(
         args=shlex.split(
             "bash -c 'colcon build \
             --event-handlers console_cohesion+ \
@@ -23,9 +23,7 @@ def clang_tidy(
             -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'"
         ),
         cwd=base_dir,
-    ):
-        print("Build failed.")
-        return
+    )
 
     codechecker_dir = gh_action_dir / "codechecker"
     if not codechecker_dir.exists():
