@@ -87,8 +87,4 @@
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/topic_monitor/</loc>
   </url>
   
-  <url>
-    <loc>https://tier4.github.io/ros-metrics-reporter/packages/topic_statistics_demo/</loc>
-  </url>
-  
 </urlset>
