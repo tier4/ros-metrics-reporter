@@ -196,5 +196,16 @@ Code metrics    json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#3
 Code metrics    json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/topic_monitor/ccn.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/topic_monitor\/ccn.json&#39;, fig.data, fig.layout, {responsive: true}); });     json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/topic_monitor/loc.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/topic_monitor\/loc.json&#39;, fig.</description>
     </item>
     
+    <item>
+      <title>topic_statistics_demo</title>
+      <link>https://tier4.github.io/ros-metrics-reporter/packages/topic_statistics_demo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://tier4.github.io/ros-metrics-reporter/packages/topic_statistics_demo/</guid>
+      <description>topic_statistics_demo
+ Test result Code coverage     json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/topic_statistics_demo/coverage.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/topic_statistics_demo\/coverage.json&#39;, fig.data, fig.layout, {responsive: true}); });  You can access more detailed data on code coverage here.
+Code metrics    json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/topic_statistics_demo/ccn.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/topic_statistics_demo\/ccn.json&#39;, fig.data, fig.layout, {responsive: true}); });     json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/topic_statistics_demo/loc.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/topic_statistics_demo\/loc.json&#39;, fig.</description>
+    </item>
+    
   </channel>
 </rss>
