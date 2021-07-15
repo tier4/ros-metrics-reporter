@@ -19,20 +19,21 @@ def convert_color_cell(message: str, color_code: str) -> str:
 
 def read_lcov_result(file: Path, type: str) -> tuple:
     label_color = {
+        "None": "828282",
         "Lo": "D9634C",
         "Med": "D6AF22",
         "Hi": "4FC921",
     }
 
     if not file.exists():
-        return 0, label_color["Lo"]
+        return 0, label_color["None"]
 
     with open(file) as f:
         reader = csv.DictReader(f)
         for row in reader:
             if row["type"] == type:
                 return row["value"], label_color[row["signal"]]
-    return 0, label_color["Lo"]
+    return 0, label_color["None"]
 
 
 def lizard_color(value: int) -> str:
@@ -74,6 +75,9 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
         }
         for badge_name, type_name in badge_names.items():
             lcov_cov, lcov_color = read_lcov_result(lcov_csv, type_name)
+            if badge_name == "branches_badge":
+                # Set background of branches coverage to gray
+                lcov_color = "828282"
             param[badge_name] = convert_color_cell(str(lcov_cov), lcov_color)
 
         lizard_csv = metrics_dir / package / "lizard.csv"
