@@ -8,5 +8,5 @@ LOC(violate),0
 Parameter(worst),2
 Parameter(average),1.3333333333333333
 Parameter(violate),0
-Token(worst),220
-Token(average),117.0
+Token(worst),218
+Token(average),116.66666666666667

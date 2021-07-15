@@ -9,4 +9,4 @@ Parameter(worst),2
 Parameter(average),1.15
 Parameter(violate),0
 Token(worst),381
-Token(average),88.5
+Token(average),88.3
