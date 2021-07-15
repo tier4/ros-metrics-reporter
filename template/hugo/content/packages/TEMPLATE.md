@@ -1,5 +1,6 @@
 ---
 title: {{ package_name }}
+geekdocNav: false
 ---
 
 {{ package_name }}

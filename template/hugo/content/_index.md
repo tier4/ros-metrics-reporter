@@ -1,6 +1,7 @@
 ---
 title: Code quarity dashboard
 geekdocCollapseSection: true
+geekdocNav: false
 ---
 
 <div class="wrapped">
