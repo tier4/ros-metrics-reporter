@@ -6,6 +6,14 @@ from pathlib import Path
 from typing import List
 from jinja2 import Environment, FileSystemLoader
 import csv
+from enum import Enum
+
+
+class Color(Enum):
+    RED = "D9634C"
+    YELLOW = "D6AF22"
+    GREEN = "4FC921"
+    GREY = "828282"
 
 
 def add_package_link(package_name: str) -> str:
@@ -19,10 +27,10 @@ def convert_color_cell(message: str, color_code: str) -> str:
 
 def read_lcov_result(file: Path, type: str) -> tuple:
     label_color = {
-        "None": "828282",
-        "Lo": "D9634C",
-        "Med": "D6AF22",
-        "Hi": "4FC921",
+        "None": Color.GREY.value,
+        "Lo": Color.RED.value,
+        "Med": Color.YELLOW.value,
+        "Hi": Color.GREEN.value,
     }
 
     if not file.exists():
@@ -36,11 +44,17 @@ def read_lcov_result(file: Path, type: str) -> tuple:
     return 0, label_color["None"]
 
 
-def lizard_color(value: int) -> str:
-    if value == 0:
-        return "4FC921"
+def lizard_color(type: str, value: int) -> str:
+    if "violate" in type:
+        if value == 0:
+            return Color.GREEN.value
+        else:
+            return Color.RED.value
     else:
-        return "D9634C"
+        if value < 10:
+            return Color.GREEN.value
+        else:
+            return Color.RED.value
 
 
 def read_lizard_result(file: Path, type: str) -> tuple:
@@ -77,12 +91,14 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
             lcov_cov, lcov_color = read_lcov_result(lcov_csv, type_name)
             if badge_name == "branches_badge":
                 # Set background of branches coverage to gray
-                lcov_color = "828282"
+                lcov_color = Color.GREY.value
             param[badge_name] = convert_color_cell(str(lcov_cov), lcov_color)
 
         lizard_csv = metrics_dir / package / "lizard.csv"
         badge_names = {
-            "ccn_badge": "CCN(violate)",
+            "ccn_worst_badge": "CCN(worst)",
+            "ccn_avarage_badge": "CCN(average)",
+            "ccn_violation_badge": "CCN(violate)",
             "loc_badge": "LOC(violate)",
             "parameter_badge": "Parameter(violate)",
         }
