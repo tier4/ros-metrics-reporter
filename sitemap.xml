@@ -68,6 +68,10 @@
   </url>
   
   <url>
+    <loc>https://tier4.github.io/ros-metrics-reporter/packages/lizard/</loc>
+  </url>
+  
+  <url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/logging_demo/</loc>
   </url>
   
