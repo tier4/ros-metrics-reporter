@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2021-07-15 05:30:33</td>
+            <td class="headerValue">2021-07-15 05:31:51</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
@@ -141,15 +141,15 @@
 <span class="lineNum">         </span>   <span class="branchCov" title="Branch 14 was taken 6 times"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span><span class="branchCov" title="Branch 16 was taken 6 times"> + </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span>]
 <a name="57"><span class="lineNum">      57 </span>                :<span class="lineCov">          6 :   }</span></a>
 <a name="58"><span class="lineNum">      58 </span>                :            : </a>
-<a name="59"><span class="lineNum">      59 </span>                :<span class="lineCov">         10 :   void notification_callback(const lifecycle_msgs::msg::TransitionEvent::SharedPtr msg)</span></a>
+<a name="59"><span class="lineNum">      59 </span>                :<span class="lineCov">          7 :   void notification_callback(const lifecycle_msgs::msg::TransitionEvent::SharedPtr msg)</span></a>
 <a name="60"><span class="lineNum">      60 </span>                :            :   {</a>
-<a name="61"><span class="lineNum">      61 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         10 :     RCLCPP_INFO(</span></a>
-<span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchCov" title="Branch 8 was taken 10 times"> + </span> 
-<span class="lineNum">         </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 13 was not taken"> - </span> 
-<span class="lineNum">         </span>   <span class="branchCov" title="Branch 14 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span><span class="branchCov" title="Branch 16 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span>]
+<a name="61"><span class="lineNum">      61 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 7 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">          7 :     RCLCPP_INFO(</span></a>
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchCov" title="Branch 8 was taken 7 times"> + </span> 
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 7 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 7 times"> + </span><span class="branchNoCov" title="Branch 13 was not taken"> - </span> 
+<span class="lineNum">         </span>   <span class="branchCov" title="Branch 14 was taken 7 times"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span><span class="branchCov" title="Branch 16 was taken 7 times"> + </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span>]
 <a name="62"><span class="lineNum">      62 </span>                :            :       get_logger(), &quot;notify callback: Transition from state %s to %s&quot;,</a>
 <a name="63"><span class="lineNum">      63 </span>                :            :       msg-&gt;start_state.label.c_str(), msg-&gt;goal_state.label.c_str());</a>
-<a name="64"><span class="lineNum">      64 </span>                :<span class="lineCov">         10 :   }</span></a>
+<a name="64"><span class="lineNum">      64 </span>                :<span class="lineCov">          7 :   }</span></a>
 <a name="65"><span class="lineNum">      65 </span>                :            : </a>
 <a name="66"><span class="lineNum">      66 </span>                :            : private:</a>
 <a name="67"><span class="lineNum">      67 </span>                :            :   std::shared_ptr&lt;rclcpp::Subscription&lt;std_msgs::msg::String&gt;&gt; sub_data_;</a>
