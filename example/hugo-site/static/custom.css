@@ -1,4 +1,21 @@
 /* Global customization */
+.container {
+  max-width: none;
+}
+
+.wrapped {
+  overflow: auto;
+}
+
+.wrapped table {
+  table-layout: fixed;
+  width: auto;
+}
+
+table td {
+  width: 20px;
+  overflow-wrap: break-word;
+}
 
 /* Light mode theming */
 :root,
@@ -19,18 +36,4 @@
   :root {
     --header-background: #07579E;
   }
-}
-
-.wrapped {
-  overflow: auto;
-}
-
-.wrapped table {
-  table-layout: fixed;
-  width: auto;
-}
-
-table td {
-  width: 20px;
-  overflow-wrap: break-word;
 }
