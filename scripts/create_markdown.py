@@ -34,14 +34,14 @@ def read_lcov_result(file: Path, type: str) -> tuple:
     }
 
     if not file.exists():
-        return 0, label_color["None"]
+        return "N/A", label_color["None"]
 
     with open(file) as f:
         reader = csv.DictReader(f)
         for row in reader:
             if row["type"] == type:
                 return row["value"], label_color[row["signal"]]
-    return 0, label_color["None"]
+    return "N/A", label_color["None"]
 
 
 def lizard_color(type: str, value: float) -> str:
@@ -59,14 +59,14 @@ def lizard_color(type: str, value: float) -> str:
 
 def read_lizard_result(file: Path, type: str) -> tuple:
     if not file.exists():
-        return 0, lizard_color(type, 0)
+        return "N/A", lizard_color(type, 0)
 
     with open(file) as f:
         reader = csv.DictReader(f)
         for row in reader:
             if row["type"] == type:
                 return row["value"], lizard_color(type, row["value"])
-    return 0, lizard_color(0)
+    return "N/A", lizard_color(0)
 
 
 def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
