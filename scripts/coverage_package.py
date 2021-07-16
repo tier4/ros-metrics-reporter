@@ -31,7 +31,7 @@ def coverage_single_package(
         )
         return
 
-    colcon_get_packages(package_name)
+    colcon_get_packages(base_dir, package_name)
 
     output_package_dir = output_dir / package_name
     if not output_package_dir.exists():

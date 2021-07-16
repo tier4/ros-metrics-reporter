@@ -19,7 +19,7 @@ def ros_metrics_reporter(args):
     exclude = args.exclude.split()
 
     # Build packages
-    colcon_build()
+    colcon_build(args.base_dir)
 
     # Measure code coverage
     lcov_dir = args.output_dir / "lcov_result" / args.timestamp

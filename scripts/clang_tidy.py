@@ -14,7 +14,7 @@ def clang_tidy(
     config_path: Path,
     ignore_path: Path,
 ):
-    colcon_get_all_packages()
+    colcon_get_all_packages(base_dir)
 
     codechecker_dir = gh_action_dir / "codechecker"
     if not codechecker_dir.exists():

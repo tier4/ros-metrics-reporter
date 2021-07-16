@@ -6,33 +6,33 @@ from pathlib import Path
 import shutil
 
 
-def backup_build_artifacts():
+def backup_build_artifacts(target_path: Path):
     # Move directory to build_base, install_base
-    build_base = Path("build_base")
-    install_base = Path("install_base")
+    build_base = target_path / "build_base"
+    install_base = target_path / "install_base"
 
     if build_base.exists():
         shutil.rmtree(build_base)
     build_base.mkdir()
-    for item in Path("build").glob("**/*"):
+    for item in Path(target_path, "build").glob("**/*"):
         shutil.move(str(item), build_base)
 
     if install_base.exists():
         shutil.rmtree(install_base)
     install_base.mkdir()
-    for item in Path("install").glob("**/*"):
+    for item in Path(target_path, "install").glob("**/*"):
         shutil.move(str(item), install_base)
 
 
-def clear_build_directory():
-    if Path("build").exists():
-        shutil.rmtree("build")
+def clear_build_directory(target_path: Path):
+    if Path(target_path / "build").exists():
+        shutil.rmtree(target_path / "build")
 
-    if Path("install").exists():
-        shutil.rmtree("install")
+    if Path(target_path / "install").exists():
+        shutil.rmtree(target_path / "install")
 
 
-def colcon_build():
+def colcon_build(target_path: Path):
     COVERAGE_FLAGS = "-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1 -O0"
 
     run_command(
@@ -45,6 +45,7 @@ def colcon_build():
                 COVERAGE_FLAGS
             )
         ),
+        cwd=target_path,
     )
 
     run_command(
@@ -52,23 +53,29 @@ def colcon_build():
             "colcon test \
             --event-handlers console_cohesion+ \
             --return-code-on-test-failure"
-        )
+        ),
+        cwd=target_path,
     )
 
-    backup_build_artifacts()
+    backup_build_artifacts(target_path)
 
 
-def colcon_get_packages(package_name: str):
-    clear_build_directory()
-    shutil.copytree("build_base/" + package_name, "build/" + package_name)
-    shutil.copytree("install_base/" + package_name, "install/" + package_name)
+def colcon_get_packages(target_path: Path, package_name: str):
+    clear_build_directory(target_path)
+    shutil.copytree(
+        target_path / "build_base" / package_name, target_path / "build" / package_name
+    )
+    shutil.copytree(
+        target_path / "install_base" / package_name,
+        target_path / "install" / package_name,
+    )
     shutil.copy2(
-        "build/" + package_name + "/compile_commands.json",
-        "build/compile_commands.json",
+        target_path / "build" / package_name / "compile_commands.json",
+        target_path / "build" / "compile_commands.json",
     )
 
 
-def colcon_get_all_packages():
-    clear_build_directory()
-    shutil.copytree("build_base/", "build/")
-    shutil.copytree("install_base/", "install/")
+def colcon_get_all_packages(target_path: Path):
+    clear_build_directory(target_path)
+    shutil.copytree(target_path / "build_base", target_path / "build")
+    shutil.copytree(target_path / "install_base", target_path / "install")

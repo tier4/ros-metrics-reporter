@@ -12,7 +12,7 @@ def coverage_all(base_dir: Path, output_dir: Path, lcovrc: Path, exclude: List[s
     if not output_lcov_dir.exists():
         output_lcov_dir.mkdir(parents=True)
 
-    colcon_get_all_packages()
+    colcon_get_all_packages(base_dir)
 
     if not initialize_lcov(
         base_dir=base_dir, output_dir=output_lcov_dir, lcovrc=lcovrc
