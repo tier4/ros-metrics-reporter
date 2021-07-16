@@ -71,7 +71,11 @@ def read_lizard_result(file: Path, type: str) -> tuple:
 
 def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
     # Read file, replace token and overwrite file
-    env = Environment(loader=FileSystemLoader(str(file.parent)))
+    env = Environment(
+        loader=FileSystemLoader(str(file.parent)),
+        variable_start_string="[[",
+        variable_end_string="]]",
+    )
     template = env.get_template(file.name)
 
     # Get badge
@@ -143,7 +147,11 @@ def replace_token(package: str) -> dict:
 
 def replace_contents(file: Path, package: str):
     # Read file, replace token and overwrite file
-    env = Environment(loader=FileSystemLoader(str(file.parent)))
+    env = Environment(
+        loader=FileSystemLoader(str(file.parent)),
+        variable_start_string="[[",
+        variable_end_string="]]",
+    )
     template = env.get_template(file.name)
 
     with open(file, "w") as f:

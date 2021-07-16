@@ -1,5 +1,5 @@
-baseURL = "{{ base_url }}"
-title = "{{ title }}"
+baseURL = "[[ base_url ]]"
+title = "[[ title ]]"
 theme = "hugo-geekdoc"
 
 canonifyurls = true
