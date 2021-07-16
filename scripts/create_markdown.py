@@ -97,7 +97,7 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
         lizard_csv = metrics_dir / package / "lizard.csv"
         badge_names = {
             "ccn_worst_badge": "CCN(worst)",
-            "ccn_avarage_badge": "CCN(average)",
+            "ccn_average_badge": "CCN(average)",
             "ccn_violation_badge": "CCN(violate)",
             "loc_badge": "LOC(violate)",
             "parameter_badge": "Parameter(violate)",
