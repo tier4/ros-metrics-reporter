@@ -4,6 +4,7 @@
 }
 
 .wrapped {
+  padding-left: 5em;
   overflow: auto;
 }
 
