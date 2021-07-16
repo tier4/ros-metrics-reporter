@@ -24,7 +24,9 @@ geekdocNav: false
 {{< plotly json="plotly/{% endraw %}{{ plotly_lcov_figure_name }}{% raw %}" height="400px" >}}
 {% endraw %}
 
+{{< hint info >}}
 [You can access more detailed data on code coverage here.]({{ lcov_result_html_link }})
+{{< /hint >}}
 
 ## Code metrics
 
@@ -43,8 +45,12 @@ geekdocNav: false
 {{< plotly json="plotly/{% endraw %}{{ plotly_metrics_parameter_figure_name }}{% raw %}" height="400px" >}}
 {% endraw %}
 
+{{< hint info >}}
 [You can access more detailed data on code metrics here.]({{ lizard_result_html_link }})
+{{< /hint >}}
 
 ## Clang-Tidy
 
+{{< hint info >}}
 [You can access the Clang-Tidy results here.]({{ tidy_result_html_link }})
+{{< /hint >}}
