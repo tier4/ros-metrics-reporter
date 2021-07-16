@@ -44,7 +44,7 @@ def read_lcov_result(file: Path, type: str) -> tuple:
     return 0, label_color["None"]
 
 
-def lizard_color(type: str, value: int) -> str:
+def lizard_color(type: str, value: float) -> str:
     if "violate" in type:
         if value == 0:
             return Color.GREEN.value
@@ -59,13 +59,13 @@ def lizard_color(type: str, value: int) -> str:
 
 def read_lizard_result(file: Path, type: str) -> tuple:
     if not file.exists():
-        return 0, lizard_color(0)
+        return 0, lizard_color(type, 0)
 
     with open(file) as f:
         reader = csv.DictReader(f)
         for row in reader:
             if row["type"] == type:
-                return int(row["value"]), lizard_color(int(row["value"]))
+                return row["value"], lizard_color(type, row["value"])
     return 0, lizard_color(0)
 
 
