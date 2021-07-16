@@ -9,7 +9,7 @@
 
 .wrapped table {
   table-layout: fixed;
-  width: auto;
+  width: auto !important;
 }
 
 table td {
