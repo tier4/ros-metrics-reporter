@@ -12,10 +12,14 @@ from create_link import create_link
 from create_static_page import create_static_page
 from clang_tidy import clang_tidy
 from save_metrics_threshold import save_threshold
+from colcon import colcon_build
 
 
 def ros_metrics_reporter(args):
     exclude = args.exclude.split()
+
+    # Build packages
+    colcon_build()
 
     # Measure code coverage
     lcov_dir = args.output_dir / "lcov_result" / args.timestamp
