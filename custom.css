@@ -4,12 +4,13 @@
 }
 
 .wrapped {
+  padding-left: 5em;
   overflow: auto;
 }
 
 .wrapped table {
   table-layout: fixed;
-  width: auto;
+  width: auto !important;
 }
 
 table td {

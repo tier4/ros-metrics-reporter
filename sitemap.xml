@@ -3,11 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://tier4.github.io/ros-metrics-reporter/packages/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/action_tutorials_cpp/</loc>
   </url>
   
@@ -29,6 +24,10 @@
   
   <url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/composition/</loc>
+  </url>
+  
+  <url>
+    <loc>https://tier4.github.io/ros-metrics-reporter/packages/</loc>
   </url>
   
   <url>
@@ -89,10 +88,6 @@
   
   <url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/topic_monitor/</loc>
-  </url>
-  
-  <url>
-    <loc>https://tier4.github.io/ros-metrics-reporter/packages/topic_statistics_demo/</loc>
   </url>
   
 </urlset>
