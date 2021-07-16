@@ -56,7 +56,7 @@ jobs:
         path: ${{ env.ARTIFACTS_DIR }}
 
     - id: metrics-reporter
-      uses: tier4/ros-metrics-reporter@main
+      uses: ./ # Uses an action in the root directory
       with:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
         base-url: "https://tier4.github.io/ros-metrics-reporter/"
@@ -74,7 +74,7 @@ jobs:
         tree -L 2 ${GITHUB_WORKSPACE}/public/
 
     - name: Push artifacts
-      if: github.ref == 'refs/heads/main' && ${{ matrix.ros_distribution }} == 'foxy'
+      if: ${{ github.ref == 'refs/heads/main' && matrix.ros_distribution == 'foxy' }}
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -82,14 +82,14 @@ jobs:
         publish_branch: data
 
     - name: Save page as artifacts
-      if: ${{ github.event.pull_request }} && ${{ matrix.ros_distribution }} == 'foxy'
+      if: ${{ github.event.pull_request && matrix.ros_distribution == 'foxy' }}
       uses: actions/upload-artifact@v2
       with:
         name: static-pages
         path: public
 
     - name: Deploy public to gh-pages (main branch only)
-      if: github.ref == 'refs/heads/main' && ${{ matrix.ros_distribution }} == 'foxy'
+      if: ${{ github.ref == 'refs/heads/main' && matrix.ros_distribution == 'foxy' }}
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -7,6 +7,7 @@ import re
 import csv
 
 from numpy.core.fromnumeric import mean
+from decimal import Decimal, ROUND_HALF_UP
 
 from util import dir_path
 from pathlib import Path
@@ -47,7 +48,8 @@ def get_worst_case(metrics: list) -> int:
 def get_average(metrics: list) -> int:
     """Get average"""
     if metrics:
-        return mean([int(item.get_text()) for item in metrics])
+        value = mean([int(item.get_text()) for item in metrics])
+        return Decimal(str(value)).quantize(Decimal(".1"), rounding=ROUND_HALF_UP)
     else:
         return 0
 

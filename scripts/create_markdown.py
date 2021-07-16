@@ -6,6 +6,14 @@ from pathlib import Path
 from typing import List
 from jinja2 import Environment, FileSystemLoader
 import csv
+from enum import Enum
+
+
+class Color(Enum):
+    RED = "D9634C"
+    YELLOW = "D6AF22"
+    GREEN = "4FC921"
+    GREY = "828282"
 
 
 def add_package_link(package_name: str) -> str:
@@ -19,44 +27,55 @@ def convert_color_cell(message: str, color_code: str) -> str:
 
 def read_lcov_result(file: Path, type: str) -> tuple:
     label_color = {
-        "Lo": "D9634C",
-        "Med": "D6AF22",
-        "Hi": "4FC921",
+        "None": Color.GREY.value,
+        "Lo": Color.RED.value,
+        "Med": Color.YELLOW.value,
+        "Hi": Color.GREEN.value,
     }
 
     if not file.exists():
-        return 0, label_color["Lo"]
+        return "N/A", label_color["None"]
 
     with open(file) as f:
         reader = csv.DictReader(f)
         for row in reader:
             if row["type"] == type:
                 return row["value"], label_color[row["signal"]]
-    return 0, label_color["Lo"]
+    return "N/A", label_color["None"]
 
 
-def lizard_color(value: int) -> str:
-    if value == 0:
-        return "4FC921"
+def lizard_color(type: str, value: float) -> str:
+    if "violate" in type:
+        if value == 0:
+            return Color.GREEN.value
+        else:
+            return Color.RED.value
     else:
-        return "D9634C"
+        if value < 10:
+            return Color.GREEN.value
+        else:
+            return Color.RED.value
 
 
 def read_lizard_result(file: Path, type: str) -> tuple:
     if not file.exists():
-        return 0, lizard_color(0)
+        return "N/A", lizard_color(type, 0)
 
     with open(file) as f:
         reader = csv.DictReader(f)
         for row in reader:
             if row["type"] == type:
-                return int(row["value"]), lizard_color(int(row["value"]))
-    return 0, lizard_color(0)
+                return row["value"], lizard_color(type, float(row["value"]))
+    return "N/A", lizard_color(0)
 
 
 def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
     # Read file, replace token and overwrite file
-    env = Environment(loader=FileSystemLoader(str(file.parent)))
+    env = Environment(
+        loader=FileSystemLoader(str(file.parent)),
+        variable_start_string="[[",
+        variable_end_string="]]",
+    )
     template = env.get_template(file.name)
 
     # Get badge
@@ -74,11 +93,16 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
         }
         for badge_name, type_name in badge_names.items():
             lcov_cov, lcov_color = read_lcov_result(lcov_csv, type_name)
+            if badge_name == "branches_badge":
+                # Set background of branches coverage to gray
+                lcov_color = Color.GREY.value
             param[badge_name] = convert_color_cell(str(lcov_cov), lcov_color)
 
         lizard_csv = metrics_dir / package / "lizard.csv"
         badge_names = {
-            "ccn_badge": "CCN(violate)",
+            "ccn_worst_badge": "CCN(worst)",
+            "ccn_average_badge": "CCN(average)",
+            "ccn_violation_badge": "CCN(violate)",
             "loc_badge": "LOC(violate)",
             "parameter_badge": "Parameter(violate)",
         }
@@ -123,7 +147,11 @@ def replace_token(package: str) -> dict:
 
 def replace_contents(file: Path, package: str):
     # Read file, replace token and overwrite file
-    env = Environment(loader=FileSystemLoader(str(file.parent)))
+    env = Environment(
+        loader=FileSystemLoader(str(file.parent)),
+        variable_start_string="[[",
+        variable_end_string="]]",
+    )
     template = env.get_template(file.name)
 
     with open(file, "w") as f:

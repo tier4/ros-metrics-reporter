@@ -6,9 +6,7 @@ from datetime import datetime
 from distutils import dir_util
 from typing import List
 import pandas as pd
-from pandas.core import base
 from pandas.core.frame import DataFrame
-from pandas.io.parsers import read_csv
 from jinja2 import Environment, FileSystemLoader
 
 from util import dir_path
@@ -126,7 +124,11 @@ def replace_hugo_config(
 ):
     config_file = hugo_root_dir / "config.toml"
 
-    env = Environment(loader=FileSystemLoader(str(hugo_root_dir)))
+    env = Environment(
+        loader=FileSystemLoader(str(hugo_root_dir)),
+        variable_start_string="[[",
+        variable_end_string="]]",
+    )
     template = env.get_template(config_file.name)
 
     with open(config_file, "w") as f:
