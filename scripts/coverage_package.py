@@ -5,7 +5,7 @@ from typing import List
 from util import run_command_pipe
 from run_lcov import initialize_lcov, run_lcov
 from path_match import path_match
-from colcon import colcon_get_packages
+from colcon import colcon_get_package
 
 
 def coverage_single_package(
@@ -31,7 +31,9 @@ def coverage_single_package(
         )
         return
 
-    colcon_get_packages(base_dir, package_name)
+    if not colcon_get_package(base_dir, package_name):
+        print("Coverage " + package_name + " failed")
+        return
 
     output_package_dir = output_dir / package_name
     if not output_package_dir.exists():

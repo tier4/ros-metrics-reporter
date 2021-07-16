@@ -60,19 +60,24 @@ def colcon_build(target_path: Path):
     backup_build_artifacts(target_path)
 
 
-def colcon_get_packages(target_path: Path, package_name: str):
-    clear_build_directory(target_path)
-    shutil.copytree(
-        target_path / "build_base" / package_name, target_path / "build" / package_name
-    )
-    shutil.copytree(
-        target_path / "install_base" / package_name,
-        target_path / "install" / package_name,
-    )
-    shutil.copy2(
-        target_path / "build" / package_name / "compile_commands.json",
-        target_path / "build" / "compile_commands.json",
-    )
+def colcon_get_package(target_path: Path, package_name: str) -> bool:
+    try:
+        clear_build_directory(target_path)
+        shutil.copytree(
+            target_path / "build_base" / package_name,
+            target_path / "build" / package_name,
+        )
+        shutil.copytree(
+            target_path / "install_base" / package_name,
+            target_path / "install" / package_name,
+        )
+        shutil.copy2(
+            target_path / "build" / package_name / "compile_commands.json",
+            target_path / "build" / "compile_commands.json",
+        )
+    except (FileNotFoundError, OSError):
+        return False
+    return True
 
 
 def colcon_get_all_packages(target_path: Path):
