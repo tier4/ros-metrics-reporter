@@ -65,7 +65,7 @@ def read_lizard_result(file: Path, type: str) -> tuple:
         reader = csv.DictReader(f)
         for row in reader:
             if row["type"] == type:
-                return row["value"], lizard_color(type, row["value"])
+                return row["value"], lizard_color(type, float(row["value"]))
     return "N/A", lizard_color(0)
 
 
