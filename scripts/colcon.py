@@ -35,7 +35,7 @@ def clear_build_directory(target_path: Path):
 
 def colcon_get_package(target_path: Path, package_name: str) -> bool:
     try:
-        Colcon.clear_build_directory(target_path)
+        clear_build_directory(target_path)
         shutil.copytree(
             target_path / "build_base" / package_name,
             target_path / "build" / package_name,
@@ -54,7 +54,7 @@ def colcon_get_package(target_path: Path, package_name: str) -> bool:
 
 
 def colcon_get_all_packages(target_path: Path):
-    Colcon.clear_build_directory(target_path)
+    clear_build_directory(target_path)
     shutil.copytree(target_path / "build_base", target_path / "build")
     shutil.copytree(target_path / "install_base", target_path / "install")
 
