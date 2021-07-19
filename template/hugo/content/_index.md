@@ -7,9 +7,9 @@ geekdocDescription: Metrics reporter is a tool for continuously monitoring vario
 
 <div class="wrapped">
 <table>
-<tr><td> Package name <td> Line coverage [%] <td> Functions [%] <td> Branches [%] <td> CCN (worst) <td> CCN (average) <td> CCN violation count <td> LOC violation count <td> Parameter violation count
+<tr><td> Package name <td> Line coverage [%] <td> Functions [%] <td> Branches [%] <td> CCN (worst) <td> CCN violation count <td> LOC violation count <td> Parameter violation count
 {%- for param in param_list %}
-<tr><td> [[ param.package ]] [[ param.line_badge ]] [[ param.functions_badge ]] [[ param.branches_badge ]] [[ param.ccn_worst_badge ]] [[ param.ccn_average_badge ]] [[ param.ccn_violation_badge ]] [[ param.loc_badge ]] [[ param.parameter_badge ]]
+<tr><td> [[ param.package ]] [[ param.line_badge ]] [[ param.functions_badge ]] [[ param.branches_badge ]] [[ param.ccn_worst_badge ]] [[ param.ccn_violation_badge ]] [[ param.loc_badge ]] [[ param.parameter_badge ]]
 {%- endfor %}
 </table>
 </div>
