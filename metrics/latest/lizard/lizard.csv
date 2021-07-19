@@ -10,3 +10,7 @@ Parameter(average),0
 Parameter(violate),0
 Token(worst),0
 Token(average),0
+type,value
+CCN(warning),0
+LOC(warning),0
+Parameter(warning),0
