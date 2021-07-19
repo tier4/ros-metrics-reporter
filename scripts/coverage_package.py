@@ -8,71 +8,89 @@ from path_match import path_match
 from colcon import colcon_get_package
 
 
-def coverage_single_package(
-    package_name: str,
-    package_path: str,
-    base_dir: Path,
-    output_dir: Path,
-    lcovrc: Path,
-    exclude: List[str],
-):
+class CoveragePackage:
+    def __init__(self, output_dir: Path, base_dir: Path, lcovrc: Path):
+        self.__package_list = run_command_pipe(["colcon", "list"]).splitlines()
+        self.__initialize_failed_list = []
+        self.__base_dir = base_dir
+        self.__output_dir = output_dir
+        self.__lcovrc = lcovrc
 
-    if "_msgs" in package_name:
-        print("Skipped message package: " + package_name)
-        return
+    def __is_exclude(
+        self,
+        package_name: str,
+        package_path: str,
+        exclude: List[str],
+    ) -> bool:
+        if "_msgs" in package_name:
+            print("Skipped message package: " + package_name)
+            return True
 
-    if path_match(package_path, exclude):
-        print("Match exclude path. Skipped " + package_name)
-        print(
-            "DEBUG: in coverage_package PATH="
-            + package_path
-            + " exclude="
-            + " ".join(exclude)
-        )
-        return
+        if path_match(package_path, exclude):
+            print("Match exclude path. Skipped " + package_name)
+            print(
+                "DEBUG: in coverage_package PATH="
+                + package_path
+                + " exclude="
+                + " ".join(exclude)
+            )
+            return True
+        return False
 
-    if not colcon_get_package(base_dir, package_name):
-        print("Coverage " + package_name + " failed")
-        return
-
-    output_package_dir = output_dir / package_name
-    if not output_package_dir.exists():
-        output_package_dir.mkdir(parents=True)
-
-    if not initialize_lcov(
-        base_dir=base_dir,
-        output_dir=output_package_dir,
-        lcovrc=lcovrc,
-        package_name=package_name,
+    def __initialize_single_package(
+        self,
+        package_name: str,
     ):
-        return
+        if not colcon_get_package(self.__base_dir, package_name):
+            print("Coverage " + package_name + " failed")
+            self.__initialize_failed_list.append(package_name)
+            return
 
-    run_lcov(
-        base_dir=base_dir,
-        output_dir=output_package_dir,
-        lcovrc=lcovrc,
-        package_name=package_name,
-    )
+        output_package_dir = self.__output_dir / package_name
+        if not output_package_dir.exists():
+            output_package_dir.mkdir(parents=True)
 
-    print("Generated package coverage: " + package_name)
+        if not initialize_lcov(
+            base_dir=self.__base_dir,
+            output_dir=output_package_dir,
+            lcovrc=self.__lcovrc,
+            package_name=package_name,
+        ):
+            self.__initialize_failed_list.append(package_name)
+            return
 
+    def initialize(self, exclude: List[str]):
+        if not self.__output_dir.exists():
+            self.__output_dir.mkdir(parents=True)
 
-def coverage_package(
-    base_dir: Path, output_dir: Path, lcovrc: Path, exclude: List[str]
-):
+        for line in self.__package_list:
+            package = line.split()
+            package_name = package[0]
+            package_full_path = str(self.__base_dir / package_name) + "/"
 
-    if not output_dir.exists():
-        output_dir.mkdir(parents=True)
+            if self.__is_exclude(package_name, package_full_path, exclude):
+                self.__initialize_failed_list.append(package_name)
+                continue
 
-    package_list = run_command_pipe(["colcon", "list"]).splitlines()
-    for line in package_list:
-        package = line.split()
-        package_full_path = str(base_dir / package[1]) + "/"
-        coverage_single_package(
-            package_name=package[0],
-            package_path=package_full_path,
-            base_dir=base_dir,
-            output_dir=output_dir,
-            lcovrc=lcovrc,
-            exclude=exclude,
-        )
+            self.__initialize_single_package(
+                package_name=package_name,
+            )
+
+    def measure_coverage(self):
+        for line in self.__package_list:
+            package = line.split()
+            package_name = package[0]
+
+            if package_name in self.__initialize_failed_list:
+                continue
+
+            colcon_get_package(self.__base_dir, package_name)
+
+            run_lcov(
+                base_dir=self.__base_dir,
+                output_dir=self.__output_dir / package_name,
+                lcovrc=self.__lcovrc,
+                package_name=package_name,
+            )
+
+            print("Generated package coverage: " + package_name)
