@@ -7,9 +7,9 @@ geekdocDescription: Metrics reporter is a tool for continuously monitoring vario
 
 <div class="wrapped">
 <table>
-<tr><td> Package name <td> Line coverage [%] <td> Functions [%] <td> Branches [%] <td> CCN (worst) <td> CCN violation count <td> LOC violation count <td> Parameter violation count
+<tr><td> Package name <td> Line coverage [%] <td> Functions [%] <td> Branches [%] <td> CCN (over recommended value) <td> CCN (over required value) <td> CCN (worst value) <td> LOC (over recommended value) <td> LOC (over required value) <td> LOC (worst value) <td> Parameter (over recommended value) <td> Parameter (over required value) <td> Parameter (worst value)
 {%- for param in param_list %}
-<tr><td> [[ param.package ]] [[ param.line_badge ]] [[ param.functions_badge ]] [[ param.branches_badge ]] [[ param.ccn_worst_badge ]] [[ param.ccn_violation_badge ]] [[ param.loc_badge ]] [[ param.parameter_badge ]]
+<tr><td> [[ param.package ]] [[ param.line_badge ]] [[ param.functions_badge ]] [[ param.branches_badge ]] [[ param.ccn_warning_badge ]] [[ param.ccn_violation_badge ]] [[ param.ccn_worst_badge ]] [[ param.loc_warning_badge ]] [[ param.loc_violation_badge ]] [[ param.loc_worst_badge ]] [[ param.parameter_warning_badge ]] [[ param.parameter_violation_badge ]] [[ param.parameter_worst_badge ]]
 {%- endfor %}
 </table>
 </div>

@@ -31,7 +31,7 @@ def ros_metrics_reporter(args):
         exclude=exclude,
     )
 
-    # Measure code metrics
+    # Measure code metrics for threshold value
     lizard_dir = args.output_dir / "lizard_result" / args.timestamp
     lizard_all(
         base_dir=args.base_dir,
@@ -52,6 +52,29 @@ def ros_metrics_reporter(args):
         arguments=args.arguments,
     )
 
+    # Measure code metrics for recommend value
+    lizard_recommendation_dir = (
+        args.output_dir / "lizard_result_recommend" / args.timestamp
+    )
+    lizard_all(
+        base_dir=args.base_dir,
+        output_dir=lizard_recommendation_dir,
+        gh_action_dir=args.action_dir,
+        ccn=args.ccn_recommendation,
+        nloc=args.nloc_recommendation,
+        arguments=args.arguments_recommendation,
+        exclude=exclude,
+    )
+    lizard_package(
+        base_dir=args.base_dir,
+        output_dir=lizard_recommendation_dir,
+        gh_action_dir=args.action_dir,
+        exclude=exclude,
+        ccn=args.ccn_recommendation,
+        nloc=args.nloc_recommendation,
+        arguments=args.arguments_recommendation,
+    )
+
     # Run Clang-Tidy
     tidy_result_dir = args.output_dir / "tidy-reports" / args.timestamp
     clang_tidy(
@@ -65,7 +88,12 @@ def ros_metrics_reporter(args):
     # Scraping
     metrics_dir = args.output_dir / "metrics" / args.timestamp
     metrics_dir.mkdir(parents=True, exist_ok=True)
-    scraping(lcov_dir=lcov_dir, lizard_dir=lizard_dir, output_dir=metrics_dir)
+    scraping(
+        lcov_dir=lcov_dir,
+        lizard_dir=lizard_dir,
+        lizard_recommendation_dir=lizard_recommendation_dir,
+        output_dir=metrics_dir,
+    )
 
     # Create symbolic link
     lcov_latest_dir = args.output_dir / "lcov_result" / "latest"
@@ -119,8 +147,20 @@ if __name__ == "__main__":
     parser.add_argument("--title", help="Title", type=str, required=True)
     parser.add_argument("--exclude", help="Exclude path", type=str, required=False)
     parser.add_argument("--ccn", help="CCN", type=int, required=True)
+    parser.add_argument(
+        "--ccn-recommendation", help="CCN recommend value", type=int, required=True
+    )
     parser.add_argument("--nloc", help="NLOC", type=int, required=True)
+    parser.add_argument(
+        "--nloc-recommendation", help="NLOC recommend value", type=int, required=True
+    )
     parser.add_argument("--arguments", help="arguments", type=int, required=True)
+    parser.add_argument(
+        "--arguments-recommendation",
+        help="arguments recommend value",
+        type=int,
+        required=True,
+    )
     parser.add_argument(
         "--tidy-config-path",
         help="Path to codechecker-config.json",

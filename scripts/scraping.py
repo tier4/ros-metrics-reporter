@@ -62,6 +62,30 @@ def get_violate_count(metrics: list) -> int:
         return 0
 
 
+def scraping_lizard_result(html_path: str) -> dict:
+    soup = bs4.BeautifulSoup(open(html_path), "html.parser")
+    table = soup.select("body > center > table:nth-of-type(1)")[0]
+
+    ccn = []
+    loc = []
+    parameter = []
+    token = []
+
+    for tr in table.find_all("tr"):
+        tds = tr.select("td")
+        if len(tds) == 6:
+            ccn.append(tds[2])
+            loc.append(tds[3])
+            token.append(tds[4])
+            parameter.append(tds[5])
+    return {
+        "ccn": ccn,
+        "loc": loc,
+        "token": token,
+        "parameter": parameter,
+    }
+
+
 def get_lizard_metrics(html_path: str) -> list:
     """
     Get following information
@@ -81,40 +105,39 @@ def get_lizard_metrics(html_path: str) -> list:
         Worst case
         Average
     """
-    soup = bs4.BeautifulSoup(open(html_path), "html.parser")
-    table = soup.select("body > center > table:nth-of-type(1)")[0]
-
-    ccn = []
-    loc = []
-    parameter = []
-    token = []
-
-    for tr in table.find_all("tr"):
-        tds = tr.select("td")
-        if len(tds) == 6:
-            ccn.append(tds[2])
-            loc.append(tds[3])
-            token.append(tds[4])
-            parameter.append(tds[5])
+    result = scraping_lizard_result(html_path)
 
     return [
-        {"type": "CCN(worst)", "value": get_worst_case(ccn)},
-        {"type": "CCN(average)", "value": get_average(ccn)},
-        {"type": "CCN(violate)", "value": get_violate_count(ccn)},
-        {"type": "LOC(worst)", "value": get_worst_case(loc)},
-        {"type": "LOC(average)", "value": get_average(loc)},
-        {"type": "LOC(violate)", "value": get_violate_count(loc)},
-        {"type": "Parameter(worst)", "value": get_worst_case(parameter)},
-        {"type": "Parameter(average)", "value": get_average(parameter)},
-        {"type": "Parameter(violate)", "value": get_violate_count(parameter)},
-        {"type": "Token(worst)", "value": get_worst_case(token)},
-        {"type": "Token(average)", "value": get_average(token)},
+        {"type": "CCN(worst)", "value": get_worst_case(result["ccn"])},
+        {"type": "CCN(average)", "value": get_average(result["ccn"])},
+        {"type": "CCN(violate)", "value": get_violate_count(result["ccn"])},
+        {"type": "LOC(worst)", "value": get_worst_case(result["loc"])},
+        {"type": "LOC(average)", "value": get_average(result["loc"])},
+        {"type": "LOC(violate)", "value": get_violate_count(result["loc"])},
+        {"type": "Parameter(worst)", "value": get_worst_case(result["parameter"])},
+        {"type": "Parameter(average)", "value": get_average(result["parameter"])},
+        {"type": "Parameter(violate)", "value": get_violate_count(result["parameter"])},
+        {"type": "Token(worst)", "value": get_worst_case(result["token"])},
+        {"type": "Token(average)", "value": get_average(result["token"])},
     ]
 
 
-def scraping(lcov_dir: Path, lizard_dir: Path, output_dir: Path):
+def get_lizard_recommendation_metrics(html_path: str) -> list:
+    result = scraping_lizard_result(html_path)
+
+    return [
+        {"type": "CCN(warning)", "value": get_violate_count(result["ccn"])},
+        {"type": "LOC(warning)", "value": get_violate_count(result["loc"])},
+        {"type": "Parameter(warning)", "value": get_violate_count(result["parameter"])},
+    ]
+
+
+def scraping(
+    lcov_dir: Path, lizard_dir: Path, lizard_recommendation_dir: Path, output_dir: Path
+):
     lcov_index_list = list(lcov_dir.glob("*/index.html"))
     lizard_index_list = list(lizard_dir.glob("*/index.html"))
+    lizard_recommend_index_list = list(lizard_recommendation_dir.glob("*/index.html"))
 
     # Create output directory
     for html in lizard_index_list:
@@ -140,6 +163,15 @@ def scraping(lcov_dir: Path, lizard_dir: Path, output_dir: Path):
             for item in metrics:
                 writer.writerow(item)
 
+    for html in lizard_recommend_index_list:
+        metrics = get_lizard_recommendation_metrics(html)
+        filename = output_dir / html.parent.name / "lizard.csv"
+        with open(filename, "a") as f:
+            writer = csv.DictWriter(f, fieldnames=metrics[0].keys())
+            writer.writeheader()
+            for item in metrics:
+                writer.writerow(item)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -147,7 +179,10 @@ if __name__ == "__main__":
         "--lcov_dir", help="Path to lcov result", type=dir_path, required=True
     )
     parser.add_argument(
-        "--lizard_dir", help="Path to lizard result", type=dir_path, required=True
+        "--lizard_recommendation_dir",
+        help="Path to lizard recommendation result",
+        type=dir_path,
+        required=True,
     )
     parser.add_argument(
         "--output_dir", help="Path to output directory", type=dir_path, required=True
