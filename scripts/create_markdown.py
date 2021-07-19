@@ -45,13 +45,13 @@ def read_lcov_result(file: Path, type: str) -> tuple:
 
 
 def lizard_color(type: str, value: float) -> str:
-    if "violate" in type:
-        if value == 0:
+    if "worst" in type:
+        if value < 10:
             return Color.GREEN.value
         else:
             return Color.RED.value
     else:
-        if value < 10:
+        if value == 0:
             return Color.GREEN.value
         else:
             return Color.RED.value
@@ -101,10 +101,14 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
         lizard_csv = metrics_dir / package / "lizard.csv"
         badge_names = {
             "ccn_worst_badge": "CCN(worst)",
-            "ccn_average_badge": "CCN(average)",
             "ccn_violation_badge": "CCN(violate)",
-            "loc_badge": "LOC(violate)",
-            "parameter_badge": "Parameter(violate)",
+            "ccn_warning_badge": "CCN(warning)",
+            "loc_worst_badge": "LOC(worst)",
+            "loc_violation_badge": "LOC(violate)",
+            "loc_warning_badge": "LOC(warning)",
+            "parameter_worst_badge": "Parameter(worst)",
+            "parameter_violation_badge": "Parameter(violate)",
+            "parameter_warning_badge": "Parameter(warning)",
         }
         for badge_name, type_name in badge_names.items():
             lizard_count, lizard_color = read_lizard_result(lizard_csv, type_name)

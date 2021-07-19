@@ -35,14 +35,26 @@ inputs:
     description: "Threshold for cyclomatic complexity number warning. The default value is 15."
     required: true
     default: "15"
+  CCN-recommendation:
+    description: "Recommend value for cyclomatic complexity number warning. The default value is 5."
+    required: true
+    default: "5"
   nloc:
     description: "Threshold for NLOC. The default value is 1000000."
     required: true
     default: "1000000"
+  nloc-recommendation:
+    description: "Recommend value for NLOC. The default value is 1000."
+    required: true
+    default: "1000"
   arguments:
     description: "Limit for number of parameters. The default value is 100."
     required: true
     default: "100"
+  arguments-recommendation:
+    description: "Recommend value for number of parameters. The default value is 50."
+    required: true
+    default: "50"
   exclude:
     description: "Space separated list of exclude paths."
     required: false
@@ -109,8 +121,11 @@ runs:
           --title=${{ inputs.title }} \
           --exclude="${{ inputs.exclude }}" \
           --ccn=${{ inputs.CCN }} \
+          --ccn-recommendation=${{ inputs.CCN-recommendation }} \
           --nloc=${{ inputs.nloc }} \
+          --nloc-recommendation=${{ inputs.nloc-recommendation }} \
           --arguments=${{ inputs.arguments }} \
+          --arguments-recommendation=${{ inputs.arguments-recommendation }} \
           --tidy-config-path=${CODECHECKER_CONFIG_PATH} \
           --tidy-ignore-path=${CODECHECKER_SKIP_LIST}
       shell: bash
