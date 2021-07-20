@@ -28,6 +28,4 @@ def save_metrics_threshold(
         filename = html_dir / "lizard.csv"
         with open(filename, "a") as f:
             writer = csv.DictWriter(f, fieldnames=metrics.keys())
-            writer.writeheader()
-            for item in metrics:
-                writer.writerow(item)
+            writer.writerow(metrics)
