@@ -44,12 +44,14 @@ def read_lcov_result(file: Path, type: str) -> tuple:
     return "N/A", label_color["None"]
 
 
-def lizard_color(type: str, value: float) -> str:
+def lizard_color(type: str, value: float, recommend_value: int, threshold: int) -> str:
     if "worst" in type:
-        if value < 10:
-            return Color.GREEN.value
-        else:
+        if value > threshold:
             return Color.RED.value
+        elif value > recommend_value:
+            return Color.YELLOW.value
+        else:
+            return Color.GREEN.value
     else:
         if value == 0:
             return Color.GREEN.value
@@ -57,16 +59,16 @@ def lizard_color(type: str, value: float) -> str:
             return Color.RED.value
 
 
-def read_lizard_result(file: Path, type: str) -> tuple:
+def read_lizard_result(file: Path) -> dict:
     if not file.exists():
-        return "N/A", lizard_color(type, 0)
+        return {}
 
+    result = {}
     with open(file) as f:
         reader = csv.DictReader(f)
         for row in reader:
-            if row["type"] == type:
-                return row["value"], lizard_color(type, float(row["value"]))
-    return "N/A", lizard_color(0)
+            result[row["type"]] = row["value"]
+    return result
 
 
 def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
@@ -110,9 +112,20 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
             "parameter_violation_badge": "Parameter(violate)",
             "parameter_warning_badge": "Parameter(warning)",
         }
+
+        lizard_result = read_lizard_result(lizard_csv, type_name)
         for badge_name, type_name in badge_names.items():
-            lizard_count, lizard_color = read_lizard_result(lizard_csv, type_name)
-            param[badge_name] = convert_color_cell(str(lizard_count), lizard_color)
+            if type_name in lizard_result.keys():
+                category = type_name.split("(")[0]
+                value_type = type_name.split("(")[1]
+                threshold_key = category + "(threshold)"
+                recommendation_key = category + "(recommendation)"
+                param[badge_name] = lizard_color(
+                    value_type,
+                    lizard_result[type_name],
+                    lizard_result[threshold_key],
+                    lizard_result[recommendation_key],
+                )
 
         param_list.append(param)
 

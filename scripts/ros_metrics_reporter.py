@@ -11,6 +11,7 @@ from scraping import scraping
 from create_link import create_link
 from create_static_page import create_static_page
 from clang_tidy import clang_tidy
+from save_metrics_threshold import save_metrics_threshold
 
 
 def ros_metrics_reporter(args):
@@ -93,6 +94,16 @@ def ros_metrics_reporter(args):
         lizard_dir=lizard_dir,
         lizard_recommendation_dir=lizard_recommendation_dir,
         output_dir=metrics_dir,
+    )
+
+    save_metrics_threshold(
+        ccn=args.ccn,
+        nloc=args.nloc,
+        arguments=args.arguments,
+        ccn_recommendation=args.ccn_recommendation,
+        nloc_recommendation=args.nloc_recommendation,
+        arguments_recommendation=args.arguments_recommendation,
+        metrics_dir=metrics_dir,
     )
 
     # Create symbolic link
