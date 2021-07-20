@@ -72,7 +72,7 @@ class Colcon:
         return self.__test_success
 
     def build(self):
-        COVERAGE_FLAGS = "-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1 -O0"
+        COVERAGE_FLAGS = "-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1"
 
         if run_command(
             args=shlex.split(
