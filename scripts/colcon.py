@@ -78,7 +78,7 @@ class Colcon:
             args=shlex.split(
                 'colcon build \
                 --event-handlers console_cohesion+ \
-                --cmake-args -DCMAKE_BUILD_TYPE=Release \
+                --cmake-args \
                 -DCMAKE_CXX_FLAGS="{0}" -DCMAKE_C_FLAGS="{0}" \
                 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'.format(
                     COVERAGE_FLAGS
