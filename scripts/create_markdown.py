@@ -120,11 +120,14 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
                 value_type = type_name.split("(")[1]
                 threshold_key = category + "(threshold)"
                 recommendation_key = category + "(recommendation)"
-                param[badge_name] = lizard_color(
-                    value_type,
+                param[badge_name] = convert_color_cell(
                     lizard_result[type_name],
-                    lizard_result[threshold_key],
-                    lizard_result[recommendation_key],
+                    lizard_color(
+                        value_type,
+                        lizard_result[type_name],
+                        lizard_result[threshold_key],
+                        lizard_result[recommendation_key],
+                    ),
                 )
 
         param_list.append(param)
