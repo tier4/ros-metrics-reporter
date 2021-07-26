@@ -113,7 +113,7 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
             "parameter_warning_badge": "Parameter(warning)",
         }
 
-        lizard_result = read_lizard_result(lizard_csv, type_name)
+        lizard_result = read_lizard_result(lizard_csv)
         for badge_name, type_name in badge_names.items():
             if type_name in lizard_result.keys():
                 category = type_name.split("(")[0]
