@@ -138,7 +138,7 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
                 threshold_key = category + "(threshold)"
                 recommendation_key = category + "(recommendation)"
                 param[badge_name] = convert_color_cell(
-                    lizard_result[type_name],
+                    str(lizard_result[type_name]),
                     lizard_color(
                         value_type,
                         lizard_result[type_name],
