@@ -1,5 +1,5 @@
 from pathlib import Path
-from scripts.run_lcov import concat_build_dir, concat_output_path, get_file_size
+from run_lcov import concat_build_dir, concat_output_path, get_file_size
 
 
 def test_get_file_size(tmp_path):

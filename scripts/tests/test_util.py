@@ -1,6 +1,6 @@
 import pytest
 import tempfile
-from scripts.util import *
+from util import *
 
 
 def test_dir_path_dir_exists():
