@@ -59,7 +59,7 @@ def lizard_color(type: str, value: float, recommend_value: int, threshold: int) 
             return Color.RED.value
 
 
-def read_lizard_result(file: Path) -> dict:
+def read_lizard_result(file: Path) -> Dict[str, float]:
     if not file.exists():
         return {}
 
@@ -67,7 +67,7 @@ def read_lizard_result(file: Path) -> dict:
     with open(file) as f:
         reader = csv.DictReader(f)
         for row in reader:
-            result[row["type"]] = row["value"]
+            result[row["type"]] = float(row["value"])
     return result
 
 
