@@ -11,7 +11,7 @@ from scraping import scraping
 from create_link import create_link
 from create_static_page import create_static_page
 from clang_tidy import clang_tidy
-from save_metrics_threshold import save_metrics_threshold
+from save_metrics_threshold import save_threshold
 
 
 def ros_metrics_reporter(args):
@@ -96,7 +96,8 @@ def ros_metrics_reporter(args):
         output_dir=metrics_dir,
     )
 
-    save_metrics_threshold(
+    save_threshold(
+        lcovrc=args.lcovrc,
         ccn=args.ccn,
         nloc=args.nloc,
         arguments=args.arguments,

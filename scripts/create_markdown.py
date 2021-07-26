@@ -3,7 +3,7 @@
 from distutils import dir_util
 import shutil
 from pathlib import Path
-from typing import List
+from typing import Dict, List
 from jinja2 import Environment, FileSystemLoader
 import csv
 from enum import Enum
@@ -71,6 +71,20 @@ def read_lizard_result(file: Path) -> dict:
     return result
 
 
+def read_legend(metrics_dir: Path) -> Dict[str, int]:
+    legend = {}
+    with open(metrics_dir / "metrics_threshold.csv") as f:
+        for line in f:
+            item = line.split(",")
+            legend[item[0]] = int(item[1])
+
+    with open(metrics_dir / "lcov_threshold.csv") as f:
+        for line in f:
+            item = line.split(",")
+            legend[item[0]] = int(item[1])
+    return legend
+
+
 def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
     # Read file, replace token and overwrite file
     env = Environment(
@@ -80,7 +94,7 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
     )
     template = env.get_template(file.name)
 
-    # Get badge
+    # Replace table
     param_list = []
     for package in packages:
         if package == "all":
@@ -138,11 +152,16 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
 
     render_dict["param_list"] = param_list
 
+    # Replace legend
+    legend_dict = read_legend(metrics_dir)
+
+    render_dict.update(legend_dict)
+
     with open(file, "w") as f:
         f.write(template.render(render_dict))
 
 
-def replace_token(package: str) -> dict:
+def replace_token(package: str) -> Dict[str, str]:
     lcov_html = "/lcov/" + package
     lizard_html = "/lizard/" + package
     tidy_html = "/tidy"
