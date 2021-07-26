@@ -94,6 +94,9 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
     )
     template = env.get_template(file.name)
 
+    # Replace legend
+    legend_dict = read_legend(metrics_dir)
+
     # Replace table
     param_list = []
     for package in packages:
@@ -139,8 +142,8 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
                     lizard_color(
                         value_type,
                         lizard_result[type_name],
-                        lizard_result[threshold_key],
-                        lizard_result[recommendation_key],
+                        legend_dict[threshold_key],
+                        legend_dict[recommendation_key],
                     ),
                 )
 
@@ -151,9 +154,6 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
     render_dict = replace_token("all")
 
     render_dict["param_list"] = param_list
-
-    # Replace legend
-    legend_dict = read_legend(metrics_dir)
 
     render_dict.update(legend_dict)
 
