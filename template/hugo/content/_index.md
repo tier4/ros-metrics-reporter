@@ -11,26 +11,26 @@ geekdocDescription: Metrics reporter is a tool for continuously monitoring vario
 ### Code coverage
 
 <span class="LegendNA" title="Coverage rates are not available">N/A</span>
-<span class="LegendLo" title="Coverage rates below [[ Coverage(Med) ]] % are classified as low">low: &lt; [[ Coverage(Med) ]] %</span>
-<span class="LegendMed" title="Coverage rates between [[ Coverage(Med) ]] % and [[ Coverage(Hi) ]] % are classified as medium">medium: &gt;= [[ Coverage(Med) ]] %</span>
-<span class="LegendHi" title="Coverage rates of [[ Coverage(Hi) ]] % and more are classified as high">high: &gt;= [[ Coverage(Hi) ]] %</span>
+<span class="LegendLo" title="Coverage rates below [[ coverage_med ]] % are classified as low">low: &lt; [[ coverage_med ]] %</span>
+<span class="LegendMed" title="Coverage rates between [[ coverage_med ]] % and [[ coverage_hi ]] % are classified as medium">medium: &gt;= [[ coverage_med ]] %</span>
+<span class="LegendHi" title="Coverage rates of [[ coverage_hi ]] % and more are classified as high">high: &gt;= [[ coverage_hi ]] %</span>
 
 ### Code metrics
 
 * CCN (Cyclomatic Complexity Number)  
-<span class="LegendLo" title="Metrics rates below [[ CCN(recommendation) ]] % are classified as low">low: &lt; [[ CCN(recommendation) ]] %</span>
-<span class="LegendMed" title="Metrics rates between [[ CCN(recommendation) ]] % and [[ CCN(threshold) ]] % are classified as medium">medium: &gt;= [[ CCN(recommendation) ]] %</span>
-<span class="LegendHi" title="Metrics rates of [[ CCN(threshold) ]] % and more are classified as high">high: &gt;= [[ CCN(threshold) ]] %</span>
+<span class="LegendLo" title="Metrics rates below [[ ccn_recommendation ]] % are classified as low">low: &lt; [[ ccn_recommendation ]] %</span>
+<span class="LegendMed" title="Metrics rates between [[ ccn_recommendation ]] % and [[ ccn_threshold ]] % are classified as medium">medium: &gt;= [[ ccn_recommendation ]] %</span>
+<span class="LegendHi" title="Metrics rates of [[ ccn_threshold ]] % and more are classified as high">high: &gt;= [[ ccn_threshold ]] %</span>
 
 * LOC (Lines of Code)  
-<span class="LegendLo" title="Metrics rates below [[ LOC(recommendation) ]] % are classified as low">low: &lt; [[ LOC(recommendation) ]] %</span>
-<span class="LegendMed" title="Metrics rates between [[ LOC(recommendation) ]] % and [[ LOC(threshold) ]] % are classified as medium">medium: &gt;= [[ LOC(recommendation) ]] %</span>
-<span class="LegendHi" title="Metrics rates of [[ LOC(threshold) ]] % and more are classified as high">high: &gt;= [[ LOC(threshold) ]] %</span>
+<span class="LegendLo" title="Metrics rates below [[ loc_recommendation ]] % are classified as low">low: &lt; [[ loc_recommendation ]] %</span>
+<span class="LegendMed" title="Metrics rates between [[ loc_recommendation ]] % and [[ loc_threshold ]] % are classified as medium">medium: &gt;= [[ loc_recommendation ]] %</span>
+<span class="LegendHi" title="Metrics rates of [[ loc_threshold ]] % and more are classified as high">high: &gt;= [[ loc_threshold ]] %</span>
 
 * Parameter count  
-<span class="LegendLo" title="Metrics rates below [[ Parameter(recommendation) ]] % are classified as low">low: &lt; [[ Parameter(recommendation) ]] %</span>
-<span class="LegendMed" title="Metrics rates between [[ Parameter(recommendation) ]] % and [[ Parameter(threshold) ]] % are classified as medium">medium: &gt;= [[ Parameter(recommendation) ]] %</span>
-<span class="LegendHi" title="Metrics rates of [[ Parameter(threshold) ]] % and more are classified as high">high: &gt;= [[ Parameter(threshold) ]] %</span>
+<span class="LegendLo" title="Metrics rates below [[ parameter_recommendation ]] % are classified as low">low: &lt; [[ parameter_recommendation ]] %</span>
+<span class="LegendMed" title="Metrics rates between [[ parameter_recommendation ]] % and [[ parameter_threshold ]] % are classified as medium">medium: &gt;= [[ parameter_recommendation ]] %</span>
+<span class="LegendHi" title="Metrics rates of [[ parameter_threshold ]] % and more are classified as high">high: &gt;= [[ parameter_threshold ]] %</span>
 
 </div></details>
 
