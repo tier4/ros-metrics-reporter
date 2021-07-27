@@ -92,8 +92,8 @@ jobs:
 | `lcovrc-path` | `"${GITHUB_ACTION_PATH}/.lcovrc"` | Path to .lcovrc file. | `false` | `"${GITHUB_WORKSPACE}/.lcovrc"` |
 | `CCN` | `"15"` | Threshold for cyclomatic complexity number warning. | `false` | `"20"` |
 | `CCN-recommendation` | `"5"` | Recommend value for cyclomatic complexity number. | `false` | `"10"` |
-| `nloc` | `"1000000"` | Threshold for NLOC (Noncommented Lines Of Code). | `false` | `"200"` |
-| `nloc-recommendation` | `"1000"` | Recommend value for NLOC (Noncommented Lines Of Code). | `false` | `"150"` |
+| `nloc` | `"1000000"` | Threshold for LOC (Lines Of Code). | `false` | `"200"` |
+| `nloc-recommendation` | `"1000"` | Recommend value for LOC (Lines Of Code). | `false` | `"150"` |
 | `arguments` | `"100"` | Limit for number of parameters. | `false` | `"100"` |
 | `arguments-recommendation` | `"50"` | Recommend value for number of parameters. | `false` | `"50"` |
 | `codechecker-config-path` | `"${GITHUB_ACTION_PATH}/codechecker-config.json"` | Path to codechecker-config.json file. | `false` | `"codechecker-config.json"` |
