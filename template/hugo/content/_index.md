@@ -1,5 +1,5 @@
 ---
-title: Code quarity dashboard
+title: Code quality dashboard
 geekdocCollapseSection: true
 geekdocNav: false
 description: Metrics reporter is a tool for continuously monitoring various software metrics. For more information, please visit https://github.com/tier4/ros-metrics-reporter .
