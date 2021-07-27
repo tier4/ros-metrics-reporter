@@ -168,7 +168,6 @@ def scraping(
         filename = output_dir / html.parent.name / "lizard.csv"
         with open(filename, "a") as f:
             writer = csv.DictWriter(f, fieldnames=metrics[0].keys())
-            writer.writeheader()
             for item in metrics:
                 writer.writerow(item)
 

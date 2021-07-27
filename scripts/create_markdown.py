@@ -3,7 +3,7 @@
 from distutils import dir_util
 import shutil
 from pathlib import Path
-from typing import List
+from typing import Dict, List
 from jinja2 import Environment, FileSystemLoader
 import csv
 from enum import Enum
@@ -44,12 +44,14 @@ def read_lcov_result(file: Path, type: str) -> tuple:
     return "N/A", label_color["None"]
 
 
-def lizard_color(type: str, value: float) -> str:
+def lizard_color(type: str, value: float, recommend_value: int, threshold: int) -> str:
     if "worst" in type:
-        if value < 10:
-            return Color.GREEN.value
-        else:
+        if value > threshold:
             return Color.RED.value
+        elif value > recommend_value:
+            return Color.YELLOW.value
+        else:
+            return Color.GREEN.value
     else:
         if value == 0:
             return Color.GREEN.value
@@ -57,16 +59,49 @@ def lizard_color(type: str, value: float) -> str:
             return Color.RED.value
 
 
-def read_lizard_result(file: Path, type: str) -> tuple:
+def read_lizard_result(file: Path) -> Dict[str, float]:
     if not file.exists():
-        return "N/A", lizard_color(type, 0)
+        return {}
 
+    result = {}
     with open(file) as f:
         reader = csv.DictReader(f)
         for row in reader:
-            if row["type"] == type:
-                return row["value"], lizard_color(type, float(row["value"]))
-    return "N/A", lizard_color(0)
+            result[row["type"]] = float(row["value"])
+    return result
+
+
+def update_legend_dict(legend_dict: Dict[str, str]) -> Dict[str, str]:
+    name_map = {
+        "coverage_hi": "Coverage(Hi)",
+        "coverage_med": "Coverage(Med)",
+        "ccn_recommendation": "CCN(recommendation)",
+        "loc_recommendation": "LOC(recommendation)",
+        "parameter_recommendation": "Parameter(recommendation)",
+        "ccn_threshold": "CCN(threshold)",
+        "loc_threshold": "LOC(threshold)",
+        "parameter_threshold": "Parameter(threshold)",
+    }
+
+    updated_dict = {}
+    for key, value in name_map.items():
+        if value in legend_dict:
+            updated_dict[key] = legend_dict[value]
+    return updated_dict
+
+
+def read_legend(metrics_dir: Path) -> Dict[str, int]:
+    legend = {}
+    with open(metrics_dir / "metrics_threshold.csv") as f:
+        for line in f:
+            item = line.split(",")
+            legend[item[0]] = int(item[1])
+
+    with open(metrics_dir / "lcov_threshold.csv") as f:
+        for line in f:
+            item = line.split(",")
+            legend[item[0]] = int(item[1])
+    return legend
 
 
 def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
@@ -78,7 +113,10 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
     )
     template = env.get_template(file.name)
 
-    # Get badge
+    # Replace legend
+    legend_dict = read_legend(metrics_dir)
+
+    # Replace table
     param_list = []
     for package in packages:
         if package == "all":
@@ -86,12 +124,12 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
         param = {}
         param["package"] = add_package_link(package)
         lcov_csv = metrics_dir / package / "coverage.csv"
-        badge_names = {
+        coverage_names = {
             "line_badge": "Lines",
             "functions_badge": "Functions",
             "branches_badge": "Branches",
         }
-        for badge_name, type_name in badge_names.items():
+        for badge_name, type_name in coverage_names.items():
             lcov_cov, lcov_color = read_lcov_result(lcov_csv, type_name)
             if badge_name == "branches_badge":
                 # Set background of branches coverage to gray
@@ -99,7 +137,7 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
             param[badge_name] = convert_color_cell(str(lcov_cov), lcov_color)
 
         lizard_csv = metrics_dir / package / "lizard.csv"
-        badge_names = {
+        metrics_names = {
             "ccn_worst_badge": "CCN(worst)",
             "ccn_violation_badge": "CCN(violate)",
             "ccn_warning_badge": "CCN(warning)",
@@ -110,9 +148,23 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
             "parameter_violation_badge": "Parameter(violate)",
             "parameter_warning_badge": "Parameter(warning)",
         }
-        for badge_name, type_name in badge_names.items():
-            lizard_count, lizard_color = read_lizard_result(lizard_csv, type_name)
-            param[badge_name] = convert_color_cell(str(lizard_count), lizard_color)
+
+        lizard_result = read_lizard_result(lizard_csv)
+        for badge_name, type_name in metrics_names.items():
+            if type_name in lizard_result.keys():
+                category = type_name.split("(")[0]
+                value_type = type_name.split("(")[1]
+                threshold_key = category + "(threshold)"
+                recommendation_key = category + "(recommendation)"
+                param[badge_name] = convert_color_cell(
+                    str(lizard_result[type_name]),
+                    lizard_color(
+                        value_type,
+                        lizard_result[type_name],
+                        legend_dict[threshold_key],
+                        legend_dict[recommendation_key],
+                    ),
+                )
 
         param_list.append(param)
 
@@ -122,11 +174,14 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
 
     render_dict["param_list"] = param_list
 
+    legend_dict = update_legend_dict(legend_dict)
+    render_dict.update(legend_dict)
+
     with open(file, "w") as f:
         f.write(template.render(render_dict))
 
 
-def replace_token(package: str) -> dict:
+def replace_token(package: str) -> Dict[str, str]:
     lcov_html = "/lcov/" + package
     lizard_html = "/lizard/" + package
     tidy_html = "/tidy"
