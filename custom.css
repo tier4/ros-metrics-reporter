@@ -18,6 +18,34 @@ table td {
   overflow-wrap: break-word;
 }
 
+span.LegendNA {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 2px;
+  background-color: #828282;
+}
+
+span.LegendLo {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 2px;
+  background-color: #D9634C;
+}
+
+span.LegendMed {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 2px;
+  background-color: #D6AF22;
+}
+
+span.LegendHi {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 2px;
+  background-color: #4FC921;
+}
+
 /* Light mode theming */
 :root,
 :root[color-mode="light"] {
