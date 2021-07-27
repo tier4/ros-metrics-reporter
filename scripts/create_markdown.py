@@ -84,7 +84,7 @@ def update_legend_dict(legend_dict: Dict[str, str]) -> Dict[str, str]:
     }
 
     updated_dict = {}
-    for key, value in legend_dict.items():
+    for key, value in name_map.items():
         if value in legend_dict:
             updated_dict[key] = legend_dict[value]
     return updated_dict
