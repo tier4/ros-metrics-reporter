@@ -18,19 +18,19 @@ geekdocDescription: Metrics reporter is a tool for continuously monitoring vario
 ### Code metrics
 
 * CCN (Cyclomatic Complexity Number)  
-<span class="LegendLo" title="Metrics rates below [[ ccn_recommendation ]] % are classified as low">low: &lt; [[ ccn_recommendation ]] %</span>
-<span class="LegendMed" title="Metrics rates between [[ ccn_recommendation ]] % and [[ ccn_threshold ]] % are classified as medium">medium: &gt;= [[ ccn_recommendation ]] %</span>
-<span class="LegendHi" title="Metrics rates of [[ ccn_threshold ]] % and more are classified as high">high: &gt;= [[ ccn_threshold ]] %</span>
+<span class="LegendLo" title="Metrics rates below [[ ccn_recommendation ]] are classified as low">low: &lt; [[ ccn_recommendation ]]</span>
+<span class="LegendMed" title="Metrics rates between [[ ccn_recommendation ]] and [[ ccn_threshold ]] are classified as medium">medium: &gt;= [[ ccn_recommendation ]]</span>
+<span class="LegendHi" title="Metrics rates of [[ ccn_threshold ]] and more are classified as high">high: &gt;= [[ ccn_threshold ]]</span>
 
 * LOC (Lines of Code)  
-<span class="LegendLo" title="Metrics rates below [[ loc_recommendation ]] % are classified as low">low: &lt; [[ loc_recommendation ]] %</span>
-<span class="LegendMed" title="Metrics rates between [[ loc_recommendation ]] % and [[ loc_threshold ]] % are classified as medium">medium: &gt;= [[ loc_recommendation ]] %</span>
-<span class="LegendHi" title="Metrics rates of [[ loc_threshold ]] % and more are classified as high">high: &gt;= [[ loc_threshold ]] %</span>
+<span class="LegendLo" title="Metrics rates below [[ loc_recommendation ]] are classified as low">low: &lt; [[ loc_recommendation ]]</span>
+<span class="LegendMed" title="Metrics rates between [[ loc_recommendation ]] and [[ loc_threshold ]] are classified as medium">medium: &gt;= [[ loc_recommendation ]]</span>
+<span class="LegendHi" title="Metrics rates of [[ loc_threshold ]] and more are classified as high">high: &gt;= [[ loc_threshold ]]</span>
 
 * Parameter count  
-<span class="LegendLo" title="Metrics rates below [[ parameter_recommendation ]] % are classified as low">low: &lt; [[ parameter_recommendation ]] %</span>
-<span class="LegendMed" title="Metrics rates between [[ parameter_recommendation ]] % and [[ parameter_threshold ]] % are classified as medium">medium: &gt;= [[ parameter_recommendation ]] %</span>
-<span class="LegendHi" title="Metrics rates of [[ parameter_threshold ]] % and more are classified as high">high: &gt;= [[ parameter_threshold ]] %</span>
+<span class="LegendLo" title="Metrics rates below [[ parameter_recommendation ]] are classified as low">low: &lt; [[ parameter_recommendation ]]</span>
+<span class="LegendMed" title="Metrics rates between [[ parameter_recommendation ]] and [[ parameter_threshold ]] are classified as medium">medium: &gt;= [[ parameter_recommendation ]]</span>
+<span class="LegendHi" title="Metrics rates of [[ parameter_threshold ]] and more are classified as high">high: &gt;= [[ parameter_threshold ]]</span>
 
 </div></details>
 
