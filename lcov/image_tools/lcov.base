@@ -159,8 +159,6 @@ BRDA:63,0,3,-
 DA:65,0
 end_of_record
 TN:
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/image_tools/src/policy_maps.hpp
-end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/image_tools/src/burger.hpp
 end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/image_tools/src/cam2image.cpp
@@ -744,6 +742,8 @@ BRDA:316,0,6,-
 BRDA:316,0,7,-
 BRDA:316,0,8,-
 BRDA:316,0,9,-
+end_of_record
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/image_tools/src/policy_maps.hpp
 end_of_record
 TN:
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/image_tools/src/policy_maps.hpp

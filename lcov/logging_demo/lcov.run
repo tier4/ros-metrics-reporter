@@ -67,6 +67,8 @@ DA:314,2
 DA:316,2
 end_of_record
 TN:
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/logging_demo/include/logging_demo/logger_config_component.hpp
+end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/build/logging_demo/rosidl_generator_cpp/logging_demo/srv/detail/config_logger__struct.hpp
 FN:35,_ZN12logging_demo3srv21ConfigLogger_Request_ISaIvEEC2EN18rosidl_runtime_cpp21MessageInitializationE
 FNDA:0,_ZN12logging_demo3srv21ConfigLogger_Request_ISaIvEEC2EN18rosidl_runtime_cpp21MessageInitializationE
@@ -309,11 +311,7 @@ BRDA:85,0,7,0
 BRDA:85,0,8,2
 BRDA:85,0,9,0
 end_of_record
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/logging_demo/include/logging_demo/logger_config_component.hpp
-end_of_record
 TN:
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/logging_demo/include/logging_demo/logger_usage_component.hpp
-end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/logging_demo/src/logger_usage_component.cpp
 FN:32,_ZN12logging_demo11LoggerUsageC2EN6rclcpp11NodeOptionsE
 FNDA:2,_ZN12logging_demo11LoggerUsageC2EN6rclcpp11NodeOptionsE
@@ -641,6 +639,8 @@ BRDA:103,0,6,2
 BRDA:103,0,7,0
 BRDA:103,0,8,2
 BRDA:103,0,9,0
+end_of_record
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/logging_demo/include/logging_demo/logger_usage_component.hpp
 end_of_record
 TN:
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/build/logging_demo/rosidl_typesupport_fastrtps_cpp/logging_demo/srv/detail/dds_fastrtps/config_logger__type_support.cpp
