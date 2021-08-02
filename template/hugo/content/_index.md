@@ -36,12 +36,16 @@ geekdocDescription: Metrics reporter is a tool for continuously monitoring vario
 
 <div class="wrapped">
 <table>
-<tr><th></th><th colspan="3">Coverage</th><th colspan="9">Metrics</th>
-<tr><th></th><th colspan="3"></th><th colspan="3">CCN</th><th colspan="3">LOC</th><th colspan="3">Parameter</th>
-<tr><td> Package name <td> Line [%] <td> Functions [%] <td> Branches [%] <td> Over recommended value <td> Over required value <td> Worst value <td> Over recommended value <td> Over required value <td> Worst value <td> Over recommended value <td> Over required value <td> Worst value
+<thead>
+<tr><th> Package name </th><th colspan="3"> Coverage </th><th colspan="9"> Metrics </th>
+<tr><th></th><th colspan="3"></th><th colspan="3"> CCN </th><th colspan="3"> LOC </th><th colspan="3"> Parameter </th>
+<tr><th><th> Line [%] <th> Functions [%] <th> Branches [%] <th> Over recommended value <th> Over required value <th> Worst value <th> Over recommended value <th> Over required value <th> Worst value <th> Over recommended value <th> Over required value <th> Worst value
+</thead>
+<tbody>
 {%- for param in param_list %}
 <tr><td> [[ param.package ]] [[ param.line_badge ]] [[ param.functions_badge ]] [[ param.branches_badge ]] [[ param.ccn_warning_badge ]] [[ param.ccn_violation_badge ]] [[ param.ccn_worst_badge ]] [[ param.loc_warning_badge ]] [[ param.loc_violation_badge ]] [[ param.loc_worst_badge ]] [[ param.parameter_warning_badge ]] [[ param.parameter_violation_badge ]] [[ param.parameter_worst_badge ]]
 {%- endfor %}
+</tbody>
 </table>
 </div>
 
