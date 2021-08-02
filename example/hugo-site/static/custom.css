@@ -1,16 +1,41 @@
 /* Global customization */
+body, html {
+  overflow-x: visible;
+}
+
 .container {
   max-width: none;
 }
 
 .wrapped {
   padding-left: 5em;
-  overflow: auto;
 }
 
 .wrapped table {
   table-layout: fixed;
   width: auto !important;
+}
+
+table th {
+  overflow-wrap: break-word;
+}
+
+.wrapped thead th {
+  position: sticky;
+  white-space: nowrap;
+  overflow-wrap: break-word;
+}
+.wrapped thead tr:nth-child(1) th {
+  top: 0;
+  background-color: #FFFFFF;
+}
+.wrapped thead tr:nth-child(2) th {
+  top: 2.5rem;
+  background-color: #F8F9FA;
+}
+.wrapped thead tr:nth-child(3) th {
+  top: 5rem;
+  background-color: #FFFFFF;
 }
 
 table td {
