@@ -20,9 +20,16 @@ def add_package_link(package_name: str) -> str:
     return f'<a href="{{{{< relref "/packages/{package_name}" >}}}}">{package_name}</a>'
 
 
-def convert_color_cell(message: str, color_code: str) -> str:
-    template = "<td bgcolor=COLOR>MESSAGE"
-    return template.replace("MESSAGE", message).replace("COLOR", color_code)
+def convert_color_cell(message: str, color_code: Color) -> str:
+    template = '<td class="COLOR">MESSAGE'
+    if color_code == Color.RED:
+        return template.replace("MESSAGE", message).replace("COLOR", "LegendLo")
+    elif color_code == Color.YELLOW:
+        return template.replace("MESSAGE", message).replace("COLOR", "LegendMed")
+    elif color_code == Color.GREEN:
+        return template.replace("MESSAGE", message).replace("COLOR", "LegendHi")
+    else:
+        return template.replace("MESSAGE", message).replace("COLOR", "LegendNA")
 
 
 def read_lcov_result(file: Path, type: str) -> tuple:
@@ -44,19 +51,21 @@ def read_lcov_result(file: Path, type: str) -> tuple:
     return "N/A", label_color["None"]
 
 
-def lizard_color(type: str, value: float, recommend_value: int, threshold: int) -> str:
+def lizard_color(
+    type: str, value: float, recommend_value: int, threshold: int
+) -> Color:
     if "worst" in type:
         if value > threshold:
-            return Color.RED.value
+            return Color.RED
         elif value > recommend_value:
-            return Color.YELLOW.value
+            return Color.YELLOW
         else:
-            return Color.GREEN.value
+            return Color.GREEN
     else:
         if value == 0:
-            return Color.GREEN.value
+            return Color.GREEN
         else:
-            return Color.RED.value
+            return Color.RED
 
 
 def read_lizard_result(file: Path) -> Dict[str, float]:
