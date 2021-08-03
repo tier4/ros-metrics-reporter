@@ -4,13 +4,17 @@
 }
 
 .wrapped {
-  padding-left: 5em;
-  overflow: auto;
+  overflow: scroll;
+  width: calc(100vw - 1rem);
+  height: 75vh;
 }
 
-.wrapped table {
-  table-layout: fixed;
-  width: auto !important;
+.gdoc-markdown .wrapped table {
+  border-collapse: separate;
+}
+
+table th {
+  overflow-wrap: break-word;
 }
 
 table td {
@@ -18,28 +22,58 @@ table td {
   overflow-wrap: break-word;
 }
 
-span.LegendNA {
+.wrapped thead th {
+  position: sticky;
+  white-space: nowrap;
+  overflow-wrap: break-word;
+  z-index: 1;
+}
+.wrapped thead th:first-child {
+  z-index: 2;
+}
+.wrapped thead tr:nth-child(1) th {
+  top: 0;
+  background-color: var(--accent-color-lite);
+}
+.wrapped thead tr:nth-child(2) th {
+  top: 2.5rem;
+  background-color: var(--body-background);
+}
+.wrapped thead tr:nth-child(3) th {
+  top: 5rem;
+  background-color: var(--accent-color-lite);
+}
+.wrapped table th:first-child, td:first-child {
+  position: sticky;
+  left: 0;
+  background-color: var(--body-background);
+}
+.wrapped table tr:nth-child(2n) td:first-child {
+  background-color: var(--accent-color-lite);
+}
+
+.LegendNA {
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 2px;
   background-color: #828282;
 }
 
-span.LegendLo {
+.LegendLo {
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 2px;
   background-color: #D9634C;
 }
 
-span.LegendMed {
+.LegendMed {
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 2px;
   background-color: #D6AF22;
 }
 
-span.LegendHi {
+.LegendHi {
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 2px;
