@@ -34,10 +34,10 @@ def convert_color_cell(message: str, color_code: Color) -> str:
 
 def read_lcov_result(file: Path, type: str) -> tuple:
     label_color = {
-        "None": Color.GREY.value,
-        "Lo": Color.RED.value,
-        "Med": Color.YELLOW.value,
-        "Hi": Color.GREEN.value,
+        "None": Color.GREY,
+        "Lo": Color.RED,
+        "Med": Color.YELLOW,
+        "Hi": Color.GREEN,
     }
 
     if not file.exists():
@@ -142,7 +142,7 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
             lcov_cov, lcov_color = read_lcov_result(lcov_csv, type_name)
             if badge_name == "branches_badge":
                 # Set background of branches coverage to gray
-                lcov_color = Color.GREY.value
+                lcov_color = Color.GREY
             param[badge_name] = convert_color_cell(str(lcov_cov), lcov_color)
 
         lizard_csv = metrics_dir / package / "lizard.csv"
