@@ -253,7 +253,7 @@ def copy_template(src: Path, dest: Path, metrics_dir: Path, packages: List[str])
             continue
         filename = dest / "content" / "packages" / (package + ".md")
         shutil.copy(template, filename)
-        # Peplace token
+        # Replace token
         replace_contents(filename, package)
 
     template.unlink()
