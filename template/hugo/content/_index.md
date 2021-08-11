@@ -6,6 +6,8 @@ description: Metrics reporter is a tool for continuously monitoring various soft
 geekdocDescription: Metrics reporter is a tool for continuously monitoring various software metrics. For more information, please visit https://github.com/tier4/ros-metrics-reporter .
 ---
 
+Last updated: [[ last_updated ]]
+
 <details><summary>Legend</summary><div>
 
 ### Code coverage
