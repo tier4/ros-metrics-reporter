@@ -39,8 +39,8 @@ Last updated: [[ last_updated ]]
 <div class="wrapped">
 <table>
 <thead>
-<tr><th></th><th colspan="3"> Coverage </th><th colspan="9"> Metrics </th>
-<tr><th></th><th colspan="3"></th><th colspan="3"> CCN </th><th colspan="3"> LOC </th><th colspan="3"> Parameter </th>
+<tr><th></th><th colspan="3" title="Test coverage is a measure used to describe the degree to which the source code of a program is executed when a particular test suite runs."><a href="https://www.bullseye.com/coverage.html" target="_blank" rel="noopener noreferrer"> Coverage </a></th><th colspan="9" title="A software metric is a standard of measure of a degree to which a software system or process possesses some property."> Metrics </th>
+<tr><th></th><th colspan="3"></th><th colspan="3" title="Cyclomatic Complexity Number"><a href="https://en.wikipedia.org/wiki/Cyclomatic_complexity" target="_blank" rel="noopener noreferrer"> CCN </a></th><th colspan="3" title="Lines of Code"> LOC </th><th colspan="3" title="Parameter count"> Parameter </th>
 <tr><th> Package name <th> Line [%] <th> Functions [%] <th> Branches [%] <th> Over recommended value <th> Over required value <th> Worst value <th> Over recommended value <th> Over required value <th> Worst value <th> Over recommended value <th> Over required value <th> Worst value
 </thead>
 <tbody>
