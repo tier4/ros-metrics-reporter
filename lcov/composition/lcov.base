@@ -472,8 +472,6 @@ BRDA:62,0,8,-
 BRDA:62,0,9,-
 end_of_record
 TN:
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/node_like_listener_component.hpp
-end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/node_like_listener_component.cpp
 FN:35,_ZN11composition16NodeLikeListenerC2ERKN6rclcpp11NodeOptionsE
 FNDA:0,_ZN11composition16NodeLikeListenerC2ERKN6rclcpp11NodeOptionsE
@@ -533,6 +531,8 @@ BRDA:67,0,7,-
 BRDA:67,0,8,-
 BRDA:67,0,9,-
 end_of_record
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/node_like_listener_component.hpp
+end_of_record
 TN:
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/CMakeCCompilerId.c
 FN:645,main
@@ -559,6 +559,8 @@ DA:657,0
 DA:659,0
 end_of_record
 TN:
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/server_component.hpp
+end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/server_component.cpp
 FN:27,_ZN11composition6ServerC2ERKN6rclcpp11NodeOptionsE
 FNDA:0,_ZN11composition6ServerC2ERKN6rclcpp11NodeOptionsE
@@ -614,9 +616,9 @@ BRDA:53,0,7,-
 BRDA:53,0,8,-
 BRDA:53,0,9,-
 end_of_record
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/server_component.hpp
-end_of_record
 TN:
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/listener_component.hpp
+end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/listener_component.cpp
 FN:29,_ZN11composition8ListenerC2ERKN6rclcpp11NodeOptionsE
 FNDA:0,_ZN11composition8ListenerC2ERKN6rclcpp11NodeOptionsE
@@ -675,8 +677,6 @@ BRDA:55,0,6,-
 BRDA:55,0,7,-
 BRDA:55,0,8,-
 BRDA:55,0,9,-
-end_of_record
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/listener_component.hpp
 end_of_record
 TN:
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/linktime_composition.cpp
