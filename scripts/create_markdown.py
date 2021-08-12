@@ -115,7 +115,7 @@ def read_legend(metrics_dir: Path) -> Dict[str, int]:
 
 
 def get_timestamp_from_lizard_csv(file: Path) -> datetime:
-    return datetime(file.stat().st_mtime)
+    return datetime.fromtimestamp(file.stat().st_mtime)
 
 
 def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
