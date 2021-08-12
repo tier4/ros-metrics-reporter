@@ -131,3 +131,5 @@ dmypy.json
 /.vscode/
 /example/src/
 /hugo-site/
+/output/
+/hugo-test/

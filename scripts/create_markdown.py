@@ -7,6 +7,7 @@ from typing import Dict, List
 from jinja2 import Environment, FileSystemLoader
 import csv
 from enum import Enum
+from datetime import datetime
 
 
 class Color(Enum):
@@ -113,6 +114,10 @@ def read_legend(metrics_dir: Path) -> Dict[str, int]:
     return legend
 
 
+def get_timestamp_from_lizard_csv(file: Path) -> datetime:
+    return datetime.fromtimestamp(file.stat().st_mtime)
+
+
 def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
     # Read file, replace token and overwrite file
     env = Environment(
@@ -183,6 +188,11 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
 
     render_dict["param_list"] = param_list
 
+    # Read datetime
+    render_dict["last_updated"] = get_timestamp_from_lizard_csv(
+        metrics_dir / "all" / "lizard.csv"
+    ).strftime("%Y-%m-%d %H:%M:%S UTC")
+
     legend_dict = update_legend_dict(legend_dict)
     render_dict.update(legend_dict)
 
@@ -243,7 +253,7 @@ def copy_template(src: Path, dest: Path, metrics_dir: Path, packages: List[str])
             continue
         filename = dest / "content" / "packages" / (package + ".md")
         shutil.copy(template, filename)
-        # Peplace token
+        # Replace token
         replace_contents(filename, package)
 
     template.unlink()
