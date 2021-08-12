@@ -9,6 +9,10 @@ inputs:
   artifacts-dir:
     description: "Path to Artifacts generated using this Action (must include lcov-result/ and lizard-result/ directory)"
     required: true
+  target-dir:
+    description: "Path to source directory."
+    required: true
+    default: "${GITHUB_WORKSPACE}"
   base-url:
     description: "If you use example/hugo-site in this repository, please specify the baseURL."
     required: true
@@ -111,7 +115,7 @@ runs:
         echo "Debug: CODECHECKER_SKIP_LIST=$CODECHECKER_SKIP_LIST"
         . /opt/ros/${{ inputs.ros-distro }}/setup.sh
         python ${GITHUB_ACTION_PATH}/scripts/ros_metrics_reporter.py \
-          --base-dir=${GITHUB_WORKSPACE} \
+          --base-dir=${{ inputs.target-dir }} \
           --action-dir=${GITHUB_ACTION_PATH} \
           --output-dir=${{ steps.filtered.outputs.ARTIFACTS_DIR }} \
           --timestamp=${TIMESTAMP} \
