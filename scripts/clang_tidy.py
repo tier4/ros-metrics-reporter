@@ -2,6 +2,7 @@
 
 from pathlib import Path
 from util import run_command
+from colcon_directory import colcon_get_all_packages
 
 import shlex
 
@@ -13,17 +14,7 @@ def clang_tidy(
     config_path: Path,
     ignore_path: Path,
 ):
-
-    # Build
-    run_command(
-        args=shlex.split(
-            "bash -c 'colcon build \
-            --event-handlers console_cohesion+ \
-            --cmake-args -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'"
-        ),
-        cwd=base_dir,
-    )
+    colcon_get_all_packages(base_dir)
 
     codechecker_dir = gh_action_dir / "codechecker"
     if not codechecker_dir.exists():

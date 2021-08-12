@@ -1,8 +1,8 @@
 #! /usr/bin/env python3
 
 import argparse
-from coverage_all import coverage_all
-from coverage_package import coverage_package
+from coverage_all import *
+from coverage_package import *
 from util import dir_path
 from pathlib import Path
 from lizard_all import lizard_all
@@ -12,25 +12,34 @@ from create_link import create_link
 from create_static_page import create_static_page
 from clang_tidy import clang_tidy
 from save_metrics_threshold import save_threshold
+from colcon_directory import *
 
 
 def ros_metrics_reporter(args):
     exclude = args.exclude.split()
+    colcon = Colcon(target_path=args.base_dir)
+
+    # Build packages
+    colcon.build()
+
+    # Initialize coverage
+    lcov_dir = args.output_dir / "lcov_result" / args.timestamp
+    coverage_all = CoverageAll(
+        base_dir=args.base_dir, output_dir=lcov_dir, lcovrc=args.lcovrc
+    )
+    coverage_package = CoveragePackage(
+        base_dir=args.base_dir, output_dir=lcov_dir, lcovrc=args.lcovrc
+    )
+
+    coverage_all.initialize()
+    coverage_package.initialize(exclude=exclude)
+
+    # Test packages
+    colcon.test()
 
     # Measure code coverage
-    lcov_dir = args.output_dir / "lcov_result" / args.timestamp
-    coverage_all(
-        base_dir=args.base_dir,
-        output_dir=lcov_dir,
-        lcovrc=args.lcovrc,
-        exclude=exclude,
-    )
-    coverage_package(
-        base_dir=args.base_dir,
-        output_dir=lcov_dir,
-        lcovrc=args.lcovrc,
-        exclude=exclude,
-    )
+    coverage_all.measure_coverage(exclude=exclude)
+    coverage_package.measure_coverage()
 
     # Measure code metrics for threshold value
     lizard_dir = args.output_dir / "lizard_result" / args.timestamp

@@ -2,51 +2,39 @@
 
 from pathlib import Path
 from typing import List
-from util import run_command
 from run_lcov import initialize_lcov, run_lcov
-
-import shlex
-
-
-COVERAGE_FLAGS = "-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1 -O0"
+from colcon_directory import colcon_get_all_packages
 
 
-def coverage_all(base_dir: Path, output_dir: Path, lcovrc: Path, exclude: List[str]):
+class CoverageAll:
+    def __init__(self, output_dir: Path, base_dir: Path, lcovrc: Path):
+        self.__initialize_success = False
+        self.__output_lcov_dir = output_dir / "all"
+        self.__base_dir = base_dir
+        self.__lcovrc = lcovrc
 
-    output_lcov_dir = output_dir / "all"
-    if not output_lcov_dir.exists():
-        output_lcov_dir.mkdir(parents=True)
+    def initialize(self):
+        if not self.__output_lcov_dir.exists():
+            self.__output_lcov_dir.mkdir(parents=True)
 
-    # Build with correct flags
-    if not run_command(
-        args=shlex.split(
-            'colcon build \
-            --event-handlers console_cohesion+ \
-            --cmake-args -DCMAKE_BUILD_TYPE=Debug \
-            -DCMAKE_CXX_FLAGS="{0}" -DCMAKE_C_FLAGS="{0}"'.format(
-                COVERAGE_FLAGS
-            )
+        colcon_get_all_packages(self.__base_dir)
+
+        if initialize_lcov(
+            base_dir=self.__base_dir,
+            output_dir=self.__output_lcov_dir,
+            lcovrc=self.__lcovrc,
+        ):
+            self.__initialize_success = True
+
+    def measure_coverage(self, exclude: List[str]):
+        if not self.__initialize_success:
+            return
+
+        colcon_get_all_packages(self.__base_dir)
+
+        run_lcov(
+            base_dir=self.__base_dir,
+            output_dir=self.__output_lcov_dir,
+            lcovrc=self.__lcovrc,
+            exclude=exclude,
         )
-    ):
-        print("Build failed.")
-        return
-
-    if not initialize_lcov(
-        base_dir=base_dir, output_dir=output_lcov_dir, lcovrc=lcovrc
-    ):
-        return
-
-    if not run_command(
-        args=shlex.split(
-            "colcon test \
-            --event-handlers \
-            console_cohesion+ \
-            --return-code-on-test-failure"
-        )
-    ):
-        print("Unit/integration testing failed.")
-        return
-
-    run_lcov(
-        base_dir=base_dir, output_dir=output_lcov_dir, lcovrc=lcovrc, exclude=exclude
-    )
