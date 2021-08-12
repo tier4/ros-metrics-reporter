@@ -1020,7 +1020,7 @@ BRDA:84,0,3,-
 DA:86,0
 end_of_record
 TN:
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/CMakeCCompilerId.c
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/CMakeCCompilerId.c
 FN:645,main
 FNDA:0,main
 DA:645,0
@@ -1033,7 +1033,7 @@ DA:667,0
 DA:669,0
 end_of_record
 TN:
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/CMakeCXXCompilerId.cpp
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/CMakeCXXCompilerId.cpp
 FN:637,main
 FNDA:0,main
 DA:637,0

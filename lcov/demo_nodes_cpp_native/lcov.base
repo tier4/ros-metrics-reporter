@@ -1,5 +1,5 @@
 TN:
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/CMakeCCompilerId.c
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/CMakeCCompilerId.c
 FN:645,main
 FNDA:0,main
 DA:645,0
@@ -12,7 +12,7 @@ DA:667,0
 DA:669,0
 end_of_record
 TN:
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/CMakeCXXCompilerId.cpp
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/CMakeCXXCompilerId.cpp
 FN:637,main
 FNDA:0,main
 DA:637,0
@@ -182,7 +182,7 @@ BRDA:73,0,8,-
 BRDA:73,0,9,-
 end_of_record
 TN:
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/build/demo_nodes_cpp_native/rclcpp_components/node_main_talker.cpp
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/build/demo_nodes_cpp_native/rclcpp_components/node_main_talker.cpp
 FN:26,main
 FNDA:0,main
 DA:26,0
