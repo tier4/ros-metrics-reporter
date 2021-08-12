@@ -2,7 +2,7 @@
 
 from pathlib import Path
 from util import run_command
-from colcon import colcon_get_all_packages
+from colcon_directory import colcon_get_all_packages
 
 import shlex
 

@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import List
 from run_lcov import initialize_lcov, run_lcov
-from colcon import colcon_get_all_packages
+from colcon_directory import colcon_get_all_packages
 
 
 class CoverageAll:

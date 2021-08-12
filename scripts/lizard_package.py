@@ -77,7 +77,7 @@ def lizard_package(
             )
         )
 
-    package_list = run_command_pipe(["colcon", "list"]).splitlines()
+    package_list = run_command_pipe(["colcon", "list"], cwd=base_dir).splitlines()
     for line in package_list:
         package = line.split()
         package_full_path = str(base_dir / package[1]) + "/"

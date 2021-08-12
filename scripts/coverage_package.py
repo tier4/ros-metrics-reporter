@@ -5,12 +5,14 @@ from typing import List
 from util import run_command_pipe
 from run_lcov import initialize_lcov, run_lcov
 from path_match import path_match
-from colcon import colcon_get_package
+from colcon_directory import colcon_get_package
 
 
 class CoveragePackage:
     def __init__(self, output_dir: Path, base_dir: Path, lcovrc: Path):
-        self.__package_list = run_command_pipe(["colcon", "list"]).splitlines()
+        self.__package_list = run_command_pipe(
+            ["colcon", "list"], cwd=base_dir
+        ).splitlines()
         self.__initialize_failed_list = []
         self.__base_dir = base_dir
         self.__output_dir = output_dir
@@ -66,7 +68,7 @@ class CoveragePackage:
         for line in self.__package_list:
             package = line.split()
             package_name = package[0]
-            package_full_path = str(self.__base_dir / package_name) + "/"
+            package_full_path = str(self.__base_dir / package[1]) + "/"
 
             if self.__is_exclude(package_name, package_full_path, exclude):
                 self.__initialize_failed_list.append(package_name)

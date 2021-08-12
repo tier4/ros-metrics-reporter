@@ -12,7 +12,7 @@ from create_link import create_link
 from create_static_page import create_static_page
 from clang_tidy import clang_tidy
 from save_metrics_threshold import save_threshold
-from colcon import *
+from colcon_directory import *
 
 
 def ros_metrics_reporter(args):
