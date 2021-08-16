@@ -1,4 +1,4 @@
-name: Test github action
+name: Test github action on container
 
 on:
   workflow_dispatch:
@@ -75,7 +75,7 @@ jobs:
         tree -L 2 ${GITHUB_WORKSPACE}/public/
 
     - name: Push artifacts
-      if: ${{ github.ref == 'refs/heads/main' && matrix.ros_distribution == 'foxy' }}
+      if: ${{ github.ref == 'refs/heads/main' && matrix.ros_distribution == 'galactic' }}
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -83,14 +83,14 @@ jobs:
         publish_branch: data
 
     - name: Save page as artifacts
-      if: ${{ github.event.pull_request && matrix.ros_distribution == 'foxy' }}
+      if: ${{ github.event.pull_request && matrix.ros_distribution == 'galactic' }}
       uses: actions/upload-artifact@v2
       with:
         name: static-pages
         path: public
 
     - name: Deploy public to gh-pages (main branch only)
-      if: ${{ github.ref == 'refs/heads/main' && matrix.ros_distribution == 'foxy' }}
+      if: ${{ github.ref == 'refs/heads/main' && matrix.ros_distribution == 'galactic' }}
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}

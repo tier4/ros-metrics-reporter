@@ -1,0 +1,73 @@
+name: Test github action on bare metal
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  action-test:
+    runs-on: ubuntu-latest
+    env:
+      ARTIFACTS_DIR: data
+
+    strategy:
+      fail-fast: false
+      matrix:
+        ros_distribution:
+          - foxy
+          - galactic
+          - rolling
+
+        include:
+          # Foxy Fitzroy (June 2020 - May 2023)
+          - ros_distribution: foxy
+            vcs_file: ros-metrics-reporter-foxy.repos
+
+          # Galactic Geochelone (May 2021 - November 2022)
+          - ros_distribution: galactic
+            vcs_file: ros-metrics-reporter-galactic.repos
+
+          # Rolling Ridley (June 2020 -)
+          - ros_distribution: rolling
+            vcs_file: ros-metrics-reporter-rolling.repos
+
+    steps:
+    - uses: ros-tooling/setup-ros@v0.2
+      with:
+        required-ros-distributions: ${{ matrix.ros_distribution }}
+
+    - uses: actions/checkout@v2
+
+    - name: Clone dependency packages
+      run: |
+        vcs import . < ${{ matrix.vcs_file }}
+        sudo apt-get -y update
+        rosdep update
+        rosdep install -y --from-paths . --ignore-src --rosdistro ${{ matrix.ros_distribution }}
+
+    - uses: actions/checkout@v2
+      with:
+        ref: data
+        path: ${{ env.ARTIFACTS_DIR }}
+
+    - id: metrics-reporter
+      uses: ./ # Uses an action in the root directory
+      with:
+        artifacts-dir: ${{ env.ARTIFACTS_DIR }}
+        target-dir: ${GITHUB_WORKSPACE}/example/src/demos
+        base-url: "https://tier4.github.io/ros-metrics-reporter/"
+        title: "ros2/demos"
+        ros-distro: ${{ matrix.ros_distribution }}
+        CCN: "20"
+        nloc: "200"
+        arguments: "6"
+        exclude: "**/pendulum_control/*"
+        codechecker-skip-list: "codechecker-skip-list.txt"
+
+    - name: Check results
+      run: |
+        sudo apt install -y tree
+        tree -L 2 ${GITHUB_WORKSPACE}/public/
