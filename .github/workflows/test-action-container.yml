@@ -1,4 +1,4 @@
-name: Test github action
+name: Test github action on container
 
 on:
   workflow_dispatch:
