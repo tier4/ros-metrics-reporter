@@ -23,24 +23,22 @@ jobs:
 
         include:
           # Foxy Fitzroy (June 2020 - May 2023)
-          - docker_image: osrf/ros:foxy-desktop
-            ros_distribution: foxy
+          - ros_distribution: foxy
             vcs_file: ros-metrics-reporter-foxy.repos
 
           # Galactic Geochelone (May 2021 - November 2022)
-          - docker_image: osrf/ros:galactic-desktop
-            ros_distribution: galactic
+          - ros_distribution: galactic
             vcs_file: ros-metrics-reporter-galactic.repos
 
           # Rolling Ridley (June 2020 -)
-          - docker_image: osrf/ros:rolling-desktop
-            ros_distribution: rolling
+          - ros_distribution: rolling
             vcs_file: ros-metrics-reporter-rolling.repos
 
-    container:
-      image: ${{ matrix.docker_image }}
-
     steps:
+    - uses: ros-tooling/setup-ros@v0.2
+      with:
+        required-ros-distributions: ${{ matrix.ros_distribution }}
+
     - uses: actions/checkout@v2
 
     - name: Clone dependency packages
@@ -73,25 +71,3 @@ jobs:
       run: |
         apt install -y tree
         tree -L 2 ${GITHUB_WORKSPACE}/public/
-
-    - name: Push artifacts
-      if: ${{ github.ref == 'refs/heads/main' && matrix.ros_distribution == 'foxy' }}
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ${{ env.ARTIFACTS_DIR }}
-        publish_branch: data
-
-    - name: Save page as artifacts
-      if: ${{ github.event.pull_request && matrix.ros_distribution == 'foxy' }}
-      uses: actions/upload-artifact@v2
-      with:
-        name: static-pages
-        path: public
-
-    - name: Deploy public to gh-pages (main branch only)
-      if: ${{ github.ref == 'refs/heads/main' && matrix.ros_distribution == 'foxy' }}
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: public
