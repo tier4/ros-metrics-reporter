@@ -44,7 +44,7 @@ jobs:
     - name: Clone dependency packages
       run: |
         vcs import . < ${{ matrix.vcs_file }}
-        apt-get -y update
+        sudo apt-get -y update
         rosdep update
         rosdep install -y --from-paths . --ignore-src --rosdistro ${{ matrix.ros_distribution }}
 
@@ -69,5 +69,5 @@ jobs:
 
     - name: Check results
       run: |
-        apt install -y tree
+        sudo apt install -y tree
         tree -L 2 ${GITHUB_WORKSPACE}/public/
