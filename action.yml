@@ -87,11 +87,11 @@ runs:
 
     - name: Install dependencies
       run: |
-        apt-get update
-        apt-get install -y lcov git python-is-python3 python3-pip hugo
-        apt-get install -y clang-tidy-11
+        sudo apt-get update
+        sudo apt-get install -y lcov git python-is-python3 python3-pip hugo
+        sudo apt-get install -y clang-tidy-11
         update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-11 9999
-        apt-get install -y gcc-multilib python3-venv
+        sudo apt-get install -y gcc-multilib python3-venv
         pip3 install jinja2 bs4 pandas plotly
       shell: bash
 
