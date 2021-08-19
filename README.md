@@ -1,14 +1,17 @@
-# ros-metrics-reporter
+<p><img width="650" alt="ROS Metrics Reporter" src="https://user-images.githubusercontent.com/19993104/129995855-255ce357-15b9-4edc-99da-edd35aaeb5fa.png"></p>
 
-[![Test github action](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action.yml/badge.svg?branch=main)](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action.yml)
+[![Test github action on container](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action-container.yml/badge.svg)](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action-container.yml)
+[![Test github action on bare metal](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action-bare.yml/badge.svg)](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action-bare.yml)
 [![GitHub pages](https://img.shields.io/badge/-GitHub%20pages-orange)](https://tier4.github.io/ros-metrics-reporter/)
+
+### [Demo](https://tier4.github.io/ros-metrics-reporter/)
 
 ## Overview
 
 `ros-metrics-reporter` collects tests for the ROS packages of a project and generates HTML reports. The results can be saved as github-pages or artifacts.
 This project is using [LCOV](https://github.com/linux-test-project/lcov) and [Lizard](https://github.com/terryyin/lizard) as backend. I would like to express my deepest gratitude for their contributions.
 
-Warning: the results will include your source code, so be careful about the scope of publication if you have a private repository. (Even if your project is private, the scope of the GitHub Pages will be public.
+***Warning: the results will include your source code, so be careful about the scope of publication if you have a private repository. (Even if your project is private, the scope of the GitHub Pages will be public.***
 
 ## Action setup
 
@@ -31,6 +34,9 @@ git push origin master:data
 
 ### Example workflow
 
+Copy following yaml file to `.github/workflows/generate-metrics-report.yml` in your project.
+Modify env vars to your needs.
+
 ```yml
 name: Generate metrics report
 
@@ -46,6 +52,8 @@ jobs:
     container: osrf/ros:foxy-desktop
     env:
       ARTIFACTS_DIR: data
+      BASE_URL: "https://tier4.github.io/ros-metrics-reporter/"
+      TITLE: "ros2/demos"
 
     steps:
     - uses: actions/checkout@v2
@@ -59,8 +67,8 @@ jobs:
       uses: tier4/ros-metrics-reporter@main
       with:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
-        base-url: "https://tier4.github.io/ros-metrics-reporter/"
-        title: "ros2/demos"
+        base-url: ${{ env.BASE_URL }}
+        title: ${{ env.TITLE }}
 
     - name: Push artifacts
       if: github.ref == 'refs/heads/main'
