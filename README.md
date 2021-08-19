@@ -1,7 +1,9 @@
-# ros-metrics-reporter
+<p><img width="650" alt="ROS Metrics Reporter" src="https://user-images.githubusercontent.com/19993104/129995855-255ce357-15b9-4edc-99da-edd35aaeb5fa.png"></p>
 
-[![Test github action](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action.yml/badge.svg?branch=main)](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action.yml)
+[![Test github action](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action-container.yml/badge.svg?branch=main)](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action-container.yml)
 [![GitHub pages](https://img.shields.io/badge/-GitHub%20pages-orange)](https://tier4.github.io/ros-metrics-reporter/)
+
+### [Demo](https://tier4.github.io/ros-metrics-reporter/)
 
 ## Overview
 
