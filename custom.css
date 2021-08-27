@@ -11,6 +11,7 @@
 
 .gdoc-markdown .wrapped table {
   border-collapse: separate;
+  width: fit-content;
 }
 
 table th {
