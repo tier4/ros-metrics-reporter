@@ -25,9 +25,11 @@ Before running tests, you need to install dependencies. Check `Install dependenc
 After that, you can run tests with the following command:
 
 ```sh
-$ cd ros-metrics-reporter/scripts
+$ cd ros-metrics-reporter
+$ vcs import . < ros-metrics-reporter-<ROS_DISTRO>.repos  # Import ros2/demos into your workspace
+$ cd scripts
 $ python3 ../tests/run_local.py
-$ cd ros-metrics-reporter/hugo-test
+$ cd ../hugo-test
 $ hugo server -D
 $ firefox http://localhost:1313/
 ```
