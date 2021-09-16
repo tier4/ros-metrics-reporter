@@ -7,9 +7,17 @@ import shutil
 
 def create_link(target: Path, link_from: Path):
     # Unlink old symbolic link
-    link_from.unlink(missing_ok=True)
-    if link_from.is_dir():
-        shutil.rmtree(link_from)
+    if link_from.exists():
+        if link_from.is_dir():
+            if path.islink(link_from):
+                link_from.unlink()
+            else:
+                shutil.rmtree(link_from)
+        else:
+            if path.islink(link_from):
+                link_from.unlink()
+            else:
+                shutil.rmtree(link_from)
 
     # Create symbolic link
     link_from.symlink_to(target=target, target_is_directory=True)
