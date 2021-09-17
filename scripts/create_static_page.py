@@ -1,103 +1,20 @@
 #! /usr/bin/env python3
 
-import argparse
 from pathlib import Path
-from datetime import datetime
 from distutils import dir_util
-from typing import List
-import pandas as pd
-from pandas.core.frame import DataFrame
 from jinja2 import Environment, FileSystemLoader
 
-from util import dir_path
-from plot_timeseries import plot_timeseries
-from create_markdown import copy_template
-
-cols = [
-    "date",
-    "package_name",
-    "type",
-    "value",
-    "signal",
-]
+from create_markdown import run_markdown_generator
+from read_dataframe import read_dataframe
 
 
 def copy_artifacts(src: Path, dest: Path):
     dest.mkdir(exist_ok=True)
-    for package_dir in src.iterdir():
-        if package_dir.is_dir():
-            package_dest = dest / package_dir.name
-            package_dest.mkdir(exist_ok=True)
-            dir_util.copy_tree(package_dir, str(package_dest))
-
-
-def get_trial_record(record_dir: Path, allowed_packages: List[str]) -> DataFrame:
-    all_package_metrics = pd.DataFrame(index=[], columns=cols)
-
-    for package_dir in record_dir.iterdir():
-        package_name = package_dir.name
-        if not package_name in allowed_packages:
-            continue
-
-        date = datetime.strptime(record_dir.name, "%Y%m%d_%H%M%S")
-
-        coverage_file = package_dir / "coverage.csv"
-        if coverage_file.exists():
-            coverage_data = pd.read_csv(coverage_file)
-            coverage_data["package_name"] = package_name
-            coverage_data["date"] = date
-            all_package_metrics = pd.concat(
-                [all_package_metrics, coverage_data], axis=0
-            )
-
-        lizard_file = package_dir / "lizard.csv"
-        if lizard_file.exists():
-            package_metrics = pd.read_csv(lizard_file)
-            package_metrics["package_name"] = package_name
-            package_metrics["date"] = date
-            all_package_metrics = pd.concat(
-                [all_package_metrics, package_metrics], axis=0
-            )
-
-    return all_package_metrics
-
-
-def get_package_list_from_latest_dir(latest_dir: Path) -> List[str]:
-    packages = []
-    for package_path in sorted(latest_dir.iterdir()):
-        packages.append(package_path.name)
-    return packages
-
-
-def read_data_source(base_path: Path) -> pd.DataFrame:
-    data_source = pd.DataFrame(index=[], columns=cols)
-
-    packages = get_package_list_from_latest_dir(base_path / "latest")
-
-    for timestamp_dir in sorted(base_path.iterdir()):
-        # Skip latest directory
-        if "latest" in timestamp_dir.name:
-            continue
-
-        single_record = get_trial_record(timestamp_dir, packages)
-        data_source = pd.concat([data_source, single_record], axis=0)
-    return data_source
-
-
-def generate_graph(
-    hugo_root_dir: Path,
-    data_source: pd.DataFrame,
-):
-    # Create graph
-    plotly_output_dir = hugo_root_dir / "static" / "plotly"
-    plotly_output_dir.mkdir(parents=True, exist_ok=True)
-
-    packages = data_source["package_name"].unique()
-    for package in packages:
-        df = data_source[data_source["package_name"] == package]
-        save_dir = plotly_output_dir / package
-        save_dir.mkdir(exist_ok=True)
-        plot_timeseries(df, save_dir)
+    package_dirs = [x for x in src.iterdir() if x.is_dir()]
+    for package_dir in package_dirs:
+        package_dest = dest / package_dir.name
+        package_dest.mkdir(exist_ok=True)
+        dir_util.copy_tree(package_dir, str(package_dest))
 
 
 def copy_html(
@@ -149,7 +66,9 @@ def generate_markdown(
     packages: str,
 ):
     # Create markdown from template
-    copy_template(hugo_template_dir, hugo_root_dir, base_path / "latest", packages)
+    run_markdown_generator(
+        hugo_template_dir, hugo_root_dir, base_path / "latest", packages
+    )
 
 
 def create_static_page(
@@ -162,8 +81,6 @@ def create_static_page(
     base_url: str,
     title: str,
 ):
-    df = read_data_source(input_dir)
-    generate_graph(hugo_root_dir, df)
     copy_html(
         hugo_root_dir,
         lcov_result_path,
@@ -175,69 +92,11 @@ def create_static_page(
         base_url,
         title,
     )
+
+    df = read_dataframe(input_dir)
     generate_markdown(
         input_dir,
         hugo_root_dir,
         hugo_template_dir,
         df["package_name"].unique(),
-    )
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--input-dir", help="Path to coverage artifacts", type=dir_path, required=True
-    )
-    parser.add_argument(
-        "--hugo-root-dir",
-        help="Path to hugo directory to output files",
-        type=dir_path,
-        required=True,
-    )
-    parser.add_argument(
-        "--hugo-template-dir",
-        help="Path to template directory to generate markdown",
-        type=dir_path,
-        required=True,
-    )
-    parser.add_argument(
-        "--lcov-result-path",
-        help="Path to lcov result directory",
-        type=dir_path,
-        required=True,
-    )
-    parser.add_argument(
-        "--lizard-result-path",
-        help="Path to lizard result directory",
-        type=dir_path,
-        required=True,
-    )
-    parser.add_argument(
-        "--tidy-result-path",
-        help="Path to clang-tidy result directory",
-        type=dir_path,
-        required=True,
-    )
-    parser.add_argument(
-        "--base-url",
-        help="baseURL",
-        type=str,
-    )
-
-    parser.add_argument(
-        "--title",
-        help="Title",
-        type=str,
-    )
-
-    args = parser.parse_args()
-    create_static_page(
-        input_dir=args.input_dir,
-        hugo_root_dir=args.hugo_root_dir,
-        hugo_template_dir=args.hugo_template_dir,
-        lcov_result_path=args.lcov_result_path,
-        lizard_result_path=args.lizard_result_path,
-        tidy_result_path=args.tidy_result_path,
-        base_url=args.base_url,
-        title=args.title,
     )

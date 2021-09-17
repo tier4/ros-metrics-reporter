@@ -1,9 +1,10 @@
 #! /usr/bin/env python3
 
-from os import name
+import pandas as pd
 from pandas.core.frame import DataFrame
 import plotly.express as px
 from pathlib import Path
+from read_dataframe import read_dataframe
 
 
 plot_name_list = [
@@ -87,3 +88,26 @@ def plot_timeseries(df: DataFrame, output_path: Path):
 
             fig.write_json(str(output_path / (plot_type + ".json")))
             # fig.write_html(str(output_path / (plot_type + '.html')))
+
+
+def generate_metrics_graph_df(
+    hugo_root_dir: Path,
+    data_source: pd.DataFrame,
+):
+    # Create graph
+    plotly_output_dir = hugo_root_dir / "static" / "plotly"
+    plotly_output_dir.mkdir(parents=True, exist_ok=True)
+
+    packages = data_source["package_name"].unique()
+    for package in packages:
+        df = data_source[data_source["package_name"] == package]
+        save_dir = plotly_output_dir / package
+        save_dir.mkdir(exist_ok=True)
+        plot_timeseries(df, save_dir)
+
+
+def generate_metrics_graph(
+    hugo_root_dir: Path,
+    data_source_dir: Path,
+):
+    generate_metrics_graph_df(hugo_root_dir, read_dataframe(data_source_dir))

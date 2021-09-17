@@ -1,6 +1,5 @@
 #! /usr/bin/env python3
 
-import argparse
 from typing import List
 import bs4
 import re
@@ -170,24 +169,3 @@ def scraping(
             writer = csv.DictWriter(f, fieldnames=metrics[0].keys())
             for item in metrics:
                 writer.writerow(item)
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--lcov_dir", help="Path to lcov result", type=dir_path, required=True
-    )
-    parser.add_argument(
-        "--lizard_recommendation_dir",
-        help="Path to lizard recommendation result",
-        type=dir_path,
-        required=True,
-    )
-    parser.add_argument(
-        "--output_dir", help="Path to output directory", type=dir_path, required=True
-    )
-
-    args = parser.parse_args()
-    scraping(
-        lcov_dir=args.lcov_dir, lizard_dir=args.lizard_dir, output_dir=args.output_dir
-    )

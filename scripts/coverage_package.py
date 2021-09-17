@@ -2,9 +2,8 @@
 
 from pathlib import Path
 from typing import List
-from util import run_command_pipe
+from util import run_command_pipe, path_match
 from run_lcov import initialize_lcov, run_lcov
-from path_match import path_match
 from colcon_directory import colcon_get_package
 
 
