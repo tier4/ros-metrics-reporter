@@ -5,6 +5,14 @@ import subprocess
 from subprocess import CalledProcessError
 import sys
 from typing import List
+import fnmatch
+
+
+def path_match(target_path: str, pattern_list: List[str]) -> bool:
+    matched = [
+        pattern for pattern in pattern_list if fnmatch.fnmatch(target_path, pattern)
+    ]
+    return True if matched else False
 
 
 def dir_path(input):

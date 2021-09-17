@@ -1,6 +1,5 @@
 #! /usr/bin/env python3
 
-from os import stat
 from util import run_command
 import shlex
 from pathlib import Path

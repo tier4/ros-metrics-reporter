@@ -73,12 +73,9 @@ def read_lizard_result(file: Path) -> Dict[str, float]:
     if not file.exists():
         return {}
 
-    result = {}
     with open(file) as f:
         reader = csv.DictReader(f)
-        for row in reader:
-            result[row["type"]] = float(row["value"])
-    return result
+        return {x["type"]: float(x["value"]) for x in reader}
 
 
 def update_legend_dict(legend_dict: Dict[str, str]) -> Dict[str, str]:
@@ -93,11 +90,11 @@ def update_legend_dict(legend_dict: Dict[str, str]) -> Dict[str, str]:
         "parameter_threshold": "Parameter(threshold)",
     }
 
-    updated_dict = {}
-    for key, value in name_map.items():
-        if value in legend_dict:
-            updated_dict[key] = legend_dict[value]
-    return updated_dict
+    return {
+        key: legend_dict[value]
+        for key, value in name_map.items()
+        if value in legend_dict
+    }
 
 
 def read_legend(metrics_dir: Path) -> Dict[str, int]:

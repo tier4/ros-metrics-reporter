@@ -10,11 +10,11 @@ from read_dataframe import read_dataframe
 
 def copy_artifacts(src: Path, dest: Path):
     dest.mkdir(exist_ok=True)
-    for package_dir in src.iterdir():
-        if package_dir.is_dir():
-            package_dest = dest / package_dir.name
-            package_dest.mkdir(exist_ok=True)
-            dir_util.copy_tree(package_dir, str(package_dest))
+    package_dirs = [x for x in src.iterdir() if x.is_dir()]
+    for package_dir in package_dirs:
+        package_dest = dest / package_dir.name
+        package_dest.mkdir(exist_ok=True)
+        dir_util.copy_tree(package_dir, str(package_dest))
 
 
 def copy_html(

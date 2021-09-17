@@ -16,10 +16,7 @@ cols = [
 
 
 def get_package_list(target_dir: Path) -> List[str]:
-    packages = []
-    for package_path in sorted(target_dir.iterdir()):
-        packages.append(package_path.name)
-    return packages
+    return [path.name for path in sorted(target_dir.iterdir())]
 
 
 def get_trial_record(record_dir: Path, allowed_packages: List[str]) -> DataFrame:

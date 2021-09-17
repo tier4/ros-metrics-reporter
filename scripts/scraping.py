@@ -1,6 +1,5 @@
 #! /usr/bin/env python3
 
-import argparse
 from typing import List
 import bs4
 import re
