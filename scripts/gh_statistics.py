@@ -4,12 +4,12 @@ from pathlib import Path
 from typing import List, Dict
 
 
-def generate_code_frequency_graph(repo: str, token: str, dest: Path):
+def generate_code_frequency_graph(repo: str, dest: Path, token: str = None) -> None:
     gh = Github(token)
     repo = gh.get_repo(repo)
 
     stats = repo.get_stats_commit_activity()
-    weeks = [item.week for item in stats]
+    weeks = [x.week for x in stats]
     total = [x.total for x in stats]
 
     fig = px.area(
@@ -18,18 +18,19 @@ def generate_code_frequency_graph(repo: str, token: str, dest: Path):
     fig.write_json(dest)
 
 
-def get_top3_contributor(repo: str, token: str) -> List[Dict]:
+def get_top3_contributor(repo: str, token: str = None) -> List[Dict]:
     gh = Github(token)
     repo = gh.get_repo(repo)
 
-    ret = []
     stats = repo.get_stats_contributors()
-    for item in sorted(stats, key=lambda x: x.total, reverse=True)[:3]:
-        ret.append(
-            {
-                "name": item.author.login,
-                "avatar": item.author.avatar_url,
-                "total": item.total,
-            }
-        )
-    return ret
+    top3_contributor = [
+        x for x in sorted(stats, key=lambda x: x.total, reverse=True)[:3]
+    ]
+    return [
+        {
+            "name": x.author.login,
+            "avatar": x.author.avatar_url,
+            "total": x.total,
+        }
+        for x in top3_contributor
+    ]
