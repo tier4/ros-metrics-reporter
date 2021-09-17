@@ -236,7 +236,7 @@ def replace_contents(file: Path, package: str):
         f.write(template.render(replace_token(package)))
 
 
-def copy_template(src: Path, dest: Path, metrics_dir: Path, packages: List[str]):
+def run_markdown_generator(src: Path, dest: Path, metrics_dir: Path, packages: List[str]):
     # Copy all files from template/hugo/content/ to hugo content directory
     markdown_dir_src = src / "content"
     markdown_dir_dest = dest / "content"

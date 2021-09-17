@@ -54,14 +54,24 @@ jobs:
       ARTIFACTS_DIR: data
       BASE_URL: "https://tier4.github.io/ros-metrics-reporter/"
       TITLE: "ros2/demos"
+      ROS_DISTRO: foxy
 
     steps:
     - uses: actions/checkout@v2
 
-    - uses: actions/checkout@v2
+    - name: Clone data branch in this repo
+      uses: actions/checkout@v2
       with:
         ref: data
         path: ${{ env.ARTIFACTS_DIR }}
+
+    - name: Clone dependency packages
+      run: |
+        vcs import . < dependency.repos
+        apt-get -y update
+        rosdep update
+        rosdep install -y --from-paths . --ignore-src --rosdistro ${{ env.ROS_DISTRO }}
+
 
     - id: metrics-reporter
       uses: tier4/ros-metrics-reporter@main
@@ -69,6 +79,7 @@ jobs:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
         base-url: ${{ env.BASE_URL }}
         title: ${{ env.TITLE }}
+        ros-distro: ${{ env.ROS_DISTRO }}
 
     - name: Push artifacts
       if: github.ref == 'refs/heads/main'

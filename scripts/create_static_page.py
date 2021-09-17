@@ -1,6 +1,5 @@
 #! /usr/bin/env python3
 
-import argparse
 from pathlib import Path
 from datetime import datetime
 from distutils import dir_util
@@ -9,9 +8,8 @@ import pandas as pd
 from pandas.core.frame import DataFrame
 from jinja2 import Environment, FileSystemLoader
 
-from util import dir_path
 from plot_timeseries import plot_timeseries
-from create_markdown import copy_template
+from create_markdown import run_markdown_generator
 
 cols = [
     "date",
@@ -84,7 +82,7 @@ def read_data_source(base_path: Path) -> pd.DataFrame:
     return data_source
 
 
-def generate_graph(
+def generate_metrics_graph(
     hugo_root_dir: Path,
     data_source: pd.DataFrame,
 ):
@@ -149,7 +147,7 @@ def generate_markdown(
     packages: str,
 ):
     # Create markdown from template
-    copy_template(hugo_template_dir, hugo_root_dir, base_path / "latest", packages)
+    run_markdown_generator(hugo_template_dir, hugo_root_dir, base_path / "latest", packages)
 
 
 def create_static_page(
@@ -163,7 +161,7 @@ def create_static_page(
     title: str,
 ):
     df = read_data_source(input_dir)
-    generate_graph(hugo_root_dir, df)
+    generate_metrics_graph(hugo_root_dir, df)
     copy_html(
         hugo_root_dir,
         lcov_result_path,
@@ -180,64 +178,4 @@ def create_static_page(
         hugo_root_dir,
         hugo_template_dir,
         df["package_name"].unique(),
-    )
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--input-dir", help="Path to coverage artifacts", type=dir_path, required=True
-    )
-    parser.add_argument(
-        "--hugo-root-dir",
-        help="Path to hugo directory to output files",
-        type=dir_path,
-        required=True,
-    )
-    parser.add_argument(
-        "--hugo-template-dir",
-        help="Path to template directory to generate markdown",
-        type=dir_path,
-        required=True,
-    )
-    parser.add_argument(
-        "--lcov-result-path",
-        help="Path to lcov result directory",
-        type=dir_path,
-        required=True,
-    )
-    parser.add_argument(
-        "--lizard-result-path",
-        help="Path to lizard result directory",
-        type=dir_path,
-        required=True,
-    )
-    parser.add_argument(
-        "--tidy-result-path",
-        help="Path to clang-tidy result directory",
-        type=dir_path,
-        required=True,
-    )
-    parser.add_argument(
-        "--base-url",
-        help="baseURL",
-        type=str,
-    )
-
-    parser.add_argument(
-        "--title",
-        help="Title",
-        type=str,
-    )
-
-    args = parser.parse_args()
-    create_static_page(
-        input_dir=args.input_dir,
-        hugo_root_dir=args.hugo_root_dir,
-        hugo_template_dir=args.hugo_template_dir,
-        lcov_result_path=args.lcov_result_path,
-        lizard_result_path=args.lizard_result_path,
-        tidy_result_path=args.tidy_result_path,
-        base_url=args.base_url,
-        title=args.title,
     )

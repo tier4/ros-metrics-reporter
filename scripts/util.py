@@ -2,7 +2,7 @@
 
 from pathlib import Path
 import subprocess
-from subprocess import CalledProcessError, PIPE
+from subprocess import CalledProcessError
 import sys
 from typing import List
 
