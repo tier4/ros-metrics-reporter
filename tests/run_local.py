@@ -40,5 +40,7 @@ args.nloc_recommendation = 100
 args.arguments_recommendation = 10
 args.tidy_config_path = root_path.joinpath("codechecker-config.json")
 args.tidy_ignore_path = root_path.joinpath("codechecker-skip-list.txt")
+args.target_repo = "ros2/demos"
+args.github_access_token = None
 
 ros_metrics_reporter(args)

@@ -94,6 +94,13 @@ table td {
   width: 300px;
   flex-grow: 0;
 }
+.avatar {
+  width: 80px;
+  height: 80px;
+}
+.avatar .avatar-image {
+  border-radius: 50%;
+}
 
 /* Light mode theming */
 :root,

@@ -3,6 +3,7 @@
 from pathlib import Path
 from distutils import dir_util
 from jinja2 import Environment, FileSystemLoader
+from typing import List, Dict
 
 from create_markdown import run_markdown_generator
 from read_dataframe import read_dataframe
@@ -64,10 +65,11 @@ def generate_markdown(
     hugo_root_dir: Path,
     hugo_template_dir: Path,
     packages: str,
+    contributors: List[Dict],
 ):
     # Create markdown from template
     run_markdown_generator(
-        hugo_template_dir, hugo_root_dir, base_path / "latest", packages
+        hugo_template_dir, hugo_root_dir, base_path / "latest", packages, contributors
     )
 
 
@@ -80,6 +82,7 @@ def create_static_page(
     tidy_result_path: Path,
     base_url: str,
     title: str,
+    contributors: List[Dict],
 ):
     copy_html(
         hugo_root_dir,
@@ -99,4 +102,5 @@ def create_static_page(
         hugo_root_dir,
         hugo_template_dir,
         df["package_name"].unique(),
+        contributors,
     )

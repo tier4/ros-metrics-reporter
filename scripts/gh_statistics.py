@@ -15,7 +15,11 @@ def generate_code_frequency_graph(repo: str, dest: Path, token: str = None) -> N
     fig = px.area(
         x=weeks, y=total, labels={"x": "Date", "y": "Commits"}, title="Commits per Week"
     )
-    fig.write_json(dest)
+
+    if dest.is_dir():
+        dest = dest / "code_frequency_graph.json"
+
+    fig.write_json(str(dest))
 
 
 def get_top3_contributor(repo: str, token: str = None) -> List[Dict]:
