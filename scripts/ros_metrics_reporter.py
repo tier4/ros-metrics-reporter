@@ -13,6 +13,7 @@ from create_static_page import create_static_page
 from clang_tidy import clang_tidy
 from save_metrics_threshold import save_threshold
 from colcon_directory import *
+from plot_timeseries import generate_metrics_graph
 
 
 def ros_metrics_reporter(args):
@@ -114,6 +115,12 @@ def ros_metrics_reporter(args):
         nloc_recommendation=args.nloc_recommendation,
         arguments_recommendation=args.arguments_recommendation,
         metrics_dir=metrics_dir,
+    )
+
+    # Create graph
+    generate_metrics_graph(
+        args.hugo_root_dir,
+        metrics_dir.parent,
     )
 
     # Create symbolic link
