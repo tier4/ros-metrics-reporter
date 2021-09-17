@@ -90,7 +90,7 @@ def plot_timeseries(df: DataFrame, output_path: Path):
             # fig.write_html(str(output_path / (plot_type + '.html')))
 
 
-def generate_metrics_graph(
+def generate_metrics_graph_df(
     hugo_root_dir: Path,
     data_source: pd.DataFrame,
 ):
@@ -110,4 +110,4 @@ def generate_metrics_graph(
     hugo_root_dir: Path,
     data_source_dir: Path,
 ):
-    generate_metrics_graph(hugo_root_dir, read_dataframe(data_source_dir))
+    generate_metrics_graph_df(hugo_root_dir, read_dataframe(data_source_dir))
