@@ -66,7 +66,9 @@ def generate_markdown(
     packages: str,
 ):
     # Create markdown from template
-    run_markdown_generator(hugo_template_dir, hugo_root_dir, base_path / "latest", packages)
+    run_markdown_generator(
+        hugo_template_dir, hugo_root_dir, base_path / "latest", packages
+    )
 
 
 def create_static_page(
