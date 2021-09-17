@@ -14,6 +14,7 @@ from clang_tidy import clang_tidy
 from save_metrics_threshold import save_threshold
 from colcon_directory import *
 from plot_timeseries import generate_metrics_graph
+from gh_statistics import generate_code_frequency_graph
 
 
 def ros_metrics_reporter(args):
@@ -132,6 +133,11 @@ def ros_metrics_reporter(args):
     create_link(target=Path(args.timestamp), link_from=lizard_latest_dir)
     create_link(target=Path(args.timestamp), link_from=metrics_latest_dir)
 
+    # generate code frequency graph
+    code_frequency_output_dir = args.hugo_root_dir / "static" / "plotly" / "all"
+    code_frequency_output_dir.mkdir(parents=True, exist_ok=True)
+    generate_code_frequency_graph(args.target_repo, "", code_frequency_output_dir)
+
     # Create static page
     hugo_template_dir = args.action_dir / "template" / "hugo"
 
@@ -151,6 +157,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--base-dir", help="Path to source file directory", type=dir_path, required=True
+    )
+    parser.add_argument(
+        "--target-repo", help="Target repository. ex. tier4/ros-metrics-reporter", type=str, required=True,
     )
     parser.add_argument(
         "--action-dir",

@@ -190,6 +190,9 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
         metrics_dir / "all" / "lizard.csv"
     ).strftime("%Y-%m-%d %H:%M:%S UTC")
 
+    # get repository statistics information
+    
+
     legend_dict = update_legend_dict(legend_dict)
     render_dict.update(legend_dict)
 
