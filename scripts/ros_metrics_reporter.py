@@ -159,7 +159,10 @@ if __name__ == "__main__":
         "--base-dir", help="Path to source file directory", type=dir_path, required=True
     )
     parser.add_argument(
-        "--target-repo", help="Target repository. ex. tier4/ros-metrics-reporter", type=str, required=True,
+        "--target-repo",
+        help="Target repository. ex. tier4/ros-metrics-reporter",
+        type=str,
+        required=True,
     )
     parser.add_argument(
         "--action-dir",
