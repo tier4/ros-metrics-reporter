@@ -4,8 +4,15 @@ from pathlib import Path
 from typing import List, Dict
 
 
+def check_token(token):
+    if token and len(token) > 0:
+        return token
+    else:
+        return None
+
+
 def generate_code_frequency_graph(repo: str, dest: Path, token: str = None) -> None:
-    gh = Github(token)
+    gh = Github(check_token(token))
     repo = gh.get_repo(repo)
 
     stats = repo.get_stats_commit_activity()
@@ -23,7 +30,7 @@ def generate_code_frequency_graph(repo: str, dest: Path, token: str = None) -> N
 
 
 def get_top3_contributor(repo: str, token: str = None) -> List[Dict]:
-    gh = Github(token)
+    gh = Github(check_token(token))
     repo = gh.get_repo(repo)
 
     stats = repo.get_stats_contributors()
