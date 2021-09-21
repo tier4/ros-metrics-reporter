@@ -198,9 +198,9 @@ SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/demo_nodes_c
 FN:36,_ZN21demo_nodes_cpp_native6TalkerC2ERKN6rclcpp11NodeOptionsE
 FN:50,_ZZN21demo_nodes_cpp_native6TalkerC4ERKN6rclcpp11NodeOptionsEENKUlvE_clEv
 FN:78,_ZN12_GLOBAL__N_110ProxyExec0C2Ev
-FNDA:1,_ZZN21demo_nodes_cpp_native6TalkerC4ERKN6rclcpp11NodeOptionsEENKUlvE_clEv
-FNDA:1,_ZN12_GLOBAL__N_110ProxyExec0C2Ev
 FNDA:1,_ZN21demo_nodes_cpp_native6TalkerC2ERKN6rclcpp11NodeOptionsE
+FNDA:1,_ZN12_GLOBAL__N_110ProxyExec0C2Ev
+FNDA:1,_ZZN21demo_nodes_cpp_native6TalkerC4ERKN6rclcpp11NodeOptionsEENKUlvE_clEv
 FNF:3
 FNH:3
 BRDA:37,0,0,1
