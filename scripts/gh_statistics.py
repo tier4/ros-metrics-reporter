@@ -13,11 +13,17 @@ def check_token(token):
 
 def generate_code_frequency_graph(repo: str, dest: Path, token: str = None) -> None:
     gh = Github(check_token(token))
-    repo = gh.get_repo(repo)
+    gh_repo = gh.get_repo(repo)
 
-    stats = repo.get_stats_commit_activity()
-    weeks = [x.week for x in stats]
-    total = [x.total for x in stats]
+    stats = gh_repo.get_stats_contributors()
+    total = {}
+    for stat in stats:
+        for week in stat.weeks:
+            if week.w not in total:
+                total[week.w] = 0
+            else:
+                total[week.w] += week.c
+    weeks = [str(week.w) for week in stats[0].weeks]
 
     fig = px.area(
         x=weeks, y=total, labels={"x": "Date", "y": "Commits"}, title="Commits per Week"
@@ -31,9 +37,9 @@ def generate_code_frequency_graph(repo: str, dest: Path, token: str = None) -> N
 
 def get_top3_contributor(repo: str, token: str = None) -> List[Dict]:
     gh = Github(check_token(token))
-    repo = gh.get_repo(repo)
+    gh_repo = gh.get_repo(repo)
 
-    stats = repo.get_stats_contributors()
+    stats = gh_repo.get_stats_contributors()
     top3_contributor = [
         x for x in sorted(stats, key=lambda x: x.total, reverse=True)[:3]
     ]
