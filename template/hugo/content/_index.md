@@ -64,6 +64,8 @@ Last updated: [[ last_updated ]]
 {{< icon "gdoc_link" >}} [You can access more detailed data on code coverage here.]([[ lcov_result_html_link ]])
 {{< /hint >}}
 
+---
+
 ## Code metrics
 
 {{< load-plotly >}}
@@ -79,8 +81,45 @@ Last updated: [[ last_updated ]]
 {{< icon "gdoc_link" >}} [You can access more detailed data on code metrics here.]([[ lizard_result_html_link ]])
 {{< /hint >}}
 
+---
+
 ## Clang-Tidy
 
 {{< hint info >}}
 {{< icon "gdoc_link" >}} [You can access the Clang-Tidy results here.]([[ tidy_result_html_link ]])
 {{< /hint >}}
+
+---
+
+## Code frequency
+
+<figure class="activity">
+
+<div class="activity-graph">
+
+{{< load-plotly >}}
+{{< plotly json="plotly/all/[[ plotly_commit_activity ]]" height="400px" >}}
+
+</div>
+<div class="activity-user">
+<table>
+<tr><th colspan="3"></th></tr>
+<tr><th colspan="3"><h2>Top3 contributors</h2></th></tr>
+<tr>
+<td><h3>1.</h3></td>
+<td class="avatar"><img class="avatar-image" src="[[ contributor_avatar_1 ]]"/></td>
+<td><h3>[[ contributor_name_1 ]]</h3></td>
+</tr>
+<tr>
+<td><h3>2.</h3></td>
+<td class="avatar"><img class="avatar-image" src="[[ contributor_avatar_2 ]]"/></td>
+<td><h3>[[ contributor_name_2 ]]</h3></td>
+</tr>
+<tr>
+<td><h3>3.</h3></td>
+<td class="avatar"><img class="avatar-image" src="[[ contributor_avatar_3 ]]"/></td>
+<td><h3>[[ contributor_name_3 ]]</h3></td>
+</tr>
+</table>
+</div>
+</div>

@@ -115,7 +115,9 @@ def get_timestamp_from_lizard_csv(file: Path) -> datetime:
     return datetime.fromtimestamp(file.stat().st_mtime)
 
 
-def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
+def replace_summary_page(
+    file: Path, metrics_dir: Path, packages: List[str], contributors: List[Dict]
+):
     # Read file, replace token and overwrite file
     env = Environment(
         loader=FileSystemLoader(str(file.parent)),
@@ -190,6 +192,13 @@ def replace_summary_page(file: Path, metrics_dir: Path, packages: List[str]):
         metrics_dir / "all" / "lizard.csv"
     ).strftime("%Y-%m-%d %H:%M:%S UTC")
 
+    # get repository statistics information
+    for i, contributor in enumerate(contributors):
+        render_dict["contributor_name_" + str(i)] = contributor["name"]
+        render_dict["contributor_avatar_" + str(i)] = contributor["avatar"]
+
+    render_dict["plotly_commit_activity"] = "code_frequency_graph.json"
+
     legend_dict = update_legend_dict(legend_dict)
     render_dict.update(legend_dict)
 
@@ -234,7 +243,11 @@ def replace_contents(file: Path, package: str):
 
 
 def run_markdown_generator(
-    src: Path, dest: Path, metrics_dir: Path, packages: List[str]
+    src: Path,
+    dest: Path,
+    metrics_dir: Path,
+    packages: List[str],
+    contributors: List[Dict],
 ):
     # Copy all files from template/hugo/content/ to hugo content directory
     markdown_dir_src = src / "content"
@@ -243,7 +256,7 @@ def run_markdown_generator(
 
     # Create summary page
     summary_page = markdown_dir_dest / "_index.md"
-    replace_summary_page(summary_page, metrics_dir, packages)
+    replace_summary_page(summary_page, metrics_dir, packages, contributors)
 
     # Create package detail page
     template = dest / "content" / "packages" / "TEMPLATE.md"

@@ -14,6 +14,7 @@ from clang_tidy import clang_tidy
 from save_metrics_threshold import save_threshold
 from colcon_directory import *
 from plot_timeseries import generate_metrics_graph
+from gh_statistics import generate_code_frequency_graph, get_top3_contributor
 
 
 def ros_metrics_reporter(args):
@@ -117,12 +118,6 @@ def ros_metrics_reporter(args):
         metrics_dir=metrics_dir,
     )
 
-    # Create graph
-    generate_metrics_graph(
-        args.hugo_root_dir,
-        metrics_dir.parent,
-    )
-
     # Create symbolic link
     lcov_latest_dir = args.output_dir / "lcov_result" / "latest"
     lizard_latest_dir = args.output_dir / "lizard_result" / "latest"
@@ -131,6 +126,21 @@ def ros_metrics_reporter(args):
     create_link(target=Path(args.timestamp), link_from=lcov_latest_dir)
     create_link(target=Path(args.timestamp), link_from=lizard_latest_dir)
     create_link(target=Path(args.timestamp), link_from=metrics_latest_dir)
+
+    # Create graph
+    generate_metrics_graph(
+        args.hugo_root_dir,
+        metrics_dir.parent,
+    )
+
+    # generate code frequency graph
+    code_frequency_output_dir = args.hugo_root_dir / "static" / "plotly" / "all"
+    code_frequency_output_dir.mkdir(parents=True, exist_ok=True)
+    generate_code_frequency_graph(
+        args.target_repo, code_frequency_output_dir, args.github_access_token
+    )
+
+    contributors = get_top3_contributor(args.target_repo, args.github_access_token)
 
     # Create static page
     hugo_template_dir = args.action_dir / "template" / "hugo"
@@ -144,6 +154,7 @@ def ros_metrics_reporter(args):
         tidy_result_path=tidy_result_dir,
         base_url=args.base_url,
         title=args.title,
+        contributors=contributors,
     )
 
 
@@ -151,6 +162,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--base-dir", help="Path to source file directory", type=dir_path, required=True
+    )
+    parser.add_argument(
+        "--target-repo",
+        help="Target repository. ex. tier4/ros-metrics-reporter",
+        type=str,
+        required=True,
     )
     parser.add_argument(
         "--action-dir",
@@ -200,6 +217,12 @@ if __name__ == "__main__":
         help="Path to codechecker-skip-list.txt",
         type=Path,
         required=True,
+    )
+    parser.add_argument(
+        "--github-access-token",
+        help="Github access token",
+        type=str,
+        default=None,
     )
 
     args = parser.parse_args()
