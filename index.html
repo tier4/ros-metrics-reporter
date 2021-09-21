@@ -113,7 +113,7 @@
 
     <article class="gdoc-markdown gdoc-markdown__align--left">
         <h1>Code quality dashboard</h1>
-        <p>Last updated: 2021-09-17 11:40:59 UTC</p>
+        <p>Last updated: 2021-09-21 07:12:20 UTC</p>
 <details><summary>Legend</summary><div>
 <h3 id="code-coverage">Code coverage</h3>
 <p><span class="LegendNA" title="Coverage rates are not available">N/A</span>
@@ -193,6 +193,7 @@ Plotly.d3.json(json_url, function(err, fig) {
   <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg> <a class="gdoc-markdown__link" href="https://tier4.github.io/ros-metrics-reporter/lcov/all">You can access more detailed data on code coverage here.</a>
 </blockquote>
 
+<hr>
 <h2 id="code-metrics-1">Code metrics</h2>
 <p>
 
@@ -234,12 +235,51 @@ Plotly.d3.json(json_url, function(err, fig) {
   <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg> <a class="gdoc-markdown__link" href="https://tier4.github.io/ros-metrics-reporter/lizard/all">You can access more detailed data on code metrics here.</a>
 </blockquote>
 
+<hr>
 <h2 id="clang-tidy">Clang-Tidy</h2>
 <blockquote class="gdoc-hint info">
   <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg> <a class="gdoc-markdown__link" href="https://tier4.github.io/ros-metrics-reporter/tidy">You can access the Clang-Tidy results here.</a>
 </blockquote>
 
+<hr>
+<h2 id="code-frequency">Code frequency</h2>
+<figure class="activity">
+<div class="activity-graph">
+<p>
 
+
+
+<div id="plotly/all/code_frequency_graph.json" class="plotly" style="height:400px"></div>
+<script>
+json_url = "https://tier4.github.io/ros-metrics-reporter/" + "plotly/all/code_frequency_graph.json"
+Plotly.d3.json(json_url, function(err, fig) {
+    Plotly.plot('plotly\/all\/code_frequency_graph.json', fig.data, fig.layout, {responsive: true});
+});
+</script>
+</p>
+</div>
+<div class="activity-user">
+<table>
+<tr><th colspan="3"></th></tr>
+<tr><th colspan="3"><h2>Top3 contributors</h2></th></tr>
+<tr>
+<td><h3>1.</h3></td>
+<td class="avatar"><img class="avatar-image" src=""/></td>
+<td><h3></h3></td>
+</tr>
+<tr>
+<td><h3>2.</h3></td>
+<td class="avatar"><img class="avatar-image" src=""/></td>
+<td><h3></h3></td>
+</tr>
+<tr>
+<td><h3>3.</h3></td>
+<td class="avatar"><img class="avatar-image" src=""/></td>
+<td><h3></h3></td>
+</tr>
+</table>
+</div>
+</div>
 
     </article>
 
