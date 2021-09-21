@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ARTIFACTS_DIR: data
+      TARGET_REPO: "ros2/demos"
 
     strategy:
       fail-fast: false
@@ -61,13 +62,14 @@ jobs:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
         target-dir: ${GITHUB_WORKSPACE}/example/src/demos
         base-url: "https://tier4.github.io/ros-metrics-reporter/"
-        title: "ros2/demos"
+        title: ${{ env.TARGET_REPO }}
         ros-distro: ${{ matrix.ros_distribution }}
         CCN: "20"
         nloc: "200"
         arguments: "6"
         exclude: "**/pendulum_control/*"
         codechecker-skip-list: "codechecker-skip-list.txt"
+        target-repository: ${{ env.TARGET_REPO }}
 
     - name: Check results
       run: |
