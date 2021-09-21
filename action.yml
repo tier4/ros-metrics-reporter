@@ -68,6 +68,13 @@ inputs:
   codechecker-skip-list:
     description: "Path to codechecker-skip-list"
     required: false
+  target-repository:
+    description: "If the repository you are measuring and the repository where you are running CI are different, specify the name of the repository you are measuring. ex. tier4/ros-metrics-reporter"
+    required: false
+    default: "${GITHUB_REPOSITORY}"
+  github-access-token:
+    description: "If the repository to be measured is private, specify a token."
+    required: false
 
 outputs:
   output-dir:
@@ -131,7 +138,9 @@ runs:
           --arguments=${{ inputs.arguments }} \
           --arguments-recommendation=${{ inputs.arguments-recommendation }} \
           --tidy-config-path=${CODECHECKER_CONFIG_PATH} \
-          --tidy-ignore-path=${CODECHECKER_SKIP_LIST}
+          --tidy-ignore-path=${CODECHECKER_SKIP_LIST} \
+          --target-repo="${{ inputs.target-repository }}" \
+          --github-access-token=${{ inputs.github-access-token }}
       shell: bash
 
     - name: Generate pages

@@ -118,3 +118,5 @@ jobs:
 | `arguments-recommendation` | `"50"` | Recommend value for number of parameters. | `false` | `"50"` |
 | `codechecker-config-path` | `"${GITHUB_ACTION_PATH}/codechecker-config.json"` | Path to codechecker-config.json file. | `false` | `"codechecker-config.json"` |
 | `codechecker-skip-list` | `"${GITHUB_ACTION_PATH}/codechecker-skip-list.txt"` | Path to codechecker-skip-list. | `false` | `"codechecker-skip-list.txt"` |
+| `target-repository` | `"${GITHUB_REPOSITORY}"` | If the repository you are measuring and the repository where you are running CI are different, specify the name of the repository you are measuring. | `false` | `"tier4/ros-metrics-reporter"` |
+| `github-access-token` | N/A | If the repository to be measured is private, specify a token. | `false` | `"ghp_DYwodLrS87q3aaagwerjgowaeiogjawrega"` |
