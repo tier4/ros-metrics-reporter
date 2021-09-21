@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.total.filtered</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">63</td>
+            <td class="headerCovTableEntry">61</td>
             <td class="headerCovTableEntry">77</td>
-            <td class="headerCovTableEntryMed">81.8 %</td>
+            <td class="headerCovTableEntryMed">79.2 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2021-09-21 07:24:24</td>
+            <td class="headerValue">2021-09-21 10:21:54</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">10</td>
@@ -56,9 +56,9 @@
 </td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">99</td>
+            <td class="headerCovTableEntry">96</td>
             <td class="headerCovTableEntry">412</td>
-            <td class="headerCovTableEntryLo">24.0 %</td>
+            <td class="headerCovTableEntryLo">23.3 %</td>
           </tr>
           <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -119,48 +119,48 @@
 <a name="41"><span class="lineNum">      41 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :     parameters_client_ = std::make_shared&lt;rclcpp::AsyncParametersClient&gt;(this);</span></a>
 <a name="42"><span class="lineNum">      42 </span>                :            : </a>
 <a name="43"><span class="lineNum">      43 </span>                :            :     auto on_parameter_event_callback =</a>
-<a name="44"><span class="lineNum">      44 </span>                :<span class="lineCov">         67 :       [this](const rcl_interfaces::msg::ParameterEvent::SharedPtr event) -&gt; void</span></a>
+<a name="44"><span class="lineNum">      44 </span>                :<span class="lineCov">         60 :       [this](const rcl_interfaces::msg::ParameterEvent::SharedPtr event) -&gt; void</span></a>
 <a name="45"><span class="lineNum">      45 </span>                :            :       {</a>
 <a name="46"><span class="lineNum">      46 </span>                :            :         // ignore qos overrides</a>
-<a name="47"><span class="lineNum">      47 </span>                :<span class="lineCov">         25 :         event-&gt;new_parameters.erase(</span></a>
+<a name="47"><span class="lineNum">      47 </span>                :<span class="lineCov">         20 :         event-&gt;new_parameters.erase(</span></a>
 <a name="48"><span class="lineNum">      48 </span>                :<span class="lineNoCov">          0 :           std::remove_if(</span></a>
-<a name="49"><span class="lineNum">      49 </span>                :<span class="lineCov">         25 :             event-&gt;new_parameters.begin(),</span></a>
-<a name="50"><span class="lineNum">      50 </span>                :<span class="lineCov">         25 :             event-&gt;new_parameters.end(),</span></a>
-<a name="51"><span class="lineNum">      51 </span>                :<span class="lineCov">         13 :             [](const auto &amp; item) {</span></a>
-<a name="52"><span class="lineNum">      52 </span>                :<span class="lineCov">         13 :               const char * param_override_prefix = &quot;qos_overrides.&quot;;</span></a>
-<a name="53"><span class="lineNum">      53 </span>                :<span class="lineCov">         13 :               return std::strncmp(</span></a>
-<a name="54"><span class="lineNum">      54 </span>                :<span class="lineCov">         13 :                 item.name.c_str(), param_override_prefix, sizeof(param_override_prefix) - 1) == 0u;</span></a>
-<a name="55"><span class="lineNum">      55 </span>        [<span class="branchCov" title="Branch 0 was taken 25 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         50 :             }),</span></a>
-<a name="56"><span class="lineNum">      56 </span>        [<span class="branchCov" title="Branch 0 was taken 25 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         50 :           event-&gt;new_parameters.end());</span></a>
-<a name="57"><span class="lineNum">      57 </span>                :<span class="lineCov">         25 :         if (</span></a>
-<a name="58"><span class="lineNum">      58 </span>  [<span class="branchCov" title="Branch 0 was taken 16 times"> + </span><span class="branchCov" title="Branch 1 was taken 9 times"> + </span><span class="branchCov" title="Branch 2 was taken 4 times"> + </span><span class="branchCov" title="Branch 3 was taken 12 times"> + </span> :<span class="lineCov">         29 :           !event-&gt;new_parameters.size() &amp;&amp; !event-&gt;changed_parameters.size() &amp;&amp;</span></a>
-<span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 4 times"> + </span><span class="branchCov" title="Branch 7 was taken 21 times"> + </span>]
-<a name="59"><span class="lineNum">      59 </span>                :<span class="lineCov">          4 :           !event-&gt;deleted_parameters.size())</span></a>
+<a name="49"><span class="lineNum">      49 </span>                :<span class="lineCov">         20 :             event-&gt;new_parameters.begin(),</span></a>
+<a name="50"><span class="lineNum">      50 </span>                :<span class="lineCov">         20 :             event-&gt;new_parameters.end(),</span></a>
+<a name="51"><span class="lineNum">      51 </span>                :<span class="lineCov">          8 :             [](const auto &amp; item) {</span></a>
+<a name="52"><span class="lineNum">      52 </span>                :<span class="lineCov">          8 :               const char * param_override_prefix = &quot;qos_overrides.&quot;;</span></a>
+<a name="53"><span class="lineNum">      53 </span>                :<span class="lineCov">          8 :               return std::strncmp(</span></a>
+<a name="54"><span class="lineNum">      54 </span>                :<span class="lineCov">          8 :                 item.name.c_str(), param_override_prefix, sizeof(param_override_prefix) - 1) == 0u;</span></a>
+<a name="55"><span class="lineNum">      55 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         40 :             }),</span></a>
+<a name="56"><span class="lineNum">      56 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         40 :           event-&gt;new_parameters.end());</span></a>
+<a name="57"><span class="lineNum">      57 </span>                :<span class="lineCov">         20 :         if (</span></a>
+<a name="58"><span class="lineNum">      58 </span>  [<span class="branchCov" title="Branch 0 was taken 12 times"> + </span><span class="branchCov" title="Branch 1 was taken 8 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 12 times"> + </span> :<span class="lineCov">         20 :           !event-&gt;new_parameters.size() &amp;&amp; !event-&gt;changed_parameters.size() &amp;&amp;</span></a>
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 20 times"> + </span>]
+<a name="59"><span class="lineNum">      59 </span>                :<span class="lineNoCov">          0 :           !event-&gt;deleted_parameters.size())</span></a>
 <a name="60"><span class="lineNum">      60 </span>                :            :         {</a>
-<a name="61"><span class="lineNum">      61 </span>                :<span class="lineCov">          4 :           return;</span></a>
+<a name="61"><span class="lineNum">      61 </span>                :<span class="lineNoCov">          0 :           return;</span></a>
 <a name="62"><span class="lineNum">      62 </span>                :            :         }</a>
 <a name="63"><span class="lineNum">      63 </span>                :            :         // TODO(wjwwood): The message should have an operator&lt;&lt;, which would replace all of this.</a>
-<a name="64"><span class="lineNum">      64 </span>        [<span class="branchCov" title="Branch 0 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         42 :         std::stringstream ss;</span></a>
-<a name="65"><span class="lineNum">      65 </span>        [<span class="branchCov" title="Branch 0 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         21 :         ss &lt;&lt; &quot;\nParameter event:\n new parameters:&quot;;</span></a>
-<a name="66"><span class="lineNum">      66 </span>        [<span class="branchCov" title="Branch 0 was taken 9 times"> + </span><span class="branchCov" title="Branch 1 was taken 21 times"> + </span>]:<span class="lineCov">         30 :         for (auto &amp; new_parameter : event-&gt;new_parameters) {</span></a>
-<a name="67"><span class="lineNum">      67 </span>  [<span class="branchCov" title="Branch 0 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          9 :           ss &lt;&lt; &quot;\n  &quot; &lt;&lt; new_parameter.name;</span></a>
+<a name="64"><span class="lineNum">      64 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         40 :         std::stringstream ss;</span></a>
+<a name="65"><span class="lineNum">      65 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :         ss &lt;&lt; &quot;\nParameter event:\n new parameters:&quot;;</span></a>
+<a name="66"><span class="lineNum">      66 </span>        [<span class="branchCov" title="Branch 0 was taken 8 times"> + </span><span class="branchCov" title="Branch 1 was taken 20 times"> + </span>]:<span class="lineCov">         28 :         for (auto &amp; new_parameter : event-&gt;new_parameters) {</span></a>
+<a name="67"><span class="lineNum">      67 </span>  [<span class="branchCov" title="Branch 0 was taken 8 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 8 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          8 :           ss &lt;&lt; &quot;\n  &quot; &lt;&lt; new_parameter.name;</span></a>
 <a name="68"><span class="lineNum">      68 </span>                :            :         }</a>
-<a name="69"><span class="lineNum">      69 </span>        [<span class="branchCov" title="Branch 0 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         21 :         ss &lt;&lt; &quot;\n changed parameters:&quot;;</span></a>
-<a name="70"><span class="lineNum">      70 </span>        [<span class="branchCov" title="Branch 0 was taken 12 times"> + </span><span class="branchCov" title="Branch 1 was taken 21 times"> + </span>]:<span class="lineCov">         33 :         for (auto &amp; changed_parameter : event-&gt;changed_parameters) {</span></a>
+<a name="69"><span class="lineNum">      69 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :         ss &lt;&lt; &quot;\n changed parameters:&quot;;</span></a>
+<a name="70"><span class="lineNum">      70 </span>        [<span class="branchCov" title="Branch 0 was taken 12 times"> + </span><span class="branchCov" title="Branch 1 was taken 20 times"> + </span>]:<span class="lineCov">         32 :         for (auto &amp; changed_parameter : event-&gt;changed_parameters) {</span></a>
 <a name="71"><span class="lineNum">      71 </span>  [<span class="branchCov" title="Branch 0 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         12 :           ss &lt;&lt; &quot;\n  &quot; &lt;&lt; changed_parameter.name;</span></a>
 <a name="72"><span class="lineNum">      72 </span>                :            :         }</a>
-<a name="73"><span class="lineNum">      73 </span>        [<span class="branchCov" title="Branch 0 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         21 :         ss &lt;&lt; &quot;\n deleted parameters:&quot;;</span></a>
-<a name="74"><span class="lineNum">      74 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 21 times"> + </span>]:<span class="lineCov">         21 :         for (auto &amp; deleted_parameter : event-&gt;deleted_parameters) {</span></a>
+<a name="73"><span class="lineNum">      73 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :         ss &lt;&lt; &quot;\n deleted parameters:&quot;;</span></a>
+<a name="74"><span class="lineNum">      74 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 20 times"> + </span>]:<span class="lineCov">         20 :         for (auto &amp; deleted_parameter : event-&gt;deleted_parameters) {</span></a>
 <a name="75"><span class="lineNum">      75 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :           ss &lt;&lt; &quot;\n  &quot; &lt;&lt; deleted_parameter.name;</span></a>
 <a name="76"><span class="lineNum">      76 </span>                :            :         }</a>
-<a name="77"><span class="lineNum">      77 </span>        [<span class="branchCov" title="Branch 0 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         21 :         ss &lt;&lt; &quot;\n&quot;;</span></a>
-<a name="78"><span class="lineNum">      78 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         21 :         RCLCPP_INFO(this-&gt;get_logger(), &quot;%s&quot;, ss.str().c_str());</span></a>
+<a name="77"><span class="lineNum">      77 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :         ss &lt;&lt; &quot;\n&quot;;</span></a>
+<a name="78"><span class="lineNum">      78 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         20 :         RCLCPP_INFO(this-&gt;get_logger(), &quot;%s&quot;, ss.str().c_str());</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchNoCov" title="Branch 12 was not taken"> - </span><span class="branchNoCov" title="Branch 13 was not taken"> - </span> 
-<span class="lineNum">         </span><span class="branchNoCov" title="Branch 14 was not taken"> - </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span><span class="branchNoCov" title="Branch 16 was not taken"> - </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span><span class="branchCov" title="Branch 18 was taken 21 times"> + </span> 
-<span class="lineNum">         </span><span class="branchNoCov" title="Branch 19 was not taken"> - </span><span class="branchCov" title="Branch 20 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 21 was not taken"> - </span><span class="branchCov" title="Branch 22 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 23 was not taken"> - </span> 
-<span class="lineNum">         </span><span class="branchCov" title="Branch 24 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 25 was not taken"> - </span><span class="branchCov" title="Branch 26 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 27 was not taken"> - </span><span class="branchCov" title="Branch 28 was taken 21 times"> + </span> 
-<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 29 was not taken"> - </span><span class="branchCov" title="Branch 30 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 31 was not taken"> - </span><span class="branchCov" title="Branch 32 was taken 21 times"> + </span> 
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 14 was not taken"> - </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span><span class="branchNoCov" title="Branch 16 was not taken"> - </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span><span class="branchCov" title="Branch 18 was taken 20 times"> + </span> 
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 19 was not taken"> - </span><span class="branchCov" title="Branch 20 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 21 was not taken"> - </span><span class="branchCov" title="Branch 22 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 23 was not taken"> - </span> 
+<span class="lineNum">         </span><span class="branchCov" title="Branch 24 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 25 was not taken"> - </span><span class="branchCov" title="Branch 26 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 27 was not taken"> - </span><span class="branchCov" title="Branch 28 was taken 20 times"> + </span> 
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 29 was not taken"> - </span><span class="branchCov" title="Branch 30 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 31 was not taken"> - </span><span class="branchCov" title="Branch 32 was taken 20 times"> + </span> 
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 33 was not taken"> - </span>]
 <a name="79"><span class="lineNum">      79 </span>                :<span class="lineCov">          2 :       };</span></a>
 <a name="80"><span class="lineNum">      80 </span>                :            : </a>
