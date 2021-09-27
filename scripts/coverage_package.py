@@ -62,9 +62,8 @@ class CoveragePackage:
             self.__output_dir.mkdir(parents=True)
 
         for line in self.__package_list:
-            package = line.split()
-            package_name = package[0]
-            package_full_path = str(self.__base_dir / package[1]) + "/"
+            package_name, package_path, _ = line.split()
+            package_full_path = str(self.__base_dir / package_path) + "/"
 
             if self.__is_exclude(package_name, package_full_path, exclude):
                 self.__initialize_failed_list.append(package_name)
@@ -76,8 +75,7 @@ class CoveragePackage:
 
     def measure_coverage(self):
         for line in self.__package_list:
-            package = line.split()
-            package_name = package[0]
+            package_name, *_ = line.split()
 
             if package_name in self.__initialize_failed_list:
                 continue

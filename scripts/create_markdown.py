@@ -111,8 +111,8 @@ def read_legend(metrics_dir: Path) -> Dict[str, int]:
     return legend
 
 
-def get_timestamp_from_lizard_csv(file: Path) -> datetime:
-    return datetime.fromtimestamp(file.stat().st_mtime)
+def get_timestamp_from_lizard_csv(file: Path, format: str) -> datetime:
+    return datetime.fromtimestamp(file.stat().st_mtime).strftime(format)
 
 
 def replace_summary_page(
@@ -189,8 +189,8 @@ def replace_summary_page(
 
     # Read datetime
     render_dict["last_updated"] = get_timestamp_from_lizard_csv(
-        metrics_dir / "all" / "lizard.csv"
-    ).strftime("%Y-%m-%d %H:%M:%S UTC")
+        metrics_dir / "all" / "lizard.csv", "%Y-%m-%d %H:%M:%S UTC"
+    )
 
     # get repository statistics information
     for i, contributor in enumerate(contributors, 1):
