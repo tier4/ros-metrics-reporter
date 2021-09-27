@@ -193,9 +193,9 @@ def replace_summary_page(
     ).strftime("%Y-%m-%d %H:%M:%S UTC")
 
     # get repository statistics information
-    for i, contributor in enumerate(contributors):
-        render_dict["contributor_name_" + str(i + 1)] = contributor["name"]
-        render_dict["contributor_avatar_" + str(i + 1)] = contributor["avatar"]
+    for i, contributor in enumerate(contributors, 1):
+        render_dict["contributor_name_" + str(i)] = contributor["name"]
+        render_dict["contributor_avatar_" + str(i)] = contributor["avatar"]
 
     render_dict["plotly_commit_activity"] = "code_frequency_graph.json"
 
