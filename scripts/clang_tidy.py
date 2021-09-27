@@ -20,8 +20,7 @@ def clang_tidy(
     if not codechecker_dir.exists():
         run_command(
             args=shlex.split(
-                "git clone https://github.com/Ericsson/codechecker.git "
-                + str(codechecker_dir)
+                f"git clone https://github.com/Ericsson/codechecker.git {str(codechecker_dir)}"
             )
         )
 
@@ -40,16 +39,12 @@ def clang_tidy(
     compile_command = base_dir / "build" / "compile_commands.json"
     run_command(
         args=shlex.split(
-            "bash -c 'source {0}/venv/bin/activate && {0}/build/CodeChecker/bin/CodeChecker analyze {1} --config {2} --ignore {3} --output ./reports && deactivate'".format(
-                codechecker_dir, compile_command, config_path, ignore_path
-            )
+            f"bash -c 'source {codechecker_dir}/venv/bin/activate && {codechecker_dir}/build/CodeChecker/bin/CodeChecker analyze {compile_command} --config {config_path} --ignore {ignore_path} --output ./reports && deactivate'"
         ),
     )
 
     run_command(
         args=shlex.split(
-            "bash -c 'source {0}/venv/bin/activate && {0}/build/CodeChecker/bin/CodeChecker parse -e html ./reports -o {1} --trim-path-prefix {2} && deactivate'".format(
-                codechecker_dir, output_dir, base_dir
-            )
+            f"bash -c 'source {codechecker_dir}/venv/bin/activate && {codechecker_dir}/build/CodeChecker/bin/CodeChecker parse -e html ./reports -o {output_dir} --trim-path-prefix {base_dir} && deactivate'"
         ),
     )

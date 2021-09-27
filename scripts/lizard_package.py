@@ -17,16 +17,13 @@ def lizard_single_package(
     arguments: int,
 ):
     if "_msgs" in package_name:
-        print("Skipped message package: " + package_name)
+        print(f"Skipped message package: {package_name}")
         return
 
     if path_match(package_path, exclude):
-        print("Match exclude path. Skipped " + package_name)
+        print(f"Match exclude path. Skipped {package_name}")
         print(
-            "DEBUG: in lizard_package PATH="
-            + package_path
-            + " exclude="
-            + " ".join(exclude)
+            f"DEBUG: in lizard_package PATH={package_path} exclude={' '.join(exclude)}"
         )
         return
 
@@ -37,22 +34,20 @@ def lizard_single_package(
     # TODO: Consider call lizard script from python
     run_command_redirect(
         args=shlex.split(
-            'python3 {0} \
+            f'python3 {str(lizard_dir / "lizard.py")} \
             -l cpp \
             -l python \
             -x "*test*" \
             -x "*lizard*" \
-            --CCN {1} \
-            -T nloc={2} \
-            --arguments {3} \
-            --html {4}'.format(
-                str(lizard_dir / "lizard.py"), ccn, nloc, arguments, package_path
-            )
+            --CCN {ccn} \
+            -T nloc={nloc} \
+            --arguments {arguments} \
+            --html {package_path}'
         ),
         output_file=(output_package_dir / "index.html"),
     )
 
-    print("Generated package metrics: " + package_name)
+    print(f"Generated package metrics: {package_name}")
 
 
 def lizard_package(
@@ -72,7 +67,7 @@ def lizard_package(
     if not lizard_dir.exists():
         run_command(
             args=shlex.split(
-                "git clone https://github.com/terryyin/lizard.git " + str(lizard_dir)
+                f"git clone https://github.com/terryyin/lizard.git {str(lizard_dir)}"
             )
         )
 

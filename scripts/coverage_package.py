@@ -24,16 +24,13 @@ class CoveragePackage:
         exclude: List[str],
     ) -> bool:
         if "_msgs" in package_name:
-            print("Skipped message package: " + package_name)
+            print(f"Skipped message package: {package_name}")
             return True
 
         if path_match(package_path, exclude):
-            print("Match exclude path. Skipped " + package_name)
+            print(f"Match exclude path. Skipped {package_name}")
             print(
-                "DEBUG: in coverage_package PATH="
-                + package_path
-                + " exclude="
-                + " ".join(exclude)
+                f"DEBUG: in coverage_package PATH={package_path} exclude={' '.join(exclude)}"
             )
             return True
         return False
@@ -43,7 +40,7 @@ class CoveragePackage:
         package_name: str,
     ):
         if not colcon_get_package(self.__base_dir, package_name):
-            print("Coverage " + package_name + " failed")
+            print(f"Coverage {package_name} failed")
             self.__initialize_failed_list.append(package_name)
             return
 
@@ -94,4 +91,4 @@ class CoveragePackage:
                 package_name=package_name,
             )
 
-            print("Generated package coverage: " + package_name)
+            print(f"Generated package coverage: {package_name}")

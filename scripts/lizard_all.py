@@ -24,32 +24,25 @@ def lizard_all(
     if not lizard_dir.exists():
         run_command(
             args=shlex.split(
-                "git clone https://github.com/terryyin/lizard.git " + str(lizard_dir)
+                f"git clone https://github.com/terryyin/lizard.git {str(lizard_dir)}"
             )
         )
 
     # TODO: Consider call lizard script from python
-    exclude_list_str = " ".join(['-x "' + s + '"' for s in exclude])
+    exclude_list_str = " ".join([f'-x "{s}"' for s in exclude])
 
     run_command_redirect(
         args=shlex.split(
-            'python3 {0} \
+            f'python3 {str(lizard_dir / "lizard.py")} \
             -l cpp \
             -l python \
             -x "*test*" \
             -x "*lizard*" \
-            {5} \
-            --CCN {1} \
-            -T nloc={2} \
-            --arguments {3} \
-            --html {4}'.format(
-                str(lizard_dir / "lizard.py"),
-                ccn,
-                nloc,
-                arguments,
-                base_dir,
-                exclude_list_str,
-            )
+            {exclude_list_str} \
+            --CCN {ccn} \
+            -T nloc={nloc} \
+            --arguments {arguments} \
+            --html {base_dir}'
         ),
         output_file=(output_lizard_dir / "index.html"),
     )
