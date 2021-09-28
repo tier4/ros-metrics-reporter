@@ -4,10 +4,10 @@ from distutils import dir_util
 import shutil
 from pathlib import Path
 from typing import Dict, List
-from jinja2 import Environment, FileSystemLoader
 import csv
 from enum import Enum
 from datetime import datetime
+from util import read_jinja2_template
 
 
 class Color(Enum):
@@ -101,13 +101,13 @@ def read_legend(metrics_dir: Path) -> Dict[str, int]:
     legend = {}
     with open(metrics_dir / "metrics_threshold.csv") as f:
         for line in f:
-            item = line.split(",")
-            legend[item[0]] = int(item[1])
+            key, value = line.split(",")
+            legend[key] = int(value)
 
     with open(metrics_dir / "lcov_threshold.csv") as f:
         for line in f:
-            item = line.split(",")
-            legend[item[0]] = int(item[1])
+            key, value = line.split(",")
+            legend[key] = int(value)
     return legend
 
 
@@ -118,13 +118,7 @@ def get_timestamp_from_lizard_csv(file: Path, format: str) -> datetime:
 def replace_summary_page(
     file: Path, metrics_dir: Path, packages: List[str], contributors: List[Dict]
 ):
-    # Read file, replace token and overwrite file
-    env = Environment(
-        loader=FileSystemLoader(str(file.parent)),
-        variable_start_string="[[",
-        variable_end_string="]]",
-    )
-    template = env.get_template(file.name)
+    template = read_jinja2_template(file)
 
     # Replace legend
     legend_dict = read_legend(metrics_dir)
@@ -165,8 +159,7 @@ def replace_summary_page(
         lizard_result = read_lizard_result(lizard_csv)
         for badge_name, type_name in metrics_names.items():
             if type_name in lizard_result.keys():
-                category = type_name.split("(")[0]
-                value_type = type_name.split("(")[1]
+                category, value_type = type_name.split("(")
                 threshold_key = category + "(threshold)"
                 recommendation_key = category + "(recommendation)"
                 param[badge_name] = convert_color_cell(
@@ -230,13 +223,7 @@ def replace_token(package: str) -> Dict[str, str]:
 
 
 def replace_contents(file: Path, package: str):
-    # Read file, replace token and overwrite file
-    env = Environment(
-        loader=FileSystemLoader(str(file.parent)),
-        variable_start_string="[[",
-        variable_end_string="]]",
-    )
-    template = env.get_template(file.name)
+    template = read_jinja2_template(file)
 
     with open(file, "w") as f:
         f.write(template.render(replace_token(package)))

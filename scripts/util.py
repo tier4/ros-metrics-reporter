@@ -7,6 +7,9 @@ import sys
 from typing import List
 import fnmatch
 
+from jinja2 import Environment, FileSystemLoader
+from jinja2.environment import Template
+
 
 def path_match(target_path: str, pattern_list: List[str]) -> bool:
     matched = [
@@ -49,3 +52,15 @@ def run_command_redirect(args: list, output_file: Path, cwd: Path = None) -> boo
     except CalledProcessError:
         return False
     return True
+
+
+def read_jinja2_template(
+    file: Path, variable_start_string: str = "[[", variable_end_string: str = "]]"
+) -> Template:
+    """ Read jinja2 Template """
+    env = Environment(
+        loader=FileSystemLoader(str(file.parent)),
+        variable_start_string=variable_start_string,
+        variable_end_string=variable_end_string,
+    )
+    return env.get_template(file.name)
