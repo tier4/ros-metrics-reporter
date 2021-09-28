@@ -23,6 +23,10 @@ inputs:
     description: "ROS distribution"
     required: true
     default: "foxy"
+  extra-cmake-args:
+    description: Additional flags passed to CMake (using colcon build --cmake-args)
+    required: false
+    default: ""
   hugo-dir:
     description: "If you want to use your own hugo-site, specify the root directory"
     required: true
@@ -130,6 +134,7 @@ runs:
           --hugo-root-dir=${{ steps.filtered.outputs.HUGO_DIR }} \
           --base-url=${{ inputs.base-url }} \
           --title=${{ inputs.title }} \
+          --extra-cmake-args=${{ inputs.extra-cmake-args }} \
           --exclude="${{ inputs.exclude }}" \
           --ccn=${{ inputs.CCN }} \
           --ccn-recommendation=${{ inputs.CCN-recommendation }} \

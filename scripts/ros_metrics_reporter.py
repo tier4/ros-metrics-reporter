@@ -22,7 +22,7 @@ def ros_metrics_reporter(args):
     colcon = Colcon(target_path=args.base_dir)
 
     # Build packages
-    colcon.build()
+    colcon.build(args.extra_cmake_args)
 
     # Initialize coverage
     lcov_dir = args.output_dir / "lcov_result" / args.timestamp
@@ -190,6 +190,9 @@ if __name__ == "__main__":
     )
     parser.add_argument("--base-url", help="baseURL", type=str, required=True)
     parser.add_argument("--title", help="Title", type=str, required=True)
+    parser.add_argument(
+        "--extra-cmake-args", help="Extra cmake args", type=str, required=False
+    )
     parser.add_argument("--exclude", help="Exclude path", type=str, required=False)
     parser.add_argument("--ccn", help="CCN", type=int, required=True)
     parser.add_argument(
