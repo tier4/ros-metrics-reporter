@@ -70,18 +70,16 @@ class Colcon:
     def is_test_success(self) -> bool:
         return self.__test_success
 
-    def build(self):
+    def build(self, extra_cmake_args: str = ""):
         COVERAGE_FLAGS = "-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1"
 
         if run_command(
             args=shlex.split(
-                'colcon build \
+                f'colcon build \
                 --event-handlers console_cohesion+ \
-                --cmake-args -DCMAKE_BUILD_TYPE=Debug \
-                -DCMAKE_CXX_FLAGS="{0}" -DCMAKE_C_FLAGS="{0}" \
-                -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'.format(
-                    COVERAGE_FLAGS
-                )
+                --cmake-args {extra_cmake_args} -DCMAKE_BUILD_TYPE=Debug \
+                -DCMAKE_CXX_FLAGS="{COVERAGE_FLAGS}" -DCMAKE_C_FLAGS="{COVERAGE_FLAGS}" \
+                -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
             ),
             cwd=self.target_path,
         ):

@@ -107,6 +107,7 @@ jobs:
 | `title` | N/A | If you use example/hugo-site in this repository, please specify the title. | `true` | `"ros2/demos"` |
 | `exclude` | N/A | Space separated list of exclude paths. | `false` | `"**/vendor/*"` |
 | `ros-distro` | `"foxy"` | ROS distribution. | `false` | `"foxy"` |
+| `extra-cmake-args` | `""` | Additional flags passed to CMake (using colcon build --cmake-args) | `false` | `"-DEXTRA_OPTION=ON"` |
 | `hugo-dir` | `"${GITHUB_ACTION_PATH}/example/hugo-site"` | If you want to use your own hugo-site, specify the root directory. | `false` | `"${GITHUB_WORKSPACE}/hugo-site"` |
 | `output-dir` | `"${GITHUB_WORKSPACE}/public"` | Hugo output directory. | `false` | `"${GITHUB_WORKSPACE}/output-dir"` |
 | `lcovrc-path` | `"${GITHUB_ACTION_PATH}/.lcovrc"` | Path to .lcovrc file. | `false` | `"${GITHUB_WORKSPACE}/.lcovrc"` |
