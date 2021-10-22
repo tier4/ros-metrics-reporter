@@ -15,14 +15,14 @@ def get_file_size(file: Path) -> int:
 
 def concat_build_dir(base_dir: Path, append_dir: str) -> str:
     if append_dir:
-        build_dir = '"{0}/build/{1}"'.format(str(base_dir), append_dir)
+        build_dir = f'"{str(base_dir)}/build/{append_dir}"'
     else:
-        build_dir = '"{}/build"'.format(str(base_dir))
+        build_dir = f'"{str(base_dir)}/build"'
     return build_dir
 
 
 def concat_output_path(base_dir: Path, file_name: str) -> str:
-    return '"{}"'.format(str(base_dir / file_name))
+    return f'"{str(base_dir / file_name)}"'
 
 
 def initialize_lcov(
@@ -31,18 +31,13 @@ def initialize_lcov(
     # Get a zero-coverage baseline
     if not run_command(
         args=shlex.split(
-            "lcov \
-            --config-file {0} \
-            --base-directory {1} \
+            f"lcov \
+            --config-file {str(lcovrc)} \
+            --base-directory {str(base_dir)} \
             --capture \
-            --directory {2} \
-            -o {3} \
-            --initial".format(
-                str(lcovrc),
-                str(base_dir),
-                concat_build_dir(base_dir, package_name),
-                concat_output_path(output_dir, "lcov.base"),
-            )
+            --directory {concat_build_dir(base_dir, package_name)} \
+            -o {concat_output_path(output_dir, 'lcov.base')} \
+            --initial"
         )
     ):
         print("Zero baseline coverage failed.")
@@ -60,17 +55,12 @@ def run_lcov(
     # Get coverage
     if not run_command(
         args=shlex.split(
-            "lcov \
-            --config-file {0} \
-            --base-directory {1} \
+            f"lcov \
+            --config-file {str(lcovrc)} \
+            --base-directory {str(base_dir)} \
             --capture \
-            --directory {2} \
-            --output-file {3}".format(
-                str(lcovrc),
-                str(base_dir),
-                concat_build_dir(base_dir, package_name),
-                concat_output_path(output_dir, "lcov.run"),
-            )
+            --directory {concat_build_dir(base_dir, package_name)} \
+            --output-file {concat_output_path(output_dir, 'lcov.run')}"
         )
     ):
         print("Coverage generation failed.")
@@ -84,45 +74,34 @@ def run_lcov(
     # Combine zero-coverage with coverage information.
     if not run_command(
         args=shlex.split(
-            "lcov \
-            --config-file {0} \
-            -a {1} \
-            -a {2} \
-            -o {3}".format(
-                str(lcovrc),
-                concat_output_path(output_dir, "lcov.base"),
-                concat_output_path(output_dir, "lcov.run"),
-                concat_output_path(output_dir, "lcov.total"),
-            )
+            f"lcov \
+            --config-file {str(lcovrc)} \
+            -a {concat_output_path(output_dir, 'lcov.base')} \
+            -a {concat_output_path(output_dir, 'lcov.run')} \
+            -o {concat_output_path(output_dir, 'lcov.total')}"
         )
     ):
         print("Coverage combination failed.")
         return
 
     # Filter test, build, and install files and generate html
-    exclude_list_str = " ".join(['"' + s + '"' for s in exclude])
+    exclude_list_str = " ".join([f'"{s}"' for s in exclude])
 
     if not run_command(
         args=shlex.split(
-            'lcov \
-            --config-file {0} \
-            -r "{1}/lcov.total" \
-            "{2}/build/*" \
-            "{2}/install/*" \
+            f'lcov \
+            --config-file {str(lcovrc)} \
+            -r "{str(output_dir)}/lcov.total" \
+            "{str(base_dir)}/build/*" \
+            "{str(base_dir)}/install/*" \
             "*/test/*" \
             "*/CMakeCCompilerId.c" \
             "*/CMakeCXXCompilerId.cpp" \
             "*_msgs/*" \
             "*/usr/*" \
             "*/opt/*" \
-            {4} \
-            -o {3}'.format(
-                str(lcovrc),
-                str(output_dir),
-                str(base_dir),
-                concat_output_path(output_dir, "lcov.total.filtered"),
-                exclude_list_str,
-            )
+            {exclude_list_str} \
+            -o {concat_output_path(output_dir, "lcov.total.filtered")}'
         )
     ):
         print("Filtering failed.")
@@ -130,17 +109,12 @@ def run_lcov(
 
     if not run_command(
         args=shlex.split(
-            "genhtml \
-            --config-file {0} \
-            -p {1} \
+            f"genhtml \
+            --config-file {str(lcovrc)} \
+            -p {str(base_dir)} \
             --legend \
-            --demangle-cpp {2} \
-            -o {3}".format(
-                str(lcovrc),
-                str(base_dir),
-                concat_output_path(output_dir, "lcov.total.filtered"),
-                str(output_dir),
-            )
+            --demangle-cpp {concat_output_path(output_dir, 'lcov.total.filtered')} \
+            -o {str(output_dir)}"
         )
     ):
         print("HTML generation failed.")

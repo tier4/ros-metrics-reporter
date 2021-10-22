@@ -24,16 +24,13 @@ class CoveragePackage:
         exclude: List[str],
     ) -> bool:
         if "_msgs" in package_name:
-            print("Skipped message package: " + package_name)
+            print(f"Skipped message package: {package_name}")
             return True
 
         if path_match(package_path, exclude):
-            print("Match exclude path. Skipped " + package_name)
+            print(f"Match exclude path. Skipped {package_name}")
             print(
-                "DEBUG: in coverage_package PATH="
-                + package_path
-                + " exclude="
-                + " ".join(exclude)
+                f"DEBUG: in coverage_package PATH={package_path} exclude={' '.join(exclude)}"
             )
             return True
         return False
@@ -43,7 +40,7 @@ class CoveragePackage:
         package_name: str,
     ):
         if not colcon_get_package(self.__base_dir, package_name):
-            print("Coverage " + package_name + " failed")
+            print(f"Coverage {package_name} failed")
             self.__initialize_failed_list.append(package_name)
             return
 
@@ -65,9 +62,8 @@ class CoveragePackage:
             self.__output_dir.mkdir(parents=True)
 
         for line in self.__package_list:
-            package = line.split()
-            package_name = package[0]
-            package_full_path = str(self.__base_dir / package[1]) + "/"
+            package_name, package_path, _ = line.split()
+            package_full_path = str(self.__base_dir / package_path) + "/"
 
             if self.__is_exclude(package_name, package_full_path, exclude):
                 self.__initialize_failed_list.append(package_name)
@@ -79,8 +75,7 @@ class CoveragePackage:
 
     def measure_coverage(self):
         for line in self.__package_list:
-            package = line.split()
-            package_name = package[0]
+            package_name, *_ = line.split()
 
             if package_name in self.__initialize_failed_list:
                 continue
@@ -94,4 +89,4 @@ class CoveragePackage:
                 package_name=package_name,
             )
 
-            print("Generated package coverage: " + package_name)
+            print(f"Generated package coverage: {package_name}")

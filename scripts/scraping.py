@@ -8,7 +8,6 @@ import csv
 from numpy.core.fromnumeric import mean
 from decimal import Decimal, ROUND_HALF_UP
 
-from util import dir_path
 from pathlib import Path
 
 
@@ -85,7 +84,7 @@ def scraping_lizard_result(html_path: str) -> dict:
     }
 
 
-def get_lizard_metrics(html_path: str) -> list:
+def get_lizard_metrics(html_path: str) -> List[dict]:
     """
     Get following information
       Cyclomatic complexity
@@ -121,7 +120,7 @@ def get_lizard_metrics(html_path: str) -> list:
     ]
 
 
-def get_lizard_recommendation_metrics(html_path: str) -> list:
+def get_lizard_recommendation_metrics(html_path: str) -> List[dict]:
     result = scraping_lizard_result(html_path)
 
     return [
@@ -129,6 +128,15 @@ def get_lizard_recommendation_metrics(html_path: str) -> list:
         {"type": "LOC(warning)", "value": get_violate_count(result["loc"])},
         {"type": "Parameter(warning)", "value": get_violate_count(result["parameter"])},
     ]
+
+
+def save_to_csv(filename, field_names, data, mode="w"):
+    """Save to csv"""
+    with open(filename, mode) as f:
+        writer = csv.DictWriter(f, fieldnames=field_names)
+        if mode == "w":
+            writer.writeheader()
+        writer.writerows(data)
 
 
 def scraping(
@@ -145,27 +153,15 @@ def scraping(
 
     for html in lcov_index_list:
         coverages = get_lcov_coverage(html)
-
         filename = output_dir / html.parent.name / "coverage.csv"
-        with open(filename, "w") as f:
-            writer = csv.DictWriter(f, fieldnames=coverages[0].keys())
-            writer.writeheader()
-            for coverage in coverages:
-                writer.writerow(coverage)
+        save_to_csv(filename, coverages[0].keys(), coverages)
 
     for html in lizard_index_list:
         metrics = get_lizard_metrics(html)
         filename = output_dir / html.parent.name / "lizard.csv"
-        with open(filename, "w") as f:
-            writer = csv.DictWriter(f, fieldnames=metrics[0].keys())
-            writer.writeheader()
-            for item in metrics:
-                writer.writerow(item)
+        save_to_csv(filename, metrics[0].keys(), metrics)
 
     for html in lizard_recommend_index_list:
         metrics = get_lizard_recommendation_metrics(html)
         filename = output_dir / html.parent.name / "lizard.csv"
-        with open(filename, "a") as f:
-            writer = csv.DictWriter(f, fieldnames=metrics[0].keys())
-            for item in metrics:
-                writer.writerow(item)
+        save_to_csv(filename, metrics[0].keys(), metrics, "a")

@@ -2,8 +2,8 @@
 
 from pathlib import Path
 from distutils import dir_util
-from jinja2 import Environment, FileSystemLoader
 from typing import List, Dict
+from util import read_jinja2_template
 
 from create_markdown import run_markdown_generator
 from read_dataframe import read_dataframe
@@ -41,13 +41,7 @@ def replace_hugo_config(
     title: str,
 ):
     config_file = hugo_root_dir / "config.toml"
-
-    env = Environment(
-        loader=FileSystemLoader(str(hugo_root_dir)),
-        variable_start_string="[[",
-        variable_end_string="]]",
-    )
-    template = env.get_template(config_file.name)
+    template = read_jinja2_template(config_file)
 
     with open(config_file, "w") as f:
         f.write(
