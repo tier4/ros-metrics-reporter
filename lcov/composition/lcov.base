@@ -176,6 +176,8 @@ end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/server_component.hpp
 end_of_record
 TN:
+SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/node_like_listener_component.hpp
+end_of_record
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/node_like_listener_component.cpp
 FN:35,_ZN11composition16NodeLikeListenerC2ERKN6rclcpp11NodeOptionsE
 FNDA:0,_ZN11composition16NodeLikeListenerC2ERKN6rclcpp11NodeOptionsE
@@ -234,8 +236,6 @@ BRDA:67,0,6,-
 BRDA:67,0,7,-
 BRDA:67,0,8,-
 BRDA:67,0,9,-
-end_of_record
-SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/include/composition/node_like_listener_component.hpp
 end_of_record
 TN:
 SF:/__w/ros-metrics-reporter/ros-metrics-reporter/example/src/demos/composition/src/dlopen_composition.cpp
