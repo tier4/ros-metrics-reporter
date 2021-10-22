@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import List
 from util import run_command_pipe, path_match
-from run_lcov import initialize_lcov, run_lcov
+from run_lcov import initialize_lcov, run_lcov, generate_html_report
 from colcon_directory import colcon_get_package
 
 
@@ -90,3 +90,25 @@ class CoveragePackage:
             )
 
             print(f"Generated package coverage: {package_name}")
+
+    def generate_html_report(self, exclude: List[str]):
+        if not self.__output_dir.exists():
+            self.__output_dir.mkdir(parents=True)
+
+        for line in self.__package_list:
+            package_name, package_path, _ = line.split()
+            package_full_path = str(self.__base_dir / package_path) + "/"
+
+            if self.__is_exclude(package_name, package_full_path, exclude):
+                self.__initialize_failed_list.append(package_name)
+                continue
+
+            generate_html_report(
+                coverage_info_path=self.__base_dir
+                / "build"
+                / package_name
+                / "coverage.info",
+                base_dir=self.__base_dir,
+                output_dir=self.__output_dir / package_name,
+                lcovrc=self.__lcovrc,
+            )
