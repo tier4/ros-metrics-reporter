@@ -18,10 +18,33 @@ class Color(Enum):
 
 
 def add_package_link(package_name: str) -> str:
+    """Replace a tag with a hugo-style link to the package page.
+
+    Args:
+        package_name: The name of the package.
+
+    Returns:
+        A string with the hugo-style link to the package page.
+
+    >>> add_package_link("foo")
+    '<a href="{{< relref "/packages/foo" >}}">foo</a>'
+    """
     return f'<a href="{{{{< relref "/packages/{package_name}" >}}}}">{package_name}</a>'
 
 
 def convert_color_cell(message: str, color_code: Color) -> str:
+    """Replace a tag with a color cell.
+
+    Args:
+        message: The message to be displayed in the cell.
+        color_code: background color of the cell.
+
+    Returns:
+        A string with the legend class.
+
+    >>> convert_color_cell("foo", Color.RED)
+    '<td class="LegendLo">foo'
+    """
     template = '<td class="COLOR">MESSAGE'
     if color_code == Color.RED:
         return template.replace("MESSAGE", message).replace("COLOR", "LegendLo")
@@ -55,6 +78,28 @@ def read_lcov_result(file: Path, type: str) -> tuple:
 def lizard_color(
     type: str, value: float, recommend_value: int, threshold: int
 ) -> Color:
+    """Return the color of the lizard result.
+
+    Args:
+        type: The type of the metric.
+        value: The value of the metric.
+        recommend_value: The recommended value of the metric.
+        threshold: The threshold of the metric.
+
+    Returns:
+        The color of the lizard result.
+
+    >>> lizard_color("worst", 2, 1, 1)
+    <Color.RED: 'D9634C'>
+    >>> lizard_color("worst", 2, 1, 2)
+    <Color.YELLOW: 'D6AF22'>
+    >>> lizard_color("worst", 1, 1, 1)
+    <Color.GREEN: '4FC921'>
+    >>> lizard_color("warning", 0, 1, 1)
+    <Color.GREEN: '4FC921'>
+    >>> lizard_color("warning", 1, 1, 1)
+    <Color.RED: 'D9634C'>
+    """
     if "worst" in type:
         if value > threshold:
             return Color.RED
@@ -261,3 +306,9 @@ def run_markdown_generator(
     layout_dir_src = src / "layouts" / "shortcodes"
     layout_dir_dest = dest / "layouts" / "shortcodes"
     dir_util.copy_tree(layout_dir_src, str(layout_dir_dest))
+
+
+if __name__ == "__main__":
+    import doctest
+
+    doctest.testmod()
