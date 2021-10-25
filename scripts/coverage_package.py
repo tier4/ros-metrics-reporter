@@ -13,7 +13,7 @@ class CoveragePackage:
             ["colcon", "list"], cwd=base_dir
         ).splitlines()
         self.__initialize_failed_list = []
-        self.__base_dir = base_dir
+        self.__base_dir = base_dir.absolute()
         self.__output_dir = output_dir
         self.__lcovrc = lcovrc
 
