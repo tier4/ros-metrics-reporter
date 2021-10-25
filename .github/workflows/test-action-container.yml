@@ -51,15 +51,15 @@ jobs:
         ref: data
         path: ${{ env.ARTIFACTS_DIR }}
 
-    - uses: ros-tooling/setup-ros@v0.2
-      with:
-        required-ros-distributions: ${{ matrix.ros_distribution }}
-
     - name: List packages
       id: list_packages
       run: |
         package_list=$(colcon list --names-only)
         echo "::set-output name=package_list::$package_list"
+
+    - name: Install requirements
+      run: |
+        apt install colcon-coveragepy-result
 
     - name: Build and test
       uses: ros-tooling/action-ros-ci@v0.2
