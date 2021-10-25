@@ -40,6 +40,8 @@ class CoverageAll:
         )
 
     def generate_html_report(self, exclude: List[str]):
+        if not self.__output_lcov_dir.exists():
+            self.__output_lcov_dir.mkdir(parents=True)
 
         filtered_path = filter_report(
             coverage_info_path=self.__base_dir / "lcov" / "total_coverage.info",
