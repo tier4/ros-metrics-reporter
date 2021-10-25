@@ -51,6 +51,10 @@ jobs:
         ref: data
         path: ${{ env.ARTIFACTS_DIR }}
 
+    - uses: ros-tooling/setup-ros@v0.2
+      with:
+        required-ros-distributions: ${{ matrix.ros_distribution }}
+
     - name: List packages
       id: list_packages
       run: |
