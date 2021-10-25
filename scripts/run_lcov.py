@@ -119,3 +119,23 @@ def run_lcov(
     ):
         print("HTML generation failed.")
         return
+
+
+def generate_html_report(
+    coverage_info_path: str,
+    base_dir: Path,
+    output_dir: Path,
+    lcovrc: Path,
+):
+    if not run_command(
+        args=shlex.split(
+            f"genhtml \
+            --config-file {str(lcovrc)} \
+            -p {str(base_dir)} \
+            --legend \
+            --demangle-cpp {coverage_info_path} \
+            -o {str(output_dir)}"
+        )
+    ):
+        print("HTML generation failed.")
+        return

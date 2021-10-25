@@ -19,10 +19,6 @@ from gh_statistics import generate_code_frequency_graph, get_top3_contributor
 
 def ros_metrics_reporter(args):
     exclude = args.exclude.split()
-    colcon = Colcon(target_path=args.base_dir)
-
-    # Build packages
-    colcon.build(args.extra_cmake_args)
 
     # Initialize coverage
     lcov_dir = args.output_dir / "lcov_result" / args.timestamp
@@ -33,15 +29,9 @@ def ros_metrics_reporter(args):
         base_dir=args.base_dir, output_dir=lcov_dir, lcovrc=args.lcovrc
     )
 
-    coverage_all.initialize()
-    coverage_package.initialize(exclude=exclude)
-
-    # Test packages
-    colcon.test()
-
-    # Measure code coverage
-    coverage_all.measure_coverage(exclude=exclude)
-    coverage_package.measure_coverage()
+    # Generate HTML report
+    coverage_package.generate_html_report(exclude=exclude)
+    coverage_all.generate_html_report()
 
     # Measure code metrics for threshold value
     lizard_dir = args.output_dir / "lizard_result" / args.timestamp

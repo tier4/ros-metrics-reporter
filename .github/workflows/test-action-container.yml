@@ -42,25 +42,45 @@ jobs:
       image: ${{ matrix.docker_image }}
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Clone main branch
+      uses: actions/checkout@v2
 
-    - name: Clone dependency packages
-      run: |
-        vcs import . < ${{ matrix.vcs_file }}
-        apt-get -y update
-        rosdep update
-        rosdep install -y --from-paths . --ignore-src --rosdistro ${{ matrix.ros_distribution }}
-
-    - uses: actions/checkout@v2
+    - name: Clone data branch
+      uses: actions/checkout@v2
       with:
         ref: data
         path: ${{ env.ARTIFACTS_DIR }}
+
+    - name: List packages
+      id: list_packages
+      run: |
+        package_list=$(colcon list --names-only)
+        echo "::set-output name=package_list::$package_list"
+
+    - name: Install requirements
+      run: |
+        apt-get update && apt-get install -y python3-pip
+        pip3 install colcon-coveragepy-result
+
+    - name: Build and test
+      uses: ros-tooling/action-ros-ci@v0.2
+      with:
+        package-name: ${{ steps.list_packages.outputs.package_list }}
+        target-ros2-distro: ${{ matrix.ros_distribution }}
+        vcs-repo-file-url: ${{ matrix.vcs_file }}
+        colcon-defaults: |
+          {
+            "build": {
+              "mixin": ["coverage-gcc"]
+            }
+          }
+        colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/1ddb69bedfd1f04c2f000e95452f7c24a4d6176b/index.yaml
 
     - id: metrics-reporter
       uses: ./ # Uses an action in the root directory
       with:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
-        target-dir: ${GITHUB_WORKSPACE}/example/src/demos
+        target-dir: ${{ steps.build_and_test.ros-workspace-directory-name }}
         base-url: "https://tier4.github.io/ros-metrics-reporter/"
         title: ${{ env.TARGET_REPO }}
         ros-distro: ${{ matrix.ros_distribution }}
