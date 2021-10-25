@@ -59,7 +59,7 @@ jobs:
 
     - name: Install requirements
       run: |
-        apt install colcon-coveragepy-result
+        pip3 install colcon-coveragepy-result
 
     - name: Build and test
       uses: ros-tooling/action-ros-ci@v0.2
