@@ -109,7 +109,7 @@ class CoveragePackage:
                 / package_name
                 / "coverage.info",
                 base_dir=self.__base_dir,
-                output_dir=self.__output_lcov_dir,
+                output_dir=self.__output_dir / package_name,
                 lcovrc=self.__lcovrc,
                 exclude=exclude,
             )
