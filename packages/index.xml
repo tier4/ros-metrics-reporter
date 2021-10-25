@@ -140,16 +140,6 @@
     </item>
     
     <item>
-      <title>lizard</title>
-      <link>https://tier4.github.io/ros-metrics-reporter/packages/lizard/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://tier4.github.io/ros-metrics-reporter/packages/lizard/</guid>
-      <description>lizard
- Test result Code coverage     json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/lizard/coverage.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/lizard\/coverage.json&#39;, fig.data, fig.layout, {responsive: true}); });   You can access more detailed data on code coverage here.  Code metrics    json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/lizard/ccn.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.plot(&#39;plotly\/lizard\/ccn.json&#39;, fig.data, fig.layout, {responsive: true}); });     json_url = &#34;https://tier4.github.io/ros-metrics-reporter/&#34; + &#34;plotly/lizard/loc.json&#34; Plotly.d3.json(json_url, function(err, fig) { Plotly.</description>
-    </item>
-    
-    <item>
       <title>logging_demo</title>
       <link>https://tier4.github.io/ros-metrics-reporter/packages/logging_demo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
