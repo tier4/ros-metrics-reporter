@@ -49,15 +49,16 @@ on:
 jobs:
   action-test:
     runs-on: ubuntu-latest
-    container: osrf/ros:foxy-desktop
     env:
       ARTIFACTS_DIR: data
       BASE_URL: "https://tier4.github.io/ros-metrics-reporter/"
       TITLE: "ros2/demos"
       ROS_DISTRO: foxy
+      VCS_FILE: ""  # Set vcs repo file if you need
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Clone default branch
+      uses: actions/checkout@v2
 
     - name: Clone data branch in this repo
       uses: actions/checkout@v2
@@ -65,18 +66,35 @@ jobs:
         ref: data
         path: ${{ env.ARTIFACTS_DIR }}
 
-    - name: Clone dependency packages
-      run: |
-        vcs import . < dependency.repos
-        apt-get -y update
-        rosdep update
-        rosdep install -y --from-paths . --ignore-src --rosdistro ${{ env.ROS_DISTRO }}
+    - uses: ros-tooling/setup-ros@v0.2
+      with:
+        required-ros-distributions: ${{ matrix.ros_distribution }}
 
+    - name: List packages
+      id: list_packages
+      run: |
+        package_list=$(colcon list --names-only)
+        echo "::set-output name=package_list::$package_list"
+
+    - name: Build and test
+      uses: ros-tooling/action-ros-ci@v0.2
+      with:
+        package-name: ${{ steps.list_packages.outputs.package_list }}
+        target-ros2-distro: ${{ env.ROS_DISTRO }}
+        vcs-repo-file-url: ${{ env.VCS_FILE }}
+        colcon-defaults: |
+          {
+            "build": {
+              "mixin": ["coverage-gcc"]
+            }
+          }
+        colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/1ddb69bedfd1f04c2f000e95452f7c24a4d6176b/index.yaml
 
     - id: metrics-reporter
-      uses: tier4/ros-metrics-reporter@main
+      uses: tier4/ros-metrics-reporter@v0.3.0
       with:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
+        target-dir: ${{ steps.build_and_test.ros-workspace-directory-name }}
         base-url: ${{ env.BASE_URL }}
         title: ${{ env.TITLE }}
         ros-distro: ${{ env.ROS_DISTRO }}
