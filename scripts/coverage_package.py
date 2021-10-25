@@ -103,13 +103,17 @@ class CoveragePackage:
                 self.__initialize_failed_list.append(package_name)
                 continue
 
+            output_package_dir = self.__output_dir / package_name
+            if not output_package_dir.exists():
+                output_package_dir.mkdir(parents=True)
+
             filtered_path = filter_report(
                 coverage_info_path=self.__base_dir
                 / "build"
                 / package_name
                 / "coverage.info",
                 base_dir=self.__base_dir,
-                output_dir=self.__output_dir / package_name,
+                output_dir=output_package_dir,
                 lcovrc=self.__lcovrc,
                 exclude=exclude,
             )
@@ -117,6 +121,6 @@ class CoveragePackage:
             generate_html_report(
                 coverage_info_path=filtered_path,
                 base_dir=self.__base_dir,
-                output_dir=self.__output_dir / package_name,
+                output_dir=output_package_dir,
                 lcovrc=self.__lcovrc,
             )
