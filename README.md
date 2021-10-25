@@ -92,7 +92,7 @@ jobs:
         colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/1ddb69bedfd1f04c2f000e95452f7c24a4d6176b/index.yaml
 
     - id: metrics-reporter
-      uses: tier4/ros-metrics-reporter@v0.3.0
+      uses: tier4/ros-metrics-reporter@v0.3
       with:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
         target-dir: ${{ steps.build_and_test.outputs.ros-workspace-directory-name }}
