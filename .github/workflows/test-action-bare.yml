@@ -36,25 +36,41 @@ jobs:
             vcs_file: ros-metrics-reporter-rolling.repos
 
     steps:
-    - uses: ros-tooling/setup-ros@v0.2
-      with:
-        required-ros-distributions: ${{ matrix.ros_distribution }}
+    - name: Clone main branch
+      uses: actions/checkout@v2
 
-    - uses: actions/checkout@v2
-
-    - name: Clone dependency packages
-      run: |
-        vcs import . < ${{ matrix.vcs_file }}
-        sudo apt-get -y update
-        rosdep update
-        rosdep install -y --from-paths . --ignore-src --rosdistro ${{ matrix.ros_distribution }}
-
-    - uses: actions/checkout@v2
+    - name: Clone data branch
+      uses: actions/checkout@v2
       with:
         ref: data
         path: ${{ env.ARTIFACTS_DIR }}
 
-    - id: metrics-reporter
+    - uses: ros-tooling/setup-ros@v0.2
+      with:
+        required-ros-distributions: ${{ matrix.ros_distribution }}
+
+    - name: List packages
+      id: list_packages
+      run: |
+        package_list=$(colcon list --names-only)
+        echo "::set-output name=package_list::$package_list"
+
+    - name: Build and test
+    - uses: ros-tooling/action-ros-ci@v0.2
+      with:
+        package-name: ${{ steps.list_packages.outputs.package_list }}
+        target-ros2-distro: ${{ matrix.ros_distribution }}
+        vcs-repo-file-url: ${{ matrix.vcs_file }}
+        colcon-defaults: |
+          {
+            "build": {
+              "mixin": ["coverage-gcc"]
+            }
+          }
+        colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/1ddb69bedfd1f04c2f000e95452f7c24a4d6176b/index.yaml
+
+    - name: Generate report
+      id: metrics-reporter
       uses: ./ # Uses an action in the root directory
       with:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
