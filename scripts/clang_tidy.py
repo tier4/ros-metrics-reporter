@@ -2,7 +2,6 @@
 
 from pathlib import Path
 from util import run_command
-from colcon_directory import colcon_get_all_packages
 
 import shlex
 
@@ -14,8 +13,6 @@ def clang_tidy(
     config_path: Path,
     ignore_path: Path,
 ):
-    colcon_get_all_packages(base_dir)
-
     codechecker_dir = gh_action_dir / "codechecker"
     if not codechecker_dir.exists():
         run_command(
