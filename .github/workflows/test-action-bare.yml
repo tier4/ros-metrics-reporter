@@ -71,14 +71,14 @@ jobs:
         colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/1ddb69bedfd1f04c2f000e95452f7c24a4d6176b/index.yaml
 
     - run: |
-        echo ${{ steps.build_and_test.ros-workspace-directory-name }}
+        echo ${{ steps.build_and_test.outputs.ros-workspace-directory-name }}
 
     - name: Generate report
       id: metrics-reporter
       uses: ./ # Uses an action in the root directory
       with:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
-        target-dir: ${{ steps.build_and_test.ros-workspace-directory-name }}
+        target-dir: ${{ steps.build_and_test.outputs.ros-workspace-directory-name }}
         base-url: "https://tier4.github.io/ros-metrics-reporter/"
         title: ${{ env.TARGET_REPO }}
         ros-distro: ${{ matrix.ros_distribution }}
