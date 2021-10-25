@@ -31,7 +31,7 @@ def ros_metrics_reporter(args):
 
     # Generate HTML report
     coverage_package.generate_html_report(exclude=exclude)
-    coverage_all.generate_html_report()
+    coverage_all.generate_html_report(exclude=exclude)
 
     # Measure code metrics for threshold value
     lizard_dir = args.output_dir / "lizard_result" / args.timestamp

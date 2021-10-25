@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import List
 from util import run_command_pipe, path_match
-from run_lcov import initialize_lcov, run_lcov, generate_html_report
+from run_lcov import initialize_lcov, run_lcov, generate_html_report, filter_report
 from colcon_directory import colcon_get_package
 
 
@@ -13,7 +13,7 @@ class CoveragePackage:
             ["colcon", "list"], cwd=base_dir
         ).splitlines()
         self.__initialize_failed_list = []
-        self.__base_dir = base_dir
+        self.__base_dir = base_dir.absolute()
         self.__output_dir = output_dir
         self.__lcovrc = lcovrc
 
@@ -103,12 +103,24 @@ class CoveragePackage:
                 self.__initialize_failed_list.append(package_name)
                 continue
 
-            generate_html_report(
+            output_package_dir = self.__output_dir / package_name
+            if not output_package_dir.exists():
+                output_package_dir.mkdir(parents=True)
+
+            filtered_path = filter_report(
                 coverage_info_path=self.__base_dir
                 / "build"
                 / package_name
                 / "coverage.info",
                 base_dir=self.__base_dir,
-                output_dir=self.__output_dir / package_name,
+                output_dir=output_package_dir,
+                lcovrc=self.__lcovrc,
+                exclude=exclude,
+            )
+
+            generate_html_report(
+                coverage_info_path=filtered_path,
+                base_dir=self.__base_dir,
+                output_dir=output_package_dir,
                 lcovrc=self.__lcovrc,
             )

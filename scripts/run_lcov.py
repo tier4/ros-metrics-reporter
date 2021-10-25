@@ -121,6 +121,40 @@ def run_lcov(
         return
 
 
+def filter_report(
+    coverage_info_path: str,
+    base_dir: Path,
+    output_dir: Path,
+    lcovrc: Path,
+    exclude: List[str] = [],
+) -> str:
+    """ Filter test, build, and install files and generate html """
+
+    exclude_list_str = " ".join([f'"{s}"' for s in exclude])
+    filtered_coverage_info_path = concat_output_path(output_dir, "coverage.filtered")
+
+    if not run_command(
+        args=shlex.split(
+            f'lcov \
+            --config-file {str(lcovrc)} \
+            -r "{coverage_info_path}" \
+            "{str(base_dir)}/build/*" \
+            "{str(base_dir)}/install/*" \
+            "*/test/*" \
+            "*/CMakeCCompilerId.c" \
+            "*/CMakeCXXCompilerId.cpp" \
+            "*_msgs/*" \
+            "*/usr/*" \
+            "*/opt/*" \
+            {exclude_list_str} \
+            -o {filtered_coverage_info_path}'
+        )
+    ):
+        print("Filtering failed.")
+        return
+    return filtered_coverage_info_path
+
+
 def generate_html_report(
     coverage_info_path: str,
     base_dir: Path,
