@@ -70,6 +70,9 @@ jobs:
           }
         colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/1ddb69bedfd1f04c2f000e95452f7c24a4d6176b/index.yaml
 
+    - run: |
+        echo ${{ steps.build_and_test.ros-workspace-directory-name }}
+
     - name: Generate report
       id: metrics-reporter
       uses: ./ # Uses an action in the root directory
@@ -90,3 +93,25 @@ jobs:
       run: |
         sudo apt install -y tree
         tree -L 2 ${GITHUB_WORKSPACE}/public/
+
+    - name: Push artifacts
+      if: ${{ github.ref == 'refs/heads/main' && matrix.ros_distribution == 'galactic' }}
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ${{ env.ARTIFACTS_DIR }}
+        publish_branch: data
+
+    - name: Save page as artifacts
+      if: ${{ github.event.pull_request && matrix.ros_distribution == 'galactic' }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: static-pages
+        path: public
+
+    - name: Deploy public to gh-pages (main branch only)
+      if: ${{ github.ref == 'refs/heads/main' && matrix.ros_distribution == 'galactic' }}
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: public
