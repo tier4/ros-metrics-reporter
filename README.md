@@ -78,6 +78,7 @@ jobs:
 
     - name: Build and test
       uses: ros-tooling/action-ros-ci@v0.2
+      id: build_and_test
       with:
         package-name: ${{ steps.list_packages.outputs.package_list }}
         target-ros2-distro: ${{ env.ROS_DISTRO }}
@@ -94,7 +95,7 @@ jobs:
       uses: tier4/ros-metrics-reporter@v0.3.0
       with:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
-        target-dir: ${{ steps.build_and_test.ros-workspace-directory-name }}
+        target-dir: ${{ steps.build_and_test.outputs.ros-workspace-directory-name }}
         base-url: ${{ env.BASE_URL }}
         title: ${{ env.TITLE }}
         ros-distro: ${{ env.ROS_DISTRO }}
