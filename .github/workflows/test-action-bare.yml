@@ -56,7 +56,7 @@ jobs:
         echo "::set-output name=package_list::$package_list"
 
     - name: Build and test
-    - uses: ros-tooling/action-ros-ci@v0.2
+      uses: ros-tooling/action-ros-ci@v0.2
       with:
         package-name: ${{ steps.list_packages.outputs.package_list }}
         target-ros2-distro: ${{ matrix.ros_distribution }}
