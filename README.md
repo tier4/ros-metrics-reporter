@@ -83,6 +83,7 @@ jobs:
         package-name: ${{ steps.list_packages.outputs.package_list }}
         target-ros2-distro: ${{ env.ROS_DISTRO }}
         vcs-repo-file-url: ${{ env.VCS_FILE }}
+        extra-cmake-args: -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
         colcon-defaults: |
           {
             "build": {
