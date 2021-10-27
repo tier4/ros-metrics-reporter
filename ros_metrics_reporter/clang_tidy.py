@@ -3,7 +3,7 @@
 from pathlib import Path
 import shlex
 
-from .util import run_command
+from ros_metrics_reporter.util import run_command
 
 
 def clang_tidy(

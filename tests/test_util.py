@@ -1,6 +1,6 @@
 import pytest
 import tempfile
-from scripts.util import *
+from ros_metrics_reporter.util import *
 
 
 def test_dir_path_dir_exists():

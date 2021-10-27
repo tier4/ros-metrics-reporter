@@ -3,9 +3,14 @@
 from pathlib import Path
 from typing import List
 
-from .util import run_command_pipe, path_match
-from .run_lcov import initialize_lcov, run_lcov, generate_html_report, filter_report
-from .colcon_directory import colcon_get_package
+from ros_metrics_reporter.util import run_command_pipe, path_match
+from ros_metrics_reporter.run_lcov import (
+    initialize_lcov,
+    run_lcov,
+    generate_html_report,
+    filter_report,
+)
+from ros_metrics_reporter.colcon_directory import colcon_get_package
 
 
 class CoveragePackage:

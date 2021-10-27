@@ -1,4 +1,4 @@
-from scripts.util import path_match
+from ros_metrics_reporter.util import path_match
 
 
 def test_path_match_true():

@@ -8,7 +8,7 @@ import csv
 from enum import Enum
 from datetime import datetime
 
-from .util import read_jinja2_template
+from ros_metrics_reporter.util import read_jinja2_template
 
 
 class Color(Enum):

@@ -5,7 +5,7 @@ from typing import List
 import shlex
 import os
 
-from .util import run_command
+from ros_metrics_reporter.util import run_command
 
 
 def get_file_size(file: Path) -> int:

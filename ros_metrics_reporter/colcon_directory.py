@@ -4,7 +4,7 @@ import shlex
 from pathlib import Path
 import shutil
 
-from .util import run_command
+from ros_metrics_reporter.util import run_command
 
 
 def backup_build_artifacts(target_path: Path):
