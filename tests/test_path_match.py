@@ -1,5 +1,4 @@
-from pathlib import Path
-from scripts.path_match import path_match
+from scripts.util import path_match
 
 
 def test_path_match_true():

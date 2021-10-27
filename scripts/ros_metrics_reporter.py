@@ -1,20 +1,21 @@
 #! /usr/bin/env python3
 
 import argparse
-from coverage_all import *
-from coverage_package import *
-from util import dir_path
 from pathlib import Path
-from lizard_all import lizard_all
-from lizard_package import lizard_package
-from scraping import scraping
-from create_link import create_link
-from create_static_page import create_static_page
-from clang_tidy import clang_tidy
-from save_metrics_threshold import save_threshold
-from colcon_directory import *
-from plot_timeseries import generate_metrics_graph
-from gh_statistics import generate_code_frequency_graph, get_top3_contributor
+
+from .coverage_all import *
+from .coverage_package import *
+from .util import dir_path
+from .lizard_all import lizard_all
+from .lizard_package import lizard_package
+from .scraping import scraping
+from .create_link import create_link
+from .create_static_page import create_static_page
+from .clang_tidy import clang_tidy
+from .save_metrics_threshold import save_threshold
+from .colcon_directory import *
+from .plot_timeseries import generate_metrics_graph
+from .gh_statistics import generate_code_frequency_graph, get_top3_contributor
 
 
 def ros_metrics_reporter(args):

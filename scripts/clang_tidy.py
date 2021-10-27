@@ -1,9 +1,9 @@
 #! /usr/bin/env python3
 
 from pathlib import Path
-from util import run_command
-
 import shlex
+
+from .util import run_command
 
 
 def clang_tidy(

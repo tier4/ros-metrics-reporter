@@ -2,8 +2,9 @@
 
 from pathlib import Path
 from typing import List
-from util import run_command, run_command_pipe, run_command_redirect, path_match
 import shlex
+
+from .util import run_command, run_command_pipe, run_command_redirect, path_match
 
 
 def lizard_single_package(
