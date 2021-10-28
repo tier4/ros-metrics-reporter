@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from ros_metrics_reporter.git_statistics import *
+from ros_metrics_reporter.code_activity.git_statistics import *
 
 
 def test_generate_code_frequency_graph(tmpdir):

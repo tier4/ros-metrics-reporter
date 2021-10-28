@@ -34,3 +34,33 @@ geekdocDescription: Metrics reporter is a tool for continuously monitoring vario
 {{< hint info >}}
 {{< icon "gdoc_link" >}} [You can access more detailed data on code metrics here.]([[ lizard_result_html_link ]])
 {{< /hint >}}
+
+## Code frequency
+
+<figure class="activity">
+
+<div class="activity-graph">
+
+{{< load-plotly >}}
+{{< plotly json="plotly/[[ package_name ]]/code_frequency_graph.json" height="400px" >}}
+
+</div>
+<div class="activity-user">
+<table>
+<tr><th colspan="2"></th></tr>
+<tr><th colspan="2"><h2>Top3 contributors</h2></th></tr>
+<tr>
+<td><h3>1.</h3></td>
+<td><h3>[[ contributor_name_1 ]]</h3></td>
+</tr>
+<tr>
+<td><h3>2.</h3></td>
+<td><h3>[[ contributor_name_2 ]]</h3></td>
+</tr>
+<tr>
+<td><h3>3.</h3></td>
+<td><h3>[[ contributor_name_3 ]]</h3></td>
+</tr>
+</table>
+</div>
+</div>

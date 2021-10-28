@@ -59,7 +59,7 @@ def generate_markdown(
     hugo_root_dir: Path,
     hugo_template_dir: Path,
     packages: str,
-    contributors: List[Dict],
+    contributors: Dict[str, List],
 ):
     # Create markdown from template
     run_markdown_generator(
@@ -76,7 +76,7 @@ def create_static_page(
     tidy_result_path: Path,
     base_url: str,
     title: str,
-    contributors: List[Dict],
+    contributors: Dict[str, List],
 ):
     copy_html(
         hugo_root_dir,

@@ -3,23 +3,16 @@
 from pathlib import Path
 from typing import List
 
-from ros_metrics_reporter.util import run_command_pipe, path_match
+from ros_metrics_reporter.util import path_match
 from ros_metrics_reporter.run_lcov import (
-    initialize_lcov,
-    run_lcov,
     generate_html_report,
     filter_report,
 )
-from ros_metrics_reporter.colcon_directory import colcon_get_package
+from ros_metrics_reporter.package_info import PackageInfo
 
 
 class CoveragePackage:
-    def __init__(self, output_dir: Path, base_dir: Path, lcovrc: Path):
-        self.__package_list = run_command_pipe(
-            ["colcon", "list"], cwd=base_dir
-        ).splitlines()
-        self.__initialize_failed_list = []
-        self.__base_dir = base_dir.absolute()
+    def __init__(self, output_dir: Path, lcovrc: Path):
         self.__output_dir = output_dir
         self.__lcovrc = lcovrc
 
@@ -41,84 +34,25 @@ class CoveragePackage:
             return True
         return False
 
-    def __initialize_single_package(
-        self,
-        package_name: str,
-    ):
-        if not colcon_get_package(self.__base_dir, package_name):
-            print(f"Coverage {package_name} failed")
-            self.__initialize_failed_list.append(package_name)
-            return
-
-        output_package_dir = self.__output_dir / package_name
-        if not output_package_dir.exists():
-            output_package_dir.mkdir(parents=True)
-
-        if not initialize_lcov(
-            base_dir=self.__base_dir,
-            output_dir=output_package_dir,
-            lcovrc=self.__lcovrc,
-            package_name=package_name,
-        ):
-            self.__initialize_failed_list.append(package_name)
-            return
-
-    def initialize(self, exclude: List[str]):
+    def generate_html_report(self, package_info: PackageInfo, exclude: List[str]):
         if not self.__output_dir.exists():
             self.__output_dir.mkdir(parents=True)
 
-        for line in self.__package_list:
-            package_name, package_path, _ = line.split()
-            package_full_path = str(self.__base_dir / package_path) + "/"
-
-            if self.__is_exclude(package_name, package_full_path, exclude):
-                self.__initialize_failed_list.append(package_name)
+        for package in package_info:
+            package_path_str = str(package.path) + "/"
+            if self.__is_exclude(package.name, package_path_str, exclude):
                 continue
 
-            self.__initialize_single_package(
-                package_name=package_name,
-            )
-
-    def measure_coverage(self):
-        for line in self.__package_list:
-            package_name, *_ = line.split()
-
-            if package_name in self.__initialize_failed_list:
-                continue
-
-            colcon_get_package(self.__base_dir, package_name)
-
-            run_lcov(
-                base_dir=self.__base_dir,
-                output_dir=self.__output_dir / package_name,
-                lcovrc=self.__lcovrc,
-                package_name=package_name,
-            )
-
-            print(f"Generated package coverage: {package_name}")
-
-    def generate_html_report(self, exclude: List[str]):
-        if not self.__output_dir.exists():
-            self.__output_dir.mkdir(parents=True)
-
-        for line in self.__package_list:
-            package_name, package_path, _ = line.split()
-            package_full_path = str(self.__base_dir / package_path) + "/"
-
-            if self.__is_exclude(package_name, package_full_path, exclude):
-                self.__initialize_failed_list.append(package_name)
-                continue
-
-            output_package_dir = self.__output_dir / package_name
+            output_package_dir = self.__output_dir / package.name
             if not output_package_dir.exists():
                 output_package_dir.mkdir(parents=True)
 
             filtered_path = filter_report(
-                coverage_info_path=self.__base_dir
+                coverage_info_path=package_info.ros_ws
                 / "build"
-                / package_name
+                / package.name
                 / "coverage.info",
-                base_dir=self.__base_dir,
+                base_dir=package_info.ros_ws,
                 output_dir=output_package_dir,
                 lcovrc=self.__lcovrc,
                 exclude=exclude,
@@ -126,7 +60,7 @@ class CoveragePackage:
 
             generate_html_report(
                 coverage_info_path=filtered_path,
-                base_dir=self.__base_dir,
+                base_dir=package_info.ros_ws,
                 output_dir=output_package_dir,
                 lcovrc=self.__lcovrc,
             )

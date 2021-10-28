@@ -15,26 +15,23 @@ from ros_metrics_reporter.clang_tidy import clang_tidy
 from ros_metrics_reporter.save_metrics_threshold import save_threshold
 from ros_metrics_reporter.colcon_directory import *
 from ros_metrics_reporter.plot_timeseries import generate_metrics_graph
-from ros_metrics_reporter.gh_statistics import (
-    generate_code_frequency_graph,
-    get_top3_contributor,
-)
+from ros_metrics_reporter.package_info import PackageInfo
+from ros_metrics_reporter.code_activity.code_activity import code_activity
 
 
 def ros_metrics_reporter(args):
     exclude = args.exclude.split()
+    packages = PackageInfo(args.base_dir)
 
     # Initialize coverage
     lcov_dir = args.output_dir / "lcov_result" / args.timestamp
     coverage_all = CoverageAll(
         base_dir=args.base_dir, output_dir=lcov_dir, lcovrc=args.lcovrc
     )
-    coverage_package = CoveragePackage(
-        base_dir=args.base_dir, output_dir=lcov_dir, lcovrc=args.lcovrc
-    )
+    coverage_package = CoveragePackage(output_dir=lcov_dir, lcovrc=args.lcovrc)
 
     # Generate HTML report
-    coverage_package.generate_html_report(exclude=exclude)
+    coverage_package.generate_html_report(package_info=packages, exclude=exclude)
     coverage_all.generate_html_report(exclude=exclude)
 
     # Measure code metrics for threshold value
@@ -49,7 +46,7 @@ def ros_metrics_reporter(args):
         exclude=exclude,
     )
     lizard_package(
-        base_dir=args.base_dir,
+        package_info=packages,
         output_dir=lizard_dir,
         gh_action_dir=args.action_dir,
         exclude=exclude,
@@ -72,7 +69,7 @@ def ros_metrics_reporter(args):
         exclude=exclude,
     )
     lizard_package(
-        base_dir=args.base_dir,
+        package_info=packages,
         output_dir=lizard_recommendation_dir,
         gh_action_dir=args.action_dir,
         exclude=exclude,
@@ -128,13 +125,13 @@ def ros_metrics_reporter(args):
     )
 
     # generate code frequency graph
-    code_frequency_output_dir = args.hugo_root_dir / "static" / "plotly" / "all"
-    code_frequency_output_dir.mkdir(parents=True, exist_ok=True)
-    generate_code_frequency_graph(
-        args.target_repo, code_frequency_output_dir, args.github_access_token
+    code_frequency_output_dir = args.hugo_root_dir / "static" / "plotly"
+    contributors = code_activity(
+        github_target_repo=args.target_repo,
+        package_info=packages,
+        code_frequency_graph_output_dir=code_frequency_output_dir,
+        github_access_token=args.github_access_token,
     )
-
-    contributors = get_top3_contributor(args.target_repo, args.github_access_token)
 
     # Create static page
     hugo_template_dir = args.action_dir / "template" / "hugo"

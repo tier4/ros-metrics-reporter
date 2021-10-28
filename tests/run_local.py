@@ -1,19 +1,28 @@
 from datetime import datetime
 from pathlib import Path
-import sys
-import os
 import shutil
+import subprocess
+
+root_path = Path(__file__).parent.parent.resolve()
+
+# build and test
+ros_ws = root_path / "example" / "src" / "demos"
+subprocess.run(
+    'colcon build --symlink-install --cmake-args -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --mixin coverage-gcc',
+    shell=True,
+    cwd=ros_ws,
+)
+subprocess.run("colcon lcov-result --initial", shell=True, cwd=ros_ws)
+subprocess.run("colcon test", shell=True, cwd=ros_ws)
+subprocess.run("colcon lcov-result", shell=True, cwd=ros_ws)
 
 
 class Container:
     pass
 
 
-sys.path.append(os.path.abspath(".."))
-sys.path.append(os.path.abspath("../scripts"))
-from scripts.ros_metrics_reporter import ros_metrics_reporter
+from ros_metrics_reporter import ros_metrics_reporter
 
-root_path = Path(__file__).parent.parent.resolve()
 
 # copy template dir to output dir
 template_dir = root_path.joinpath("example", "hugo-site")
@@ -43,4 +52,4 @@ args.tidy_ignore_path = root_path.joinpath("codechecker-skip-list.txt")
 args.target_repo = "ros2/demos"
 args.github_access_token = None
 
-ros_metrics_reporter(args)
+ros_metrics_reporter.ros_metrics_reporter(args)

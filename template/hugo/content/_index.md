@@ -98,7 +98,7 @@ Last updated: [[ last_updated ]]
 <div class="activity-graph">
 
 {{< load-plotly >}}
-{{< plotly json="plotly/all/[[ plotly_commit_activity ]]" height="400px" >}}
+{{< plotly json="plotly/all/code_frequency_graph.json" height="400px" >}}
 
 </div>
 <div class="activity-user">
