@@ -125,7 +125,7 @@ runs:
         echo "Debug: CODECHECKER_CONFIG_PATH=$CODECHECKER_CONFIG_PATH"
         echo "Debug: CODECHECKER_SKIP_LIST=$CODECHECKER_SKIP_LIST"
         . /opt/ros/${{ inputs.ros-distro }}/setup.sh
-        python ${GITHUB_ACTION_PATH}/scripts/ros_metrics_reporter.py \
+        python ${GITHUB_ACTION_PATH}/ros_metrics_reporter/ros_metrics_reporter.py \
           --base-dir=${{ inputs.target-dir }} \
           --action-dir=${GITHUB_ACTION_PATH} \
           --output-dir=${{ steps.filtered.outputs.ARTIFACTS_DIR }} \
