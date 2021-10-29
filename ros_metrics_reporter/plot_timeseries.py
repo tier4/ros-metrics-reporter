@@ -4,7 +4,8 @@ import pandas as pd
 from pandas.core.frame import DataFrame
 import plotly.express as px
 from pathlib import Path
-from read_dataframe import read_dataframe
+
+from ros_metrics_reporter.read_dataframe import read_dataframe
 
 
 plot_name_list = [

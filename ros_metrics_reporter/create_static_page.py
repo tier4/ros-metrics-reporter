@@ -3,10 +3,10 @@
 from pathlib import Path
 from distutils import dir_util
 from typing import List, Dict
-from util import read_jinja2_template
 
-from create_markdown import run_markdown_generator
-from read_dataframe import read_dataframe
+from ros_metrics_reporter.util import read_jinja2_template
+from ros_metrics_reporter.create_markdown import run_markdown_generator
+from ros_metrics_reporter.read_dataframe import read_dataframe
 
 
 def copy_artifacts(src: Path, dest: Path):
@@ -59,7 +59,7 @@ def generate_markdown(
     hugo_root_dir: Path,
     hugo_template_dir: Path,
     packages: str,
-    contributors: List[Dict],
+    contributors: Dict[str, List],
 ):
     # Create markdown from template
     run_markdown_generator(
@@ -76,7 +76,7 @@ def create_static_page(
     tidy_result_path: Path,
     base_url: str,
     title: str,
-    contributors: List[Dict],
+    contributors: Dict[str, List],
 ):
     copy_html(
         hugo_root_dir,

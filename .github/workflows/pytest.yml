@@ -1,0 +1,38 @@
+
+name: pytest
+
+on:
+  push:
+
+jobs:
+  pytest:
+    name: Run tests with pytest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          pip install .
+          pip install pytest pytest-cov
+          sudo apt update
+          sudo apt install -y git
+
+      - name: Setup ROS to use colcon commands
+        uses: ros-tooling/setup-ros@v0.2
+        with:
+          required-ros-distributions: galactic
+
+      - name: Inport vcs repo
+        run: |
+          vcs import . < ros-metrics-reporter-galactic.repos
+
+      - name: Run tests
+        run: |
+          pytest tests

@@ -1,9 +1,10 @@
 #! /usr/bin/env python3
 
-from util import run_command
 import shlex
 from pathlib import Path
 import shutil
+
+from ros_metrics_reporter.util import run_command
 
 
 def backup_build_artifacts(target_path: Path):

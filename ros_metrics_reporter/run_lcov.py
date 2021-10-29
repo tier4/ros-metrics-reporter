@@ -2,9 +2,10 @@
 
 from pathlib import Path
 from typing import List
-from util import run_command
 import shlex
 import os
+
+from ros_metrics_reporter.util import run_command
 
 
 def get_file_size(file: Path) -> int:

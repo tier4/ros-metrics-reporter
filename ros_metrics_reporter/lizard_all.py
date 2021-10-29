@@ -2,8 +2,9 @@
 
 from pathlib import Path
 from typing import List
-from util import run_command, run_command_redirect
 import shlex
+
+from ros_metrics_reporter.util import run_command, run_command_redirect
 
 
 def lizard_all(

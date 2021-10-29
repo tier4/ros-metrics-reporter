@@ -2,8 +2,14 @@
 
 from pathlib import Path
 from typing import List
-from util import run_command, run_command_pipe, run_command_redirect, path_match
 import shlex
+
+from ros_metrics_reporter.util import (
+    run_command,
+    run_command_redirect,
+    path_match,
+)
+from ros_metrics_reporter.package_info import PackageInfo
 
 
 def lizard_single_package(
@@ -51,7 +57,7 @@ def lizard_single_package(
 
 
 def lizard_package(
-    base_dir: Path,
+    package_info: PackageInfo,
     output_dir: Path,
     gh_action_dir: Path,
     exclude: List[str],
@@ -71,12 +77,10 @@ def lizard_package(
             )
         )
 
-    package_list = run_command_pipe(["colcon", "list"], cwd=base_dir).splitlines()
-    for line in package_list:
-        package_name, package_path, _ = line.split()
-        package_full_path = str(base_dir / package_path) + "/"
+    for package in package_info:
+        package_full_path = str(package_info.ros_ws / package.path) + "/"
         lizard_single_package(
-            package_name=package_name,
+            package_name=package.name,
             package_path=package_full_path,
             output_dir=output_dir,
             lizard_dir=lizard_dir,

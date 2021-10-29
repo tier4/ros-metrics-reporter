@@ -1,9 +1,9 @@
 #! /usr/bin/env python3
 
 from pathlib import Path
-from util import run_command
-
 import shlex
+
+from ros_metrics_reporter.util import run_command
 
 
 def clang_tidy(

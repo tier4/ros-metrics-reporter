@@ -7,7 +7,8 @@ from typing import Dict, List
 import csv
 from enum import Enum
 from datetime import datetime
-from util import read_jinja2_template
+
+from ros_metrics_reporter.util import read_jinja2_template
 
 
 class Color(Enum):
@@ -234,8 +235,7 @@ def replace_summary_page(
     for i, contributor in enumerate(contributors, 1):
         render_dict["contributor_name_" + str(i)] = contributor["name"]
         render_dict["contributor_avatar_" + str(i)] = contributor["avatar"]
-
-    render_dict["plotly_commit_activity"] = "code_frequency_graph.json"
+        render_dict["contribute_count_" + str(i)] = contributor["total"]
 
     legend_dict = update_legend_dict(legend_dict)
     render_dict.update(legend_dict)
@@ -267,11 +267,17 @@ def replace_token(package: str) -> Dict[str, str]:
     }
 
 
-def replace_contents(file: Path, package: str):
+def replace_contents(file: Path, package: str, contributors: List[Dict]):
     template = read_jinja2_template(file)
+    render_dict = replace_token(package)
+
+    # get repository statistics information
+    for i, contributor in enumerate(contributors, 1):
+        render_dict["contributor_name_" + str(i)] = contributor["name"]
+        render_dict["contribute_count_" + str(i)] = contributor["total"]
 
     with open(file, "w") as f:
-        f.write(template.render(replace_token(package)))
+        f.write(template.render(render_dict))
 
 
 def run_markdown_generator(
@@ -279,7 +285,7 @@ def run_markdown_generator(
     dest: Path,
     metrics_dir: Path,
     packages: List[str],
-    contributors: List[Dict],
+    contributors: Dict[str, List],
 ):
     # Copy all files from template/hugo/content/ to hugo content directory
     markdown_dir_src = src / "content"
@@ -288,7 +294,7 @@ def run_markdown_generator(
 
     # Create summary page
     summary_page = markdown_dir_dest / "_index.md"
-    replace_summary_page(summary_page, metrics_dir, packages, contributors)
+    replace_summary_page(summary_page, metrics_dir, packages, contributors["all"])
 
     # Create package detail page
     template = dest / "content" / "packages" / "TEMPLATE.md"
@@ -298,7 +304,7 @@ def run_markdown_generator(
         filename = dest / "content" / "packages" / (package + ".md")
         shutil.copy(template, filename)
         # Replace token
-        replace_contents(filename, package)
+        replace_contents(filename, package, contributors[package])
 
     template.unlink()
 
