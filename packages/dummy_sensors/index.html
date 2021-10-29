@@ -192,7 +192,44 @@ Plotly.d3.json(json_url, function(err, fig) {
   <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg> <a class="gdoc-markdown__link" href="https://tier4.github.io/ros-metrics-reporter/lizard/dummy_sensors">You can access more detailed data on code metrics here.</a>
 </blockquote>
 
+<h2 id="code-frequency">Code frequency</h2>
+<figure class="activity">
+<div class="activity-graph">
+<p>
 
+
+
+<div id="plotly/dummy_sensors/code_frequency_graph.json" class="plotly" style="height:400px"></div>
+<script>
+json_url = "https://tier4.github.io/ros-metrics-reporter/" + "plotly/dummy_sensors/code_frequency_graph.json"
+Plotly.d3.json(json_url, function(err, fig) {
+    Plotly.plot('plotly\/dummy_sensors\/code_frequency_graph.json', fig.data, fig.layout, {responsive: true});
+});
+</script>
+</p>
+</div>
+<div class="activity-user">
+<table>
+<tr><th colspan="3"></th></tr>
+<tr><th colspan="3"><h2>Top3 contributors</h2></th></tr>
+<tr>
+<td><h3>1.</h3></td>
+<td><h3></h3></td>
+<td><h3></h3></td>
+</tr>
+<tr>
+<td><h3>2.</h3></td>
+<td><h3></h3></td>
+<td><h3></h3></td>
+</tr>
+<tr>
+<td><h3>3.</h3></td>
+<td><h3></h3></td>
+<td><h3></h3></td>
+</tr>
+</table>
+</div>
+</div>
 
     </article>
 
