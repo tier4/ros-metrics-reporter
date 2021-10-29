@@ -91,7 +91,7 @@ table td {
   flex-grow: 1;
 }
 .activity-user {
-  width: 300px;
+  min-width: 300px;
   flex-grow: 0;
 }
 .avatar {
