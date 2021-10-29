@@ -103,22 +103,25 @@ Last updated: [[ last_updated ]]
 </div>
 <div class="activity-user">
 <table>
-<tr><th colspan="3"></th></tr>
-<tr><th colspan="3"><h2>Top3 contributors</h2></th></tr>
+<tr><th colspan="4"></th></tr>
+<tr><th colspan="4"><h2>Top3 contributors</h2></th></tr>
 <tr>
 <td><h3>1.</h3></td>
 <td class="avatar"><img class="avatar-image" src="[[ contributor_avatar_1 ]]"/></td>
 <td><h3>[[ contributor_name_1 ]]</h3></td>
+<td><h3>[[ contribute_count_1 ]]</h3></td>
 </tr>
 <tr>
 <td><h3>2.</h3></td>
 <td class="avatar"><img class="avatar-image" src="[[ contributor_avatar_2 ]]"/></td>
 <td><h3>[[ contributor_name_2 ]]</h3></td>
+<td><h3>[[ contribute_count_2 ]]</h3></td>
 </tr>
 <tr>
 <td><h3>3.</h3></td>
 <td class="avatar"><img class="avatar-image" src="[[ contributor_avatar_3 ]]"/></td>
 <td><h3>[[ contributor_name_3 ]]</h3></td>
+<td><h3>[[ contribute_count_3 ]]</h3></td>
 </tr>
 </table>
 </div>

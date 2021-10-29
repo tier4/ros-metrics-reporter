@@ -235,6 +235,7 @@ def replace_summary_page(
     for i, contributor in enumerate(contributors, 1):
         render_dict["contributor_name_" + str(i)] = contributor["name"]
         render_dict["contributor_avatar_" + str(i)] = contributor["avatar"]
+        render_dict["contribute_count_" + str(i)] = contributor["total"]
 
     legend_dict = update_legend_dict(legend_dict)
     render_dict.update(legend_dict)
@@ -273,6 +274,7 @@ def replace_contents(file: Path, package: str, contributors: List[Dict]):
     # get repository statistics information
     for i, contributor in enumerate(contributors, 1):
         render_dict["contributor_name_" + str(i)] = contributor["name"]
+        render_dict["contribute_count_" + str(i)] = contributor["total"]
 
     with open(file, "w") as f:
         f.write(template.render(render_dict))

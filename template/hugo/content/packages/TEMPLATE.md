@@ -47,19 +47,22 @@ geekdocDescription: Metrics reporter is a tool for continuously monitoring vario
 </div>
 <div class="activity-user">
 <table>
-<tr><th colspan="2"></th></tr>
-<tr><th colspan="2"><h2>Top3 contributors</h2></th></tr>
+<tr><th colspan="3"></th></tr>
+<tr><th colspan="3"><h2>Top3 contributors</h2></th></tr>
 <tr>
 <td><h3>1.</h3></td>
 <td><h3>[[ contributor_name_1 ]]</h3></td>
+<td><h3>[[ contribute_count_1 ]]</h3></td>
 </tr>
 <tr>
 <td><h3>2.</h3></td>
 <td><h3>[[ contributor_name_2 ]]</h3></td>
+<td><h3>[[ contribute_count_2 ]]</h3></td>
 </tr>
 <tr>
 <td><h3>3.</h3></td>
 <td><h3>[[ contributor_name_3 ]]</h3></td>
+<td><h3>[[ contribute_count_3 ]]</h3></td>
 </tr>
 </table>
 </div>
