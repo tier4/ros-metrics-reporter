@@ -1,7 +1,6 @@
 <p><img width="800" alt="ROS Metrics Reporter" src="https://user-images.githubusercontent.com/19993104/129997676-4700c2eb-62af-4db1-9d22-d465d43b919d.png"></p>
 
-[![Test github action on container](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action-container.yml/badge.svg)](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action-container.yml)
-[![Test github action on bare metal](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action-bare.yml/badge.svg)](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action-bare.yml)
+[![Test github action](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action.yml/badge.svg)](https://github.com/tier4/ros-metrics-reporter/actions/workflows/test-action.yml)
 [![GitHub pages](https://img.shields.io/badge/-GitHub%20pages-orange)](https://tier4.github.io/ros-metrics-reporter/)
 
 ### [Demo](https://tier4.github.io/ros-metrics-reporter/)
