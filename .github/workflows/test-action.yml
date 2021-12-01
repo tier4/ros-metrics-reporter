@@ -53,15 +53,13 @@ jobs:
       run: |
         mkdir dependency_ws
         vcs import dependency_ws < ${{ matrix.vcs_file }}
-        apt-get -y update
+        sudo apt-get -y update
         rosdep update
         DEBIAN_FRONTEND=noninteractive rosdep install -y --from-paths . --ignore-src --rosdistro ${{ matrix.ros_distribution }}
 
     - name: List packages
       id: list_packages
-      run: |
-        package_list=$(colcon list --names-only)
-        echo "::set-output name=package_list::$package_list"
+      run: echo ::set-output name=package_list::$(colcon list --names-only)
 
     - name: Build and test
       id: build_and_test
