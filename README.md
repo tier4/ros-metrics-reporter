@@ -69,17 +69,10 @@ jobs:
       with:
         required-ros-distributions: ${{ matrix.ros_distribution }}
 
-    - name: List packages
-      id: list_packages
-      run: |
-        package_list=$(colcon list --names-only)
-        echo "::set-output name=package_list::$package_list"
-
     - name: Build and test
       uses: ros-tooling/action-ros-ci@v0.2
       id: build_and_test
       with:
-        package-name: ${{ steps.list_packages.outputs.package_list }}
         target-ros2-distro: ${{ env.ROS_DISTRO }}
         vcs-repo-file-url: ${{ env.VCS_FILE }}
         extra-cmake-args: -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
