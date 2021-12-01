@@ -33,4 +33,6 @@ def code_activity(
         contributors[package.name] = git_statistics.get_top3_contributor(
             package_info.ros_ws, package.path
         )
+        print(f"Top3 contributor of {package.name}")
+        print(str(contributors[package.name]))
     return contributors
