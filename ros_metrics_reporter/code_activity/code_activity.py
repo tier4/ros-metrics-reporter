@@ -6,6 +6,17 @@ import ros_metrics_reporter.code_activity.github_statistics as github_statistics
 import ros_metrics_reporter.code_activity.git_statistics as git_statistics
 
 
+def _find_git_ws(path: Path) -> Path:
+    dot_git = path / ".git"
+    if dot_git.is_dir():
+        return path
+    else:
+        if path.parent == path:
+            raise FileNotFoundError(f"Cannot find .git directory in {path}")
+        else:
+            return _find_git_ws(path.parent)
+
+
 def code_activity(
     github_target_repo: str,
     package_info: PackageInfo,
@@ -25,12 +36,13 @@ def code_activity(
 
     # generate code statistics for each package
     for package in package_info:
+        git_ws = _find_git_ws(package_info.ros_ws / package.path)
         graph_output_dir = code_frequency_graph_output_dir / package.name
         graph_output_dir.mkdir(parents=True, exist_ok=True)
         git_statistics.generate_code_frequency_graph(
-            package_info.ros_ws, package.path, graph_output_dir
+            git_ws, package.path, graph_output_dir
         )
         contributors[package.name] = git_statistics.get_top3_contributor(
-            package_info.ros_ws, package.path
+            git_ws, package.path
         )
     return contributors
