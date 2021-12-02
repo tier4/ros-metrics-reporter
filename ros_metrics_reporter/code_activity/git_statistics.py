@@ -14,6 +14,8 @@ def generate_code_frequency_graph(git_ws: Path, package_path: Path, dest: Path) 
         cwd=git_ws,
     ).splitlines()
 
+    print(git_ws)
+    print(package_path)
     print(git_log)
 
     df = pd.DataFrame({"date": git_log})
