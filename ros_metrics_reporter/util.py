@@ -37,7 +37,7 @@ def run_command(args: List[str], cwd: Path = None) -> bool:
 
 def run_command_pipe(args: List[str], cwd: Path = None) -> str:
     proc = subprocess.run(
-        args=args, check=True, capture_output=True, text=True, cwd=cwd
+        args=args, check=True, stdout=subprocess.PIPE, encoding="utf-8", cwd=cwd
     )
     return proc.stdout
 
