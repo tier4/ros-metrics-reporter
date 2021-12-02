@@ -14,10 +14,6 @@ def generate_code_frequency_graph(git_ws: Path, package_path: Path, dest: Path) 
         cwd=git_ws,
     ).splitlines()
 
-    print(git_ws)
-    print(package_path)
-    print(git_log)
-
     df = pd.DataFrame({"date": git_log})
     df["date"] = pd.to_datetime(df["date"])
     df["week"] = df["date"].dt.to_period("W").dt.to_timestamp()
@@ -41,8 +37,6 @@ def get_top3_contributor(git_ws: Path, package_path: Path) -> List[Dict]:
         cwd=git_ws,
     ).splitlines()
     top3_contributor = collections.Counter(git_log).most_common()[:3]
-
-    print(git_log)
 
     return [
         {
