@@ -69,7 +69,7 @@ jobs:
       uses: ./ # Uses an action in the root directory
       with:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
-        target-dir: ${{ steps.build_and_test.outputs.ros-workspace-directory-name }}
+        target-dir: ${{ steps.build_and_test.outputs.ros-workspace-directory-name }}/example/src/demos
         base-url: "https://tier4.github.io/ros-metrics-reporter/"
         title: ${{ env.TARGET_REPO }}
         ros-distro: ${{ matrix.ros_distribution }}
