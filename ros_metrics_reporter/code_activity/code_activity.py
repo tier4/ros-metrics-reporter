@@ -9,6 +9,7 @@ import ros_metrics_reporter.code_activity.git_statistics as git_statistics
 def _find_git_ws(path: Path) -> Path:
     dot_git = path / ".git"
     if dot_git.is_dir():
+        print(f"Detected git workspace: {path}")
         return path
     else:
         if path.parent == path:
