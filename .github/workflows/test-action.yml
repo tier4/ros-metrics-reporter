@@ -67,14 +67,14 @@ jobs:
     - name: Check result
       run: |
         sudo apt install -y tree
-        tree -L 2 ${{ steps.build_and_test.outputs.ros-workspace-directory-name }}
+        tree -L 4 ${{ steps.build_and_test.outputs.ros-workspace-directory-name }}
 
     - name: Generate report
       id: metrics-reporter
       uses: ./ # Uses an action in the root directory
       with:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
-        target-dir: ${{ steps.build_and_test.outputs.ros-workspace-directory-name }}/example/src/demos
+        target-dir: ${{ steps.build_and_test.outputs.ros-workspace-directory-name }}/src/example/src/demos
         base-url: "https://tier4.github.io/ros-metrics-reporter/"
         title: ${{ env.TARGET_REPO }}
         ros-distro: ${{ matrix.ros_distribution }}
