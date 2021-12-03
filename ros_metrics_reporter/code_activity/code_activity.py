@@ -18,6 +18,13 @@ def _find_git_ws(path: Path) -> Path:
             return _find_git_ws(path.parent)
 
 
+def _get_package_relative_path(base_path: Path, package_path: Path) -> Path:
+    """
+    Get the relative path from base_path to package_path
+    """
+    return package_path.relative_to(base_path)
+
+
 def code_activity(
     github_target_repo: str,
     package_info: PackageInfo,
@@ -38,15 +45,16 @@ def code_activity(
     # generate code statistics for each package
     for package in package_info:
         git_ws = _find_git_ws(package_info.ros_ws / package.path)
+        relative_package_path = _get_package_relative_path(git_ws, package_path)
         print(
-            f"[DEBUG] package {package.name}, git workspace: {git_ws}, path: {package.path}"
+            f"[DEBUG] package {package.name}, git workspace: {git_ws}, path: {relative_package_path}"
         )
         graph_output_dir = code_frequency_graph_output_dir / package.name
         graph_output_dir.mkdir(parents=True, exist_ok=True)
         git_statistics.generate_code_frequency_graph(
-            git_ws, package.path, graph_output_dir
+            git_ws, relative_package_path, graph_output_dir
         )
         contributors[package.name] = git_statistics.get_top3_contributor(
-            git_ws, package.path
+            git_ws, relative_package_path
         )
     return contributors
