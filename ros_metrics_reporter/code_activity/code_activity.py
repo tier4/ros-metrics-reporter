@@ -45,7 +45,9 @@ def code_activity(
     # generate code statistics for each package
     for package in package_info:
         git_ws = _find_git_ws(package_info.ros_ws / package.path)
-        relative_package_path = _get_package_relative_path(git_ws, package.path)
+        relative_package_path = _get_package_relative_path(
+            git_ws, package.path.absolute()
+        )
         print(
             f"[DEBUG] package {package.name}, git workspace: {git_ws}, path: {relative_package_path}"
         )
