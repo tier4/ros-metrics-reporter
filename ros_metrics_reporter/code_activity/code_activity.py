@@ -38,6 +38,9 @@ def code_activity(
     # generate code statistics for each package
     for package in package_info:
         git_ws = _find_git_ws(package_info.ros_ws / package.path)
+        print(
+            f"[DEBUG] package {package.name}, git workspace: {git_ws}, path: {package.path}"
+        )
         graph_output_dir = code_frequency_graph_output_dir / package.name
         graph_output_dir.mkdir(parents=True, exist_ok=True)
         git_statistics.generate_code_frequency_graph(
