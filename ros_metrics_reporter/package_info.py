@@ -33,7 +33,7 @@ class PackageInfo:
         self.package_list = []
         for line in package_list:
             package_name, package_path, package_type = line.split()
-            __check_package_full_path(ros_ws, package_path)
+            self.__check_package_full_path(ros_ws, package_path)
             self.package_list.append(
                 Package(package_name, Path(package_path), package_type)
             )
