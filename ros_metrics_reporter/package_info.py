@@ -33,6 +33,7 @@ class PackageInfo:
         self.package_list = []
         for line in package_list:
             package_name, package_path, package_type = line.split()
+            __check_package_full_path(ros_ws, package_path)
             self.package_list.append(
                 Package(package_name, Path(package_path), package_type)
             )
@@ -45,3 +46,10 @@ class PackageInfo:
 
     def __iter__(self):
         return iter(self.package_list)
+
+    def __check_package_full_path(self, ros_ws: Path, package_path: Path):
+        if (ros_ws / package_path).exists():
+            return
+        raise ValueError(
+            f"Package path {package_path} does not exist in workspace {ros_ws}"
+        )
