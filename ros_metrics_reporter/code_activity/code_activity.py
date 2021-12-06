@@ -22,7 +22,12 @@ def _get_package_relative_path(base_path: Path, package_path: Path) -> Path:
     """
     Get the relative path from base_path to package_path
     """
-    return package_path.relative_to(base_path)
+    if (base_path.name / package_path).exists():
+        return package_path
+    else:
+        return _get_package_relative_path(
+            base_path, Path("{}".format("/".join(package_path.parts[1:])))
+        )
 
 
 def code_activity(
@@ -45,9 +50,7 @@ def code_activity(
     # generate code statistics for each package
     for package in package_info:
         git_ws = _find_git_ws(package_info.ros_ws / package.path)
-        relative_package_path = _get_package_relative_path(
-            git_ws, package.path.absolute()
-        )
+        relative_package_path = _get_package_relative_path(git_ws, package.path)
         print(
             f"[DEBUG] package {package.name}, git workspace: {git_ws}, path: {relative_package_path}"
         )
