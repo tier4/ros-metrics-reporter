@@ -37,7 +37,7 @@ class PackageInfo:
             package_name, package_path, package_type = line.split()
             package_ros_ws = self.__find_git_ws(package_path)
             self.package_list.append(
-                Package(package_name, Path(package_path), package_type)
+                Package(package_name, package_ros_ws, Path(package_path), package_type)
             )
 
     def get_package_info(self, package_name: str) -> Package:
