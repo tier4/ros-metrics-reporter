@@ -78,7 +78,7 @@ def lizard_package(
         )
 
     for package in package_info:
-        package_full_path = str(package_info.ros_ws / package.path) + "/"
+        package_full_path = str(package.git_ws / package.path) + "/"
         lizard_single_package(
             package_name=package.name,
             package_path=package_full_path,

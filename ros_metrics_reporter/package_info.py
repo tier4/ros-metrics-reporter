@@ -1,5 +1,8 @@
 from pathlib import Path
-from typing import List
+from typing import List, Tuple
+import os.path
+
+from numpy import result_type
 
 from ros_metrics_reporter.util import run_command_pipe
 
@@ -35,9 +38,9 @@ class PackageInfo:
         self.package_list = []
         for line in package_list:
             package_name, package_path, package_type = line.split()
-            package_ros_ws = self.__find_git_ws(package_path)
+            git_ws, relative_package_path = self.__find_git_ws(package_path)
             self.package_list.append(
-                Package(package_name, package_ros_ws, Path(package_path), package_type)
+                Package(package_name, git_ws, relative_package_path, package_type)
             )
 
     def get_package_info(self, package_name: str) -> Package:
@@ -49,13 +52,15 @@ class PackageInfo:
     def __iter__(self):
         return iter(self.package_list)
 
-    def __find_git_ws(self, package_path: Path) -> Path:
+    def __find_git_ws(self, package_path: Path) -> Tuple[Path, Path]:
         git_ws = self.ros_ws / package_path
         while git_ws != self.ros_ws:
             print(f"DEBUG: package {package_path} in {git_ws}")
             [print(x) for x in git_ws.iterdir()]
             if (git_ws / ".git").is_dir():
-                return git_ws
+                rel_package_path = os.path.relpath(package_path, git_ws)
+                print(f"DEBUG: relative package {rel_package_path} in {git_ws}")
+                return git_ws, rel_package_path
             git_ws = git_ws.parent
         raise ValueError(
             f"Cannot find .git directory. Package path: {package_path}, workspace: {self.ros_ws}"
