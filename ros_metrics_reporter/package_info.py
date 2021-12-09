@@ -50,7 +50,7 @@ class PackageInfo:
         return iter(self.package_list)
 
     def __find_git_ws(self, package_path: Path) -> Path:
-        git_ws = Path(package_path).absolute()
+        git_ws = self.ros_ws / package_path
         while git_ws != self.ros_ws:
             print(f"DEBUG: package {package_path} in {git_ws}")
             [print(x) for x in git_ws.iterdir()]
