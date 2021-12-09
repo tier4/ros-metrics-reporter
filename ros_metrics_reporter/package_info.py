@@ -52,9 +52,11 @@ class PackageInfo:
     def __find_git_ws(self, package_path: Path) -> Path:
         git_ws = Path(package_path).absolute()
         while git_ws != self.ros_ws:
+            print(f"DEBUG: package {package_path} in {git_ws}")
+            [print(x) for x in git_ws.iterdir()]
             if (git_ws / ".git").is_dir():
                 return git_ws
             git_ws = git_ws.parent
         raise ValueError(
-            f"Cannot find .git directory. Package path: {package_path}, workspace: {ros_ws}"
+            f"Cannot find .git directory. Package path: {package_path}, workspace: {self.ros_ws}"
         )
