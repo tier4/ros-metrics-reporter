@@ -10,11 +10,13 @@ class Package:
     """
 
     name: str
+    ros_ws: Path
     path: Path
     type: str
 
-    def __init__(self, name, path, package_type):
+    def __init__(self, name, git_ws, path, package_type):
         self.name = name
+        self.git_ws = git_ws
         self.path = path
         self.type = package_type
 
@@ -33,7 +35,7 @@ class PackageInfo:
         self.package_list = []
         for line in package_list:
             package_name, package_path, package_type = line.split()
-            self.__check_package_full_path(ros_ws, package_path)
+            package_ros_ws = self.__find_git_ws(package_path)
             self.package_list.append(
                 Package(package_name, Path(package_path), package_type)
             )
@@ -47,9 +49,12 @@ class PackageInfo:
     def __iter__(self):
         return iter(self.package_list)
 
-    def __check_package_full_path(self, ros_ws: Path, package_path: Path):
-        if (ros_ws / package_path).exists():
-            return
+    def __find_git_ws(self, package_path: Path) -> Path:
+        git_ws = Path(package_path).absolute()
+        while git_ws != self.ros_ws:
+            if (git_ws / ".git").is_dir():
+                return git_ws
+            git_ws = git_ws.parent
         raise ValueError(
-            f"Package path {package_path} does not exist in workspace {ros_ws}"
+            f"Cannot find .git directory. Package path: {package_path}, workspace: {ros_ws}"
         )
