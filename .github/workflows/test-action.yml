@@ -53,7 +53,7 @@ jobs:
       run: |
         mkdir dependency_ws
         vcs import dependency_ws < ${{ matrix.vcs_file }}
-        apt-get -y update
+        sudo apt-get -y update
         rosdep update
         DEBIAN_FRONTEND=noninteractive rosdep install -y --from-paths . --ignore-src --rosdistro ${{ matrix.ros_distribution }}
 
