@@ -16,7 +16,7 @@ def test_package_info_root(tmp_path):
     package = package_info.get_package_info("dummy_package")
     assert package.name == "dummy_package"
     assert package.git_ws == git_ws
-    assert package.path == "dummy_package"
+    assert package.path == Path("dummy_package")
     assert package.type == "(ros.ament_cmake)"
 
 
@@ -25,7 +25,7 @@ def test_package_info_subdir(tmp_path):
     ros_ws = Path(tmp_path)
     git_ws = Path(tmp_path / "subdir")
     (git_ws / ".git").mkdir(parents=True)
-    shutil.copytree(dummy_pkg, git_ws / "dummy_package")
+    shutil.copytree(dummy_pkg, git_ws / "src" / "dummy_package")
 
     package_info = PackageInfo(ros_ws)
     assert package_info.ros_ws == Path(tmp_path)
@@ -33,5 +33,5 @@ def test_package_info_subdir(tmp_path):
     package = package_info.get_package_info("dummy_package")
     assert package.name == "dummy_package"
     assert package.git_ws == git_ws
-    assert package.path == "dummy_package"
+    assert package.path == Path("src", "dummy_package")
     assert package.type == "(ros.ament_cmake)"

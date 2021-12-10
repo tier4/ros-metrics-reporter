@@ -58,7 +58,7 @@ class PackageInfo:
         while True:
             if (git_ws / ".git").is_dir():
                 rel_package_path = os.path.relpath(package_full_path, git_ws)
-                return git_ws, rel_package_path
+                return git_ws, Path(rel_package_path)
             if git_ws == self.ros_ws:
                 break
             git_ws = git_ws.parent
