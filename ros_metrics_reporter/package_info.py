@@ -61,5 +61,5 @@ class PackageInfo:
                 return git_ws, rel_package_path
             git_ws = git_ws.parent
         raise ValueError(
-            f"Cannot find .git directory. Package path: {package_path}, workspace: {self.ros_ws}"
+            f"Cannot find .git directory. Package path: {package_full_path}, workspace: {self.ros_ws}"
         )
