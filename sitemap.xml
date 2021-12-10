@@ -47,6 +47,10 @@
   </url>
   
   <url>
+    <loc>https://tier4.github.io/ros-metrics-reporter/packages/dummy_package/</loc>
+  </url>
+  
+  <url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/dummy_robot_bringup/</loc>
   </url>
   
