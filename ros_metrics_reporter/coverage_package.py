@@ -39,6 +39,7 @@ class CoveragePackage:
             self.__output_dir.mkdir(parents=True)
 
         for package in package_info:
+            print(f"Generating Coverage report for {package.name}...")
             package_path_str = str(package.path) + "/"
             if self.__is_exclude(package.name, package_path_str, exclude):
                 continue

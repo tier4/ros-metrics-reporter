@@ -16,6 +16,7 @@ class CoverageAll:
         self.__lcovrc = lcovrc
 
     def generate_html_report(self, exclude: List[str]):
+        print("Generating Coverage report for all packages...")
         if not self.__output_lcov_dir.exists():
             self.__output_lcov_dir.mkdir(parents=True)
 

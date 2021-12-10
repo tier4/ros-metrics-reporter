@@ -28,9 +28,9 @@ def code_activity(
         graph_output_dir = code_frequency_graph_output_dir / package.name
         graph_output_dir.mkdir(parents=True, exist_ok=True)
         git_statistics.generate_code_frequency_graph(
-            package_info.ros_ws, package.path, graph_output_dir
+            package.git_ws, package.path, graph_output_dir
         )
         contributors[package.name] = git_statistics.get_top3_contributor(
-            package_info.ros_ws, package.path
+            package.git_ws, package.path
         )
     return contributors

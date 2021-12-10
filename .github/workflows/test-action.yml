@@ -49,27 +49,31 @@ jobs:
       with:
         required-ros-distributions: ${{ matrix.ros_distribution }}
 
-    - name: Build and test
-      id: build_and_test
-      uses: ros-tooling/action-ros-ci@v0.2
-      with:
-        target-ros2-distro: ${{ matrix.ros_distribution }}
-        vcs-repo-file-url: ${{ matrix.vcs_file }}
-        extra-cmake-args: -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-        colcon-defaults: |
-          {
-            "build": {
-              "mixin": ["coverage-gcc"]
-            }
-          }
-        colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/1ddb69bedfd1f04c2f000e95452f7c24a4d6176b/index.yaml
+    - name: Clone dependency packages
+      run: |
+        mkdir dependency_ws
+        vcs import dependency_ws < ${{ matrix.vcs_file }}
+        sudo apt-get -y update
+        rosdep update
+        DEBIAN_FRONTEND=noninteractive rosdep install -y --from-paths . --ignore-src --rosdistro ${{ matrix.ros_distribution }}
+
+    - name: Build
+      run: |
+        . /opt/ros/${{ matrix.ros_distribution }}/setup.sh
+        colcon build --event-handlers console_cohesion+ \
+          --cmake-args -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+    - name: Run tests
+      run: |
+        . /opt/ros/${{ matrix.ros_distribution }}/setup.sh
+        colcon test --event-handlers console_cohesion+ \
+          --return-code-on-test-failure
 
     - name: Generate report
       id: metrics-reporter
       uses: ./ # Uses an action in the root directory
       with:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
-        target-dir: ${{ steps.build_and_test.outputs.ros-workspace-directory-name }}/src/example/src/demos
         base-url: "https://tier4.github.io/ros-metrics-reporter/"
         title: ${{ env.TARGET_REPO }}
         ros-distro: ${{ matrix.ros_distribution }}
