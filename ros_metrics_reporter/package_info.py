@@ -55,10 +55,12 @@ class PackageInfo:
     def __find_git_ws(self, package_path: Path) -> Tuple[Path, Path]:
         package_full_path = self.ros_ws / package_path
         git_ws = package_full_path
-        while git_ws != self.ros_ws:
+        while True:
             if (git_ws / ".git").is_dir():
                 rel_package_path = os.path.relpath(package_full_path, git_ws)
                 return git_ws, rel_package_path
+            if git_ws == self.ros_ws:
+                break
             git_ws = git_ws.parent
         raise ValueError(
             f"Cannot find .git directory. Package path: {package_full_path}, workspace: {self.ros_ws}"
