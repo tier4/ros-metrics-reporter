@@ -69,26 +69,22 @@ jobs:
       with:
         required-ros-distributions: ${{ matrix.ros_distribution }}
 
-    - name: Build and test
-      uses: ros-tooling/action-ros-ci@v0.2
-      id: build_and_test
-      with:
-        target-ros2-distro: ${{ env.ROS_DISTRO }}
-        vcs-repo-file-url: ${{ env.VCS_FILE }}
-        extra-cmake-args: -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-        colcon-defaults: |
-          {
-            "build": {
-              "mixin": ["coverage-gcc"]
-            }
-          }
-        colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/1ddb69bedfd1f04c2f000e95452f7c24a4d6176b/index.yaml
+    - name: Build
+      run: |
+        . /opt/ros/${{ matrix.ros_distribution }}/setup.sh
+        colcon build --event-handlers console_cohesion+ \
+          --cmake-args -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+    - name: Run tests
+      run: |
+        . /opt/ros/${{ matrix.ros_distribution }}/setup.sh
+        colcon test --event-handlers console_cohesion+ \
+          --return-code-on-test-failure
 
     - id: metrics-reporter
       uses: tier4/ros-metrics-reporter@v0.3
       with:
         artifacts-dir: ${{ env.ARTIFACTS_DIR }}
-        target-dir: ${{ steps.build_and_test.outputs.ros-workspace-directory-name }}
         base-url: ${{ env.BASE_URL }}
         title: ${{ env.TITLE }}
         ros-distro: ${{ env.ROS_DISTRO }}

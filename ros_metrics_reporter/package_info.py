@@ -56,11 +56,8 @@ class PackageInfo:
         package_full_path = self.ros_ws / package_path
         git_ws = package_full_path
         while git_ws != self.ros_ws:
-            print(f"DEBUG: package {package_full_path} in {git_ws}")
-            [print(x) for x in git_ws.iterdir()]
             if (git_ws / ".git").is_dir():
                 rel_package_path = os.path.relpath(package_full_path, git_ws)
-                print(f"DEBUG: relative package {rel_package_path} in {git_ws}")
                 return git_ws, rel_package_path
             git_ws = git_ws.parent
         raise ValueError(
