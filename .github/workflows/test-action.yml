@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ARTIFACTS_DIR: data
-      TARGET_REPO: "ros2/demos"
+      TARGET_REPO: "ros2/geometry2"
 
     strategy:
       fail-fast: false
@@ -69,9 +69,9 @@ jobs:
       run: |
         cd ${{ steps.build_and_test.outputs.ros-workspace-directory-name }}
         source install/setup.bash
-        colcon lcov-result --initial
+        colcon lcov-result --initial --lcov-config-file .lcovrc
         colcon test --event-handlers console_cohesion+ --ctest-args -L gtest
-        colcon lcov-result --verbose
+        colcon lcov-result --lcov-config-file .lcovrc --verbose
         colcon coveragepy-result --verbose --coverage-report-args -m
 
     - name: Generate report
