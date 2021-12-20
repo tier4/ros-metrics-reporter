@@ -55,7 +55,7 @@ jobs:
       with:
         target-ros2-distro: ${{ matrix.ros_distribution }}
         vcs-repo-file-url: ${{ matrix.vcs_file }}
-        colcon-extra-args: --ctest-args -L gtest
+        skip-tests: true
         extra-cmake-args: -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
         colcon-defaults: |
           {
@@ -64,6 +64,14 @@ jobs:
             }
           }
         colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/1ddb69bedfd1f04c2f000e95452f7c24a4d6176b/index.yaml
+
+    - name: Test
+      run: |
+        cd ${{ steps.build_and_test.outputs.ros-workspace-directory-name }}
+        colcon lcov-result --initial
+        colcon test --event-handlers console_cohesion+ --cmake-args -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --ctest-args -L gtest
+        colcon lcov-result --verbose
+        colcon coveragepy-result --verbose --coverage-report-args -m
 
     - name: Generate report
       id: metrics-reporter
