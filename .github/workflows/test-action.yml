@@ -69,7 +69,7 @@ jobs:
       run: |
         cd ${{ steps.build_and_test.outputs.ros-workspace-directory-name }}
         colcon lcov-result --initial
-        colcon test --event-handlers console_cohesion+ --cmake-args -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --ctest-args -L gtest
+        colcon test --event-handlers console_cohesion+ --ctest-args -L gtest
         colcon lcov-result --verbose
         colcon coveragepy-result --verbose --coverage-report-args -m
 
