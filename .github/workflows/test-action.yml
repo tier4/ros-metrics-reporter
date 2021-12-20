@@ -68,6 +68,7 @@ jobs:
     - name: Test
       run: |
         cd ${{ steps.build_and_test.outputs.ros-workspace-directory-name }}
+        source install/setup.bash
         colcon lcov-result --initial
         colcon test --event-handlers console_cohesion+ --ctest-args -L gtest
         colcon lcov-result --verbose
