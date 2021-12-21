@@ -18,13 +18,6 @@ def path_match(target_path: str, pattern_list: List[str]) -> bool:
     return True if matched else False
 
 
-def dir_path(input):
-    if Path(input).is_dir():
-        return Path(input)
-    else:
-        raise NotADirectoryError(input)
-
-
 def run_command(args: List[str], cwd: Path = None) -> bool:
     try:
         subprocess.run(

@@ -5,7 +5,6 @@ from pathlib import Path
 
 from ros_metrics_reporter.coverage_all import *
 from ros_metrics_reporter.coverage_package import *
-from ros_metrics_reporter.util import dir_path
 from ros_metrics_reporter.lizard_all import lizard_all
 from ros_metrics_reporter.lizard_package import lizard_package
 from ros_metrics_reporter.scraping import scraping
@@ -20,7 +19,7 @@ from ros_metrics_reporter.code_activity.code_activity import code_activity
 
 
 def ros_metrics_reporter(args):
-    exclude = args.exclude.split()
+    exclude = args.exclude
     packages = PackageInfo(args.base_dir)
 
     # Initialize coverage
@@ -149,6 +148,17 @@ def ros_metrics_reporter(args):
     )
 
 
+def dir_path(input):
+    if Path(input).is_dir():
+        return Path(input)
+    else:
+        raise NotADirectoryError(input)
+
+
+def space_separated_string(input: str) -> str:
+    return input.split()
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -184,7 +194,9 @@ if __name__ == "__main__":
     parser.add_argument(
         "--extra-cmake-args", help="Extra cmake args", type=str, required=False
     )
-    parser.add_argument("--exclude", help="Exclude path", type=str, required=False)
+    parser.add_argument(
+        "--exclude", help="Exclude path", type=space_separated_string, required=False
+    )
     parser.add_argument("--ccn", help="CCN", type=int, required=True)
     parser.add_argument(
         "--ccn-recommendation", help="CCN recommend value", type=int, required=True
@@ -217,6 +229,12 @@ if __name__ == "__main__":
         help="Github access token",
         type=str,
         default=None,
+    )
+    parser.add_argument(
+        "--test-label",
+        help="Test label",
+        type=space_separated_string,
+        required=False,
     )
 
     args = parser.parse_args()

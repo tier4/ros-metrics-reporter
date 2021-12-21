@@ -79,6 +79,9 @@ inputs:
   github-access-token:
     description: "If the repository to be measured is private, specify a token."
     required: false
+  test-label:
+    description: "If you want to measure the coverage for each test label, specify the label name."
+    required: false
 
 outputs:
   output-dir:
@@ -145,7 +148,8 @@ runs:
           --tidy-config-path=${CODECHECKER_CONFIG_PATH} \
           --tidy-ignore-path=${CODECHECKER_SKIP_LIST} \
           --target-repo="${{ inputs.target-repository }}" \
-          --github-access-token=${{ inputs.github-access-token }}
+          --github-access-token=${{ inputs.github-access-token }} \
+          --test-label="${{ inputs.test-label }}"
       shell: bash
 
     - name: Generate pages
