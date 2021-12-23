@@ -20,8 +20,7 @@ def find_files(directory_list: List[DirectoryBackup], pattern: str) -> List[str]
 class CodeCoverageTaskRunner:
     def __init__(self, args):
         self.base_dir = args.base_dir
-        self.output_dir = args.output_dir / "lcov_result" / self.timestamp
-        self.timestamp = args.timestamp
+        self.output_dir = args.output_dir / "lcov_result" / args.timestamp
         self.test_label = args.test_label
         self.lcovrc = args.lcovrc
         self.exclude = args.exclude
