@@ -69,11 +69,13 @@ class CodeCoverageTaskRunner:
                 backup_build_dirs, f"**/{package.name}/coverage.info"
             )
             calculate_total_coverage(
-                package_coverage_files, self.output_dir / package.name
+                package_coverage_files, self.output_dir / package.name, self.lcovrc
             )
 
         total_coverage_files = find_files(backup_lcov_dirs, "**/total_coverage.info")
-        calculate_total_coverage(total_coverage_files, self.output_dir / "all")
+        calculate_total_coverage(
+            total_coverage_files, self.output_dir / "all", self.lcovrc
+        )
 
     def save_coverage_value(self, output_dir: Path):
         LcovScraping().scraping(
