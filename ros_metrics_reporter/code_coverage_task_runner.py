@@ -55,7 +55,7 @@ class CodeCoverageTaskRunner:
             # Backup directory
             build_dir = DirectoryBackup(self.base_dir / "build").backup()
             backup_build_dirs.append(build_dir)
-            lcov_dir = DirectoryBackup(self.base_dir / "lcov." + label).backup()
+            lcov_dir = DirectoryBackup(self.base_dir / ("lcov." + label)).backup()
             backup_lcov_dirs.append(lcov_dir)
 
             coverage_all.generate_html_report(label)
