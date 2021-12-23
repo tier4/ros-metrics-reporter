@@ -18,12 +18,14 @@ from ros_metrics_reporter.code_activity.code_activity import code_activity
 
 
 def ros_metrics_reporter(args):
-
     packages = PackageInfo(args.base_dir)
+    metrics_dir = args.output_dir / "metrics" / args.timestamp
+    metrics_dir.mkdir(parents=True, exist_ok=True)
 
     # Run code coverage task
     coverage_runner = CodeCoverageTaskRunner(args)
     coverage_runner.run(packages)
+    coverage_runner.save_coverage_value(metrics_dir)
 
     # Measure code metrics for threshold value
     lizard_dir = args.output_dir / "lizard_result" / args.timestamp
@@ -80,10 +82,7 @@ def ros_metrics_reporter(args):
     )
 
     # Scraping
-    metrics_dir = args.output_dir / "metrics" / args.timestamp
-    metrics_dir.mkdir(parents=True, exist_ok=True)
     scraping(
-        lcov_dir=coverage_runner.output_dir,
         lizard_dir=lizard_dir,
         lizard_recommendation_dir=lizard_recommendation_dir,
         output_dir=metrics_dir,

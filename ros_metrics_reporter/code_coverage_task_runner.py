@@ -4,7 +4,9 @@ from ros_metrics_reporter.coverage.coverage_all import CoverageAll
 from ros_metrics_reporter.coverage.coverage_package import CoveragePackage
 from ros_metrics_reporter.package_info import PackageInfo
 from ros_metrics_reporter.util import DirectoryBackup
+from ros_metrics_reporter.scraping.lcov import LcovScraping
 from typing import List
+from pathlib import Path
 
 
 def find_files(directory_list: List[DirectoryBackup], pattern: str) -> List[str]:
@@ -71,8 +73,8 @@ class CodeCoverageTaskRunner:
         total_coverage_files = find_files(backup_lcov_dirs, "**/total_coverage.info")
         calculate_total_coverage(total_coverage_files, self.output_dir / "all")
 
-    def save_coverage_value(self, output_dir):
-        scraping(
+    def save_coverage_value(self, output_dir: Path):
+        LcovScraping().scraping(
             lcov_dir=self.output_dir,
             output_dir=output_dir,
         )
