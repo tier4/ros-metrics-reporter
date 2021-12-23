@@ -3,7 +3,7 @@ from typing import List
 import re
 import bs4
 from pathlib import Path
-from common import save_to_csv
+from ros_metrics_reporter.scraping.common import save_to_csv
 
 
 class LcovScraping:
