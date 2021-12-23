@@ -6,7 +6,7 @@ from pathlib import Path
 from ros_metrics_reporter.code_coverage_task_runner import CodeCoverageTaskRunner
 from ros_metrics_reporter.lizard_all import lizard_all
 from ros_metrics_reporter.lizard_package import lizard_package
-from ros_metrics_reporter.scraping import scraping
+from ros_metrics_reporter.scraping_task import scraping
 from ros_metrics_reporter.create_link import create_link
 from ros_metrics_reporter.create_static_page import create_static_page
 from ros_metrics_reporter.clang_tidy import clang_tidy
