@@ -3,9 +3,6 @@
 from pathlib import Path
 from typing import List
 import shlex
-import os
-
-from numpy import append
 
 from ros_metrics_reporter.util import run_command
 

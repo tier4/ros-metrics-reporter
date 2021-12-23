@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import List
 
-import run_lcov
+import ros_metrics_reporter.coverage.run_lcov as run_lcov
 
 
 class CoverageAll:

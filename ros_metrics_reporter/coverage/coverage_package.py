@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import List
 
 from ros_metrics_reporter.util import path_match
-import run_lcov
+import ros_metrics_reporter.coverage.run_lcov as run_lcov
 from ros_metrics_reporter.package_info import Package, PackageInfo
 
 
