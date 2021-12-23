@@ -1,4 +1,3 @@
-from os import stat
 from typing import List
 import re
 import bs4
@@ -33,7 +32,7 @@ class LcovScraping:
 
         return rate_list
 
-    def scraping(lcov_dir: Path, output_dir: Path):
+    def scraping(self, lcov_dir: Path, output_dir: Path):
         lcov_index_list = list(lcov_dir.glob("*/index.html"))
 
         for html in lcov_index_list:
