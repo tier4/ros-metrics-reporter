@@ -3,8 +3,7 @@
 import argparse
 from pathlib import Path
 
-from ros_metrics_reporter.coverage_all import *
-from ros_metrics_reporter.coverage_package import *
+from ros_metrics_reporter.code_coverage_task_runner import CodeCoverageTaskRunner
 from ros_metrics_reporter.lizard_all import lizard_all
 from ros_metrics_reporter.lizard_package import lizard_package
 from ros_metrics_reporter.scraping import scraping
@@ -19,19 +18,12 @@ from ros_metrics_reporter.code_activity.code_activity import code_activity
 
 
 def ros_metrics_reporter(args):
-    exclude = args.exclude
+
     packages = PackageInfo(args.base_dir)
 
-    # Initialize coverage
-    lcov_dir = args.output_dir / "lcov_result" / args.timestamp
-    coverage_all = CoverageAll(
-        base_dir=args.base_dir, output_dir=lcov_dir, lcovrc=args.lcovrc
-    )
-    coverage_package = CoveragePackage(output_dir=lcov_dir, lcovrc=args.lcovrc)
-
-    # Generate HTML report
-    coverage_package.generate_html_report(package_info=packages, exclude=exclude)
-    coverage_all.generate_html_report(exclude=exclude)
+    # Run code coverage task
+    coverage_runner = CodeCoverageTaskRunner(args)
+    coverage_runner.run(packages)
 
     # Measure code metrics for threshold value
     lizard_dir = args.output_dir / "lizard_result" / args.timestamp
@@ -42,13 +34,13 @@ def ros_metrics_reporter(args):
         ccn=args.ccn,
         nloc=args.nloc,
         arguments=args.arguments,
-        exclude=exclude,
+        exclude=args.exclude,
     )
     lizard_package(
         package_info=packages,
         output_dir=lizard_dir,
         gh_action_dir=args.action_dir,
-        exclude=exclude,
+        exclude=args.exclude,
         ccn=args.ccn,
         nloc=args.nloc,
         arguments=args.arguments,
@@ -65,13 +57,13 @@ def ros_metrics_reporter(args):
         ccn=args.ccn_recommendation,
         nloc=args.nloc_recommendation,
         arguments=args.arguments_recommendation,
-        exclude=exclude,
+        exclude=args.exclude,
     )
     lizard_package(
         package_info=packages,
         output_dir=lizard_recommendation_dir,
         gh_action_dir=args.action_dir,
-        exclude=exclude,
+        exclude=args.exclude,
         ccn=args.ccn_recommendation,
         nloc=args.nloc_recommendation,
         arguments=args.arguments_recommendation,
@@ -91,7 +83,7 @@ def ros_metrics_reporter(args):
     metrics_dir = args.output_dir / "metrics" / args.timestamp
     metrics_dir.mkdir(parents=True, exist_ok=True)
     scraping(
-        lcov_dir=lcov_dir,
+        lcov_dir=coverage_runner.output_dir,
         lizard_dir=lizard_dir,
         lizard_recommendation_dir=lizard_recommendation_dir,
         output_dir=metrics_dir,
