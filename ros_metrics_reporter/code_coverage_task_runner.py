@@ -33,6 +33,7 @@ class CodeCoverageTaskRunner:
             exclude=self.exclude,
         )
         coverage_package = CoveragePackage(
+            base_dir=self.base_dir,
             package_info=packages,
             output_dir=self.output_dir,
             lcovrc=self.lcovrc,
