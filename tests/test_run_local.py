@@ -12,7 +12,7 @@ def setup():
     res = subprocess.run(
         "vcs import . < ros-metrics-reporter-galactic.repos",
         shell=True,
-        cwd=ros_ws,
+        cwd=root_path,
     )
     if res.returncode != 0:
         print("Failed to build and test")
