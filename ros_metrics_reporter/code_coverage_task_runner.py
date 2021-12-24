@@ -12,8 +12,9 @@ from pathlib import Path
 def find_files(directory_list: List[DirectoryBackup], pattern: str) -> List[str]:
     file_list = []
     for directory in directory_list:
-        result = directory.backup_path.glob(pattern)
-        file_list.append(list(result))
+        result = [*directory.backup_path.glob(pattern)]
+        if result:
+            file_list.extend(result)
     return file_list
 
 

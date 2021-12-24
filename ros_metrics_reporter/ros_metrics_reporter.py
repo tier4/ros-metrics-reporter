@@ -2,6 +2,7 @@
 
 import argparse
 from pathlib import Path
+from typing import List
 
 from ros_metrics_reporter.code_coverage_task_runner import CodeCoverageTaskRunner
 from ros_metrics_reporter.lizard_all import lizard_all
@@ -146,7 +147,7 @@ def dir_path(input):
         raise NotADirectoryError(input)
 
 
-def space_separated_string(input: str) -> str:
+def space_separated_string(input: str) -> List[str]:
     return input.split()
 
 

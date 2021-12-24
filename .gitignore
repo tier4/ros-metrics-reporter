@@ -133,3 +133,4 @@ dmypy.json
 /hugo-site/
 /output/
 /hugo-test/
+/reports/
