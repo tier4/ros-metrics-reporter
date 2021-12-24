@@ -69,6 +69,9 @@ def calculate_total_coverage(
     coverage_files: List[Path], output_path: Path, lcovrc: Path
 ):
     """ Calculate total coverage """
+    if not output_path.parent.exists():
+        output_path.parent.mkdir(parents=True)
+
     append_option = ""
     for coverage_file in coverage_files:
         append_option += f"-a {str(coverage_file)} "
