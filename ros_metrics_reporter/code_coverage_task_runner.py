@@ -47,18 +47,18 @@ class CodeCoverageTaskRunner:
             coverage_package.generate_html_reports()
             return
 
-        backup_build_dirs = []
-        backup_lcov_dirs = []
+        backup_package_artifacts = []
+        backup_total_artifacts = []
         for label in self.test_label:
             run_test(self.base_dir, self.lcovrc, label)
 
             # Backup directory
             build_dir = DirectoryBackup(self.base_dir / "build")
             build_dir.backup()
-            backup_build_dirs.append(build_dir)
+            backup_package_artifacts.append(build_dir)
             lcov_dir = DirectoryBackup(self.base_dir / ("lcov." + label))
             lcov_dir.backup()
-            backup_lcov_dirs.append(lcov_dir)
+            backup_total_artifacts.append(lcov_dir)
 
             coverage_all.generate_html_report(label)
             coverage_package.generate_html_reports(label)
@@ -66,13 +66,15 @@ class CodeCoverageTaskRunner:
         # Merge coverage result to calculate total coverage
         for package in packages:
             package_coverage_files = find_files(
-                backup_build_dirs, f"**/{package.name}/coverage.info"
+                backup_package_artifacts, f"**/{package.name}/coverage.info"
             )
             calculate_total_coverage(
                 package_coverage_files, self.output_dir / package.name, self.lcovrc
             )
 
-        total_coverage_files = find_files(backup_lcov_dirs, "**/total_coverage.info")
+        total_coverage_files = find_files(
+            backup_total_artifacts, "**/total_coverage.info"
+        )
         calculate_total_coverage(
             total_coverage_files, self.output_dir / "all", self.lcovrc
         )

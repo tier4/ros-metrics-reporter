@@ -41,11 +41,18 @@ class CoveragePackage:
         return False
 
     def __generate_html_report(self, output_dir: Path, package: Package):
+        coverage_info_path = self.__base_dir / "build" / package.name / "coverage.info"
+
+        if not coverage_info_path.exists():
+            print(
+                f"Coverage report for {package.name} does not exist: {coverage_info_path}"
+            )
+            return
+
         print(f"Generating Coverage report for {package.name}...")
         if not output_dir.exists():
             output_dir.mkdir(parents=True)
 
-        coverage_info_path = self.__base_dir / "build" / package.name / "coverage.info"
         filtered_path = run_lcov.filter_report(
             coverage_info_path=coverage_info_path,
             base_dir=self.__base_dir,

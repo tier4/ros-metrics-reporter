@@ -16,12 +16,16 @@ class CoverageAll:
         self.__exclude = exclude
 
     def __generate_html_report(self, output_dir: Path, coverage_info_dir_name: str):
-        if not output_dir.exists():
-            output_dir.mkdir(parents=True)
-
         coverage_info_path = (
             self.__base_dir / coverage_info_dir_name / "total_coverage.info"
         )
+
+        if not coverage_info_path.exists():
+            return
+
+        if not output_dir.exists():
+            output_dir.mkdir(parents=True)
+
         filtered_path = run_lcov.filter_report(
             coverage_info_path=coverage_info_path,
             base_dir=self.__base_dir,
