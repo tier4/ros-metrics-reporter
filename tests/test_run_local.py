@@ -21,12 +21,12 @@ def setup():
 
 def build():
     res = subprocess.run(
-        'source /opt/ros/galactic/setup.bash && colcon build --symlink-install --cmake-args -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --mixin coverage-gcc',
+        '. /opt/ros/galactic/setup.sh && colcon build --symlink-install --cmake-args -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --mixin coverage-gcc',
         shell=True,
         cwd=ros_ws,
     )
     if res.returncode != 0:
-        print("Failed to build and test")
+        print("Failed to build")
         exit(1)
 
 
