@@ -16,6 +16,7 @@ from ros_metrics_reporter.colcon_directory import *
 from ros_metrics_reporter.plot_timeseries import generate_metrics_graph
 from ros_metrics_reporter.package_info import PackageInfo
 from ros_metrics_reporter.code_activity.code_activity import code_activity
+from ros_metrics_reporter.static_page_input import StaticPageInput
 
 
 def ros_metrics_reporter(args):
@@ -97,7 +98,7 @@ def ros_metrics_reporter(args):
         ccn_recommendation=args.ccn_recommendation,
         nloc_recommendation=args.nloc_recommendation,
         arguments_recommendation=args.arguments_recommendation,
-        metrics_dir=metrics_dir,
+        output_dir=metrics_dir,
     )
 
     # Create symbolic link
@@ -127,7 +128,7 @@ def ros_metrics_reporter(args):
     # Create static page
     hugo_template_dir = args.action_dir / "template" / "hugo"
 
-    create_static_page(
+    static_page_input = StaticPageInput(
         input_dir=metrics_dir.parent,
         hugo_root_dir=args.hugo_root_dir,
         hugo_template_dir=hugo_template_dir,
@@ -137,6 +138,11 @@ def ros_metrics_reporter(args):
         base_url=args.base_url,
         title=args.title,
         contributors=contributors,
+        test_label=args.test_label,
+    )
+
+    create_static_page(
+        input=static_page_input,
     )
 
 

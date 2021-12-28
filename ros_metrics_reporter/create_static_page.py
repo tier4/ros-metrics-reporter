@@ -1,5 +1,6 @@
 #! /usr/bin/env python3
 
+from dataclasses import dataclass
 from pathlib import Path
 from distutils import dir_util
 from typing import List, Dict
@@ -7,6 +8,7 @@ from typing import List, Dict
 from ros_metrics_reporter.util import read_jinja2_template
 from ros_metrics_reporter.create_markdown import run_markdown_generator
 from ros_metrics_reporter.read_dataframe import read_dataframe
+from ros_metrics_reporter.static_page_input import StaticPageInput
 
 
 def copy_artifacts(src: Path, dest: Path):
@@ -19,82 +21,59 @@ def copy_artifacts(src: Path, dest: Path):
 
 
 def copy_html(
-    hugo_root_dir: Path,
-    lcov_result_path: Path,
-    lizard_result_path: Path,
-    tidy_result_path: Path,
+    input: StaticPageInput,
 ):
     # Copy artifacts
-    lcov_dest = hugo_root_dir / "static" / "lcov"
-    copy_artifacts(lcov_result_path, lcov_dest)
+    lcov_dest = input.hugo_root_dir / "static" / "lcov"
+    copy_artifacts(input.lcov_result_path, lcov_dest)
 
-    lizard_dest = hugo_root_dir / "static" / "lizard"
-    copy_artifacts(lizard_result_path, lizard_dest)
+    lizard_dest = input.hugo_root_dir / "static" / "lizard"
+    copy_artifacts(input.lizard_result_path, lizard_dest)
 
-    tidy_dest = hugo_root_dir / "static" / "tidy"
-    dir_util.copy_tree(tidy_result_path, str(tidy_dest))
+    tidy_dest = input.hugo_root_dir / "static" / "tidy"
+    dir_util.copy_tree(input.tidy_result_path, str(tidy_dest))
 
 
 def replace_hugo_config(
-    hugo_root_dir: Path,
-    base_url: str,
-    title: str,
+    input: StaticPageInput,
 ):
-    config_file = hugo_root_dir / "config.toml"
+    config_file = input.hugo_root_dir / "config.toml"
     template = read_jinja2_template(config_file)
 
     with open(config_file, "w") as f:
         f.write(
             template.render(
                 {
-                    "base_url": base_url,
-                    "title": title,
+                    "base_url": input.base_url,
+                    "title": input.title,
                 }
             )
         )
 
 
-def generate_markdown(
-    base_path: Path,
-    hugo_root_dir: Path,
-    hugo_template_dir: Path,
-    packages: str,
-    contributors: Dict[str, List],
-):
+def generate_markdown(input: StaticPageInput, packages: str):
     # Create markdown from template
     run_markdown_generator(
-        hugo_template_dir, hugo_root_dir, base_path / "latest", packages, contributors
+        input.hugo_template_dir,
+        input.hugo_root_dir,
+        input.input_dir / "latest",
+        packages,
+        input,
     )
 
 
 def create_static_page(
-    input_dir: Path,
-    hugo_root_dir: Path,
-    hugo_template_dir: Path,
-    lcov_result_path: Path,
-    lizard_result_path: Path,
-    tidy_result_path: Path,
-    base_url: str,
-    title: str,
-    contributors: Dict[str, List],
+    input: StaticPageInput,
 ):
     copy_html(
-        hugo_root_dir,
-        lcov_result_path,
-        lizard_result_path,
-        tidy_result_path,
+        input=input,
     )
     replace_hugo_config(
-        hugo_root_dir,
-        base_url,
-        title,
+        input=input,
     )
 
-    df = read_dataframe(input_dir)
+    df = read_dataframe(input.input_dir)
     generate_markdown(
-        input_dir,
-        hugo_root_dir,
-        hugo_template_dir,
-        df["package_name"].unique(),
-        contributors,
+        input=input,
+        packages=df["package_name"].unique(),
     )

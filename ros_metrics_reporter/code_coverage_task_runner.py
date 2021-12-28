@@ -7,6 +7,8 @@ from ros_metrics_reporter.util import DirectoryBackup
 from ros_metrics_reporter.scraping.lcov import LcovScraping
 from typing import List
 from pathlib import Path
+from ros_metrics_reporter.coverage.coverage_data import *
+from ros_metrics_reporter.coverage.read_config import read_lcovrc
 
 
 def find_files(directory_list: List[DirectoryBackup], pattern: str) -> List[str]:
@@ -25,29 +27,15 @@ class CodeCoverageTaskRunner:
         self.test_label = args.test_label
         self.lcovrc = args.lcovrc
         self.exclude = args.exclude
+        self.coverage_data = CoverageData(threshold=read_lcovrc(self.lcovrc))
 
-    def run(self, packages: PackageInfo):
-        coverage_all = CoverageAll(
-            base_dir=self.base_dir,
-            output_dir=self.output_dir,
-            lcovrc=self.lcovrc,
-            exclude=self.exclude,
-        )
-        coverage_package = CoveragePackage(
-            base_dir=self.base_dir,
-            package_info=packages,
-            output_dir=self.output_dir,
-            lcovrc=self.lcovrc,
-            exclude=self.exclude,
-        )
+    def __run_total_coverage(self):
+        run_test(self.base_dir, self.lcovrc)
 
-        if not self.test_label:
-            run_test(self.base_dir, self.lcovrc)
+        self.coverage_all.generate_html_report()
+        self.coverage_package.generate_html_reports()
 
-            coverage_all.generate_html_report()
-            coverage_package.generate_html_reports()
-            return
-
+    def __run_label_coverage(self, packages: PackageInfo):
         backup_package_artifacts = []
         backup_total_artifacts = []
         for label in self.test_label:
@@ -61,8 +49,8 @@ class CodeCoverageTaskRunner:
             lcov_dir.backup()
             backup_total_artifacts.append(lcov_dir)
 
-            coverage_all.generate_html_report(label)
-            coverage_package.generate_html_reports(label)
+            self.coverage_all.generate_html_report(label)
+            self.coverage_package.generate_html_reports(label)
 
         # Merge coverage result to calculate total coverage
         for package in packages:
@@ -75,7 +63,7 @@ class CodeCoverageTaskRunner:
             calculate_total_coverage(
                 package_coverage_files, coverage_info_path, self.lcovrc
             )
-        coverage_package.generate_html_reports()
+        self.coverage_package.generate_html_reports()
 
         total_coverage_files = find_files(
             backup_total_artifacts, "**/total_coverage.info"
@@ -84,10 +72,43 @@ class CodeCoverageTaskRunner:
         calculate_total_coverage(
             total_coverage_files, total_coverage_info_path, self.lcovrc
         )
-        coverage_all.generate_html_report()
+        self.coverage_all.generate_html_report()
+
+    def run(self, packages: PackageInfo):
+        self.coverage_all = CoverageAll(
+            base_dir=self.base_dir,
+            output_dir=self.output_dir,
+            lcovrc=self.lcovrc,
+            exclude=self.exclude,
+        )
+        self.coverage_package = CoveragePackage(
+            base_dir=self.base_dir,
+            package_info=packages,
+            output_dir=self.output_dir,
+            lcovrc=self.lcovrc,
+            exclude=self.exclude,
+        )
+
+        if not self.test_label:
+            self.__run_total_coverage()
+        else:
+            self.__run_label_coverage(packages)
 
     def save_coverage_value(self, output_dir: Path):
-        LcovScraping().scraping(
+        lcov_scraping = LcovScraping()
+
+        # Save coverage value for total coverage
+        coverage_list = lcov_scraping.scraping(
             lcov_dir=self.output_dir,
             output_dir=output_dir,
         )
+        self.coverage_data.add_coverages(coverage_list)
+
+        # Save coverage value for labeled coverage
+        for label in self.test_label:
+            coverage_list = lcov_scraping.scraping(
+                lcov_dir=self.output_dir,
+                output_dir=output_dir,
+                test_label=label,
+            )
+            self.coverage_data.add_coverages(coverage_list)

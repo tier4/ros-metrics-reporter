@@ -100,15 +100,15 @@ def test_ros_metrics_reporter():
     assert (
         args.hugo_root_dir / "static" / "plotly" / "all" / "code_frequency_graph.json"
     ).is_file()
-    assert (
-        args.hugo_root_dir / "static" / "plotly" / "all" / "coverage.json"
-    ).is_file()
     assert (args.hugo_root_dir / "static" / "plotly" / "all" / "loc.json").is_file()
     assert (
         args.hugo_root_dir / "static" / "plotly" / "all" / "parameter.json"
     ).is_file()
     assert (args.hugo_root_dir / "static" / "plotly" / "all" / "token.json").is_file()
     for label in args.test_label:
+        assert (
+            args.hugo_root_dir / "static" / "plotly" / "all" / f"coverage.{label}.json"
+        ).is_file()
         assert (
             args.hugo_root_dir / "static" / "lcov" / "all" / label / "index.html"
         ).is_file()

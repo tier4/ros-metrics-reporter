@@ -4,18 +4,12 @@ import pandas as pd
 from pandas.core.frame import DataFrame
 import plotly.express as px
 from pathlib import Path
+from typing import List, Dict
 
 from ros_metrics_reporter.read_dataframe import read_dataframe
 
 
-plot_name_list = [
-    {
-        "coverage": {
-            "Lines": "Line coverage",
-            "Functions": "Function coverage",
-            "Branches": "Branch coverage",
-        }
-    },
+default_plot_name_list = [
     {
         "ccn": {
             "CCN(worst)": "CCN (Worst case)",
@@ -46,12 +40,42 @@ plot_name_list = [
 ]
 
 
+def generate_plot_name_list(df: DataFrame) -> List[Dict]:
+    if df["label"].unique().size == 1:
+        return default_plot_name_list
+
+    plot_name_list = default_plot_name_list
+    for test_label in df["label"].unique():
+        if pd.isnull(test_label):
+            continue
+
+        plot_name_list.append(
+            {
+                "coverage."
+                + test_label: {
+                    "Lines": "Line coverage",
+                    "Functions": "Function coverage",
+                    "Branches": "Branch coverage",
+                }
+            }
+        )
+    return plot_name_list
+
+
 def plot_timeseries(df: DataFrame, output_path: Path):
     """Plot time-series and write to json"""
-    for plot_group in plot_name_list:
+    for plot_group in generate_plot_name_list(df):
         for plot_type, plot_items in plot_group.items():
+
             key_list = list(plot_items.keys())
-            df_filtered = df.query("type in @key_list")
+            if plot_type.startswith("coverage"):
+                # Temp: Plot coverage
+                label = plot_type.split(".")[1]
+                df_filtered = df.query("type in @key_list and label == @label")
+            else:
+                # Temp: Plot metrics
+                df_filtered = df.query("type in @key_list")
+
             if df_filtered.empty:
                 continue
 
