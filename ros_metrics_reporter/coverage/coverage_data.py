@@ -1,6 +1,8 @@
 from typing import List, Dict
-import dataclasses
+from dataclasses import dataclass, field
 import enum
+from pathlib import Path
+import json
 
 
 class CoverageKeys(enum.Enum):
@@ -9,7 +11,7 @@ class CoverageKeys(enum.Enum):
     Branches = "Branches"
 
 
-@dataclasses.dataclass
+@dataclass
 class Coverage:
     package: str = ""
     label: str = ""
@@ -18,7 +20,7 @@ class Coverage:
     branch: float = 0.0
 
 
-@dataclasses.dataclass
+@dataclass
 class Threshold:
     high: float = 0.0
     med: float = 0.0
@@ -29,11 +31,15 @@ class Threshold:
             "Coverage(Med)": self.med,
         }
 
+    def write(self, file: Path):
+        with open(file, "w") as f:
+            f.write(json.dumps(self.to_dict(), indent=4))
 
-@dataclasses.dataclass
+
+@dataclass
 class CoverageData:
-    coverage: List[Coverage] = dataclasses.field(default_factory=list)
-    threshold: Threshold = dataclasses.field(default_factory=Threshold)
+    coverage: List[Coverage] = field(default_factory=list)
+    threshold: Threshold = field(default_factory=Threshold)
 
     def add_threshold(self, high, med):
         self.threshold.high = high
