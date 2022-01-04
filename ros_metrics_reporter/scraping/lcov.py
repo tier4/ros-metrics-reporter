@@ -2,8 +2,11 @@ from typing import List
 import re
 import bs4
 from pathlib import Path
-from ros_metrics_reporter.coverage.coverage_data import Coverage, CoverageKeys
-from ros_metrics_reporter.scraping.common import save_to_csv, save_to_json
+from ros_metrics_reporter.coverage.coverage_data import (
+    Coverage,
+    CoverageKeys,
+    CoverageValue,
+)
 
 
 class LcovScraping:
@@ -37,20 +40,19 @@ class LcovScraping:
         self, package_name: str, coverage_list: List[dict]
     ) -> Coverage:
         """List to Coverage"""
-        coverage = Coverage(label=coverage_list[0]["label"])
-        coverage.package = package_name
+        coverage = Coverage(package=package_name)
+        coverage_value = CoverageValue(label=coverage_list[0]["label"])
         for item in coverage_list:
-            if item["type"] == CoverageKeys.Lines:
-                coverage.lines = item["value"]
-            elif item["type"] == CoverageKeys.Functions:
-                coverage.functions = item["value"]
-            elif item["type"] == CoverageKeys.Branches:
-                coverage.branches = item["value"]
+            if item["type"] == CoverageKeys.Lines.value:
+                coverage_value.line = float(item["value"])
+            elif item["type"] == CoverageKeys.Functions.value:
+                coverage_value.function = float(item["value"])
+            elif item["type"] == CoverageKeys.Branches.value:
+                coverage_value.branch = float(item["value"])
+        coverage.value.append(coverage_value)
         return coverage
 
-    def scraping(
-        self, lcov_dir: Path, output_dir: Path, test_label: str = ""
-    ) -> List[Coverage]:
+    def scraping(self, lcov_dir: Path, test_label: str = "") -> List[Coverage]:
         """Scraping lcov result"""
         if test_label:
             search_pattern = f"**/{test_label}/index.html"
@@ -63,30 +65,15 @@ class LcovScraping:
         coverage_list = []
 
         for html in lcov_index_list:
+            # Add coverage type
+            coverages = LcovScraping.__get_lcov_coverage(html)
+            for coverage in coverages:
+                coverage["label"] = test_label_str
+
             if test_label:
                 package_name = html.parent.parent.name
             else:
                 package_name = html.parent.name
-            output_csv_dir = output_dir / package_name
-            output_csv_dir.mkdir(exist_ok=True, parents=True)
-
-            coverages = LcovScraping.__get_lcov_coverage(html)
-
-            # Add coverage type
-            for coverage in coverages:
-                coverage["label"] = test_label_str
-
-            filename = output_csv_dir / "coverage.csv"
-            if filename.exists():
-                write_mode = "a"
-            else:
-                write_mode = "w"
-
-            save_to_csv(filename, coverages[0].keys(), coverages, write_mode)
-
-            filename = output_csv_dir / "coverage.json"
-            save_to_json(filename, coverages)
-
             coverage_list.append(self.__list_to_coverage(package_name, coverages))
 
         return coverage_list

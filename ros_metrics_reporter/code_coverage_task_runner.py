@@ -95,23 +95,22 @@ class CodeCoverageTaskRunner:
             self.__run_label_coverage(packages)
 
     def save_coverage_value(self, output_dir: Path):
-        # Save threshold value
-        self.coverage_data.threshold.write(output_dir / "lcov_threshold.json")
-
         lcov_scraping = LcovScraping()
 
         # Save coverage value for total coverage
-        coverage_list = lcov_scraping.scraping(
-            lcov_dir=self.html_dir,
-            output_dir=output_dir,
-        )
+        coverage_list = lcov_scraping.scraping(self.html_dir)
         self.coverage_data.add_coverages(coverage_list)
 
         # Save coverage value for labeled coverage
         for label in self.test_label:
             coverage_list = lcov_scraping.scraping(
                 lcov_dir=self.html_dir,
-                output_dir=output_dir,
                 test_label=label,
             )
             self.coverage_data.add_coverages(coverage_list)
+
+        # Save coverage value
+        self.coverage_data.save_coverage(output_dir)
+
+        # Save threshold value
+        self.coverage_data.save_threshold_value(output_dir / "lcov_threshold.json")
