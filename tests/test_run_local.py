@@ -86,10 +86,10 @@ def test_ros_metrics_reporter():
 
     # Check data files
     assert (
-        args.output_dir / "metrics" / args.timestamp / "all" / "coverage.csv"
+        args.output_dir / "metrics" / args.timestamp / "all" / "coverage.json"
     ).stat().st_size > 0
     assert (
-        args.output_dir / "metrics" / args.timestamp / "all" / "lizard.csv"
+        args.output_dir / "metrics" / args.timestamp / "all" / "lizard.json"
     ).stat().st_size > 0
 
     # Check gh-pages files
@@ -100,7 +100,7 @@ def test_ros_metrics_reporter():
     assert (
         args.hugo_root_dir / "static" / "plotly" / "all" / "code_frequency_graph.json"
     ).is_file()
-    assert (args.hugo_root_dir / "static" / "plotly" / "all" / "loc.json").is_file()
+    assert (args.hugo_root_dir / "static" / "plotly" / "all" / "nloc.json").is_file()
     assert (
         args.hugo_root_dir / "static" / "plotly" / "all" / "parameter.json"
     ).is_file()

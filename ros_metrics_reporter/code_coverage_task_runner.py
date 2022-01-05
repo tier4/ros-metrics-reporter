@@ -9,6 +9,7 @@ from typing import List
 from pathlib import Path
 from ros_metrics_reporter.coverage.coverage_data import *
 from ros_metrics_reporter.coverage.read_config import read_lcovrc
+from uuid import uuid4
 
 
 def find_files(directory_list: List[DirectoryBackup], pattern: str) -> List[str]:
@@ -23,7 +24,8 @@ def find_files(directory_list: List[DirectoryBackup], pattern: str) -> List[str]
 class CodeCoverageTaskRunner:
     def __init__(self, args):
         self.base_dir = args.base_dir
-        self.output_dir = args.output_dir / "lcov_result" / args.timestamp
+        self.build_dir = self.base_dir / "build"
+        self.html_dir = self.base_dir / str(uuid4())
         self.test_label = args.test_label
         self.lcovrc = args.lcovrc
         self.exclude = args.exclude
@@ -42,7 +44,7 @@ class CodeCoverageTaskRunner:
             run_test(self.base_dir, self.lcovrc, label)
 
             # Backup directory
-            build_dir = DirectoryBackup(self.base_dir / "build")
+            build_dir = DirectoryBackup(self.build_dir)
             build_dir.backup()
             backup_package_artifacts.append(build_dir)
             lcov_dir = DirectoryBackup(self.base_dir / ("lcov." + label))
@@ -57,9 +59,7 @@ class CodeCoverageTaskRunner:
             package_coverage_files = find_files(
                 backup_package_artifacts, f"**/{package.name}/coverage.info"
             )
-            coverage_info_path = (
-                self.base_dir / "build" / package.name / "coverage.info"
-            )
+            coverage_info_path = self.build_dir / package.name / "coverage.info"
             calculate_total_coverage(
                 package_coverage_files, coverage_info_path, self.lcovrc
             )
@@ -77,14 +77,14 @@ class CodeCoverageTaskRunner:
     def run(self, packages: PackageInfo):
         self.coverage_all = CoverageAll(
             base_dir=self.base_dir,
-            output_dir=self.output_dir,
+            output_dir=self.html_dir,
             lcovrc=self.lcovrc,
             exclude=self.exclude,
         )
         self.coverage_package = CoveragePackage(
             base_dir=self.base_dir,
             package_info=packages,
-            output_dir=self.output_dir,
+            output_dir=self.html_dir,
             lcovrc=self.lcovrc,
             exclude=self.exclude,
         )
@@ -98,17 +98,19 @@ class CodeCoverageTaskRunner:
         lcov_scraping = LcovScraping()
 
         # Save coverage value for total coverage
-        coverage_list = lcov_scraping.scraping(
-            lcov_dir=self.output_dir,
-            output_dir=output_dir,
-        )
+        coverage_list = lcov_scraping.scraping(self.html_dir)
         self.coverage_data.add_coverages(coverage_list)
 
         # Save coverage value for labeled coverage
         for label in self.test_label:
             coverage_list = lcov_scraping.scraping(
-                lcov_dir=self.output_dir,
-                output_dir=output_dir,
+                lcov_dir=self.html_dir,
                 test_label=label,
             )
             self.coverage_data.add_coverages(coverage_list)
+
+        # Save coverage value
+        self.coverage_data.save_coverage(output_dir)
+
+        # Save threshold value
+        self.coverage_data.save_threshold_value(output_dir / "lcov_threshold.json")

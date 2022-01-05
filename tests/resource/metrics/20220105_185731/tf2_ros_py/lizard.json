@@ -1,0 +1,27 @@
+{
+  "package": "tf2_ros_py",
+  "worst_value": {
+    "ccn": 9,
+    "nloc": 42,
+    "parameter": 9,
+    "token": 198
+  },
+  "average_value": {
+    "ccn": 2.1,
+    "nloc": 14.0,
+    "parameter": 3.5,
+    "token": 59.5
+  },
+  "over_threshold_count": {
+    "ccn": 0,
+    "nloc": 0,
+    "parameter": 7,
+    "token": 0
+  },
+  "over_recommendation_count": {
+    "ccn": 1,
+    "nloc": 0,
+    "parameter": 0,
+    "token": 0
+  }
+}

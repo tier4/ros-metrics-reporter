@@ -4,20 +4,16 @@ from distutils import dir_util
 import shutil
 from pathlib import Path
 from typing import Dict, List
-import csv
-from enum import Enum
 from datetime import datetime
+from ros_metrics_reporter.metrics.metrics_data import MetricsDataKeys, MetricsValueKeys
+from ros_metrics_reporter.package_info import PackageInfo
 
 from ros_metrics_reporter.util import read_jinja2_template
 from ros_metrics_reporter.coverage.coverage_data import CoverageKeys
 from ros_metrics_reporter.static_page_input import StaticPageInput
-
-
-class Color(Enum):
-    RED = "D9634C"
-    YELLOW = "D6AF22"
-    GREEN = "4FC921"
-    GREY = "828282"
+import ros_metrics_reporter.coverage.coverage_data as coverage_data
+import ros_metrics_reporter.metrics.metrics_data as metrics_data
+from ros_metrics_reporter.color import Color
 
 
 def add_package_link(package_name: str) -> str:
@@ -59,181 +55,93 @@ def convert_color_cell(message: str, color_code: Color) -> str:
         return template.replace("MESSAGE", message).replace("COLOR", "LegendNA")
 
 
-def read_lcov_result(file: Path, type: str) -> tuple:
-    label_color = {
-        "None": Color.GREY,
-        "Lo": Color.RED,
-        "Med": Color.YELLOW,
-        "Hi": Color.GREEN,
-    }
-
-    if not file.exists():
-        return "N/A", label_color["None"]
-
-    with open(file) as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            if row["type"] == type and row["label"] == "all":
-                return row["value"], label_color[row["signal"]]
-    return "N/A", label_color["None"]
-
-
-def lizard_color(
-    type: str, value: float, recommend_value: int, threshold: int
-) -> Color:
-    """Return the color of the lizard result.
-
-    Args:
-        type: The type of the metric.
-        value: The value of the metric.
-        recommend_value: The recommended value of the metric.
-        threshold: The threshold of the metric.
-
-    Returns:
-        The color of the lizard result.
-
-    >>> lizard_color("worst", 2, 1, 1)
-    <Color.RED: 'D9634C'>
-    >>> lizard_color("worst", 2, 1, 2)
-    <Color.YELLOW: 'D6AF22'>
-    >>> lizard_color("worst", 1, 1, 1)
-    <Color.GREEN: '4FC921'>
-    >>> lizard_color("warning", 0, 1, 1)
-    <Color.GREEN: '4FC921'>
-    >>> lizard_color("warning", 1, 1, 1)
-    <Color.RED: 'D9634C'>
-    """
-    if "worst" in type:
-        if value > threshold:
-            return Color.RED
-        elif value > recommend_value:
-            return Color.YELLOW
-        else:
-            return Color.GREEN
-    else:
-        if value == 0:
-            return Color.GREEN
-        else:
-            return Color.RED
-
-
-def read_lizard_result(file: Path) -> Dict[str, float]:
-    if not file.exists():
-        return {}
-
-    with open(file) as f:
-        reader = csv.DictReader(f)
-        return {x["type"]: float(x["value"]) for x in reader}
-
-
-def update_legend_dict(legend_dict: Dict[str, str]) -> Dict[str, str]:
-    name_map = {
-        "coverage_hi": "Coverage(Hi)",
-        "coverage_med": "Coverage(Med)",
-        "ccn_recommendation": "CCN(recommendation)",
-        "loc_recommendation": "LOC(recommendation)",
-        "parameter_recommendation": "Parameter(recommendation)",
-        "ccn_threshold": "CCN(threshold)",
-        "loc_threshold": "LOC(threshold)",
-        "parameter_threshold": "Parameter(threshold)",
-    }
-
+def convert_legend(
+    coverage_thresold: coverage_data.Threshold, metrics_thresold: metrics_data.Threshold
+) -> Dict[str, str]:
     return {
-        key: legend_dict[value]
-        for key, value in name_map.items()
-        if value in legend_dict
+        "coverage_hi": coverage_thresold.high,
+        "coverage_med": coverage_thresold.med,
+        "ccn_recommendation": metrics_thresold.recommendation_value.ccn,
+        "loc_recommendation": metrics_thresold.recommendation_value.nloc,
+        "parameter_recommendation": metrics_thresold.recommendation_value.parameter,
+        "ccn_threshold": metrics_thresold.threshold_value.ccn,
+        "loc_threshold": metrics_thresold.threshold_value.nloc,
+        "parameter_threshold": metrics_thresold.threshold_value.parameter,
     }
 
 
-def read_legend(metrics_dir: Path) -> Dict[str, int]:
-    legend = {}
-    with open(metrics_dir / "metrics_threshold.csv") as f:
-        for line in f:
-            key, value = line.split(",")
-            legend[key] = int(value)
-
-    with open(metrics_dir / "lcov_threshold.csv") as f:
-        for line in f:
-            key, value = line.split(",")
-            legend[key] = float(value)
-    return legend
-
-
-def get_timestamp_from_lizard_csv(file: Path, format: str) -> datetime:
+def get_timestamp_from_lizard(file: Path, format: str) -> datetime:
     return datetime.fromtimestamp(file.stat().st_mtime).strftime(format)
 
 
 def replace_summary_page(
     file: Path,
     metrics_dir: Path,
-    packages: List[str],
     input_data: StaticPageInput,
 ):
     template = read_jinja2_template(file)
 
-    # Replace legend
-    legend_dict = read_legend(metrics_dir)
-
     # Replace table
     param_list = []
-    for package in packages:
-        if package == "all":
+    for package in input_data.packages:
+        if package.name == "all":
             continue
         param = {}
-        param["package"] = add_package_link(package)
-        lcov_csv = metrics_dir / package / "coverage.csv"
+        param["package"] = add_package_link(package.name)
+
+        # Coverage
+        package_coverage_value = input_data.code_coverage.coverage_data.get_coverage(
+            package.name
+        )
         coverage_names = {
             "line_badge": CoverageKeys.Lines,
             "functions_badge": CoverageKeys.Functions,
             "branches_badge": CoverageKeys.Branches,
         }
         for badge_name, type_name in coverage_names.items():
-            lcov_cov, lcov_color = read_lcov_result(lcov_csv, type_name.value)
+            lcov_value = package_coverage_value.get_label_value("all").get(type_name)
+            lcov_color = input_data.code_coverage.coverage_data.get_color(
+                lcov_value, type_name
+            )
             if badge_name == "branches_badge":
                 # Set background of branches coverage to gray
                 lcov_color = Color.GREY
-            param[badge_name] = convert_color_cell(str(lcov_cov), lcov_color)
+            param[badge_name] = convert_color_cell(str(lcov_value), lcov_color)
 
-        lizard_csv = metrics_dir / package / "lizard.csv"
+        # Metrics
+        lizard_result = input_data.metrics.metrics_data.get_metrics_data(package.name)
+
         metrics_names = {
-            "ccn_worst_badge": "CCN(worst)",
-            "ccn_violation_badge": "CCN(violate)",
-            "ccn_warning_badge": "CCN(warning)",
-            "loc_worst_badge": "LOC(worst)",
-            "loc_violation_badge": "LOC(violate)",
-            "loc_warning_badge": "LOC(warning)",
-            "parameter_worst_badge": "Parameter(worst)",
-            "parameter_violation_badge": "Parameter(violate)",
-            "parameter_warning_badge": "Parameter(warning)",
+            "worst_badge": MetricsDataKeys.Worst,
+            "violation_badge": MetricsDataKeys.OverThresholdCount,
+            "warning_badge": MetricsDataKeys.OverRecommendationCount,
         }
 
-        lizard_result = read_lizard_result(lizard_csv)
-        for badge_name, type_name in metrics_names.items():
-            if type_name in lizard_result.keys():
-                category, value_type = type_name.split("(")
-                threshold_key = category + "(threshold)"
-                recommendation_key = category + "(recommendation)"
-                param[badge_name] = convert_color_cell(
-                    str(int(lizard_result[type_name])),
-                    lizard_color(
-                        value_type,
-                        lizard_result[type_name],
-                        legend_dict[threshold_key],
-                        legend_dict[recommendation_key],
-                    ),
+        for badge_name_suffix, metrics_data_key in metrics_names.items():
+            metrics_value_names = {
+                "ccn_": MetricsValueKeys.CCN,
+                "loc_": MetricsValueKeys.NLOC,
+                "parameter_": MetricsValueKeys.PARAMETER,
+            }
+            for badge_name_prefix, value_name_keys in metrics_value_names.items():
+                value = lizard_result.get_value(metrics_data_key).get(value_name_keys)
+                color = input_data.metrics.metrics_data.threshold.get_color(
+                    value, metrics_data_key, value_name_keys
                 )
+                badge_name = f"{badge_name_prefix}{badge_name_suffix}"
+                param[badge_name] = convert_color_cell(str(value), color)
 
         param_list.append(param)
 
     param_list = sorted(param_list, key=lambda x: x["package"])
 
-    render_dict = replace_token("all", input_data)
+    render_dict = replace_token("all", input_data.code_coverage.test_label)
 
     render_dict["param_list"] = param_list
 
     # Read datetime
-    render_dict["last_updated"] = get_timestamp_from_lizard_csv(
-        metrics_dir / "all" / "lizard.csv", "%Y-%m-%d %H:%M:%S UTC"
+    render_dict["last_updated"] = get_timestamp_from_lizard(
+        metrics_dir / "all" / "lizard.json", "%Y-%m-%d %H:%M:%S UTC"
     )
 
     # get repository statistics information
@@ -242,18 +150,22 @@ def replace_summary_page(
         render_dict["contributor_avatar_" + str(i)] = contributor["avatar"]
         render_dict["contribute_count_" + str(i)] = contributor["total"]
 
-    legend_dict = update_legend_dict(legend_dict)
+    # Replace legend
+    legend_dict = convert_legend(
+        input_data.code_coverage.coverage_data.threshold,
+        input_data.metrics.metrics_data.threshold,
+    )
     render_dict.update(legend_dict)
 
     with open(file, "w") as f:
         f.write(template.render(render_dict))
 
 
-def replace_token(package: str, input_data: StaticPageInput) -> Dict[str, str]:
+def replace_token(package: str, test_label_list: List[str]) -> Dict[str, str]:
     lizard_html = "/lizard/" + package
     tidy_html = "/tidy"
     ccn_json = package + "/ccn.json"
-    loc_json = package + "/loc.json"
+    loc_json = package + "/nloc.json"
     parameter_json = package + "/parameter.json"
     token_json = package + "/token.json"
 
@@ -267,7 +179,7 @@ def replace_token(package: str, input_data: StaticPageInput) -> Dict[str, str]:
         }
     )
 
-    for label in input_data.test_label:
+    for label in test_label_list:
         coverage_graph_list.append(
             {
                 "name": label,
@@ -290,7 +202,7 @@ def replace_token(package: str, input_data: StaticPageInput) -> Dict[str, str]:
 
 def replace_contents(file: Path, package: str, input_data: StaticPageInput):
     template = read_jinja2_template(file)
-    render_dict = replace_token(package, input_data)
+    render_dict = replace_token(package, input_data.code_coverage.test_label)
 
     # get repository statistics information
     for i, contributor in enumerate(input_data.contributors[package], 1):
@@ -305,7 +217,6 @@ def run_markdown_generator(
     src: Path,
     dest: Path,
     metrics_dir: Path,
-    packages: List[str],
     input_data: StaticPageInput,
 ):
     # Copy all files from template/hugo/content/ to hugo content directory
@@ -315,17 +226,17 @@ def run_markdown_generator(
 
     # Create summary page
     summary_page = markdown_dir_dest / "_index.md"
-    replace_summary_page(summary_page, metrics_dir, packages, input_data)
+    replace_summary_page(summary_page, metrics_dir, input_data)
 
     # Create package detail page
     template = dest / "content" / "packages" / "TEMPLATE.md"
-    for package in packages:
-        if package == "all":
+    for package in input_data.packages:
+        if package.name == "all":
             continue
-        filename = dest / "content" / "packages" / (package + ".md")
+        filename = dest / "content" / "packages" / (package.name + ".md")
         shutil.copy(template, filename)
         # Replace token
-        replace_contents(filename, package, input_data)
+        replace_contents(filename, package.name, input_data)
 
     template.unlink()
 

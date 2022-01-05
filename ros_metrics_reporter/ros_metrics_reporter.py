@@ -5,13 +5,10 @@ from pathlib import Path
 from typing import List
 
 from ros_metrics_reporter.code_coverage_task_runner import CodeCoverageTaskRunner
-from ros_metrics_reporter.lizard_all import lizard_all
-from ros_metrics_reporter.lizard_package import lizard_package
-from ros_metrics_reporter.scraping_task import scraping
+from ros_metrics_reporter.metrics_task_runner import MetricsTaskRunner
 from ros_metrics_reporter.create_link import create_link
 from ros_metrics_reporter.create_static_page import create_static_page
 from ros_metrics_reporter.clang_tidy import clang_tidy
-from ros_metrics_reporter.save_metrics_threshold import save_threshold
 from ros_metrics_reporter.colcon_directory import *
 from ros_metrics_reporter.plot_timeseries import generate_metrics_graph
 from ros_metrics_reporter.package_info import PackageInfo
@@ -29,52 +26,13 @@ def ros_metrics_reporter(args):
     coverage_runner.run(packages)
     coverage_runner.save_coverage_value(metrics_dir)
 
-    # Measure code metrics for threshold value
-    lizard_dir = args.output_dir / "lizard_result" / args.timestamp
-    lizard_all(
-        base_dir=args.base_dir,
-        output_dir=lizard_dir,
-        gh_action_dir=args.action_dir,
-        ccn=args.ccn,
-        nloc=args.nloc,
-        arguments=args.arguments,
-        exclude=args.exclude,
-    )
-    lizard_package(
-        package_info=packages,
-        output_dir=lizard_dir,
-        gh_action_dir=args.action_dir,
-        exclude=args.exclude,
-        ccn=args.ccn,
-        nloc=args.nloc,
-        arguments=args.arguments,
-    )
-
-    # Measure code metrics for recommend value
-    lizard_recommendation_dir = (
-        args.output_dir / "lizard_result_recommend" / args.timestamp
-    )
-    lizard_all(
-        base_dir=args.base_dir,
-        output_dir=lizard_recommendation_dir,
-        gh_action_dir=args.action_dir,
-        ccn=args.ccn_recommendation,
-        nloc=args.nloc_recommendation,
-        arguments=args.arguments_recommendation,
-        exclude=args.exclude,
-    )
-    lizard_package(
-        package_info=packages,
-        output_dir=lizard_recommendation_dir,
-        gh_action_dir=args.action_dir,
-        exclude=args.exclude,
-        ccn=args.ccn_recommendation,
-        nloc=args.nloc_recommendation,
-        arguments=args.arguments_recommendation,
-    )
+    # Measure code metrics
+    metrics_runner = MetricsTaskRunner(args)
+    metrics_runner.run(packages)
+    metrics_runner.save_metrics_value(metrics_dir)
 
     # Run Clang-Tidy
-    tidy_result_dir = args.output_dir / "tidy-reports" / args.timestamp
+    tidy_result_dir = args.base_dir / "tidy-reports" / args.timestamp
     clang_tidy(
         base_dir=args.base_dir,
         output_dir=tidy_result_dir,
@@ -83,31 +41,8 @@ def ros_metrics_reporter(args):
         ignore_path=args.tidy_ignore_path,
     )
 
-    # Scraping
-    scraping(
-        lizard_dir=lizard_dir,
-        lizard_recommendation_dir=lizard_recommendation_dir,
-        output_dir=metrics_dir,
-    )
-
-    save_threshold(
-        lcovrc=args.lcovrc,
-        ccn=args.ccn,
-        nloc=args.nloc,
-        arguments=args.arguments,
-        ccn_recommendation=args.ccn_recommendation,
-        nloc_recommendation=args.nloc_recommendation,
-        arguments_recommendation=args.arguments_recommendation,
-        output_dir=metrics_dir,
-    )
-
     # Create symbolic link
-    lcov_latest_dir = args.output_dir / "lcov_result" / "latest"
-    lizard_latest_dir = args.output_dir / "lizard_result" / "latest"
     metrics_latest_dir = args.output_dir / "metrics" / "latest"
-
-    create_link(target=Path(args.timestamp), link_from=lcov_latest_dir)
-    create_link(target=Path(args.timestamp), link_from=lizard_latest_dir)
     create_link(target=Path(args.timestamp), link_from=metrics_latest_dir)
 
     # Create graph
@@ -130,15 +65,15 @@ def ros_metrics_reporter(args):
 
     static_page_input = StaticPageInput(
         input_dir=metrics_dir.parent,
+        packages=packages,
         hugo_root_dir=args.hugo_root_dir,
         hugo_template_dir=hugo_template_dir,
-        lcov_result_path=lcov_latest_dir,
-        lizard_result_path=lizard_latest_dir,
         tidy_result_path=tidy_result_dir,
         base_url=args.base_url,
         title=args.title,
         contributors=contributors,
-        test_label=args.test_label,
+        code_coverage=coverage_runner,
+        metrics=metrics_runner,
     )
 
     create_static_page(

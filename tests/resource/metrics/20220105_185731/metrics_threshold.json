@@ -1,0 +1,14 @@
+{
+  "threshold_value": {
+    "ccn": 20,
+    "nloc": 200,
+    "parameter": 6,
+    "token": 0
+  },
+  "recommendation_value": {
+    "ccn": 6,
+    "nloc": 100,
+    "parameter": 10,
+    "token": 0
+  }
+}
