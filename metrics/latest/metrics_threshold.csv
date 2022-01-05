@@ -1,6 +1,0 @@
-CCN(threshold),20
-LOC(threshold),200
-Parameter(threshold),6
-CCN(recommendation),5
-LOC(recommendation),1000
-Parameter(recommendation),50
