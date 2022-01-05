@@ -1,13 +1,10 @@
 #! /usr/bin/env python3
 
-from dataclasses import dataclass
 from pathlib import Path
 from distutils import dir_util
-from typing import List, Dict
 
 from ros_metrics_reporter.util import read_jinja2_template
 from ros_metrics_reporter.create_markdown import run_markdown_generator
-from ros_metrics_reporter.read_dataframe import read_dataframe
 from ros_metrics_reporter.static_page_input import StaticPageInput
 
 
@@ -25,10 +22,10 @@ def copy_html(
 ):
     # Copy artifacts
     lcov_dest = input.hugo_root_dir / "static" / "lcov"
-    copy_artifacts(input.lcov_result_path, lcov_dest)
+    copy_artifacts(input.code_coverage.html_dir, lcov_dest)
 
     lizard_dest = input.hugo_root_dir / "static" / "lizard"
-    copy_artifacts(input.lizard_result_path, lizard_dest)
+    copy_artifacts(input.metrics.output_html_dir, lizard_dest)
 
     tidy_dest = input.hugo_root_dir / "static" / "tidy"
     dir_util.copy_tree(input.tidy_result_path, str(tidy_dest))
@@ -51,20 +48,7 @@ def replace_hugo_config(
         )
 
 
-def generate_markdown(input: StaticPageInput, packages: str):
-    # Create markdown from template
-    run_markdown_generator(
-        input.hugo_template_dir,
-        input.hugo_root_dir,
-        input.input_dir / "latest",
-        packages,
-        input,
-    )
-
-
-def create_static_page(
-    input: StaticPageInput,
-):
+def create_static_page(input: StaticPageInput):
     copy_html(
         input=input,
     )
@@ -72,8 +56,10 @@ def create_static_page(
         input=input,
     )
 
-    df = read_dataframe(input.input_dir)
-    generate_markdown(
-        input=input,
-        packages=df["package_name"].unique(),
+    # Create markdown from template
+    run_markdown_generator(
+        input.hugo_template_dir,
+        input.hugo_root_dir,
+        input.input_dir / "latest",
+        input,
     )

@@ -32,7 +32,7 @@ def ros_metrics_reporter(args):
     metrics_runner.save_metrics_value(metrics_dir)
 
     # Run Clang-Tidy
-    tidy_result_dir = args.output_dir / "tidy-reports" / args.timestamp
+    tidy_result_dir = args.base_dir / "tidy-reports" / args.timestamp
     clang_tidy(
         base_dir=args.base_dir,
         output_dir=tidy_result_dir,
@@ -65,15 +65,15 @@ def ros_metrics_reporter(args):
 
     static_page_input = StaticPageInput(
         input_dir=metrics_dir.parent,
+        packages=packages,
         hugo_root_dir=args.hugo_root_dir,
         hugo_template_dir=hugo_template_dir,
-        lcov_result_path=coverage_runner.html_dir,
-        lizard_result_path=metrics_runner.output_html_dir,
         tidy_result_path=tidy_result_dir,
         base_url=args.base_url,
         title=args.title,
         contributors=contributors,
-        test_label=args.test_label,
+        code_coverage=coverage_runner,
+        metrics=metrics_runner,
     )
 
     create_static_page(

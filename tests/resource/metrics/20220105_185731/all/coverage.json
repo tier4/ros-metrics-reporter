@@ -1,0 +1,23 @@
+{
+  "package": "all",
+  "value": [
+    {
+      "label": "all",
+      "line": 66.2,
+      "function": 78.6,
+      "branch": 33.1
+    },
+    {
+      "label": "gtest",
+      "line": 66.2,
+      "function": 78.6,
+      "branch": 33.1
+    },
+    {
+      "label": "component_test",
+      "line": 31.7,
+      "function": 32.7,
+      "branch": 24.6
+    }
+  ]
+}
