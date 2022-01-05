@@ -1,9 +1,0 @@
-type,value,signal,label
-Lines,100.0,Hi,all
-Functions,100.0,Hi,all
-Branches,100.0,Hi,all
-Lines,100.0,Hi,gtest
-Functions,100.0,Hi,gtest
-Branches,100.0,Hi,gtest
-Lines,0.0,Lo,component_test
-Functions,0.0,Lo,component_test
