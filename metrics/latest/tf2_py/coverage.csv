@@ -1,0 +1,10 @@
+type,value,signal,label
+Lines,66.8,Lo,all
+Functions,66.7,Lo,all
+Branches,34.7,Lo,all
+Lines,66.8,Lo,gtest
+Functions,66.7,Lo,gtest
+Branches,34.7,Lo,gtest
+Lines,66.8,Lo,component_test
+Functions,66.7,Lo,component_test
+Branches,34.7,Lo,component_test

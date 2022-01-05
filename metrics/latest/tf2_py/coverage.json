@@ -1,0 +1,56 @@
+[
+    {
+        "type": "Lines",
+        "value": "66.8",
+        "signal": "Lo",
+        "label": "component_test"
+    },
+    {
+        "type": "Functions",
+        "value": "66.7",
+        "signal": "Lo",
+        "label": "component_test"
+    },
+    {
+        "type": "Branches",
+        "value": "34.7",
+        "signal": "Lo",
+        "label": "component_test"
+    },
+    {
+        "type": "Lines",
+        "value": "66.8",
+        "signal": "Lo",
+        "label": "gtest"
+    },
+    {
+        "type": "Functions",
+        "value": "66.7",
+        "signal": "Lo",
+        "label": "gtest"
+    },
+    {
+        "type": "Branches",
+        "value": "34.7",
+        "signal": "Lo",
+        "label": "gtest"
+    },
+    {
+        "type": "Lines",
+        "value": "66.8",
+        "signal": "Lo",
+        "label": "all"
+    },
+    {
+        "type": "Functions",
+        "value": "66.7",
+        "signal": "Lo",
+        "label": "all"
+    },
+    {
+        "type": "Branches",
+        "value": "34.7",
+        "signal": "Lo",
+        "label": "all"
+    }
+]
