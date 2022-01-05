@@ -1,0 +1,452 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.filtered - src/example/src/geometry2/tf2_ros/src/buffer.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../../../index.html">top level</a> - <a href="index.html">src/example/src/geometry2/tf2_ros/src</a> - buffer.cpp<span style="font-size: 80%;"> (source / <a href="buffer.cpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.filtered</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">106</td>
+            <td class="headerCovTableEntry">144</td>
+            <td class="headerCovTableEntryLo">73.6 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2022-01-05 11:44:31</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">12</td>
+            <td class="headerCovTableEntry">16</td>
+            <td class="headerCovTableEntryMed">75.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+            | Branches:
+            <span class="coverLegendCov">+</span> taken
+            <span class="coverLegendNoCov">-</span> not taken
+            <span class="coverLegendNoCov">#</span> not executed
+</td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">106</td>
+            <td class="headerCovTableEntry">352</td>
+            <td class="headerCovTableEntryLo">30.1 %</td>
+          </tr>
+          <tr><td><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : /*</a>
+<a name="2"><span class="lineNum">       2 </span>                :            :  * Copyright (c) 2008, Willow Garage, Inc.</a>
+<a name="3"><span class="lineNum">       3 </span>                :            :  * All rights reserved.</a>
+<a name="4"><span class="lineNum">       4 </span>                :            :  *</a>
+<a name="5"><span class="lineNum">       5 </span>                :            :  * Redistribution and use in source and binary forms, with or without</a>
+<a name="6"><span class="lineNum">       6 </span>                :            :  * modification, are permitted provided that the following conditions are met:</a>
+<a name="7"><span class="lineNum">       7 </span>                :            :  *</a>
+<a name="8"><span class="lineNum">       8 </span>                :            :  *     * Redistributions of source code must retain the above copyright</a>
+<a name="9"><span class="lineNum">       9 </span>                :            :  *       notice, this list of conditions and the following disclaimer.</a>
+<a name="10"><span class="lineNum">      10 </span>                :            :  *     * Redistributions in binary form must reproduce the above copyright</a>
+<a name="11"><span class="lineNum">      11 </span>                :            :  *       notice, this list of conditions and the following disclaimer in the</a>
+<a name="12"><span class="lineNum">      12 </span>                :            :  *       documentation and/or other materials provided with the distribution.</a>
+<a name="13"><span class="lineNum">      13 </span>                :            :  *     * Neither the name of the Willow Garage, Inc. nor the names of its</a>
+<a name="14"><span class="lineNum">      14 </span>                :            :  *       contributors may be used to endorse or promote products derived from</a>
+<a name="15"><span class="lineNum">      15 </span>                :            :  *       this software without specific prior written permission.</a>
+<a name="16"><span class="lineNum">      16 </span>                :            :  *</a>
+<a name="17"><span class="lineNum">      17 </span>                :            :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;</a>
+<a name="18"><span class="lineNum">      18 </span>                :            :  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE</a>
+<a name="19"><span class="lineNum">      19 </span>                :            :  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE</a>
+<a name="20"><span class="lineNum">      20 </span>                :            :  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE</a>
+<a name="21"><span class="lineNum">      21 </span>                :            :  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR</a>
+<a name="22"><span class="lineNum">      22 </span>                :            :  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF</a>
+<a name="23"><span class="lineNum">      23 </span>                :            :  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS</a>
+<a name="24"><span class="lineNum">      24 </span>                :            :  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN</a>
+<a name="25"><span class="lineNum">      25 </span>                :            :  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)</a>
+<a name="26"><span class="lineNum">      26 </span>                :            :  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</a>
+<a name="27"><span class="lineNum">      27 </span>                :            :  * POSSIBILITY OF SUCH DAMAGE.</a>
+<a name="28"><span class="lineNum">      28 </span>                :            :  */</a>
+<a name="29"><span class="lineNum">      29 </span>                :            : </a>
+<a name="30"><span class="lineNum">      30 </span>                :            : /** \author Wim Meeussen */</a>
+<a name="31"><span class="lineNum">      31 </span>                :            : </a>
+<a name="32"><span class="lineNum">      32 </span>                :            : </a>
+<a name="33"><span class="lineNum">      33 </span>                :            : #include &quot;tf2_ros/buffer.h&quot;</a>
+<a name="34"><span class="lineNum">      34 </span>                :            : </a>
+<a name="35"><span class="lineNum">      35 </span>                :            : #include &lt;exception&gt;</a>
+<a name="36"><span class="lineNum">      36 </span>                :            : #include &lt;limits&gt;</a>
+<a name="37"><span class="lineNum">      37 </span>                :            : #include &lt;memory&gt;</a>
+<a name="38"><span class="lineNum">      38 </span>                :            : #include &lt;mutex&gt;</a>
+<a name="39"><span class="lineNum">      39 </span>                :            : #include &lt;sstream&gt;</a>
+<a name="40"><span class="lineNum">      40 </span>                :            : #include &lt;string&gt;</a>
+<a name="41"><span class="lineNum">      41 </span>                :            : #include &lt;thread&gt;</a>
+<a name="42"><span class="lineNum">      42 </span>                :            : </a>
+<a name="43"><span class="lineNum">      43 </span>                :            : namespace tf2_ros</a>
+<a name="44"><span class="lineNum">      44 </span>                :            : {</a>
+<a name="45"><span class="lineNum">      45 </span>                :            : </a>
+<a name="46"><span class="lineNum">      46 </span>                :<span class="lineCov">         26 : Buffer::Buffer(</span></a>
+<a name="47"><span class="lineNum">      47 </span>                :            :   rclcpp::Clock::SharedPtr clock, tf2::Duration cache_time,</a>
+<a name="48"><span class="lineNum">      48 </span>                :<span class="lineCov">         26 :   rclcpp::Node::SharedPtr node)</span></a>
+<a name="49"><span class="lineNum">      49 </span>        [<span class="branchCov" title="Branch 0 was taken 26 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         35 : : BufferCore(cache_time), clock_(clock), node_(node), timer_interface_(nullptr)</span></a>
+<a name="50"><span class="lineNum">      50 </span>                :            : {</a>
+<a name="51"><span class="lineNum">      51 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 25 times"> + </span>]:<span class="lineCov">         26 :   if (nullptr == clock_) {</span></a>
+<a name="52"><span class="lineNum">      52 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     throw std::invalid_argument(&quot;clock must be a valid instance&quot;);</span></a>
+<a name="53"><span class="lineNum">      53 </span>                :            :   }</a>
+<a name="54"><span class="lineNum">      54 </span>                :            : </a>
+<a name="55"><span class="lineNum">      55 </span>                :<span class="lineNoCov">          0 :   auto post_jump_cb = [this](const rcl_time_jump_t &amp; jump_info) {onTimeJump(jump_info);};</span></a>
+<a name="56"><span class="lineNum">      56 </span>                :            : </a>
+<a name="57"><span class="lineNum">      57 </span>                :            :   rcl_jump_threshold_t jump_threshold;</a>
+<a name="58"><span class="lineNum">      58 </span>                :            :   // Disable forward jump callbacks</a>
+<a name="59"><span class="lineNum">      59 </span>                :<span class="lineCov">         25 :   jump_threshold.min_forward.nanoseconds = 0;</span></a>
+<a name="60"><span class="lineNum">      60 </span>                :            :   // Anything backwards is a jump</a>
+<a name="61"><span class="lineNum">      61 </span>                :<span class="lineCov">         25 :   jump_threshold.min_backward.nanoseconds = -1;</span></a>
+<a name="62"><span class="lineNum">      62 </span>                :            :   // Callback if the clock changes too</a>
+<a name="63"><span class="lineNum">      63 </span>                :<span class="lineCov">         25 :   jump_threshold.on_clock_change = true;</span></a>
+<a name="64"><span class="lineNum">      64 </span>                :            : </a>
+<a name="65"><span class="lineNum">      65 </span>  [<span class="branchCov" title="Branch 0 was taken 25 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 25 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         25 :   jump_handler_ = clock_-&gt;create_jump_callback(nullptr, post_jump_cb, jump_threshold);</span></a>
+<a name="66"><span class="lineNum">      66 </span>                :            : </a>
+<a name="67"><span class="lineNum">      67 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 25 times"> + </span>]:<span class="lineCov">         25 :   if (node_) {</span></a>
+<a name="68"><span class="lineNum">      68 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     frames_server_ = node_-&gt;create_service&lt;tf2_msgs::srv::FrameGraph&gt;(</span></a>
+<a name="69"><span class="lineNum">      69 </span>                :<span class="lineNoCov">          0 :       &quot;tf2_frames&quot;, std::bind(</span></a>
+<a name="70"><span class="lineNum">      70 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         &amp;Buffer::getFrames, this, std::placeholders::_1,</span></a>
+<a name="71"><span class="lineNum">      71 </span>                :<span class="lineNoCov">          0 :         std::placeholders::_2));</span></a>
+<a name="72"><span class="lineNum">      72 </span>                :            :   }</a>
+<a name="73"><span class="lineNum">      73 </span>                :<span class="lineCov">         25 : }</span></a>
+<a name="74"><span class="lineNum">      74 </span>                :            : </a>
+<a name="75"><span class="lineNum">      75 </span>                :            : inline</a>
+<a name="76"><span class="lineNum">      76 </span>                :            : tf2::Duration</a>
+<a name="77"><span class="lineNum">      77 </span>                :<span class="lineNoCov">          0 : from_rclcpp(const rclcpp::Duration &amp; rclcpp_duration)</span></a>
+<a name="78"><span class="lineNum">      78 </span>                :            : {</a>
+<a name="79"><span class="lineNum">      79 </span>                :<span class="lineNoCov">          0 :   return tf2::Duration(std::chrono::nanoseconds(rclcpp_duration.nanoseconds()));</span></a>
+<a name="80"><span class="lineNum">      80 </span>                :            : }</a>
+<a name="81"><span class="lineNum">      81 </span>                :            : </a>
+<a name="82"><span class="lineNum">      82 </span>                :            : inline</a>
+<a name="83"><span class="lineNum">      83 </span>                :            : rclcpp::Duration</a>
+<a name="84"><span class="lineNum">      84 </span>                :<span class="lineCov">         29 : to_rclcpp(const tf2::Duration &amp; duration)</span></a>
+<a name="85"><span class="lineNum">      85 </span>                :            : {</a>
+<a name="86"><span class="lineNum">      86 </span>                :<span class="lineCov">         29 :   return rclcpp::Duration(std::chrono::nanoseconds(duration));</span></a>
+<a name="87"><span class="lineNum">      87 </span>                :            : }</a>
+<a name="88"><span class="lineNum">      88 </span>                :            : </a>
+<a name="89"><span class="lineNum">      89 </span>                :            : geometry_msgs::msg::TransformStamped</a>
+<a name="90"><span class="lineNum">      90 </span>                :<span class="lineCov">         15 : Buffer::lookupTransform(</span></a>
+<a name="91"><span class="lineNum">      91 </span>                :            :   const std::string &amp; target_frame, const std::string &amp; source_frame,</a>
+<a name="92"><span class="lineNum">      92 </span>                :            :   const tf2::TimePoint &amp; lookup_time, const tf2::Duration timeout) const</a>
+<a name="93"><span class="lineNum">      93 </span>                :            : {</a>
+<a name="94"><span class="lineNum">      94 </span>                :<span class="lineCov">         15 :   canTransform(target_frame, source_frame, lookup_time, timeout);</span></a>
+<a name="95"><span class="lineNum">      95 </span>                :<span class="lineCov">         15 :   return lookupTransform(target_frame, source_frame, lookup_time);</span></a>
+<a name="96"><span class="lineNum">      96 </span>                :            : }</a>
+<a name="97"><span class="lineNum">      97 </span>                :            : </a>
+<a name="98"><span class="lineNum">      98 </span>                :<span class="lineNoCov">          0 : void Buffer::onTimeJump(const rcl_time_jump_t &amp; jump)</span></a>
+<a name="99"><span class="lineNum">      99 </span>                :            : {</a>
+<a name="100"><span class="lineNum">     100 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (RCL_ROS_TIME_ACTIVATED == jump.clock_change ||</span></a>
+<a name="101"><span class="lineNum">     101 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     RCL_ROS_TIME_DEACTIVATED == jump.clock_change)</span></a>
+<a name="102"><span class="lineNum">     102 </span>                :            :   {</a>
+<a name="103"><span class="lineNum">     103 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :     RCLCPP_WARN(getLogger(), &quot;Detected time source change. Clearing TF buffer.&quot;);</span></a>
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span><span class="branchNoExec" title="Branch 12 was not executed"> # </span><span class="branchNoExec" title="Branch 13 was not executed"> # </span> 
+<span class="lineNum">         </span>   <span class="branchNoExec" title="Branch 14 was not executed"> # </span><span class="branchNoExec" title="Branch 15 was not executed"> # </span><span class="branchNoExec" title="Branch 16 was not executed"> # </span><span class="branchNoExec" title="Branch 17 was not executed"> # </span>]
+<a name="104"><span class="lineNum">     104 </span>                :<span class="lineNoCov">          0 :     clear();</span></a>
+<a name="105"><span class="lineNum">     105 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   } else if (jump.delta.nanoseconds &lt; 0) {</span></a>
+<a name="106"><span class="lineNum">     106 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :     RCLCPP_WARN(getLogger(), &quot;Detected jump back in time. Clearing TF buffer.&quot;);</span></a>
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span><span class="branchNoExec" title="Branch 12 was not executed"> # </span><span class="branchNoExec" title="Branch 13 was not executed"> # </span> 
+<span class="lineNum">         </span>   <span class="branchNoExec" title="Branch 14 was not executed"> # </span><span class="branchNoExec" title="Branch 15 was not executed"> # </span><span class="branchNoExec" title="Branch 16 was not executed"> # </span><span class="branchNoExec" title="Branch 17 was not executed"> # </span>]
+<a name="107"><span class="lineNum">     107 </span>                :<span class="lineNoCov">          0 :     clear();</span></a>
+<a name="108"><span class="lineNum">     108 </span>                :            :   }</a>
+<a name="109"><span class="lineNum">     109 </span>                :<span class="lineNoCov">          0 : }</span></a>
+<a name="110"><span class="lineNum">     110 </span>                :            : </a>
+<a name="111"><span class="lineNum">     111 </span>                :            : geometry_msgs::msg::TransformStamped</a>
+<a name="112"><span class="lineNum">     112 </span>                :<span class="lineCov">         13 : Buffer::lookupTransform(</span></a>
+<a name="113"><span class="lineNum">     113 </span>                :            :   const std::string &amp; target_frame, const tf2::TimePoint &amp; target_time,</a>
+<a name="114"><span class="lineNum">     114 </span>                :            :   const std::string &amp; source_frame, const tf2::TimePoint &amp; source_time,</a>
+<a name="115"><span class="lineNum">     115 </span>                :            :   const std::string &amp; fixed_frame, const tf2::Duration timeout) const</a>
+<a name="116"><span class="lineNum">     116 </span>                :            : {</a>
+<a name="117"><span class="lineNum">     117 </span>                :<span class="lineCov">         13 :   canTransform(target_frame, target_time, source_frame, source_time, fixed_frame, timeout);</span></a>
+<a name="118"><span class="lineNum">     118 </span>                :<span class="lineCov">         13 :   return lookupTransform(target_frame, target_time, source_frame, source_time, fixed_frame);</span></a>
+<a name="119"><span class="lineNum">     119 </span>                :            : }</a>
+<a name="120"><span class="lineNum">     120 </span>                :            : </a>
+<a name="121"><span class="lineNum">     121 </span>                :<span class="lineCov">         29 : void conditionally_append_timeout_info(</span></a>
+<a name="122"><span class="lineNum">     122 </span>                :            :   std::string * errstr, const rclcpp::Time &amp; start_time,</a>
+<a name="123"><span class="lineNum">     123 </span>                :            :   const rclcpp::Time &amp; current_time,</a>
+<a name="124"><span class="lineNum">     124 </span>                :            :   const rclcpp::Duration &amp; timeout)</a>
+<a name="125"><span class="lineNum">     125 </span>                :            : {</a>
+<a name="126"><span class="lineNum">     126 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 29 times"> + </span>]:<span class="lineCov">         29 :   if (errstr) {</span></a>
+<a name="127"><span class="lineNum">     127 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     std::stringstream ss;</span></a>
+<a name="128"><span class="lineNum">     128 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     ss &lt;&lt; &quot;. canTransform returned after &quot; &lt;&lt;</span></a>
+<a name="129"><span class="lineNum">     129 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :       tf2::durationToSec(from_rclcpp(current_time - start_time)) &lt;&lt;</span></a>
+<span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
+<a name="130"><span class="lineNum">     130 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :       &quot; timeout was &quot; &lt;&lt; tf2::durationToSec(from_rclcpp(timeout)) &lt;&lt; &quot;.&quot;;</span></a>
+<span class="lineNum">         </span>   <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
+<a name="131"><span class="lineNum">     131 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     (*errstr) += ss.str();</span></a>
+<a name="132"><span class="lineNum">     132 </span>                :            :   }</a>
+<a name="133"><span class="lineNum">     133 </span>                :<span class="lineCov">         29 : }</span></a>
+<a name="134"><span class="lineNum">     134 </span>                :            : </a>
+<a name="135"><span class="lineNum">     135 </span>                :            : bool</a>
+<a name="136"><span class="lineNum">     136 </span>                :<span class="lineCov">         21 : Buffer::canTransform(</span></a>
+<a name="137"><span class="lineNum">     137 </span>                :            :   const std::string &amp; target_frame, const std::string &amp; source_frame,</a>
+<a name="138"><span class="lineNum">     138 </span>                :            :   const tf2::TimePoint &amp; time, const tf2::Duration timeout, std::string * errstr) const</a>
+<a name="139"><span class="lineNum">     139 </span>                :            : {</a>
+<a name="140"><span class="lineNum">     140 </span>  [<span class="branchCov" title="Branch 0 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchCov" title="Branch 3 was taken 18 times"> + </span>]:<span class="lineCov">         21 :   if (!checkAndErrorDedicatedThreadPresent(errstr)) {</span></a>
+<a name="141"><span class="lineNum">     141 </span>                :<span class="lineCov">          3 :     return false;</span></a>
+<a name="142"><span class="lineNum">     142 </span>                :            :   }</a>
+<a name="143"><span class="lineNum">     143 </span>                :            : </a>
+<a name="144"><span class="lineNum">     144 </span>        [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         36 :   rclcpp::Duration rclcpp_timeout(to_rclcpp(timeout));</span></a>
+<a name="145"><span class="lineNum">     145 </span>                :            : </a>
+<a name="146"><span class="lineNum">     146 </span>                :            :   // poll for transform if timeout is set</a>
+<a name="147"><span class="lineNum">     147 </span>        [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         36 :   rclcpp::Time start_time = clock_-&gt;now();</span></a>
+<a name="148"><span class="lineNum">     148 </span>  [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         36 :   while (clock_-&gt;now() &lt; start_time + rclcpp_timeout &amp;&amp;</span></a>
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
+<a name="149"><span class="lineNum">     149 </span>  [<span class="branchCov" title="Branch 0 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 11 times"> + </span>]:<span class="lineCov">         11 :     !canTransform(target_frame, source_frame, time) &amp;&amp;</span></a>
+<a name="150"><span class="lineNum">     150 </span>  [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         83 :     (clock_-&gt;now() + rclcpp::Duration(3, 0) &gt;= start_time) &amp;&amp;  // don't wait bag loop detected</span></a>
+<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 11 times"> + </span><span class="branchCov" title="Branch 5 was taken 7 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchNoCov" title="Branch 12 was not taken"> - </span><span class="branchNoCov" title="Branch 13 was not taken"> - </span> 
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 14 was not taken"> - </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span><span class="branchNoCov" title="Branch 16 was not taken"> - </span><span class="branchCov" title="Branch 17 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 18 was not taken"> - </span> 
+<span class="lineNum">         </span><span class="branchCov" title="Branch 19 was taken 18 times"> + </span><span class="branchCov" title="Branch 20 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 21 was not taken"> - </span><span class="branchNoCov" title="Branch 22 was not taken"> - </span><span class="branchCov" title="Branch 23 was taken 18 times"> + </span> 
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 24 was not taken"> - </span><span class="branchNoCov" title="Branch 25 was not taken"> - </span><span class="branchNoCov" title="Branch 26 was not taken"> - </span><span class="branchNoCov" title="Branch 27 was not taken"> - </span><span class="branchNoCov" title="Branch 28 was not taken"> - </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 29 was not taken"> - </span>]
+<a name="151"><span class="lineNum">     151 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         18 :     (rclcpp::ok()))  // Make sure we haven't been stopped (won't work for pytf)</span></a>
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
+<a name="152"><span class="lineNum">     152 </span>                :            :   {</a>
+<a name="153"><span class="lineNum">     153 </span>                :            :     // TODO(sloretz) sleep using clock_-&gt;sleep_for when implemented</a>
+<a name="154"><span class="lineNum">     154 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     std::this_thread::sleep_for(std::chrono::milliseconds(10));</span></a>
+<a name="155"><span class="lineNum">     155 </span>                :            :   }</a>
+<a name="156"><span class="lineNum">     156 </span>        [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         18 :   bool retval = canTransform(target_frame, source_frame, time, errstr);</span></a>
+<a name="157"><span class="lineNum">     157 </span>        [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         18 :   rclcpp::Time current_time = clock_-&gt;now();</span></a>
+<a name="158"><span class="lineNum">     158 </span>        [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         18 :   conditionally_append_timeout_info(errstr, start_time, current_time, rclcpp_timeout);</span></a>
+<a name="159"><span class="lineNum">     159 </span>                :<span class="lineCov">         18 :   return retval;</span></a>
+<a name="160"><span class="lineNum">     160 </span>                :            : }</a>
+<a name="161"><span class="lineNum">     161 </span>                :            : </a>
+<a name="162"><span class="lineNum">     162 </span>                :            : bool</a>
+<a name="163"><span class="lineNum">     163 </span>                :<span class="lineCov">         13 : Buffer::canTransform(</span></a>
+<a name="164"><span class="lineNum">     164 </span>                :            :   const std::string &amp; target_frame, const tf2::TimePoint &amp; target_time,</a>
+<a name="165"><span class="lineNum">     165 </span>                :            :   const std::string &amp; source_frame, const tf2::TimePoint &amp; source_time,</a>
+<a name="166"><span class="lineNum">     166 </span>                :            :   const std::string &amp; fixed_frame, const tf2::Duration timeout, std::string * errstr) const</a>
+<a name="167"><span class="lineNum">     167 </span>                :            : {</a>
+<a name="168"><span class="lineNum">     168 </span>  [<span class="branchCov" title="Branch 0 was taken 13 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchCov" title="Branch 3 was taken 11 times"> + </span>]:<span class="lineCov">         13 :   if (!checkAndErrorDedicatedThreadPresent(errstr)) {</span></a>
+<a name="169"><span class="lineNum">     169 </span>                :<span class="lineCov">          2 :     return false;</span></a>
+<a name="170"><span class="lineNum">     170 </span>                :            :   }</a>
+<a name="171"><span class="lineNum">     171 </span>                :            : </a>
+<a name="172"><span class="lineNum">     172 </span>        [<span class="branchCov" title="Branch 0 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         22 :   rclcpp::Duration rclcpp_timeout(to_rclcpp(timeout));</span></a>
+<a name="173"><span class="lineNum">     173 </span>                :            : </a>
+<a name="174"><span class="lineNum">     174 </span>                :            :   // poll for transform if timeout is set</a>
+<a name="175"><span class="lineNum">     175 </span>        [<span class="branchCov" title="Branch 0 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         22 :   rclcpp::Time start_time = clock_-&gt;now();</span></a>
+<a name="176"><span class="lineNum">     176 </span>  [<span class="branchCov" title="Branch 0 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         22 :   while (clock_-&gt;now() &lt; start_time + rclcpp_timeout &amp;&amp;</span></a>
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
+<a name="177"><span class="lineNum">     177 </span>  [<span class="branchCov" title="Branch 0 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 11 times"> + </span>]:<span class="lineCov">         11 :     !canTransform(target_frame, target_time, source_frame, source_time, fixed_frame) &amp;&amp;</span></a>
+<a name="178"><span class="lineNum">     178 </span>  [<span class="branchCov" title="Branch 0 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         55 :     (clock_-&gt;now() + rclcpp::Duration(3, 0) &gt;= start_time) &amp;&amp;  // don't wait bag loop detected</span></a>
+<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchNoCov" title="Branch 12 was not taken"> - </span><span class="branchNoCov" title="Branch 13 was not taken"> - </span> 
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 14 was not taken"> - </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span><span class="branchNoCov" title="Branch 16 was not taken"> - </span><span class="branchCov" title="Branch 17 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 18 was not taken"> - </span> 
+<span class="lineNum">         </span><span class="branchCov" title="Branch 19 was taken 11 times"> + </span><span class="branchCov" title="Branch 20 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 21 was not taken"> - </span><span class="branchNoCov" title="Branch 22 was not taken"> - </span><span class="branchCov" title="Branch 23 was taken 11 times"> + </span> 
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 24 was not taken"> - </span><span class="branchNoCov" title="Branch 25 was not taken"> - </span><span class="branchNoCov" title="Branch 26 was not taken"> - </span><span class="branchNoCov" title="Branch 27 was not taken"> - </span><span class="branchNoCov" title="Branch 28 was not taken"> - </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 29 was not taken"> - </span>]
+<a name="179"><span class="lineNum">     179 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         11 :     (rclcpp::ok()))  // Make sure we haven't been stopped (won't work for pytf)</span></a>
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
+<a name="180"><span class="lineNum">     180 </span>                :            :   {</a>
+<a name="181"><span class="lineNum">     181 </span>                :            :     // TODO(sloretz) sleep using clock_-&gt;sleep_for when implemented</a>
+<a name="182"><span class="lineNum">     182 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     std::this_thread::sleep_for(std::chrono::milliseconds(10));</span></a>
+<a name="183"><span class="lineNum">     183 </span>                :            :   }</a>
+<a name="184"><span class="lineNum">     184 </span>                :<span class="lineCov">         22 :   bool retval = canTransform(</span></a>
+<a name="185"><span class="lineNum">     185 </span>                :            :     target_frame, target_time,</a>
+<a name="186"><span class="lineNum">     186 </span>        [<span class="branchCov" title="Branch 0 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         11 :     source_frame, source_time, fixed_frame, errstr);</span></a>
+<a name="187"><span class="lineNum">     187 </span>        [<span class="branchCov" title="Branch 0 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         11 :   rclcpp::Time current_time = clock_-&gt;now();</span></a>
+<a name="188"><span class="lineNum">     188 </span>        [<span class="branchCov" title="Branch 0 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         11 :   conditionally_append_timeout_info(errstr, start_time, current_time, rclcpp_timeout);</span></a>
+<a name="189"><span class="lineNum">     189 </span>                :<span class="lineCov">         11 :   return retval;</span></a>
+<a name="190"><span class="lineNum">     190 </span>                :            : }</a>
+<a name="191"><span class="lineNum">     191 </span>                :            : </a>
+<a name="192"><span class="lineNum">     192 </span>                :            : TransformStampedFuture</a>
+<a name="193"><span class="lineNum">     193 </span>                :<span class="lineCov">       1538 : Buffer::waitForTransform(</span></a>
+<a name="194"><span class="lineNum">     194 </span>                :            :   const std::string &amp; target_frame, const std::string &amp; source_frame, const tf2::TimePoint &amp; time,</a>
+<a name="195"><span class="lineNum">     195 </span>                :            :   const tf2::Duration &amp; timeout, TransformReadyCallback callback)</a>
+<a name="196"><span class="lineNum">     196 </span>                :            : {</a>
+<a name="197"><span class="lineNum">     197 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1538 times"> + </span>]:<span class="lineCov">       1538 :   if (nullptr == timer_interface_) {</span></a>
+<a name="198"><span class="lineNum">     198 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     throw CreateTimerInterfaceException(&quot;timer interface not set before call to waitForTransform&quot;);</span></a>
+<a name="199"><span class="lineNum">     199 </span>                :            :   }</a>
+<a name="200"><span class="lineNum">     200 </span>                :            : </a>
+<a name="201"><span class="lineNum">     201 </span>        [<span class="branchCov" title="Branch 0 was taken 1538 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3076 :   auto promise = std::make_shared&lt;std::promise&lt;geometry_msgs::msg::TransformStamped&gt;&gt;();</span></a>
+<a name="202"><span class="lineNum">     202 </span>        [<span class="branchCov" title="Branch 0 was taken 1538 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1538 :   TransformStampedFuture future(promise-&gt;get_future());</span></a>
+<a name="203"><span class="lineNum">     203 </span>                :            : </a>
+<a name="204"><span class="lineNum">     204 </span>                :<span class="lineCov">       1506 :   auto cb = [this, promise, callback, future](</span></a>
+<a name="205"><span class="lineNum">     205 </span>                :            :     tf2::TransformableRequestHandle request_handle, const std::string &amp; target_frame,</a>
+<a name="206"><span class="lineNum">     206 </span>                :<span class="lineCov">      10782 :     const std::string &amp; source_frame, tf2::TimePoint time, tf2::TransformableResult result)</span></a>
+<a name="207"><span class="lineNum">     207 </span>                :            :     {</a>
+<a name="208"><span class="lineNum">     208 </span>                :            :       (void) request_handle;</a>
+<a name="209"><span class="lineNum">     209 </span>                :            : </a>
+<a name="210"><span class="lineNum">     210 </span>                :<span class="lineCov">       1506 :       bool timeout_occurred = true;</span></a>
+<a name="211"><span class="lineNum">     211 </span>                :            :       {</a>
+<a name="212"><span class="lineNum">     212 </span>        [<span class="branchCov" title="Branch 0 was taken 1506 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3012 :         std::lock_guard&lt;std::mutex&gt; lock(this-&gt;timer_to_request_map_mutex_);</span></a>
+<a name="213"><span class="lineNum">     213 </span>                :            :         // Check if a timeout already occurred</a>
+<a name="214"><span class="lineNum">     214 </span>        [<span class="branchCov" title="Branch 0 was taken 3252 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3252 :         for (auto it = timer_to_request_map_.begin(); it != timer_to_request_map_.end(); ++it) {</span></a>
+<a name="215"><span class="lineNum">     215 </span>        [<span class="branchCov" title="Branch 0 was taken 1506 times"> + </span><span class="branchCov" title="Branch 1 was taken 1746 times"> + </span>]:<span class="lineCov">       3252 :           if (request_handle == it-&gt;second) {</span></a>
+<a name="216"><span class="lineNum">     216 </span>                :            :             // The request handle was found, so a timeout has not occurred</a>
+<a name="217"><span class="lineNum">     217 </span>        [<span class="branchCov" title="Branch 0 was taken 1506 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1506 :             this-&gt;timer_interface_-&gt;remove(it-&gt;first);</span></a>
+<a name="218"><span class="lineNum">     218 </span>        [<span class="branchCov" title="Branch 0 was taken 1506 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1506 :             this-&gt;timer_to_request_map_.erase(it-&gt;first);</span></a>
+<a name="219"><span class="lineNum">     219 </span>                :<span class="lineCov">       1506 :             timeout_occurred = false;</span></a>
+<a name="220"><span class="lineNum">     220 </span>                :<span class="lineCov">       1506 :             break;</span></a>
+<a name="221"><span class="lineNum">     221 </span>                :            :           }</a>
+<a name="222"><span class="lineNum">     222 </span>                :            :         }</a>
+<a name="223"><span class="lineNum">     223 </span>                :            :       }</a>
+<a name="224"><span class="lineNum">     224 </span>                :            : </a>
+<a name="225"><span class="lineNum">     225 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1506 times"> + </span>]:<span class="lineCov">       1506 :       if (timeout_occurred) {</span></a>
+<a name="226"><span class="lineNum">     226 </span>                :<span class="lineNoCov">          0 :         return;</span></a>
+<a name="227"><span class="lineNum">     227 </span>                :            :       }</a>
+<a name="228"><span class="lineNum">     228 </span>                :            : </a>
+<a name="229"><span class="lineNum">     229 </span>        [<span class="branchCov" title="Branch 0 was taken 1506 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1506 :       if (result == tf2::TransformAvailable) {</span></a>
+<a name="230"><span class="lineNum">     230 </span>                :            :         geometry_msgs::msg::TransformStamped msg_stamped = this-&gt;lookupTransform(</a>
+<a name="231"><span class="lineNum">     231 </span>        [<span class="branchCov" title="Branch 0 was taken 1506 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3012 :           target_frame, source_frame, time);</span></a>
+<a name="232"><span class="lineNum">     232 </span>        [<span class="branchCov" title="Branch 0 was taken 1506 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1506 :         promise-&gt;set_value(msg_stamped);</span></a>
+<a name="233"><span class="lineNum">     233 </span>                :            :       } else {</a>
+<a name="234"><span class="lineNum">     234 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         promise-&gt;set_exception(</span></a>
+<a name="235"><span class="lineNum">     235 </span>                :<span class="lineNoCov">          0 :           std::make_exception_ptr(</span></a>
+<a name="236"><span class="lineNum">     236 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :             tf2::LookupException(</span></a>
+<a name="237"><span class="lineNum">     237 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :               &quot;Failed to transform from &quot; + source_frame + &quot; to &quot; + target_frame)));</span></a>
+<a name="238"><span class="lineNum">     238 </span>                :            :       }</a>
+<a name="239"><span class="lineNum">     239 </span>                :<span class="lineCov">       1506 :       callback(future);</span></a>
+<a name="240"><span class="lineNum">     240 </span>        [<span class="branchCov" title="Branch 0 was taken 1538 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3076 :     };</span></a>
+<a name="241"><span class="lineNum">     241 </span>                :            : </a>
+<a name="242"><span class="lineNum">     242 </span>  [<span class="branchCov" title="Branch 0 was taken 1538 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1538 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">       1538 :   auto handle = addTransformableRequest(cb, target_frame, source_frame, time);</span></a>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 1538 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]
+<a name="243"><span class="lineNum">     243 </span>        [<span class="branchCov" title="Branch 0 was taken 28 times"> + </span><span class="branchCov" title="Branch 1 was taken 1510 times"> + </span>]:<span class="lineCov">       1538 :   if (0 == handle) {</span></a>
+<a name="244"><span class="lineNum">     244 </span>                :            :     // Immediately transformable</a>
+<a name="245"><span class="lineNum">     245 </span>                :            :     geometry_msgs::msg::TransformStamped msg_stamped = lookupTransform(</a>
+<a name="246"><span class="lineNum">     246 </span>        [<span class="branchCov" title="Branch 0 was taken 28 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         56 :       target_frame, source_frame, time);</span></a>
+<a name="247"><span class="lineNum">     247 </span>        [<span class="branchCov" title="Branch 0 was taken 28 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         28 :     promise-&gt;set_value(msg_stamped);</span></a>
+<a name="248"><span class="lineNum">     248 </span>        [<span class="branchCov" title="Branch 0 was taken 28 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         28 :     callback(future);</span></a>
+<a name="249"><span class="lineNum">     249 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1510 times"> + </span>]:<span class="lineCov">       1510 :   } else if (0xffffffffffffffffULL == handle) {</span></a>
+<a name="250"><span class="lineNum">     250 </span>                :            :     // Never transformable</a>
+<a name="251"><span class="lineNum">     251 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     promise-&gt;set_exception(</span></a>
+<a name="252"><span class="lineNum">     252 </span>                :<span class="lineNoCov">          0 :       std::make_exception_ptr(</span></a>
+<a name="253"><span class="lineNum">     253 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         tf2::LookupException(</span></a>
+<a name="254"><span class="lineNum">     254 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :           &quot;Failed to transform from &quot; + source_frame + &quot; to &quot; + target_frame)));</span></a>
+<span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
+<a name="255"><span class="lineNum">     255 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     callback(future);</span></a>
+<a name="256"><span class="lineNum">     256 </span>                :            :   } else {</a>
+<a name="257"><span class="lineNum">     257 </span>        [<span class="branchCov" title="Branch 0 was taken 1510 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1510 :     std::lock_guard&lt;std::mutex&gt; lock(timer_to_request_map_mutex_);</span></a>
+<a name="258"><span class="lineNum">     258 </span>  [<span class="branchCov" title="Branch 0 was taken 1510 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1510 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       6040 :     auto timer_handle = timer_interface_-&gt;createTimer(</span></a>
+<a name="259"><span class="lineNum">     259 </span>                :<span class="lineCov">       1510 :       clock_,</span></a>
+<a name="260"><span class="lineNum">     260 </span>                :            :       timeout,</a>
+<a name="261"><span class="lineNum">     261 </span>        [<span class="branchCov" title="Branch 0 was taken 1510 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       4530 :       std::bind(&amp;Buffer::timerCallback, this, std::placeholders::_1, promise, future, callback));</span></a>
+<a name="262"><span class="lineNum">     262 </span>                :            : </a>
+<a name="263"><span class="lineNum">     263 </span>                :            :     // Save association between timer and request handle</a>
+<a name="264"><span class="lineNum">     264 </span>        [<span class="branchCov" title="Branch 0 was taken 1510 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1510 :     timer_to_request_map_[timer_handle] = handle;</span></a>
+<a name="265"><span class="lineNum">     265 </span>                :            :   }</a>
+<a name="266"><span class="lineNum">     266 </span>                :<span class="lineCov">       3076 :   return future;</span></a>
+<a name="267"><span class="lineNum">     267 </span>                :            : }</a>
+<a name="268"><span class="lineNum">     268 </span>                :            : </a>
+<a name="269"><span class="lineNum">     269 </span>                :            : void</a>
+<a name="270"><span class="lineNum">     270 </span>                :<span class="lineCov">          2 : Buffer::timerCallback(</span></a>
+<a name="271"><span class="lineNum">     271 </span>                :            :   const TimerHandle &amp; timer_handle,</a>
+<a name="272"><span class="lineNum">     272 </span>                :            :   std::shared_ptr&lt;std::promise&lt;geometry_msgs::msg::TransformStamped&gt;&gt; promise,</a>
+<a name="273"><span class="lineNum">     273 </span>                :            :   TransformStampedFuture future,</a>
+<a name="274"><span class="lineNum">     274 </span>                :            :   TransformReadyCallback callback)</a>
+<a name="275"><span class="lineNum">     275 </span>                :            : {</a>
+<a name="276"><span class="lineNum">     276 </span>                :<span class="lineCov">          2 :   bool timer_is_valid = false;</span></a>
+<a name="277"><span class="lineNum">     277 </span>                :<span class="lineCov">          2 :   tf2::TransformableRequestHandle request_handle = 0u;</span></a>
+<a name="278"><span class="lineNum">     278 </span>                :            :   {</a>
+<a name="279"><span class="lineNum">     279 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          4 :     std::lock_guard&lt;std::mutex&gt; lock(timer_to_request_map_mutex_);</span></a>
+<a name="280"><span class="lineNum">     280 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :     auto timer_and_request_it = timer_to_request_map_.find(timer_handle);</span></a>
+<a name="281"><span class="lineNum">     281 </span>                :<span class="lineCov">          2 :     timer_is_valid = (timer_to_request_map_.end() != timer_and_request_it);</span></a>
+<a name="282"><span class="lineNum">     282 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     if (timer_is_valid) {</span></a>
+<a name="283"><span class="lineNum">     283 </span>                :<span class="lineCov">          1 :       request_handle = timer_and_request_it-&gt;second;</span></a>
+<a name="284"><span class="lineNum">     284 </span>                :            :     }</a>
+<a name="285"><span class="lineNum">     285 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :     timer_to_request_map_.erase(timer_handle);</span></a>
+<a name="286"><span class="lineNum">     286 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :     timer_interface_-&gt;remove(timer_handle);</span></a>
+<a name="287"><span class="lineNum">     287 </span>                :            :   }</a>
+<a name="288"><span class="lineNum">     288 </span>                :            : </a>
+<a name="289"><span class="lineNum">     289 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          2 :   if (timer_is_valid) {</span></a>
+<a name="290"><span class="lineNum">     290 </span>                :<span class="lineCov">          1 :     cancelTransformableRequest(request_handle);</span></a>
+<a name="291"><span class="lineNum">     291 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :     promise-&gt;set_exception(</span></a>
+<a name="292"><span class="lineNum">     292 </span>                :<span class="lineCov">          2 :       std::make_exception_ptr(</span></a>
+<a name="293"><span class="lineNum">     293 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          2 :         tf2::TimeoutException(std::string(&quot;Timed out waiting for transform&quot;))));</span></a>
+<a name="294"><span class="lineNum">     294 </span>                :<span class="lineCov">          1 :     callback(future);</span></a>
+<a name="295"><span class="lineNum">     295 </span>                :            :   }</a>
+<a name="296"><span class="lineNum">     296 </span>                :<span class="lineCov">          2 : }</span></a>
+<a name="297"><span class="lineNum">     297 </span>                :            : </a>
+<a name="298"><span class="lineNum">     298 </span>                :<span class="lineNoCov">          0 : bool Buffer::getFrames(</span></a>
+<a name="299"><span class="lineNum">     299 </span>                :            :   const tf2_msgs::srv::FrameGraph::Request::SharedPtr req,</a>
+<a name="300"><span class="lineNum">     300 </span>                :            :   tf2_msgs::srv::FrameGraph::Response::SharedPtr res)</a>
+<a name="301"><span class="lineNum">     301 </span>                :            : {</a>
+<a name="302"><span class="lineNum">     302 </span>                :            :   (void)req;</a>
+<a name="303"><span class="lineNum">     303 </span>                :<span class="lineNoCov">          0 :   res-&gt;frame_yaml = allFramesAsYAML();</span></a>
+<a name="304"><span class="lineNum">     304 </span>                :<span class="lineNoCov">          0 :   return true;</span></a>
+<a name="305"><span class="lineNum">     305 </span>                :            : }</a>
+<a name="306"><span class="lineNum">     306 </span>                :            : </a>
+<a name="307"><span class="lineNum">     307 </span>                :<span class="lineCov">         34 : bool Buffer::checkAndErrorDedicatedThreadPresent(std::string * error_str) const</span></a>
+<a name="308"><span class="lineNum">     308 </span>                :            : {</a>
+<a name="309"><span class="lineNum">     309 </span>        [<span class="branchCov" title="Branch 0 was taken 29 times"> + </span><span class="branchCov" title="Branch 1 was taken 5 times"> + </span>]:<span class="lineCov">         34 :   if (isUsingDedicatedThread()) {</span></a>
+<a name="310"><span class="lineNum">     310 </span>                :<span class="lineCov">         29 :     return true;</span></a>
+<a name="311"><span class="lineNum">     311 </span>                :            :   }</a>
+<a name="312"><span class="lineNum">     312 </span>                :            : </a>
+<a name="313"><span class="lineNum">     313 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 5 times"> + </span>]:<span class="lineCov">          5 :   if (error_str) {</span></a>
+<a name="314"><span class="lineNum">     314 </span>                :<span class="lineNoCov">          0 :     *error_str = tf2_ros::threading_error;</span></a>
+<a name="315"><span class="lineNum">     315 </span>                :            :   }</a>
+<a name="316"><span class="lineNum">     316 </span>                :            : </a>
+<a name="317"><span class="lineNum">     317 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          5 :   RCLCPP_ERROR(getLogger(), &quot;%s&quot;, tf2_ros::threading_error);</span></a>
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchCov" title="Branch 8 was taken 5 times"> + </span> 
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 5 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 5 times"> + </span><span class="branchNoCov" title="Branch 13 was not taken"> - </span> 
+<span class="lineNum">         </span>   <span class="branchCov" title="Branch 14 was taken 5 times"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span><span class="branchCov" title="Branch 16 was taken 5 times"> + </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span>]
+<a name="318"><span class="lineNum">     318 </span>                :<span class="lineCov">          5 :   return false;</span></a>
+<a name="319"><span class="lineNum">     319 </span>                :            : }</a>
+<a name="320"><span class="lineNum">     320 </span>                :            : </a>
+<a name="321"><span class="lineNum">     321 </span>                :<span class="lineCov">         10 : rclcpp::Logger Buffer::getLogger() const</span></a>
+<a name="322"><span class="lineNum">     322 </span>                :            : {</a>
+<a name="323"><span class="lineNum">     323 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         10 :   return node_ ? node_-&gt;get_logger() : rclcpp::get_logger(&quot;tf2_buffer&quot;);</span></a>
+<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchCov" title="Branch 8 was taken 10 times"> + </span> 
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchNoCov" title="Branch 12 was not taken"> - </span><span class="branchNoCov" title="Branch 13 was not taken"> - </span> 
+<span class="lineNum">         </span>         <span class="branchNoCov" title="Branch 14 was not taken"> - </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span>]
+<a name="324"><span class="lineNum">     324 </span>                :            : }</a>
+<a name="325"><span class="lineNum">     325 </span>                :            : </a>
+<a name="326"><span class="lineNum">     326 </span>                :            : }  // namespace tf2_ros</a>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.14</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
