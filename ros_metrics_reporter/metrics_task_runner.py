@@ -1,6 +1,5 @@
 import shlex
 from pathlib import Path
-from codechecker.analyzer.codechecker_analyzer import arg
 
 from ros_metrics_reporter.metrics.lizard_all import lizard_all
 from ros_metrics_reporter.metrics.lizard_package import lizard_package
