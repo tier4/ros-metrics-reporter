@@ -1,20 +1,6 @@
 from pathlib import Path
 from typing import Dict
-
-
-def read_lcovrc(lcovrc: Path) -> Dict[str, int]:
-    coverage_limits = {}
-    with open(lcovrc) as f:
-        for line in f:
-            # Skip comment lines
-            if "#" == line[0]:
-                continue
-
-            if "genhtml_hi_limit" in line:
-                coverage_limits["Coverage(Hi)"] = int(line.split()[-1])
-            elif "genhtml_med_limit" in line:
-                coverage_limits["Coverage(Med)"] = int(line.split()[-1])
-    return coverage_limits
+from ros_metrics_reporter.coverage.read_config import read_lcovrc
 
 
 def save_data(
@@ -27,7 +13,7 @@ def save_data(
 
 
 def save_metrics_threshold(
-    metrics_dir: Path,
+    output_dir: Path,
     ccn: int,
     nloc: int,
     arguments: int,
@@ -44,20 +30,20 @@ def save_metrics_threshold(
         "Parameter(recommendation)": arguments_recommendation,
     }
 
-    save_data(metrics, metrics_dir / "metrics_threshold.csv")
+    save_data(metrics, output_dir / "metrics_threshold.csv")
 
 
 def save_lcov_threshold(
     lcovrc: Path,
-    metrics_dir: Path,
+    output_dir: Path,
 ):
-    lcov_threshold = read_lcovrc(lcovrc)
-    save_data(lcov_threshold, metrics_dir / "lcov_threshold.csv")
+    lcov_threshold = read_lcovrc(lcovrc).to_dict()
+    save_data(lcov_threshold, output_dir / "lcov_threshold.csv")
 
 
 def save_threshold(
     lcovrc: Path,
-    metrics_dir: Path,
+    output_dir: Path,
     ccn: int,
     nloc: int,
     arguments: int,
@@ -67,11 +53,11 @@ def save_threshold(
 ):
     save_lcov_threshold(
         lcovrc,
-        metrics_dir,
+        output_dir,
     )
 
     save_metrics_threshold(
-        metrics_dir,
+        output_dir,
         ccn,
         nloc,
         arguments,

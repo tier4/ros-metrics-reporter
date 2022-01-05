@@ -12,7 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ARTIFACTS_DIR: data
-      TARGET_REPO: "ros2/demos"
+      TARGET_REPO: "ros2/geometry2"
+      TEST_LABEL: "gtest component_test"
 
     strategy:
       fail-fast: false
@@ -55,6 +56,7 @@ jobs:
       with:
         target-ros2-distro: ${{ matrix.ros_distribution }}
         vcs-repo-file-url: ${{ matrix.vcs_file }}
+        skip-tests: true
         extra-cmake-args: -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
         colcon-defaults: |
           {
@@ -79,6 +81,7 @@ jobs:
         exclude: "**/pendulum_control/*"
         codechecker-skip-list: "codechecker-skip-list.txt"
         target-repository: ${{ env.TARGET_REPO }}
+        test-label: ${{ env.TEST_LABEL }}
 
     - name: Check results
       run: |

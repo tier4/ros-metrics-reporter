@@ -2,37 +2,12 @@
 
 from typing import List
 import bs4
-import re
 import csv
 
 from numpy.core.fromnumeric import mean
 from decimal import Decimal, ROUND_HALF_UP
 
 from pathlib import Path
-
-
-def classname_to_signal(classname: str) -> str:
-    return re.sub("headerCovTableEntry", "", classname)
-
-
-def get_lcov_coverage(html_path: str) -> List[dict]:
-    """Get Lines, Functions, Branches coverage rate"""
-    soup = bs4.BeautifulSoup(open(html_path), "html.parser")
-    rate_list = []
-    for tr in soup.select("body > table:nth-of-type(1) > tr > td > table > tr"):
-        try:
-            coverage_type = tr.select("td:nth-of-type(4)")[0]
-            percentage = tr.select("td:nth-of-type(7)")[0]
-            if "%" in percentage.text:
-                rate = {}
-                rate["type"] = re.sub(":", "", coverage_type.text)
-                rate["value"] = re.sub(" %", "", percentage.text)
-                rate["signal"] = classname_to_signal(percentage["class"][0])
-                rate_list.append(rate)
-        except:
-            continue
-
-    return rate_list
 
 
 def get_worst_case(metrics: list) -> int:
@@ -139,10 +114,7 @@ def save_to_csv(filename, field_names, data, mode="w"):
         writer.writerows(data)
 
 
-def scraping(
-    lcov_dir: Path, lizard_dir: Path, lizard_recommendation_dir: Path, output_dir: Path
-):
-    lcov_index_list = list(lcov_dir.glob("*/index.html"))
+def scraping(lizard_dir: Path, lizard_recommendation_dir: Path, output_dir: Path):
     lizard_index_list = list(lizard_dir.glob("*/index.html"))
     lizard_recommend_index_list = list(lizard_recommendation_dir.glob("*/index.html"))
 
@@ -150,11 +122,6 @@ def scraping(
     for html in lizard_index_list:
         dirname = html.parent.name
         (output_dir / dirname).mkdir(exist_ok=True, parents=True)
-
-    for html in lcov_index_list:
-        coverages = get_lcov_coverage(html)
-        filename = output_dir / html.parent.name / "coverage.csv"
-        save_to_csv(filename, coverages[0].keys(), coverages)
 
     for html in lizard_index_list:
         metrics = get_lizard_metrics(html)

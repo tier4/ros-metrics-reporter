@@ -1,5 +1,5 @@
 repositories:
-  example/src/demos:
+  example/src/geometry2:
     type: git
-    url: https://github.com/ros2/demos.git
-    version: master
+    url: https://github.com/KeisukeShima/geometry2.git
+    version: ros2

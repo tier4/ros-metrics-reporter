@@ -57,12 +57,18 @@ Last updated: [[ last_updated ]]
 
 ## Code coverage
 
+{%- for test_label in test_label_list %}
+
+### Test label: [[ test_label.name ]]
+
 {{< load-plotly >}}
-{{< plotly json="plotly/[[ plotly_lcov_figure_name ]]" height="400px" >}}
+{{< plotly json="plotly/[[ test_label.plotly_lcov_figure_name ]]" height="400px" >}}
 
 {{< hint info >}}
-{{< icon "gdoc_link" >}} [You can access more detailed data on code coverage here.]([[ lcov_result_html_link ]])
+{{< icon "gdoc_link" >}} [You can access more detailed data on code coverage here.]([[ test_label.lcov_result_html_link ]])
 {{< /hint >}}
+
+{%- endfor %}
 
 ---
 

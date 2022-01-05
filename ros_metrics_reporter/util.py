@@ -6,9 +6,28 @@ from subprocess import CalledProcessError
 import sys
 from typing import List
 import fnmatch
+import shutil
+import uuid
 
 from jinja2 import Environment, FileSystemLoader
 from jinja2.environment import Template
+
+
+class DirectoryBackup:
+    def __init__(self, dir_path: Path):
+        self.orig_path = dir_path
+        self.backup_path = dir_path.with_suffix("." + str(uuid.uuid4()))
+
+    def __del__(self):
+        if self.backup_path.exists():
+            shutil.rmtree(self.backup_path)
+
+    def backup(self):
+        shutil.copytree(self.orig_path, self.backup_path)
+
+    def restore(self):
+        shutil.rmtree(self.orig_path, ignore_errors=True)
+        self.backup_path.rename(self.orig_path)
 
 
 def path_match(target_path: str, pattern_list: List[str]) -> bool:
@@ -16,13 +35,6 @@ def path_match(target_path: str, pattern_list: List[str]) -> bool:
         pattern for pattern in pattern_list if fnmatch.fnmatch(target_path, pattern)
     ]
     return True if matched else False
-
-
-def dir_path(input):
-    if Path(input).is_dir():
-        return Path(input)
-    else:
-        raise NotADirectoryError(input)
 
 
 def run_command(args: List[str], cwd: Path = None) -> bool:

@@ -26,9 +26,9 @@ After that, you can run tests with the following command:
 
 ```sh
 $ cd ros-metrics-reporter
-$ vcs import . < ros-metrics-reporter-<ROS_DISTRO>.repos  # Import ros2/demos into your workspace
-$ cd scripts
-$ python3 ../tests/run_local.py
+$ vcs import . < ros-metrics-reporter-<ROS_DISTRO>.repos  # Import ros2/geometry2 into your workspace
+$ pip3 install --editable .
+$ python3 tests/test_run_local.py
 $ cd ../hugo-test
 $ hugo server -D
 $ firefox http://localhost:1313/

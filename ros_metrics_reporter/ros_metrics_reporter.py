@@ -2,13 +2,12 @@
 
 import argparse
 from pathlib import Path
+from typing import List
 
-from ros_metrics_reporter.coverage_all import *
-from ros_metrics_reporter.coverage_package import *
-from ros_metrics_reporter.util import dir_path
+from ros_metrics_reporter.code_coverage_task_runner import CodeCoverageTaskRunner
 from ros_metrics_reporter.lizard_all import lizard_all
 from ros_metrics_reporter.lizard_package import lizard_package
-from ros_metrics_reporter.scraping import scraping
+from ros_metrics_reporter.scraping_task import scraping
 from ros_metrics_reporter.create_link import create_link
 from ros_metrics_reporter.create_static_page import create_static_page
 from ros_metrics_reporter.clang_tidy import clang_tidy
@@ -17,22 +16,18 @@ from ros_metrics_reporter.colcon_directory import *
 from ros_metrics_reporter.plot_timeseries import generate_metrics_graph
 from ros_metrics_reporter.package_info import PackageInfo
 from ros_metrics_reporter.code_activity.code_activity import code_activity
+from ros_metrics_reporter.static_page_input import StaticPageInput
 
 
 def ros_metrics_reporter(args):
-    exclude = args.exclude.split()
     packages = PackageInfo(args.base_dir)
+    metrics_dir = args.output_dir / "metrics" / args.timestamp
+    metrics_dir.mkdir(parents=True, exist_ok=True)
 
-    # Initialize coverage
-    lcov_dir = args.output_dir / "lcov_result" / args.timestamp
-    coverage_all = CoverageAll(
-        base_dir=args.base_dir, output_dir=lcov_dir, lcovrc=args.lcovrc
-    )
-    coverage_package = CoveragePackage(output_dir=lcov_dir, lcovrc=args.lcovrc)
-
-    # Generate HTML report
-    coverage_package.generate_html_report(package_info=packages, exclude=exclude)
-    coverage_all.generate_html_report(exclude=exclude)
+    # Run code coverage task
+    coverage_runner = CodeCoverageTaskRunner(args)
+    coverage_runner.run(packages)
+    coverage_runner.save_coverage_value(metrics_dir)
 
     # Measure code metrics for threshold value
     lizard_dir = args.output_dir / "lizard_result" / args.timestamp
@@ -43,13 +38,13 @@ def ros_metrics_reporter(args):
         ccn=args.ccn,
         nloc=args.nloc,
         arguments=args.arguments,
-        exclude=exclude,
+        exclude=args.exclude,
     )
     lizard_package(
         package_info=packages,
         output_dir=lizard_dir,
         gh_action_dir=args.action_dir,
-        exclude=exclude,
+        exclude=args.exclude,
         ccn=args.ccn,
         nloc=args.nloc,
         arguments=args.arguments,
@@ -66,13 +61,13 @@ def ros_metrics_reporter(args):
         ccn=args.ccn_recommendation,
         nloc=args.nloc_recommendation,
         arguments=args.arguments_recommendation,
-        exclude=exclude,
+        exclude=args.exclude,
     )
     lizard_package(
         package_info=packages,
         output_dir=lizard_recommendation_dir,
         gh_action_dir=args.action_dir,
-        exclude=exclude,
+        exclude=args.exclude,
         ccn=args.ccn_recommendation,
         nloc=args.nloc_recommendation,
         arguments=args.arguments_recommendation,
@@ -89,10 +84,7 @@ def ros_metrics_reporter(args):
     )
 
     # Scraping
-    metrics_dir = args.output_dir / "metrics" / args.timestamp
-    metrics_dir.mkdir(parents=True, exist_ok=True)
     scraping(
-        lcov_dir=lcov_dir,
         lizard_dir=lizard_dir,
         lizard_recommendation_dir=lizard_recommendation_dir,
         output_dir=metrics_dir,
@@ -106,7 +98,7 @@ def ros_metrics_reporter(args):
         ccn_recommendation=args.ccn_recommendation,
         nloc_recommendation=args.nloc_recommendation,
         arguments_recommendation=args.arguments_recommendation,
-        metrics_dir=metrics_dir,
+        output_dir=metrics_dir,
     )
 
     # Create symbolic link
@@ -136,7 +128,7 @@ def ros_metrics_reporter(args):
     # Create static page
     hugo_template_dir = args.action_dir / "template" / "hugo"
 
-    create_static_page(
+    static_page_input = StaticPageInput(
         input_dir=metrics_dir.parent,
         hugo_root_dir=args.hugo_root_dir,
         hugo_template_dir=hugo_template_dir,
@@ -146,7 +138,23 @@ def ros_metrics_reporter(args):
         base_url=args.base_url,
         title=args.title,
         contributors=contributors,
+        test_label=args.test_label,
     )
+
+    create_static_page(
+        input=static_page_input,
+    )
+
+
+def dir_path(input):
+    if Path(input).is_dir():
+        return Path(input)
+    else:
+        raise NotADirectoryError(input)
+
+
+def space_separated_string(input: str) -> List[str]:
+    return input.split()
 
 
 if __name__ == "__main__":
@@ -184,7 +192,9 @@ if __name__ == "__main__":
     parser.add_argument(
         "--extra-cmake-args", help="Extra cmake args", type=str, required=False
     )
-    parser.add_argument("--exclude", help="Exclude path", type=str, required=False)
+    parser.add_argument(
+        "--exclude", help="Exclude path", type=space_separated_string, required=False
+    )
     parser.add_argument("--ccn", help="CCN", type=int, required=True)
     parser.add_argument(
         "--ccn-recommendation", help="CCN recommend value", type=int, required=True
@@ -217,6 +227,12 @@ if __name__ == "__main__":
         help="Github access token",
         type=str,
         default=None,
+    )
+    parser.add_argument(
+        "--test-label",
+        help="Test label",
+        type=space_separated_string,
+        required=False,
     )
 
     args = parser.parse_args()

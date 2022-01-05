@@ -9,6 +9,8 @@ from enum import Enum
 from datetime import datetime
 
 from ros_metrics_reporter.util import read_jinja2_template
+from ros_metrics_reporter.coverage.coverage_data import CoverageKeys
+from ros_metrics_reporter.static_page_input import StaticPageInput
 
 
 class Color(Enum):
@@ -71,7 +73,7 @@ def read_lcov_result(file: Path, type: str) -> tuple:
     with open(file) as f:
         reader = csv.DictReader(f)
         for row in reader:
-            if row["type"] == type:
+            if row["type"] == type and row["label"] == "all":
                 return row["value"], label_color[row["signal"]]
     return "N/A", label_color["None"]
 
@@ -153,7 +155,7 @@ def read_legend(metrics_dir: Path) -> Dict[str, int]:
     with open(metrics_dir / "lcov_threshold.csv") as f:
         for line in f:
             key, value = line.split(",")
-            legend[key] = int(value)
+            legend[key] = float(value)
     return legend
 
 
@@ -162,7 +164,10 @@ def get_timestamp_from_lizard_csv(file: Path, format: str) -> datetime:
 
 
 def replace_summary_page(
-    file: Path, metrics_dir: Path, packages: List[str], contributors: List[Dict]
+    file: Path,
+    metrics_dir: Path,
+    packages: List[str],
+    input_data: StaticPageInput,
 ):
     template = read_jinja2_template(file)
 
@@ -178,12 +183,12 @@ def replace_summary_page(
         param["package"] = add_package_link(package)
         lcov_csv = metrics_dir / package / "coverage.csv"
         coverage_names = {
-            "line_badge": "Lines",
-            "functions_badge": "Functions",
-            "branches_badge": "Branches",
+            "line_badge": CoverageKeys.Lines,
+            "functions_badge": CoverageKeys.Functions,
+            "branches_badge": CoverageKeys.Branches,
         }
         for badge_name, type_name in coverage_names.items():
-            lcov_cov, lcov_color = read_lcov_result(lcov_csv, type_name)
+            lcov_cov, lcov_color = read_lcov_result(lcov_csv, type_name.value)
             if badge_name == "branches_badge":
                 # Set background of branches coverage to gray
                 lcov_color = Color.GREY
@@ -222,7 +227,7 @@ def replace_summary_page(
 
     param_list = sorted(param_list, key=lambda x: x["package"])
 
-    render_dict = replace_token("all")
+    render_dict = replace_token("all", input_data)
 
     render_dict["param_list"] = param_list
 
@@ -232,7 +237,7 @@ def replace_summary_page(
     )
 
     # get repository statistics information
-    for i, contributor in enumerate(contributors, 1):
+    for i, contributor in enumerate(input_data.contributors["all"], 1):
         render_dict["contributor_name_" + str(i)] = contributor["name"]
         render_dict["contributor_avatar_" + str(i)] = contributor["avatar"]
         render_dict["contribute_count_" + str(i)] = contributor["total"]
@@ -244,35 +249,51 @@ def replace_summary_page(
         f.write(template.render(render_dict))
 
 
-def replace_token(package: str) -> Dict[str, str]:
-    lcov_html = "/lcov/" + package
+def replace_token(package: str, input_data: StaticPageInput) -> Dict[str, str]:
     lizard_html = "/lizard/" + package
     tidy_html = "/tidy"
-    coverage_json = package + "/coverage.json"
     ccn_json = package + "/ccn.json"
     loc_json = package + "/loc.json"
     parameter_json = package + "/parameter.json"
     token_json = package + "/token.json"
 
+    coverage_graph_list = []
+    # Code coverage for all tests
+    coverage_graph_list.append(
+        {
+            "name": "all",
+            "plotly_lcov_figure_name": package + "/coverage.all.json",
+            "lcov_result_html_link": "/lcov/" + package,
+        }
+    )
+
+    for label in input_data.test_label:
+        coverage_graph_list.append(
+            {
+                "name": label,
+                "plotly_lcov_figure_name": package + f"/coverage.{label}.json",
+                "lcov_result_html_link": "/lcov/" + package + f"/{label}",
+            }
+        )
+
     return {
         "package_name": package,
-        "lcov_result_html_link": lcov_html,
         "lizard_result_html_link": lizard_html,
         "tidy_result_html_link": tidy_html,
-        "plotly_lcov_figure_name": coverage_json,
         "plotly_metrics_ccn_figure_name": ccn_json,
         "plotly_metrics_loc_figure_name": loc_json,
         "plotly_metrics_parameter_figure_name": parameter_json,
         "plotly_metrics_token_figure_name": token_json,
+        "test_label_list": coverage_graph_list,
     }
 
 
-def replace_contents(file: Path, package: str, contributors: List[Dict]):
+def replace_contents(file: Path, package: str, input_data: StaticPageInput):
     template = read_jinja2_template(file)
-    render_dict = replace_token(package)
+    render_dict = replace_token(package, input_data)
 
     # get repository statistics information
-    for i, contributor in enumerate(contributors, 1):
+    for i, contributor in enumerate(input_data.contributors[package], 1):
         render_dict["contributor_name_" + str(i)] = contributor["name"]
         render_dict["contribute_count_" + str(i)] = contributor["total"]
 
@@ -285,7 +306,7 @@ def run_markdown_generator(
     dest: Path,
     metrics_dir: Path,
     packages: List[str],
-    contributors: Dict[str, List],
+    input_data: StaticPageInput,
 ):
     # Copy all files from template/hugo/content/ to hugo content directory
     markdown_dir_src = src / "content"
@@ -294,7 +315,7 @@ def run_markdown_generator(
 
     # Create summary page
     summary_page = markdown_dir_dest / "_index.md"
-    replace_summary_page(summary_page, metrics_dir, packages, contributors["all"])
+    replace_summary_page(summary_page, metrics_dir, packages, input_data)
 
     # Create package detail page
     template = dest / "content" / "packages" / "TEMPLATE.md"
@@ -304,7 +325,7 @@ def run_markdown_generator(
         filename = dest / "content" / "packages" / (package + ".md")
         shutil.copy(template, filename)
         # Replace token
-        replace_contents(filename, package, contributors[package])
+        replace_contents(filename, package, input_data)
 
     template.unlink()
 
