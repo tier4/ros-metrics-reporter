@@ -31,10 +31,11 @@ jobs:
       - name: Inport vcs repo
         run: |
           vcs import . < ros-metrics-reporter-galactic.repos
+          rosdep install --from-paths . --ignore-src --rosdistro=galactic -y
 
       - name: Build
         run: |
-          . /opt/ros/galactic/setup.sh
+          . /opt/ros/galactic/setup.bash
           colcon build --symlink-install --cmake-args -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage --coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs --coverage -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
         working-directory: example/src/geometry2
 
