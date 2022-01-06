@@ -21,9 +21,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install tox-gh-actions poetry
           sudo apt update
-          sudo apt install -y git
+          sudo apt install -y git python3-pip
+          pip install tox-gh-actions poetry
 
       - name: Setup ROS to use colcon commands
         uses: ros-tooling/setup-ros@v0.2
