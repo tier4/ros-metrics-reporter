@@ -82,7 +82,8 @@ def run_ros_metrics_reporter():
 def test_ros_metrics_reporter():
     if not ros_ws.exists():
         setup()
-    build()
+    if not (ros_ws / "build").exists():
+        build()
     args = run_ros_metrics_reporter()
 
     # Check result files
