@@ -31,6 +31,7 @@ jobs:
       - name: Inport vcs repo
         run: |
           vcs import . < ros-metrics-reporter-galactic.repos
+          rosdep update
           rosdep install --from-paths . --ignore-src --rosdistro=galactic -y
 
       - name: Build
