@@ -8,6 +8,8 @@ jobs:
   pytest:
     name: Run tests with pytest
     runs-on: ubuntu-latest
+    container:
+      image: ubuntu:focal
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -19,7 +21,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install tox-gh-actions poetry empy catkin-pkg lark
+          pip install tox-gh-actions poetry
           sudo apt update
           sudo apt install -y git
 
