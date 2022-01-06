@@ -18,7 +18,7 @@ def setup():
         print("Failed to build and test")
         exit(1)
     res = subprocess.run(
-        "rosdep install --from-paths . --ignore-src --rosdistro galactic -y",
+        "rosdep update && rosdep install --from-paths . --ignore-src --rosdistro galactic -y",
         shell=True,
         cwd=ros_ws,
     )
