@@ -21,8 +21,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt update
-          sudo apt install -y git python3-pip
+          apt update
+          apt install -y git python3-pip
           pip install tox-gh-actions poetry
 
       - name: Setup ROS to use colcon commands
