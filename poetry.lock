@@ -129,6 +129,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "empy"
+version = "3.3.4"
+description = "A templating system for Python."
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "filelock"
 version = "3.4.2"
 description = "A platform independent file lock."
@@ -551,7 +559,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "d9fe884665582a13e3a63c47af11bab01eadddfaed938198fc4d9b0754d76cf1"
+content-hash = "01c44aaf5d16482dd7659bce61e835863564a17cf8ebc5d1081835b6a8c69da7"
 
 [metadata.files]
 atomicwrites = [
@@ -693,6 +701,9 @@ deprecated = [
 distlib = [
     {file = "distlib-0.3.4-py2.py3-none-any.whl", hash = "sha256:6564fe0a8f51e734df6333d08b8b94d4ea8ee6b99b5ed50613f731fd4089f34b"},
     {file = "distlib-0.3.4.zip", hash = "sha256:e4b58818180336dc9c529bfb9a0b58728ffc09ad92027a3f30b7cd91e3458579"},
+]
+empy = [
+    {file = "empy-3.3.4.tar.gz", hash = "sha256:73ac49785b601479df4ea18a7c79bc1304a8a7c34c02b9472cf1206ae88f01b3"},
 ]
 filelock = [
     {file = "filelock-3.4.2-py3-none-any.whl", hash = "sha256:cf0fc6a2f8d26bd900f19bf33915ca70ba4dd8c56903eeb14e1e7a2fd7590146"},
