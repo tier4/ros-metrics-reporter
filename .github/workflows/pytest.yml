@@ -19,8 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install .
-          pip install pytest pytest-cov
+          pip install tox-gh-actions poetry
           sudo apt update
           sudo apt install -y git
 
@@ -33,6 +32,10 @@ jobs:
         run: |
           vcs import . < ros-metrics-reporter-galactic.repos
 
-      - name: Run tests
-        run: |
-          pytest tests
+      - name: Run tox
+        run: poetry run tox
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          fail_ci_if_error: true
