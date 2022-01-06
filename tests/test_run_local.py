@@ -17,6 +17,14 @@ def setup():
     if res.returncode != 0:
         print("Failed to build and test")
         exit(1)
+    res = subprocess.run(
+        "rosdep install --from-paths . --ignore-src --rosdistro galactic -y",
+        shell=True,
+        cwd=ros_ws,
+    )
+    if res.returncode != 0:
+        print("Failed to build and test")
+        exit(1)
 
 
 def build():
