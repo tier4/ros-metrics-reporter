@@ -20,15 +20,16 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt update
-          apt install -y git python3-pip
+          apt-get -y update
+          apt-get install -y git python3-pip
           pip install tox-gh-actions poetry
 
       - name: Inport vcs repo
         run: |
           vcs import . < ros-metrics-reporter-galactic.repos
+          apt-get -y update
           rosdep update
-          rosdep install --from-paths . --ignore-src --rosdistro=galactic -y
+          DEBIAN_FRONTEND=noninteractive rosdep install --from-paths . --ignore-src --rosdistro=galactic -y
 
       - name: Build
         run: |
