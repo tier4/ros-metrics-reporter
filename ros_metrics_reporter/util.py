@@ -66,7 +66,7 @@ def run_command_redirect(args: list, output_file: Path, cwd: Path = None) -> boo
 def read_jinja2_template(
     file: Path, variable_start_string: str = "[[", variable_end_string: str = "]]"
 ) -> Template:
-    """ Read jinja2 Template """
+    """Read jinja2 Template"""
     env = Environment(
         loader=FileSystemLoader(str(file.parent)),
         variable_start_string=variable_start_string,
