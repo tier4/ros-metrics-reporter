@@ -18,7 +18,7 @@ def filter_report(
     lcovrc: Path,
     exclude: List[str] = [],
 ) -> str:
-    """ Filter test, build, and install files and generate html """
+    """Filter test, build, and install files and generate html"""
 
     exclude_list_str = " ".join([f'"{s}"' for s in exclude])
     filtered_coverage_info_path = concat_output_path(output_dir, "coverage.filtered")
@@ -68,7 +68,7 @@ def generate_html_report(
 def calculate_total_coverage(
     coverage_files: List[Path], output_path: Path, lcovrc: Path
 ):
-    """ Calculate total coverage """
+    """Calculate total coverage"""
     if not output_path.parent.exists():
         output_path.parent.mkdir(parents=True)
 
