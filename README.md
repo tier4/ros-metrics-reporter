@@ -7,16 +7,17 @@
 
 ## Overview
 
-`ros-metrics-reporter` collects tests for the ROS packages of a project and generates HTML reports. The results can be saved as github-pages or artifacts.
-This project is using [LCOV](https://github.com/linux-test-project/lcov) and [Lizard](https://github.com/terryyin/lizard) as backend. I would like to express my deepest gratitude for their contributions.
+`ros-metrics-reporter` collects software metrics for the ROS packages of a project and generates HTML reports. The results can be saved as github-pages or artifacts.
+This project is using [LCOV](https://github.com/linux-test-project/lcov), [Lizard](https://github.com/terryyin/lizard), [Clang-Tidy](https://clang.llvm.org/extra/clang-tidy/), [CodeChecker](https://github.com/Ericsson/codechecker) and [Hugo](https://gohugo.io/) as backend. I would like to express my deepest gratitude for their contributions.
 
-***Warning: the results will include your source code, so be careful about the scope of publication if you have a private repository. (Even if your project is private, the scope of the GitHub Pages will be public.***
+***Warning: the results will include your source code, so be careful about the scope of publication if you have a private repository. Even if your project is private, the scope of the GitHub Pages will be public. You can see more information [here](https://docs.github.com/en/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site).***
 
 ## Action setup
 
 ### Create orphan branch (First time only)
 
 Before running this job, you need to create orphan branch.
+NOTE: Relplace `your-project` with your project name before running commands below.
 
 ```sh
 git clone https://github/your-project.git
@@ -74,12 +75,6 @@ jobs:
         . /opt/ros/${{ matrix.ros_distribution }}/setup.sh
         colcon build --event-handlers console_cohesion+ \
           --cmake-args -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-
-    - name: Run tests
-      run: |
-        . /opt/ros/${{ matrix.ros_distribution }}/setup.sh
-        colcon test --event-handlers console_cohesion+ \
-          --return-code-on-test-failure
 
     - id: metrics-reporter
       uses: tier4/ros-metrics-reporter@v0.3
