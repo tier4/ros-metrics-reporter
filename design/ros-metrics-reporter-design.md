@@ -39,6 +39,10 @@ The runs section describes the steps to generate metrics reports.
 * The entrypoint file is `ros_metrics_reporter/ros_metrics_reporter.py`.
 * Tests are in `tests/`.
 
+### Flowchart
+
+![Flowchart](img/ros_metrics_reporter_flowchart.drawio.svg)
+
 ## Assumptions / Known limitations
 
 If you have a lot of code in your repository, you may get stuck in GitHub Actions resource limits.
