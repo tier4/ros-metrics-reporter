@@ -100,7 +100,7 @@ You will get an HTML page like this.
 Before running this job, you need to create orphan branch.
 This tool automatically pushes artifacts to the data branch of your repository every time. The old data will be used to generate a time series graph on the HTML artifact.
 To generate new branch, you need to run the following command.
-NOTE: Relplace `your-project` with your project name before running commands below.
+NOTE: Replace `your-project` with your project name before running commands below.
 
 ```sh
 git clone https://github/your-project.git
@@ -140,7 +140,7 @@ Also, clone the data branch created in the above procedure.
 
 ### Step2: Setup ROS environment
 
-Setup ROS environment, useng the `required-ros-distributions` option to specify the ROS distribution to use.
+Setup ROS environment, using the `required-ros-distributions` option to specify the ROS distribution to use.
 
 ```yaml
     - uses: ros-tooling/setup-ros@v0.2

@@ -17,7 +17,7 @@ This project is using [LCOV](https://github.com/linux-test-project/lcov), [Lizar
 ### Create orphan branch (First time only)
 
 Before running this job, you need to create orphan branch.
-NOTE: Relplace `your-project` with your project name before running commands below.
+NOTE: Replace `your-project` with your project name before running commands below.
 
 ```sh
 git clone https://github/your-project.git
