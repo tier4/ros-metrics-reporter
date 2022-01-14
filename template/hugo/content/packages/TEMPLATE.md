@@ -28,11 +28,17 @@ geekdocDescription: Metrics reporter is a tool for continuously monitoring vario
 
 ## Code metrics
 
+### CCN
+
 {{< load-plotly >}}
 {{< plotly json="plotly/[[ plotly_metrics_ccn_figure_name ]]" height="400px" >}}
 
+### LOC
+
 {{< load-plotly >}}
 {{< plotly json="plotly/[[ plotly_metrics_loc_figure_name ]]" height="400px" >}}
+
+### Parameter
 
 {{< load-plotly >}}
 {{< plotly json="plotly/[[ plotly_metrics_parameter_figure_name ]]" height="400px" >}}
