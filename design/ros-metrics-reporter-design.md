@@ -14,6 +14,87 @@ Currently, the following metrics are collected:
 Since these tools are not dedicated to ROS2, if you want results for each package, you need to process the results.
 The `ros-metrics-reporter` automates this tedious procedure and outputs the information that the user really wants to know.
 
+## Description of metrics
+
+This section describes the various metrics and coverage results collected by `ros-metrics-reporter`.
+
+### Code coverage
+
+Code coverage calculates the percentage of source code that is covered by unit tests and integration tests.
+Line coverage calculates the coverage of the code in lines, Function coverage calculates the coverage of the code in functions, Branch coverage calculates the coverage of branches such as if statements and for loops.
+The results are output in a tabular format for each package.
+
+![coverage table](img/coverage_table.png)
+
+The background color will be colored according to the coverage rate of the code. You can set a recommended value and a threshold value for the coverage. By default, the recommended value is 90% and the threshold is 75%.
+If it exceeds the recommended value, it will be displayed in green. If the value is between the recommended value and the threshold, it will be displayed in yellow. If it is below the threshold, it is displayed in red.
+The legend is displayed at the top.
+
+![coverage threshold](img/coverage_threshold.png)
+
+`ros-metrics-reporter` also generates a time series graph by referring to the code coverage values measured in the past.
+
+![coverage graph](img/coverage_graph.png)
+
+Comparison with past code coverage will help you to see if the code quality of your project is improving.
+The graph is also generated for each test label, which will be explained later. You can also compare the detailed values for each test label.
+From the link below the graph, you can access the HTML report by `LCOV`. This report contains detailed coverage information on a per-file basis. Therefore, you can see which lines are not covered by the current test suite.
+
+#### About test labels
+
+The `colcon test` command runs the entire test suite. This includes unit tests with `gtest` and integration tests with `launch_testing`. Normally, if you want to measure code coverage, you run `colcon test`, so the code coverage you get is the result of running all tests, including unit tests and integration tests. However, in order to improve the quality of your tests, you need to make sure that your code is covered by meaningful tests, both unit and integration tests.
+For this reason, `ros_metrics_reporter` provides the ability to measure code coverage in unit tests alone and code coverage in integration tests alone.
+
+#### How to add test labels to your code
+
+In the case of `ament_add_gtest()`, the test label is set to `gtest`.
+In the case of `add_launch_test()` or other testing tools, you can use `set_tests_properties()` to set the test label as follows.
+
+```cmake
+  find_package(launch_testing_ament_cmake REQUIRED)
+  add_launch_test(
+    test/my_launch_test.test.py
+    TARGET my_launch_test)
+  set_tests_properties(my_launch_test PROPERTIES LABELS "launch_test")
+```
+
+### Code metrics
+
+There are three metrics that can be measured with `ros_metrics_reporter`: CCN (Cyclomatic Complexity Number), LOC (Lines of Code), and Parameter count.
+CCN represents the complexity of the code. It measures the number of linearly independent paths in the code. Therefore, if there are more branches such as if and for statements, the CCN increases; an increase in CCN means an increase in the complexity of the code, which leads to an increase in the probability of bugs and a decrease in maintainability.
+LOC is the number of lines of code contained in a single function. An increase in the number of lines of code is considered to be a bad thing because it impairs readability.
+Parameter count represents the number of arguments to a function. More arguments in a function indicates a larger scope of the function. To improve maintainability, it is important to make the scope of one function smaller and to reduce the number of arguments.
+
+The results are output in a tabular format for each package.
+
+![metrics table](img/metrics_table.png)
+
+The background color will be colored according to the coverage rate of the code. You can set a recommended value and a threshold value for the coverage. By default, the recommended value is 90% and the threshold is 75%.
+If it exceeds the recommended value, it will be displayed in green. If the value is between the recommended value and the threshold, it will be displayed in yellow. If it is below the threshold, it is displayed in red.
+The legend is displayed at the top.
+
+![metrics threshold](img/metrics_threshold.png)
+
+`ros-metrics-reporter` also generates time series graphs by referring to the values of metrics measured in the past. Comparison with past metrics will help you to see if the code quality of your project is improving or not.
+
+![metrics graph](img/metrics_graph.png)
+
+From the link below the graph, you can access the HTML report by `Lizard`. This report contains detailed metrics information on a per-function basis.
+
+### Static analysis
+
+From the link in the Clang-Tidy section, you can access the HTML report by `Clang-Tidy`. This report contains tips on how to improve your code.
+
+![static analysis](img/static_analysis.png)
+
+### Top contributors
+
+When creating a pull request, you may want to ask the developer of the package a question or request a review. If the package metadata contains the correct information about the developers, that's fine, but if not, you will need to find the contributors in the commit history and contact them. In this situation, the Top 3 contributors feature is useful to know who has committed a lot. You can look for contributors and contact them without referring to the commit history.
+
+### Code frequency graph
+
+Code change history is an indicator of how active the development of a package is. If the metrics and code coverage are not degraded despite frequent changes to the package, the development is in an ideal state.
+
 # Design
 
 This package is available on GitHub Actions. Even if the developer is not familiar with measuring software quality, you can use the right tools to measure software quality. It also supports dashboard functions and data logging that cannot be obtained when using each tool alone.
