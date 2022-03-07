@@ -25,7 +25,7 @@ jobs:
           sudo apt install -y git
 
       - name: Setup ROS to use colcon commands
-        uses: ros-tooling/setup-ros@v0.2
+        uses: ros-tooling/setup-ros@0.3.0
         with:
           required-ros-distributions: galactic
 
