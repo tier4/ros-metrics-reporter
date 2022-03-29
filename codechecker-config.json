@@ -1,9 +1,10 @@
 {
-  "analyzer": [
+  "analyze": [
     "--jobs=2",
     "--analyzers=clang-tidy",
     "--timeout=300",
     "--clean",
-    "--disable=bugprone-infinite-loop"
+    "--analyzer-config",
+    "clang-tidy:take-config-from-directory=true"
   ]
 }
