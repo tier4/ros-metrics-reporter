@@ -8,31 +8,36 @@ jobs:
   pytest:
     name: Run tests with pytest
     runs-on: ubuntu-latest
+    container: rostooling/setup-ros-docker:ubuntu-focal-ros-galactic-ros-base-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-
       - name: Install dependencies
         run: |
-          pip install .
-          pip install pytest pytest-cov
-          sudo apt update
-          sudo apt install -y git
-
-      - name: Setup ROS to use colcon commands
-        uses: ros-tooling/setup-ros@v0.2
-        with:
-          required-ros-distributions: galactic
+          apt-get -y update
+          apt-get install -y git python3-pip
+          pip install tox-gh-actions poetry
 
       - name: Inport vcs repo
         run: |
           vcs import . < ros-metrics-reporter-galactic.repos
+          apt-get -y update
+          rosdep update
+          DEBIAN_FRONTEND=noninteractive rosdep install --from-paths . --ignore-src --rosdistro=galactic -y
 
-      - name: Run tests
+      - name: Build
         run: |
-          pytest tests
+          . /opt/ros/galactic/setup.sh
+          colcon build --symlink-install --cmake-args -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage --coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs --coverage -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+        working-directory: example/src/geometry2
+
+      - name: Run tox
+        run: |
+          . /opt/ros/galactic/setup.sh
+          poetry run tox
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          fail_ci_if_error: true

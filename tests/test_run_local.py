@@ -17,11 +17,19 @@ def setup():
     if res.returncode != 0:
         print("Failed to build and test")
         exit(1)
+    res = subprocess.run(
+        "rosdep update && rosdep install --from-paths . --ignore-src --rosdistro galactic -y",
+        shell=True,
+        cwd=ros_ws,
+    )
+    if res.returncode != 0:
+        print("Failed to build and test")
+        exit(1)
 
 
 def build():
     res = subprocess.run(
-        '. /opt/ros/galactic/setup.sh && colcon build --symlink-install --cmake-args -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --mixin coverage-gcc',
+        '. /opt/ros/galactic/setup.sh && colcon build --symlink-install --cmake-args -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage --coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs --coverage -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON',
         shell=True,
         cwd=ros_ws,
     )
@@ -74,7 +82,8 @@ def run_ros_metrics_reporter():
 def test_ros_metrics_reporter():
     if not ros_ws.exists():
         setup()
-    build()
+    if not (ros_ws / "build").exists():
+        build()
     args = run_ros_metrics_reporter()
 
     # Check result files
