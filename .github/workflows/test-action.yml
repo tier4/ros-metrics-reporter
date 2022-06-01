@@ -98,7 +98,7 @@ jobs:
 
     - name: Save page as artifacts
       if: ${{ github.event.pull_request && matrix.ros_distribution == 'galactic' }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: static-pages
         path: public
