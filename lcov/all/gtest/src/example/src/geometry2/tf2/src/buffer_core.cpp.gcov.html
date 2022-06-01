@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-03-29 09:38:14</td>
+            <td class="headerValue">2022-06-01 08:38:15</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">42</td>
@@ -472,32 +472,32 @@
 <a name="387"><span class="lineNum">     387 </span>                :            : </a>
 <a name="388"><span class="lineNum">     388 </span>                :            : // TODO(anyone): for Jade: Merge walkToTopParent functions; this is now a stub to preserve ABI</a>
 <a name="389"><span class="lineNum">     389 </span>                :            : template&lt;typename F&gt;</a>
-<a name="390"><span class="lineNum">     390 </span>                :<span class="lineCov">       7109 : tf2::TF2Error BufferCore::walkToTopParent(</span></a>
+<a name="390"><span class="lineNum">     390 </span>                :<span class="lineCov">       7226 : tf2::TF2Error BufferCore::walkToTopParent(</span></a>
 <a name="391"><span class="lineNum">     391 </span>                :            :   F &amp; f, TimePoint time, CompactFrameID target_id,</a>
 <a name="392"><span class="lineNum">     392 </span>                :            :   CompactFrameID source_id,</a>
 <a name="393"><span class="lineNum">     393 </span>                :            :   std::string * error_string) const</a>
 <a name="394"><span class="lineNum">     394 </span>                :            : {</a>
-<a name="395"><span class="lineNum">     395 </span>                :<span class="lineCov">       7109 :   return walkToTopParent(f, time, target_id, source_id, error_string, NULL);</span></a>
+<a name="395"><span class="lineNum">     395 </span>                :<span class="lineCov">       7226 :   return walkToTopParent(f, time, target_id, source_id, error_string, NULL);</span></a>
 <a name="396"><span class="lineNum">     396 </span>                :            : }</a>
 <a name="397"><span class="lineNum">     397 </span>                :            : </a>
 <a name="398"><span class="lineNum">     398 </span>                :            : template&lt;typename F&gt;</a>
-<a name="399"><span class="lineNum">     399 </span>                :<span class="lineCov">       7109 : tf2::TF2Error BufferCore::walkToTopParent(</span></a>
+<a name="399"><span class="lineNum">     399 </span>                :<span class="lineCov">       7226 : tf2::TF2Error BufferCore::walkToTopParent(</span></a>
 <a name="400"><span class="lineNum">     400 </span>                :            :   F &amp; f, TimePoint time, CompactFrameID target_id,</a>
 <a name="401"><span class="lineNum">     401 </span>                :            :   CompactFrameID source_id, std::string * error_string, std::vector&lt;CompactFrameID&gt;</a>
 <a name="402"><span class="lineNum">     402 </span>                :            :   * frame_chain) const</a>
 <a name="403"><span class="lineNum">     403 </span>                :            : {</a>
-<a name="404"><span class="lineNum">     404 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 7109 times"> + </span>]:<span class="lineCov">       7109 :   if (frame_chain) {</span></a>
+<a name="404"><span class="lineNum">     404 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 7226 times"> + </span>]:<span class="lineCov">       7226 :   if (frame_chain) {</span></a>
 <a name="405"><span class="lineNum">     405 </span>                :<span class="lineNoCov">          0 :     frame_chain-&gt;clear();</span></a>
 <a name="406"><span class="lineNum">     406 </span>                :            :   }</a>
 <a name="407"><span class="lineNum">     407 </span>                :            : </a>
 <a name="408"><span class="lineNum">     408 </span>                :            :   // Short circuit if zero length transform to allow lookups on non existant links</a>
-<a name="409"><span class="lineNum">     409 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 7109 times"> + </span>]:<span class="lineCov">       7109 :   if (source_id == target_id) {</span></a>
+<a name="409"><span class="lineNum">     409 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 7226 times"> + </span>]:<span class="lineCov">       7226 :   if (source_id == target_id) {</span></a>
 <a name="410"><span class="lineNum">     410 </span>                :<span class="lineNoCov">          0 :     f.finalize(Identity, time);</span></a>
 <a name="411"><span class="lineNum">     411 </span>                :<span class="lineNoCov">          0 :     return tf2::TF2Error::NO_ERROR;</span></a>
 <a name="412"><span class="lineNum">     412 </span>                :            :   }</a>
 <a name="413"><span class="lineNum">     413 </span>                :            : </a>
 <a name="414"><span class="lineNum">     414 </span>                :            :   // If getting the latest get the latest common time</a>
-<a name="415"><span class="lineNum">     415 </span>  [<span class="branchCov" title="Branch 0 was taken 7109 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 349 times"> + </span><span class="branchCov" title="Branch 3 was taken 6760 times"> + </span>]:<span class="lineCov">       7109 :   if (time == TimePointZero) {</span></a>
+<a name="415"><span class="lineNum">     415 </span>  [<span class="branchCov" title="Branch 0 was taken 7226 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 349 times"> + </span><span class="branchCov" title="Branch 3 was taken 6877 times"> + </span>]:<span class="lineCov">       7226 :   if (time == TimePointZero) {</span></a>
 <a name="416"><span class="lineNum">     416 </span>        [<span class="branchCov" title="Branch 0 was taken 349 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        349 :     tf2::TF2Error retval = getLatestCommonTime(target_id, source_id, time, error_string);</span></a>
 <a name="417"><span class="lineNum">     417 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchCov" title="Branch 1 was taken 329 times"> + </span>]:<span class="lineCov">        349 :     if (retval != tf2::TF2Error::NO_ERROR) {</span></a>
 <a name="418"><span class="lineNum">     418 </span>                :<span class="lineCov">         20 :       return retval;</span></a>
@@ -505,31 +505,31 @@
 <a name="420"><span class="lineNum">     420 </span>                :            :   }</a>
 <a name="421"><span class="lineNum">     421 </span>                :            : </a>
 <a name="422"><span class="lineNum">     422 </span>                :            :   // Walk the tree to its root from the source frame, accumulating the transform</a>
-<a name="423"><span class="lineNum">     423 </span>                :<span class="lineCov">       7089 :   CompactFrameID frame = source_id;</span></a>
-<a name="424"><span class="lineNum">     424 </span>                :<span class="lineCov">       7089 :   CompactFrameID top_parent = frame;</span></a>
-<a name="425"><span class="lineNum">     425 </span>                :<span class="lineCov">       7089 :   uint32_t depth = 0;</span></a>
+<a name="423"><span class="lineNum">     423 </span>                :<span class="lineCov">       7206 :   CompactFrameID frame = source_id;</span></a>
+<a name="424"><span class="lineNum">     424 </span>                :<span class="lineCov">       7206 :   CompactFrameID top_parent = frame;</span></a>
+<a name="425"><span class="lineNum">     425 </span>                :<span class="lineCov">       7206 :   uint32_t depth = 0;</span></a>
 <a name="426"><span class="lineNum">     426 </span>                :            : </a>
-<a name="427"><span class="lineNum">     427 </span>                :<span class="lineCov">      14178 :   std::string extrapolation_error_string;</span></a>
-<a name="428"><span class="lineNum">     428 </span>                :<span class="lineCov">       7089 :   bool extrapolation_might_have_occurred = false;</span></a>
+<a name="427"><span class="lineNum">     427 </span>                :<span class="lineCov">      14412 :   std::string extrapolation_error_string;</span></a>
+<a name="428"><span class="lineNum">     428 </span>                :<span class="lineCov">       7206 :   bool extrapolation_might_have_occurred = false;</span></a>
 <a name="429"><span class="lineNum">     429 </span>                :            : </a>
-<a name="430"><span class="lineNum">     430 </span>        [<span class="branchCov" title="Branch 0 was taken 13962 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      13962 :   while (frame != 0) {</span></a>
-<a name="431"><span class="lineNum">     431 </span>        [<span class="branchCov" title="Branch 0 was taken 13962 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      13962 :     TimeCacheInterfacePtr cache = getFrame(frame);</span></a>
-<a name="432"><span class="lineNum">     432 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 13962 times"> + </span>]:<span class="lineCov">      13962 :     if (frame_chain) {</span></a>
+<a name="430"><span class="lineNum">     430 </span>        [<span class="branchCov" title="Branch 0 was taken 14079 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      14079 :   while (frame != 0) {</span></a>
+<a name="431"><span class="lineNum">     431 </span>        [<span class="branchCov" title="Branch 0 was taken 14079 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      14079 :     TimeCacheInterfacePtr cache = getFrame(frame);</span></a>
+<a name="432"><span class="lineNum">     432 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 14079 times"> + </span>]:<span class="lineCov">      14079 :     if (frame_chain) {</span></a>
 <a name="433"><span class="lineNum">     433 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       frame_chain-&gt;push_back(frame);</span></a>
 <a name="434"><span class="lineNum">     434 </span>                :            :     }</a>
 <a name="435"><span class="lineNum">     435 </span>                :            : </a>
-<a name="436"><span class="lineNum">     436 </span>        [<span class="branchCov" title="Branch 0 was taken 5385 times"> + </span><span class="branchCov" title="Branch 1 was taken 8577 times"> + </span>]:<span class="lineCov">      13962 :     if (!cache) {</span></a>
+<a name="436"><span class="lineNum">     436 </span>        [<span class="branchCov" title="Branch 0 was taken 5385 times"> + </span><span class="branchCov" title="Branch 1 was taken 8694 times"> + </span>]:<span class="lineCov">      14079 :     if (!cache) {</span></a>
 <a name="437"><span class="lineNum">     437 </span>                :            :       // There will be no cache for the very root of the tree</a>
 <a name="438"><span class="lineNum">     438 </span>                :<span class="lineCov">       5385 :       top_parent = frame;</span></a>
 <a name="439"><span class="lineNum">     439 </span>                :<span class="lineCov">       5385 :       break;</span></a>
 <a name="440"><span class="lineNum">     440 </span>                :            :     }</a>
 <a name="441"><span class="lineNum">     441 </span>                :            : </a>
-<a name="442"><span class="lineNum">     442 </span>        [<span class="branchCov" title="Branch 0 was taken 8577 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       8577 :     CompactFrameID parent = f.gather(cache, time, &amp;extrapolation_error_string);</span></a>
-<a name="443"><span class="lineNum">     443 </span>        [<span class="branchCov" title="Branch 0 was taken 1377 times"> + </span><span class="branchCov" title="Branch 1 was taken 7200 times"> + </span>]:<span class="lineCov">       8577 :     if (parent == 0) {</span></a>
+<a name="442"><span class="lineNum">     442 </span>        [<span class="branchCov" title="Branch 0 was taken 8694 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       8694 :     CompactFrameID parent = f.gather(cache, time, &amp;extrapolation_error_string);</span></a>
+<a name="443"><span class="lineNum">     443 </span>        [<span class="branchCov" title="Branch 0 was taken 1494 times"> + </span><span class="branchCov" title="Branch 1 was taken 7200 times"> + </span>]:<span class="lineCov">       8694 :     if (parent == 0) {</span></a>
 <a name="444"><span class="lineNum">     444 </span>                :            :       // Just break out here... there may still be a path from source -&gt; target</a>
-<a name="445"><span class="lineNum">     445 </span>                :<span class="lineCov">       1377 :       top_parent = frame;</span></a>
-<a name="446"><span class="lineNum">     446 </span>                :<span class="lineCov">       1377 :       extrapolation_might_have_occurred = true;</span></a>
-<a name="447"><span class="lineNum">     447 </span>                :<span class="lineCov">       1377 :       break;</span></a>
+<a name="445"><span class="lineNum">     445 </span>                :<span class="lineCov">       1494 :       top_parent = frame;</span></a>
+<a name="446"><span class="lineNum">     446 </span>                :<span class="lineCov">       1494 :       extrapolation_might_have_occurred = true;</span></a>
+<a name="447"><span class="lineNum">     447 </span>                :<span class="lineCov">       1494 :       break;</span></a>
 <a name="448"><span class="lineNum">     448 </span>                :            :     }</a>
 <a name="449"><span class="lineNum">     449 </span>                :            : </a>
 <a name="450"><span class="lineNum">     450 </span>                :            :     // Early out... target frame is a direct parent of the source frame</a>
@@ -557,18 +557,18 @@
 <a name="471"><span class="lineNum">     471 </span>                :            :   }</a>
 <a name="472"><span class="lineNum">     472 </span>                :            : </a>
 <a name="473"><span class="lineNum">     473 </span>                :            :   // Now walk to the top parent from the target frame, accumulating its transform</a>
-<a name="474"><span class="lineNum">     474 </span>                :<span class="lineCov">       6762 :   frame = target_id;</span></a>
-<a name="475"><span class="lineNum">     475 </span>                :<span class="lineCov">       6762 :   depth = 0;</span></a>
-<a name="476"><span class="lineNum">     476 </span>                :<span class="lineCov">      13524 :   std::vector&lt;CompactFrameID&gt; reverse_frame_chain;</span></a>
+<a name="474"><span class="lineNum">     474 </span>                :<span class="lineCov">       6879 :   frame = target_id;</span></a>
+<a name="475"><span class="lineNum">     475 </span>                :<span class="lineCov">       6879 :   depth = 0;</span></a>
+<a name="476"><span class="lineNum">     476 </span>                :<span class="lineCov">      13758 :   std::vector&lt;CompactFrameID&gt; reverse_frame_chain;</span></a>
 <a name="477"><span class="lineNum">     477 </span>                :            : </a>
-<a name="478"><span class="lineNum">     478 </span>        [<span class="branchCov" title="Branch 0 was taken 3194 times"> + </span><span class="branchCov" title="Branch 1 was taken 5054 times"> + </span>]:<span class="lineCov">       8248 :   while (frame != top_parent) {</span></a>
-<a name="479"><span class="lineNum">     479 </span>        [<span class="branchCov" title="Branch 0 was taken 3194 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3194 :     TimeCacheInterfacePtr cache = getFrame(frame);</span></a>
-<a name="480"><span class="lineNum">     480 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3194 times"> + </span>]:<span class="lineCov">       3194 :     if (frame_chain) {</span></a>
+<a name="478"><span class="lineNum">     478 </span>        [<span class="branchCov" title="Branch 0 was taken 3311 times"> + </span><span class="branchCov" title="Branch 1 was taken 5054 times"> + </span>]:<span class="lineCov">       8365 :   while (frame != top_parent) {</span></a>
+<a name="479"><span class="lineNum">     479 </span>        [<span class="branchCov" title="Branch 0 was taken 3311 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3311 :     TimeCacheInterfacePtr cache = getFrame(frame);</span></a>
+<a name="480"><span class="lineNum">     480 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3311 times"> + </span>]:<span class="lineCov">       3311 :     if (frame_chain) {</span></a>
 <a name="481"><span class="lineNum">     481 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       reverse_frame_chain.push_back(frame);</span></a>
 <a name="482"><span class="lineNum">     482 </span>                :            :     }</a>
 <a name="483"><span class="lineNum">     483 </span>                :            : </a>
-<a name="484"><span class="lineNum">     484 </span>        [<span class="branchCov" title="Branch 0 was taken 1417 times"> + </span><span class="branchCov" title="Branch 1 was taken 1777 times"> + </span>]:<span class="lineCov">       3194 :     if (!cache) {</span></a>
-<a name="485"><span class="lineNum">     485 </span>                :<span class="lineCov">       1417 :       break;</span></a>
+<a name="484"><span class="lineNum">     484 </span>        [<span class="branchCov" title="Branch 0 was taken 1534 times"> + </span><span class="branchCov" title="Branch 1 was taken 1777 times"> + </span>]:<span class="lineCov">       3311 :     if (!cache) {</span></a>
+<a name="485"><span class="lineNum">     485 </span>                :<span class="lineCov">       1534 :       break;</span></a>
 <a name="486"><span class="lineNum">     486 </span>                :            :     }</a>
 <a name="487"><span class="lineNum">     487 </span>                :            : </a>
 <a name="488"><span class="lineNum">     488 </span>        [<span class="branchCov" title="Branch 0 was taken 1777 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1777 :     CompactFrameID parent = f.gather(cache, time, error_string);</span></a>
@@ -612,9 +612,9 @@
 <a name="522"><span class="lineNum">     522 </span>                :            :     }</a>
 <a name="523"><span class="lineNum">     523 </span>                :            :   }</a>
 <a name="524"><span class="lineNum">     524 </span>                :            : </a>
-<a name="525"><span class="lineNum">     525 </span>        [<span class="branchCov" title="Branch 0 was taken 1417 times"> + </span><span class="branchCov" title="Branch 1 was taken 5054 times"> + </span>]:<span class="lineCov">       6471 :   if (frame != top_parent) {</span></a>
-<a name="526"><span class="lineNum">     526 </span>        [<span class="branchCov" title="Branch 0 was taken 1377 times"> + </span><span class="branchCov" title="Branch 1 was taken 40 times"> + </span>]:<span class="lineCov">       1417 :     if (extrapolation_might_have_occurred) {</span></a>
-<a name="527"><span class="lineNum">     527 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 1373 times"> + </span>]:<span class="lineCov">       1377 :       if (error_string) {</span></a>
+<a name="525"><span class="lineNum">     525 </span>        [<span class="branchCov" title="Branch 0 was taken 1534 times"> + </span><span class="branchCov" title="Branch 1 was taken 5054 times"> + </span>]:<span class="lineCov">       6588 :   if (frame != top_parent) {</span></a>
+<a name="526"><span class="lineNum">     526 </span>        [<span class="branchCov" title="Branch 0 was taken 1494 times"> + </span><span class="branchCov" title="Branch 1 was taken 40 times"> + </span>]:<span class="lineCov">       1534 :     if (extrapolation_might_have_occurred) {</span></a>
+<a name="527"><span class="lineNum">     527 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 1490 times"> + </span>]:<span class="lineCov">       1494 :       if (error_string) {</span></a>
 <a name="528"><span class="lineNum">     528 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          4 :         std::stringstream ss;</span></a>
 <a name="529"><span class="lineNum">     529 </span>                :            :         ss &lt;&lt; extrapolation_error_string &lt;&lt; &quot;, when looking up transform from frame [&quot; &lt;&lt;</a>
 <a name="530"><span class="lineNum">     530 </span>  [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">          4 :           lookupFrameString(source_id) &lt;&lt; &quot;] to frame [&quot; &lt;&lt; lookupFrameString(target_id) &lt;&lt; &quot;]&quot;;</span></a>
@@ -623,7 +623,7 @@
 <span class="lineNum">         </span>         <span class="branchCov" title="Branch 14 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span>]
 <a name="531"><span class="lineNum">     531 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          4 :         *error_string = ss.str();</span></a>
 <a name="532"><span class="lineNum">     532 </span>                :            :       }</a>
-<a name="533"><span class="lineNum">     533 </span>                :<span class="lineCov">       1377 :       return tf2::TF2Error::EXTRAPOLATION_ERROR;</span></a>
+<a name="533"><span class="lineNum">     533 </span>                :<span class="lineCov">       1494 :       return tf2::TF2Error::EXTRAPOLATION_ERROR;</span></a>
 <a name="534"><span class="lineNum">     534 </span>                :            :     }</a>
 <a name="535"><span class="lineNum">     535 </span>        [<span class="branchCov" title="Branch 0 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         40 :     createConnectivityErrorString(source_id, target_id, error_string);</span></a>
 <a name="536"><span class="lineNum">     536 </span>                :<span class="lineCov">         40 :     return tf2::TF2Error::CONNECTIVITY_ERROR;</span></a>
@@ -865,9 +865,9 @@
 <a name="771"><span class="lineNum">     771 </span>                :            : </a>
 <a name="772"><span class="lineNum">     772 </span>                :            : struct CanTransformAccum</a>
 <a name="773"><span class="lineNum">     773 </span>                :            : {</a>
-<a name="774"><span class="lineNum">     774 </span>                :<span class="lineCov">       4772 :   CompactFrameID gather(TimeCacheInterfacePtr cache, TimePoint time, std::string * error_string)</span></a>
+<a name="774"><span class="lineNum">     774 </span>                :<span class="lineCov">       4889 :   CompactFrameID gather(TimeCacheInterfacePtr cache, TimePoint time, std::string * error_string)</span></a>
 <a name="775"><span class="lineNum">     775 </span>                :            :   {</a>
-<a name="776"><span class="lineNum">     776 </span>                :<span class="lineCov">       4772 :     return cache-&gt;getParent(time, error_string);</span></a>
+<a name="776"><span class="lineNum">     776 </span>                :<span class="lineCov">       4889 :     return cache-&gt;getParent(time, error_string);</span></a>
 <a name="777"><span class="lineNum">     777 </span>                :            :   }</a>
 <a name="778"><span class="lineNum">     778 </span>                :            : </a>
 <a name="779"><span class="lineNum">     779 </span>                :<span class="lineCov">       3361 :   void accum(bool source)</span></a>
@@ -884,35 +884,35 @@
 <a name="790"><span class="lineNum">     790 </span>                :            :   TransformStorage st;</a>
 <a name="791"><span class="lineNum">     791 </span>                :            : };</a>
 <a name="792"><span class="lineNum">     792 </span>                :            : </a>
-<a name="793"><span class="lineNum">     793 </span>                :<span class="lineCov">       4712 : bool BufferCore::canTransformNoLock(</span></a>
+<a name="793"><span class="lineNum">     793 </span>                :<span class="lineCov">       4829 : bool BufferCore::canTransformNoLock(</span></a>
 <a name="794"><span class="lineNum">     794 </span>                :            :   CompactFrameID target_id, CompactFrameID source_id,</a>
 <a name="795"><span class="lineNum">     795 </span>                :            :   const TimePoint &amp; time, std::string * error_msg) const</a>
 <a name="796"><span class="lineNum">     796 </span>                :            : {</a>
-<a name="797"><span class="lineNum">     797 </span>  [<span class="branchCov" title="Branch 0 was taken 4668 times"> + </span><span class="branchCov" title="Branch 1 was taken 44 times"> + </span><span class="branchCov" title="Branch 2 was taken 8 times"> + </span><span class="branchCov" title="Branch 3 was taken 4660 times"> + </span>]:<span class="lineCov">       4712 :   if (target_id == 0 || source_id == 0) {</span></a>
+<a name="797"><span class="lineNum">     797 </span>  [<span class="branchCov" title="Branch 0 was taken 4785 times"> + </span><span class="branchCov" title="Branch 1 was taken 44 times"> + </span><span class="branchCov" title="Branch 2 was taken 8 times"> + </span><span class="branchCov" title="Branch 3 was taken 4777 times"> + </span>]:<span class="lineCov">       4829 :   if (target_id == 0 || source_id == 0) {</span></a>
 <a name="798"><span class="lineNum">     798 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 52 times"> + </span>]:<span class="lineCov">         52 :     if (error_msg) {</span></a>
 <a name="799"><span class="lineNum">     799 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       *error_msg = &quot;Source or target frame is not yet defined&quot;;</span></a>
 <a name="800"><span class="lineNum">     800 </span>                :            :     }</a>
 <a name="801"><span class="lineNum">     801 </span>                :<span class="lineCov">         52 :     return false;</span></a>
 <a name="802"><span class="lineNum">     802 </span>                :            :   }</a>
 <a name="803"><span class="lineNum">     803 </span>                :            : </a>
-<a name="804"><span class="lineNum">     804 </span>        [<span class="branchCov" title="Branch 0 was taken 24 times"> + </span><span class="branchCov" title="Branch 1 was taken 4636 times"> + </span>]:<span class="lineCov">       4660 :   if (target_id == source_id) {</span></a>
+<a name="804"><span class="lineNum">     804 </span>        [<span class="branchCov" title="Branch 0 was taken 24 times"> + </span><span class="branchCov" title="Branch 1 was taken 4753 times"> + </span>]:<span class="lineCov">       4777 :   if (target_id == source_id) {</span></a>
 <a name="805"><span class="lineNum">     805 </span>                :<span class="lineCov">         24 :     return true;</span></a>
 <a name="806"><span class="lineNum">     806 </span>                :            :   }</a>
 <a name="807"><span class="lineNum">     807 </span>                :            : </a>
-<a name="808"><span class="lineNum">     808 </span>        [<span class="branchCov" title="Branch 0 was taken 4636 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       4636 :   CanTransformAccum accum;</span></a>
-<a name="809"><span class="lineNum">     809 </span>  [<span class="branchCov" title="Branch 0 was taken 4636 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3201 times"> + </span><span class="branchCov" title="Branch 3 was taken 1435 times"> + </span>]:<span class="lineCov">       4636 :   if (walkToTopParent(accum, time, target_id, source_id, error_msg) == tf2::TF2Error::NO_ERROR) {</span></a>
+<a name="808"><span class="lineNum">     808 </span>        [<span class="branchCov" title="Branch 0 was taken 4753 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       4753 :   CanTransformAccum accum;</span></a>
+<a name="809"><span class="lineNum">     809 </span>  [<span class="branchCov" title="Branch 0 was taken 4753 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3201 times"> + </span><span class="branchCov" title="Branch 3 was taken 1552 times"> + </span>]:<span class="lineCov">       4753 :   if (walkToTopParent(accum, time, target_id, source_id, error_msg) == tf2::TF2Error::NO_ERROR) {</span></a>
 <a name="810"><span class="lineNum">     810 </span>                :<span class="lineCov">       3201 :     return true;</span></a>
 <a name="811"><span class="lineNum">     811 </span>                :            :   }</a>
 <a name="812"><span class="lineNum">     812 </span>                :            : </a>
-<a name="813"><span class="lineNum">     813 </span>                :<span class="lineCov">       1435 :   return false;</span></a>
+<a name="813"><span class="lineNum">     813 </span>                :<span class="lineCov">       1552 :   return false;</span></a>
 <a name="814"><span class="lineNum">     814 </span>                :            : }</a>
 <a name="815"><span class="lineNum">     815 </span>                :            : </a>
-<a name="816"><span class="lineNum">     816 </span>                :<span class="lineCov">       4712 : bool BufferCore::canTransformInternal(</span></a>
+<a name="816"><span class="lineNum">     816 </span>                :<span class="lineCov">       4829 : bool BufferCore::canTransformInternal(</span></a>
 <a name="817"><span class="lineNum">     817 </span>                :            :   CompactFrameID target_id, CompactFrameID source_id,</a>
 <a name="818"><span class="lineNum">     818 </span>                :            :   const TimePoint &amp; time, std::string * error_msg) const</a>
 <a name="819"><span class="lineNum">     819 </span>                :            : {</a>
-<a name="820"><span class="lineNum">     820 </span>        [<span class="branchCov" title="Branch 0 was taken 4712 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       9424 :   std::unique_lock&lt;std::mutex&gt; lock(frame_mutex_);</span></a>
-<a name="821"><span class="lineNum">     821 </span>        [<span class="branchCov" title="Branch 0 was taken 4712 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       9424 :   return canTransformNoLock(target_id, source_id, time, error_msg);</span></a>
+<a name="820"><span class="lineNum">     820 </span>        [<span class="branchCov" title="Branch 0 was taken 4829 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       9658 :   std::unique_lock&lt;std::mutex&gt; lock(frame_mutex_);</span></a>
+<a name="821"><span class="lineNum">     821 </span>        [<span class="branchCov" title="Branch 0 was taken 4829 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       9658 :   return canTransformNoLock(target_id, source_id, time, error_msg);</span></a>
 <a name="822"><span class="lineNum">     822 </span>                :            : }</a>
 <a name="823"><span class="lineNum">     823 </span>                :            : </a>
 <a name="824"><span class="lineNum">     824 </span>                :<span class="lineCov">       1936 : bool BufferCore::canTransform(</span></a>
@@ -964,12 +964,12 @@
 <a name="870"><span class="lineNum">     870 </span>        [<span class="branchCov" title="Branch 0 was taken 24 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         48 :     canTransformInternal(fixed_id, source_id, source_time, error_msg);</span></a>
 <a name="871"><span class="lineNum">     871 </span>                :            : }</a>
 <a name="872"><span class="lineNum">     872 </span>                :            : </a>
-<a name="873"><span class="lineNum">     873 </span>                :<span class="lineCov">      47834 : tf2::TimeCacheInterfacePtr BufferCore::getFrame(CompactFrameID frame_id) const</span></a>
+<a name="873"><span class="lineNum">     873 </span>                :<span class="lineCov">      48419 : tf2::TimeCacheInterfacePtr BufferCore::getFrame(CompactFrameID frame_id) const</span></a>
 <a name="874"><span class="lineNum">     874 </span>                :            : {</a>
-<a name="875"><span class="lineNum">     875 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 47834 times"> + </span>]:<span class="lineCov">      47834 :   if (frame_id &gt;= frames_.size()) {</span></a>
+<a name="875"><span class="lineNum">     875 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 48419 times"> + </span>]:<span class="lineCov">      48419 :   if (frame_id &gt;= frames_.size()) {</span></a>
 <a name="876"><span class="lineNum">     876 </span>                :<span class="lineNoCov">          0 :     return TimeCacheInterfacePtr();</span></a>
 <a name="877"><span class="lineNum">     877 </span>                :            :   } else {</a>
-<a name="878"><span class="lineNum">     878 </span>                :<span class="lineCov">      47834 :     return frames_[frame_id];</span></a>
+<a name="878"><span class="lineNum">     878 </span>                :<span class="lineCov">      48419 :     return frames_[frame_id];</span></a>
 <a name="879"><span class="lineNum">     879 </span>                :            :   }</a>
 <a name="880"><span class="lineNum">     880 </span>                :            : }</a>
 <a name="881"><span class="lineNum">     881 </span>                :            : </a>
@@ -1001,24 +1001,24 @@
 <a name="907"><span class="lineNum">     907 </span>                :<span class="lineCov">      50130 :   return retval;</span></a>
 <a name="908"><span class="lineNum">     908 </span>                :            : }</a>
 <a name="909"><span class="lineNum">     909 </span>                :            : </a>
-<a name="910"><span class="lineNum">     910 </span>                :<span class="lineCov">       2796 : const std::string &amp; BufferCore::lookupFrameString(CompactFrameID frame_id_num) const</span></a>
+<a name="910"><span class="lineNum">     910 </span>                :<span class="lineCov">       3030 : const std::string &amp; BufferCore::lookupFrameString(CompactFrameID frame_id_num) const</span></a>
 <a name="911"><span class="lineNum">     911 </span>                :            : {</a>
-<a name="912"><span class="lineNum">     912 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2796 times"> + </span>]:<span class="lineCov">       2796 :   if (frame_id_num &gt;= frameIDs_reverse_.size()) {</span></a>
+<a name="912"><span class="lineNum">     912 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3030 times"> + </span>]:<span class="lineCov">       3030 :   if (frame_id_num &gt;= frameIDs_reverse_.size()) {</span></a>
 <a name="913"><span class="lineNum">     913 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     std::stringstream ss;</span></a>
 <a name="914"><span class="lineNum">     914 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :     ss &lt;&lt; &quot;Reverse lookup of frame id &quot; &lt;&lt; frame_id_num &lt;&lt; &quot; failed!&quot;;</span></a>
 <span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]
 <a name="915"><span class="lineNum">     915 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     throw tf2::LookupException(ss.str());</span></a>
 <a name="916"><span class="lineNum">     916 </span>                :            :   } else {</a>
-<a name="917"><span class="lineNum">     917 </span>                :<span class="lineCov">       2796 :     return frameIDs_reverse_[frame_id_num];</span></a>
+<a name="917"><span class="lineNum">     917 </span>                :<span class="lineCov">       3030 :     return frameIDs_reverse_[frame_id_num];</span></a>
 <a name="918"><span class="lineNum">     918 </span>                :            :   }</a>
 <a name="919"><span class="lineNum">     919 </span>                :            : }</a>
 <a name="920"><span class="lineNum">     920 </span>                :            : </a>
-<a name="921"><span class="lineNum">     921 </span>                :<span class="lineCov">       1412 : void BufferCore::createConnectivityErrorString(</span></a>
+<a name="921"><span class="lineNum">     921 </span>                :<span class="lineCov">       1529 : void BufferCore::createConnectivityErrorString(</span></a>
 <a name="922"><span class="lineNum">     922 </span>                :            :   CompactFrameID source_frame,</a>
 <a name="923"><span class="lineNum">     923 </span>                :            :   CompactFrameID target_frame, std::string * out) const</a>
 <a name="924"><span class="lineNum">     924 </span>                :            : {</a>
-<a name="925"><span class="lineNum">     925 </span>        [<span class="branchCov" title="Branch 0 was taken 1412 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1412 :   if (!out) {</span></a>
-<a name="926"><span class="lineNum">     926 </span>                :<span class="lineCov">       1412 :     return;</span></a>
+<a name="925"><span class="lineNum">     925 </span>        [<span class="branchCov" title="Branch 0 was taken 1529 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1529 :   if (!out) {</span></a>
+<a name="926"><span class="lineNum">     926 </span>                :<span class="lineCov">       1529 :     return;</span></a>
 <a name="927"><span class="lineNum">     927 </span>                :            :   }</a>
 <a name="928"><span class="lineNum">     928 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   *out = std::string(</span></a>
 <a name="929"><span class="lineNum">     929 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     &quot;Could not find a connection between '&quot; + lookupFrameString(target_frame) + &quot;' and '&quot; +</span></a>
@@ -1080,14 +1080,14 @@
 <a name="983"><span class="lineNum">     983 </span>                :            :   CompactFrameID id;</a>
 <a name="984"><span class="lineNum">     984 </span>                :            : };</a>
 <a name="985"><span class="lineNum">     985 </span>                :            : </a>
-<a name="986"><span class="lineNum">     986 </span>                :<span class="lineCov">       3125 : tf2::TF2Error BufferCore::getLatestCommonTime(</span></a>
+<a name="986"><span class="lineNum">     986 </span>                :<span class="lineCov">       3359 : tf2::TF2Error BufferCore::getLatestCommonTime(</span></a>
 <a name="987"><span class="lineNum">     987 </span>                :            :   CompactFrameID target_id, CompactFrameID source_id,</a>
 <a name="988"><span class="lineNum">     988 </span>                :            :   TimePoint &amp; time, std::string * error_string) const</a>
 <a name="989"><span class="lineNum">     989 </span>                :            : {</a>
 <a name="990"><span class="lineNum">     990 </span>                :            :   // Error if one of the frames don't exist.</a>
-<a name="991"><span class="lineNum">     991 </span>  [<span class="branchCov" title="Branch 0 was taken 3116 times"> + </span><span class="branchCov" title="Branch 1 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 3116 times"> + </span>]:<span class="lineCov">       3125 :   if (source_id == 0 || target_id == 0) {return tf2::TF2Error::LOOKUP_ERROR;}</span></a>
+<a name="991"><span class="lineNum">     991 </span>  [<span class="branchCov" title="Branch 0 was taken 3350 times"> + </span><span class="branchCov" title="Branch 1 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 3350 times"> + </span>]:<span class="lineCov">       3359 :   if (source_id == 0 || target_id == 0) {return tf2::TF2Error::LOOKUP_ERROR;}</span></a>
 <a name="992"><span class="lineNum">     992 </span>                :            : </a>
-<a name="993"><span class="lineNum">     993 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3116 times"> + </span>]:<span class="lineCov">       3116 :   if (source_id == target_id) {</span></a>
+<a name="993"><span class="lineNum">     993 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3350 times"> + </span>]:<span class="lineCov">       3350 :   if (source_id == target_id) {</span></a>
 <a name="994"><span class="lineNum">     994 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     TimeCacheInterfacePtr cache = getFrame(source_id);</span></a>
 <a name="995"><span class="lineNum">     995 </span>                :            :     // Set time to latest timestamp of frameid in case of target and source frame id are the same</a>
 <a name="996"><span class="lineNum">     996 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (cache) {</span></a>
@@ -1098,43 +1098,43 @@
 <a name="1001"><span class="lineNum">    1001 </span>                :<span class="lineNoCov">          0 :     return tf2::TF2Error::NO_ERROR;</span></a>
 <a name="1002"><span class="lineNum">    1002 </span>                :            :   }</a>
 <a name="1003"><span class="lineNum">    1003 </span>                :            : </a>
-<a name="1004"><span class="lineNum">    1004 </span>                :<span class="lineCov">       6232 :   std::vector&lt;P_TimeAndFrameID&gt; lct_cache;</span></a>
+<a name="1004"><span class="lineNum">    1004 </span>                :<span class="lineCov">       6700 :   std::vector&lt;P_TimeAndFrameID&gt; lct_cache;</span></a>
 <a name="1005"><span class="lineNum">    1005 </span>                :            : </a>
 <a name="1006"><span class="lineNum">    1006 </span>                :            :   // Walk the tree to its root from the source frame, accumulating the list of parent/time as</a>
 <a name="1007"><span class="lineNum">    1007 </span>                :            :   //  well as the latest time in the target is a direct parent</a>
-<a name="1008"><span class="lineNum">    1008 </span>                :<span class="lineCov">       3116 :   CompactFrameID frame = source_id;</span></a>
-<a name="1009"><span class="lineNum">    1009 </span>                :<span class="lineCov">       3116 :   uint32_t depth = 0;</span></a>
-<a name="1010"><span class="lineNum">    1010 </span>                :<span class="lineCov">       3116 :   TimePoint common_time = TimePoint::max();</span></a>
-<a name="1011"><span class="lineNum">    1011 </span>        [<span class="branchCov" title="Branch 0 was taken 3713 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3713 :   while (frame != 0) {</span></a>
-<a name="1012"><span class="lineNum">    1012 </span>        [<span class="branchCov" title="Branch 0 was taken 3713 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3713 :     TimeCacheInterfacePtr cache = getFrame(frame);</span></a>
+<a name="1008"><span class="lineNum">    1008 </span>                :<span class="lineCov">       3350 :   CompactFrameID frame = source_id;</span></a>
+<a name="1009"><span class="lineNum">    1009 </span>                :<span class="lineCov">       3350 :   uint32_t depth = 0;</span></a>
+<a name="1010"><span class="lineNum">    1010 </span>                :<span class="lineCov">       3350 :   TimePoint common_time = TimePoint::max();</span></a>
+<a name="1011"><span class="lineNum">    1011 </span>        [<span class="branchCov" title="Branch 0 was taken 3947 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3947 :   while (frame != 0) {</span></a>
+<a name="1012"><span class="lineNum">    1012 </span>        [<span class="branchCov" title="Branch 0 was taken 3947 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3947 :     TimeCacheInterfacePtr cache = getFrame(frame);</span></a>
 <a name="1013"><span class="lineNum">    1013 </span>                :            : </a>
-<a name="1014"><span class="lineNum">    1014 </span>        [<span class="branchCov" title="Branch 0 was taken 197 times"> + </span><span class="branchCov" title="Branch 1 was taken 3516 times"> + </span>]:<span class="lineCov">       3713 :     if (!cache) {</span></a>
+<a name="1014"><span class="lineNum">    1014 </span>        [<span class="branchCov" title="Branch 0 was taken 197 times"> + </span><span class="branchCov" title="Branch 1 was taken 3750 times"> + </span>]:<span class="lineCov">       3947 :     if (!cache) {</span></a>
 <a name="1015"><span class="lineNum">    1015 </span>                :            :       // There will be no cache for the very root of the tree</a>
 <a name="1016"><span class="lineNum">    1016 </span>                :<span class="lineCov">        197 :       break;</span></a>
 <a name="1017"><span class="lineNum">    1017 </span>                :            :     }</a>
 <a name="1018"><span class="lineNum">    1018 </span>                :            : </a>
-<a name="1019"><span class="lineNum">    1019 </span>        [<span class="branchCov" title="Branch 0 was taken 3516 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3516 :     P_TimeAndFrameID latest = cache-&gt;getLatestTimeAndParent();</span></a>
+<a name="1019"><span class="lineNum">    1019 </span>        [<span class="branchCov" title="Branch 0 was taken 3750 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3750 :     P_TimeAndFrameID latest = cache-&gt;getLatestTimeAndParent();</span></a>
 <a name="1020"><span class="lineNum">    1020 </span>                :            : </a>
-<a name="1021"><span class="lineNum">    1021 </span>        [<span class="branchCov" title="Branch 0 was taken 1352 times"> + </span><span class="branchCov" title="Branch 1 was taken 2164 times"> + </span>]:<span class="lineCov">       3516 :     if (latest.second == 0) {</span></a>
+<a name="1021"><span class="lineNum">    1021 </span>        [<span class="branchCov" title="Branch 0 was taken 1469 times"> + </span><span class="branchCov" title="Branch 1 was taken 2281 times"> + </span>]:<span class="lineCov">       3750 :     if (latest.second == 0) {</span></a>
 <a name="1022"><span class="lineNum">    1022 </span>                :            :       // Just break out here... there may still be a path from source -&gt; target</a>
-<a name="1023"><span class="lineNum">    1023 </span>                :<span class="lineCov">       1352 :       break;</span></a>
+<a name="1023"><span class="lineNum">    1023 </span>                :<span class="lineCov">       1469 :       break;</span></a>
 <a name="1024"><span class="lineNum">    1024 </span>                :            :     }</a>
 <a name="1025"><span class="lineNum">    1025 </span>                :            : </a>
-<a name="1026"><span class="lineNum">    1026 </span>  [<span class="branchCov" title="Branch 0 was taken 2164 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1413 times"> + </span><span class="branchCov" title="Branch 3 was taken 751 times"> + </span>]:<span class="lineCov">       2164 :     if (latest.first != TimePointZero) {</span></a>
-<a name="1027"><span class="lineNum">    1027 </span>        [<span class="branchCov" title="Branch 0 was taken 1413 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1413 :       common_time = std::min(latest.first, common_time);</span></a>
+<a name="1026"><span class="lineNum">    1026 </span>  [<span class="branchCov" title="Branch 0 was taken 2281 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1530 times"> + </span><span class="branchCov" title="Branch 3 was taken 751 times"> + </span>]:<span class="lineCov">       2281 :     if (latest.first != TimePointZero) {</span></a>
+<a name="1027"><span class="lineNum">    1027 </span>        [<span class="branchCov" title="Branch 0 was taken 1530 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1530 :       common_time = std::min(latest.first, common_time);</span></a>
 <a name="1028"><span class="lineNum">    1028 </span>                :            :     }</a>
 <a name="1029"><span class="lineNum">    1029 </span>                :            : </a>
-<a name="1030"><span class="lineNum">    1030 </span>        [<span class="branchCov" title="Branch 0 was taken 2164 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       2164 :     lct_cache.push_back(latest);</span></a>
+<a name="1030"><span class="lineNum">    1030 </span>        [<span class="branchCov" title="Branch 0 was taken 2281 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       2281 :     lct_cache.push_back(latest);</span></a>
 <a name="1031"><span class="lineNum">    1031 </span>                :            : </a>
-<a name="1032"><span class="lineNum">    1032 </span>                :<span class="lineCov">       2164 :     frame = latest.second;</span></a>
+<a name="1032"><span class="lineNum">    1032 </span>                :<span class="lineCov">       2281 :     frame = latest.second;</span></a>
 <a name="1033"><span class="lineNum">    1033 </span>                :            : </a>
 <a name="1034"><span class="lineNum">    1034 </span>                :            :     // Early out... target frame is a direct parent of the source frame</a>
-<a name="1035"><span class="lineNum">    1035 </span>        [<span class="branchCov" title="Branch 0 was taken 1567 times"> + </span><span class="branchCov" title="Branch 1 was taken 597 times"> + </span>]:<span class="lineCov">       2164 :     if (frame == target_id) {</span></a>
-<a name="1036"><span class="lineNum">    1036 </span>                :<span class="lineCov">       1567 :       time = common_time;</span></a>
-<a name="1037"><span class="lineNum">    1037 </span>  [<span class="branchCov" title="Branch 0 was taken 1567 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 155 times"> + </span><span class="branchCov" title="Branch 3 was taken 1412 times"> + </span>]:<span class="lineCov">       1567 :       if (time == TimePoint::max()) {</span></a>
+<a name="1035"><span class="lineNum">    1035 </span>        [<span class="branchCov" title="Branch 0 was taken 1684 times"> + </span><span class="branchCov" title="Branch 1 was taken 597 times"> + </span>]:<span class="lineCov">       2281 :     if (frame == target_id) {</span></a>
+<a name="1036"><span class="lineNum">    1036 </span>                :<span class="lineCov">       1684 :       time = common_time;</span></a>
+<a name="1037"><span class="lineNum">    1037 </span>  [<span class="branchCov" title="Branch 0 was taken 1684 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 155 times"> + </span><span class="branchCov" title="Branch 3 was taken 1529 times"> + </span>]:<span class="lineCov">       1684 :       if (time == TimePoint::max()) {</span></a>
 <a name="1038"><span class="lineNum">    1038 </span>                :<span class="lineCov">        155 :         time = TimePointZero;</span></a>
 <a name="1039"><span class="lineNum">    1039 </span>                :            :       }</a>
-<a name="1040"><span class="lineNum">    1040 </span>                :<span class="lineCov">       1567 :       return tf2::TF2Error::NO_ERROR;</span></a>
+<a name="1040"><span class="lineNum">    1040 </span>                :<span class="lineCov">       1684 :       return tf2::TF2Error::NO_ERROR;</span></a>
 <a name="1041"><span class="lineNum">    1041 </span>                :            :     }</a>
 <a name="1042"><span class="lineNum">    1042 </span>                :            : </a>
 <a name="1043"><span class="lineNum">    1043 </span>                :<span class="lineCov">        597 :     ++depth;</span></a>
@@ -1152,15 +1152,15 @@
 <a name="1054"><span class="lineNum">    1054 </span>                :            : </a>
 <a name="1055"><span class="lineNum">    1055 </span>                :            :   // Now walk to the top parent from the target frame, accumulating the latest time and looking</a>
 <a name="1056"><span class="lineNum">    1056 </span>                :            :   // for a common parent</a>
-<a name="1057"><span class="lineNum">    1057 </span>                :<span class="lineCov">       1549 :   frame = target_id;</span></a>
-<a name="1058"><span class="lineNum">    1058 </span>                :<span class="lineCov">       1549 :   depth = 0;</span></a>
-<a name="1059"><span class="lineNum">    1059 </span>                :<span class="lineCov">       1549 :   common_time = TimePoint::max();</span></a>
-<a name="1060"><span class="lineNum">    1060 </span>                :<span class="lineCov">       1549 :   CompactFrameID common_parent = 0;</span></a>
+<a name="1057"><span class="lineNum">    1057 </span>                :<span class="lineCov">       1666 :   frame = target_id;</span></a>
+<a name="1058"><span class="lineNum">    1058 </span>                :<span class="lineCov">       1666 :   depth = 0;</span></a>
+<a name="1059"><span class="lineNum">    1059 </span>                :<span class="lineCov">       1666 :   common_time = TimePoint::max();</span></a>
+<a name="1060"><span class="lineNum">    1060 </span>                :<span class="lineCov">       1666 :   CompactFrameID common_parent = 0;</span></a>
 <a name="1061"><span class="lineNum">    1061 </span>                :            :   while (true) {</a>
-<a name="1062"><span class="lineNum">    1062 </span>        [<span class="branchCov" title="Branch 0 was taken 1845 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1845 :     TimeCacheInterfacePtr cache = getFrame(frame);</span></a>
+<a name="1062"><span class="lineNum">    1062 </span>        [<span class="branchCov" title="Branch 0 was taken 1962 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1962 :     TimeCacheInterfacePtr cache = getFrame(frame);</span></a>
 <a name="1063"><span class="lineNum">    1063 </span>                :            : </a>
-<a name="1064"><span class="lineNum">    1064 </span>        [<span class="branchCov" title="Branch 0 was taken 1372 times"> + </span><span class="branchCov" title="Branch 1 was taken 473 times"> + </span>]:<span class="lineCov">       1845 :     if (!cache) {</span></a>
-<a name="1065"><span class="lineNum">    1065 </span>                :<span class="lineCov">       1372 :       break;</span></a>
+<a name="1064"><span class="lineNum">    1064 </span>        [<span class="branchCov" title="Branch 0 was taken 1489 times"> + </span><span class="branchCov" title="Branch 1 was taken 473 times"> + </span>]:<span class="lineCov">       1962 :     if (!cache) {</span></a>
+<a name="1065"><span class="lineNum">    1065 </span>                :<span class="lineCov">       1489 :       break;</span></a>
 <a name="1066"><span class="lineNum">    1066 </span>                :            :     }</a>
 <a name="1067"><span class="lineNum">    1067 </span>                :            : </a>
 <a name="1068"><span class="lineNum">    1068 </span>        [<span class="branchCov" title="Branch 0 was taken 473 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        473 :     P_TimeAndFrameID latest = cache-&gt;getLatestTimeAndParent();</span></a>
@@ -1205,9 +1205,9 @@
 <a name="1106"><span class="lineNum">    1106 </span>                :            :     }</a>
 <a name="1107"><span class="lineNum">    1107 </span>                :<span class="lineCov">        296 :   }</span></a>
 <a name="1108"><span class="lineNum">    1108 </span>                :            : </a>
-<a name="1109"><span class="lineNum">    1109 </span>        [<span class="branchCov" title="Branch 0 was taken 1372 times"> + </span><span class="branchCov" title="Branch 1 was taken 29 times"> + </span>]:<span class="lineCov">       1401 :   if (common_parent == 0) {</span></a>
-<a name="1110"><span class="lineNum">    1110 </span>        [<span class="branchCov" title="Branch 0 was taken 1372 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1372 :     createConnectivityErrorString(source_id, target_id, error_string);</span></a>
-<a name="1111"><span class="lineNum">    1111 </span>                :<span class="lineCov">       1372 :     return tf2::TF2Error::CONNECTIVITY_ERROR;</span></a>
+<a name="1109"><span class="lineNum">    1109 </span>        [<span class="branchCov" title="Branch 0 was taken 1489 times"> + </span><span class="branchCov" title="Branch 1 was taken 29 times"> + </span>]:<span class="lineCov">       1518 :   if (common_parent == 0) {</span></a>
+<a name="1110"><span class="lineNum">    1110 </span>        [<span class="branchCov" title="Branch 0 was taken 1489 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1489 :     createConnectivityErrorString(source_id, target_id, error_string);</span></a>
+<a name="1111"><span class="lineNum">    1111 </span>                :<span class="lineCov">       1489 :     return tf2::TF2Error::CONNECTIVITY_ERROR;</span></a>
 <a name="1112"><span class="lineNum">    1112 </span>                :            :   }</a>
 <a name="1113"><span class="lineNum">    1113 </span>                :            : </a>
 <a name="1114"><span class="lineNum">    1114 </span>                :            :   // Loop through the source -&gt; root list until we hit the common parent</a>
@@ -1350,51 +1350,51 @@
 <a name="1240"><span class="lineNum">    1240 </span>        [<span class="branchCov" title="Branch 0 was taken 1541 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1541 :   req.source_id = lookupFrameNumber(source_frame);</span></a>
 <a name="1241"><span class="lineNum">    1241 </span>                :            : </a>
 <a name="1242"><span class="lineNum">    1242 </span>                :            :   // First check if the request is already transformable.  If it is, return immediately</a>
-<a name="1243"><span class="lineNum">    1243 </span>  [<span class="branchCov" title="Branch 0 was taken 1541 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 143 times"> + </span><span class="branchCov" title="Branch 3 was taken 1398 times"> + </span>]:<span class="lineCov">       1541 :   if (canTransformInternal(req.target_id, req.source_id, time, 0)) {</span></a>
-<a name="1244"><span class="lineNum">    1244 </span>                :<span class="lineCov">        143 :     return 0;</span></a>
+<a name="1243"><span class="lineNum">    1243 </span>  [<span class="branchCov" title="Branch 0 was taken 1541 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 26 times"> + </span><span class="branchCov" title="Branch 3 was taken 1515 times"> + </span>]:<span class="lineCov">       1541 :   if (canTransformInternal(req.target_id, req.source_id, time, 0)) {</span></a>
+<a name="1244"><span class="lineNum">    1244 </span>                :<span class="lineCov">         26 :     return 0;</span></a>
 <a name="1245"><span class="lineNum">    1245 </span>                :            :   }</a>
 <a name="1246"><span class="lineNum">    1246 </span>                :            : </a>
 <a name="1247"><span class="lineNum">    1247 </span>                :            :   // Might not be transformable at all, ever (if it's too far in the past)</a>
-<a name="1248"><span class="lineNum">    1248 </span>  [<span class="branchCov" title="Branch 0 was taken 1355 times"> + </span><span class="branchCov" title="Branch 1 was taken 43 times"> + </span><span class="branchCov" title="Branch 2 was taken 1355 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       1398 :   if (req.target_id &amp;&amp; req.source_id) {</span></a>
-<a name="1249"><span class="lineNum">    1249 </span>                :<span class="lineCov">       1355 :     TimePoint latest_time;</span></a>
+<a name="1248"><span class="lineNum">    1248 </span>  [<span class="branchCov" title="Branch 0 was taken 1472 times"> + </span><span class="branchCov" title="Branch 1 was taken 43 times"> + </span><span class="branchCov" title="Branch 2 was taken 1472 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       1515 :   if (req.target_id &amp;&amp; req.source_id) {</span></a>
+<a name="1249"><span class="lineNum">    1249 </span>                :<span class="lineCov">       1472 :     TimePoint latest_time;</span></a>
 <a name="1250"><span class="lineNum">    1250 </span>                :            :     // TODO(anyone): This is incorrect, but better than nothing.  Really we want the latest time for</a>
 <a name="1251"><span class="lineNum">    1251 </span>                :            :     // any of the frames</a>
-<a name="1252"><span class="lineNum">    1252 </span>        [<span class="branchCov" title="Branch 0 was taken 1355 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1355 :     getLatestCommonTime(req.target_id, req.source_id, latest_time, 0);</span></a>
-<a name="1253"><span class="lineNum">    1253 </span>  [<span class="branchCov" title="Branch 0 was taken 1355 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchCov" title="Branch 3 was taken 1352 times"> + </span> :<span class="lineCov">       1355 :     if ((latest_time != TimePointZero) &amp;&amp; (time + cache_time_ &lt; latest_time)) {</span></a>
+<a name="1252"><span class="lineNum">    1252 </span>        [<span class="branchCov" title="Branch 0 was taken 1472 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1472 :     getLatestCommonTime(req.target_id, req.source_id, latest_time, 0);</span></a>
+<a name="1253"><span class="lineNum">    1253 </span>  [<span class="branchCov" title="Branch 0 was taken 1472 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchCov" title="Branch 3 was taken 1469 times"> + </span> :<span class="lineCov">       1472 :     if ((latest_time != TimePointZero) &amp;&amp; (time + cache_time_ &lt; latest_time)) {</span></a>
 <span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>            <span class="branchCov" title="Branch 9 was taken 1355 times"> + </span>]
+<span class="lineNum">         </span>            <span class="branchCov" title="Branch 9 was taken 1472 times"> + </span>]
 <a name="1254"><span class="lineNum">    1254 </span>                :<span class="lineNoCov">          0 :       return 0xffffffffffffffffULL;</span></a>
 <a name="1255"><span class="lineNum">    1255 </span>                :            :     }</a>
 <a name="1256"><span class="lineNum">    1256 </span>                :            :   }</a>
 <a name="1257"><span class="lineNum">    1257 </span>                :            : </a>
 <a name="1258"><span class="lineNum">    1258 </span>                :            :   {</a>
-<a name="1259"><span class="lineNum">    1259 </span>        [<span class="branchCov" title="Branch 0 was taken 1398 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1398 :     std::unique_lock&lt;std::mutex&gt; lock(transformable_callbacks_mutex_);</span></a>
-<a name="1260"><span class="lineNum">    1260 </span>                :<span class="lineCov">       1398 :     TransformableCallbackHandle handle = ++transformable_callbacks_counter_;</span></a>
-<a name="1261"><span class="lineNum">    1261 </span>  [<span class="branchCov" title="Branch 0 was taken 1398 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1398 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">       1398 :     while (!transformable_callbacks_.insert(std::make_pair(handle, cb)).second) {</span></a>
-<span class="lineNum">         </span>         <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 1398 times"> + </span>]
+<a name="1259"><span class="lineNum">    1259 </span>        [<span class="branchCov" title="Branch 0 was taken 1515 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1515 :     std::unique_lock&lt;std::mutex&gt; lock(transformable_callbacks_mutex_);</span></a>
+<a name="1260"><span class="lineNum">    1260 </span>                :<span class="lineCov">       1515 :     TransformableCallbackHandle handle = ++transformable_callbacks_counter_;</span></a>
+<a name="1261"><span class="lineNum">    1261 </span>  [<span class="branchCov" title="Branch 0 was taken 1515 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1515 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">       1515 :     while (!transformable_callbacks_.insert(std::make_pair(handle, cb)).second) {</span></a>
+<span class="lineNum">         </span>         <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 1515 times"> + </span>]
 <a name="1262"><span class="lineNum">    1262 </span>                :<span class="lineNoCov">          0 :       handle = ++transformable_callbacks_counter_;</span></a>
 <a name="1263"><span class="lineNum">    1263 </span>                :            :     }</a>
 <a name="1264"><span class="lineNum">    1264 </span>                :            : </a>
-<a name="1265"><span class="lineNum">    1265 </span>                :<span class="lineCov">       1398 :     req.cb_handle = handle;</span></a>
+<a name="1265"><span class="lineNum">    1265 </span>                :<span class="lineCov">       1515 :     req.cb_handle = handle;</span></a>
 <a name="1266"><span class="lineNum">    1266 </span>                :            :   }</a>
 <a name="1267"><span class="lineNum">    1267 </span>                :            : </a>
-<a name="1268"><span class="lineNum">    1268 </span>                :<span class="lineCov">       1398 :   req.time = time;</span></a>
-<a name="1269"><span class="lineNum">    1269 </span>                :<span class="lineCov">       1398 :   req.request_handle = ++transformable_requests_counter_;</span></a>
-<a name="1270"><span class="lineNum">    1270 </span>  [<span class="branchCov" title="Branch 0 was taken 1398 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1398 times"> + </span>]:<span class="lineCov">       1398 :   if (req.request_handle == 0 || req.request_handle == 0xffffffffffffffffULL) {</span></a>
+<a name="1268"><span class="lineNum">    1268 </span>                :<span class="lineCov">       1515 :   req.time = time;</span></a>
+<a name="1269"><span class="lineNum">    1269 </span>                :<span class="lineCov">       1515 :   req.request_handle = ++transformable_requests_counter_;</span></a>
+<a name="1270"><span class="lineNum">    1270 </span>  [<span class="branchCov" title="Branch 0 was taken 1515 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1515 times"> + </span>]:<span class="lineCov">       1515 :   if (req.request_handle == 0 || req.request_handle == 0xffffffffffffffffULL) {</span></a>
 <a name="1271"><span class="lineNum">    1271 </span>                :<span class="lineNoCov">          0 :     req.request_handle = 1;</span></a>
 <a name="1272"><span class="lineNum">    1272 </span>                :            :   }</a>
 <a name="1273"><span class="lineNum">    1273 </span>                :            : </a>
-<a name="1274"><span class="lineNum">    1274 </span>        [<span class="branchCov" title="Branch 0 was taken 43 times"> + </span><span class="branchCov" title="Branch 1 was taken 1355 times"> + </span>]:<span class="lineCov">       1398 :   if (req.target_id == 0) {</span></a>
+<a name="1274"><span class="lineNum">    1274 </span>        [<span class="branchCov" title="Branch 0 was taken 43 times"> + </span><span class="branchCov" title="Branch 1 was taken 1472 times"> + </span>]:<span class="lineCov">       1515 :   if (req.target_id == 0) {</span></a>
 <a name="1275"><span class="lineNum">    1275 </span>        [<span class="branchCov" title="Branch 0 was taken 43 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         43 :     req.target_string = target_frame;</span></a>
 <a name="1276"><span class="lineNum">    1276 </span>                :            :   }</a>
 <a name="1277"><span class="lineNum">    1277 </span>                :            : </a>
-<a name="1278"><span class="lineNum">    1278 </span>        [<span class="branchCov" title="Branch 0 was taken 42 times"> + </span><span class="branchCov" title="Branch 1 was taken 1356 times"> + </span>]:<span class="lineCov">       1398 :   if (req.source_id == 0) {</span></a>
+<a name="1278"><span class="lineNum">    1278 </span>        [<span class="branchCov" title="Branch 0 was taken 42 times"> + </span><span class="branchCov" title="Branch 1 was taken 1473 times"> + </span>]:<span class="lineCov">       1515 :   if (req.source_id == 0) {</span></a>
 <a name="1279"><span class="lineNum">    1279 </span>        [<span class="branchCov" title="Branch 0 was taken 42 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         42 :     req.source_string = source_frame;</span></a>
 <a name="1280"><span class="lineNum">    1280 </span>                :            :   }</a>
 <a name="1281"><span class="lineNum">    1281 </span>                :            : </a>
-<a name="1282"><span class="lineNum">    1282 </span>        [<span class="branchCov" title="Branch 0 was taken 1398 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1398 :   transformable_requests_.push_back(req);</span></a>
+<a name="1282"><span class="lineNum">    1282 </span>        [<span class="branchCov" title="Branch 0 was taken 1515 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1515 :   transformable_requests_.push_back(req);</span></a>
 <a name="1283"><span class="lineNum">    1283 </span>                :            : </a>
-<a name="1284"><span class="lineNum">    1284 </span>                :<span class="lineCov">       1398 :   return req.request_handle;</span></a>
+<a name="1284"><span class="lineNum">    1284 </span>                :<span class="lineCov">       1515 :   return req.request_handle;</span></a>
 <a name="1285"><span class="lineNum">    1285 </span>                :            : }</a>
 <a name="1286"><span class="lineNum">    1286 </span>                :            : </a>
 <a name="1287"><span class="lineNum">    1287 </span>                :<span class="lineCov">          1 : void BufferCore::cancelTransformableRequest(TransformableRequestHandle handle)</span></a>
@@ -1456,56 +1456,56 @@
 <a name="1343"><span class="lineNum">    1343 </span>                :            : {</a>
 <a name="1344"><span class="lineNum">    1344 </span>        [<span class="branchCov" title="Branch 0 was taken 25065 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      50130 :   std::unique_lock&lt;std::mutex&gt; lock(transformable_requests_mutex_);</span></a>
 <a name="1345"><span class="lineNum">    1345 </span>                :<span class="lineCov">      25065 :   V_TransformableRequest::iterator it = transformable_requests_.begin();</span></a>
-<a name="1346"><span class="lineNum">    1346 </span>        [<span class="branchCov" title="Branch 0 was taken 1421 times"> + </span><span class="branchCov" title="Branch 1 was taken 25065 times"> + </span>]:<span class="lineCov">      26486 :   for (; it != transformable_requests_.end(); ) {</span></a>
-<a name="1347"><span class="lineNum">    1347 </span>                :<span class="lineCov">       1421 :     TransformableRequest &amp; req = *it;</span></a>
+<a name="1346"><span class="lineNum">    1346 </span>        [<span class="branchCov" title="Branch 0 was taken 1538 times"> + </span><span class="branchCov" title="Branch 1 was taken 25065 times"> + </span>]:<span class="lineCov">      26603 :   for (; it != transformable_requests_.end(); ) {</span></a>
+<a name="1347"><span class="lineNum">    1347 </span>                :<span class="lineCov">       1538 :     TransformableRequest &amp; req = *it;</span></a>
 <a name="1348"><span class="lineNum">    1348 </span>                :            : </a>
 <a name="1349"><span class="lineNum">    1349 </span>                :            :     // One or both of the frames may not have existed when the request was originally made.</a>
-<a name="1350"><span class="lineNum">    1350 </span>        [<span class="branchCov" title="Branch 0 was taken 42 times"> + </span><span class="branchCov" title="Branch 1 was taken 1379 times"> + </span>]:<span class="lineCov">       1421 :     if (req.target_id == 0) {</span></a>
+<a name="1350"><span class="lineNum">    1350 </span>        [<span class="branchCov" title="Branch 0 was taken 42 times"> + </span><span class="branchCov" title="Branch 1 was taken 1496 times"> + </span>]:<span class="lineCov">       1538 :     if (req.target_id == 0) {</span></a>
 <a name="1351"><span class="lineNum">    1351 </span>        [<span class="branchCov" title="Branch 0 was taken 42 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         42 :       req.target_id = lookupFrameNumber(req.target_string);</span></a>
 <a name="1352"><span class="lineNum">    1352 </span>                :            :     }</a>
 <a name="1353"><span class="lineNum">    1353 </span>                :            : </a>
-<a name="1354"><span class="lineNum">    1354 </span>        [<span class="branchCov" title="Branch 0 was taken 49 times"> + </span><span class="branchCov" title="Branch 1 was taken 1372 times"> + </span>]:<span class="lineCov">       1421 :     if (req.source_id == 0) {</span></a>
+<a name="1354"><span class="lineNum">    1354 </span>        [<span class="branchCov" title="Branch 0 was taken 49 times"> + </span><span class="branchCov" title="Branch 1 was taken 1489 times"> + </span>]:<span class="lineCov">       1538 :     if (req.source_id == 0) {</span></a>
 <a name="1355"><span class="lineNum">    1355 </span>        [<span class="branchCov" title="Branch 0 was taken 49 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         49 :       req.source_id = lookupFrameNumber(req.source_string);</span></a>
 <a name="1356"><span class="lineNum">    1356 </span>                :            :     }</a>
 <a name="1357"><span class="lineNum">    1357 </span>                :            : </a>
-<a name="1358"><span class="lineNum">    1358 </span>                :<span class="lineCov">       1421 :     TimePoint latest_time;</span></a>
-<a name="1359"><span class="lineNum">    1359 </span>                :<span class="lineCov">       1421 :     bool do_cb = false;</span></a>
-<a name="1360"><span class="lineNum">    1360 </span>                :<span class="lineCov">       1421 :     TransformableResult result = TransformAvailable;</span></a>
+<a name="1358"><span class="lineNum">    1358 </span>                :<span class="lineCov">       1538 :     TimePoint latest_time;</span></a>
+<a name="1359"><span class="lineNum">    1359 </span>                :<span class="lineCov">       1538 :     bool do_cb = false;</span></a>
+<a name="1360"><span class="lineNum">    1360 </span>                :<span class="lineCov">       1538 :     TransformableResult result = TransformAvailable;</span></a>
 <a name="1361"><span class="lineNum">    1361 </span>                :            :     // TODO(anyone): This is incorrect, but better than nothing. Really we want the latest time for</a>
 <a name="1362"><span class="lineNum">    1362 </span>                :            :     // any of the frames</a>
-<a name="1363"><span class="lineNum">    1363 </span>        [<span class="branchCov" title="Branch 0 was taken 1421 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1421 :     getLatestCommonTime(req.target_id, req.source_id, latest_time, 0);</span></a>
-<a name="1364"><span class="lineNum">    1364 </span>  [<span class="branchCov" title="Branch 0 was taken 1421 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1408 times"> + </span><span class="branchCov" title="Branch 3 was taken 13 times"> + </span> :<span class="lineCov">       1421 :     if ((latest_time != TimePointZero) &amp;&amp; (req.time + cache_time_ &lt; latest_time)) {</span></a>
-<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 1408 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 1408 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>            <span class="branchCov" title="Branch 9 was taken 1421 times"> + </span>]
+<a name="1363"><span class="lineNum">    1363 </span>        [<span class="branchCov" title="Branch 0 was taken 1538 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1538 :     getLatestCommonTime(req.target_id, req.source_id, latest_time, 0);</span></a>
+<a name="1364"><span class="lineNum">    1364 </span>  [<span class="branchCov" title="Branch 0 was taken 1538 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1525 times"> + </span><span class="branchCov" title="Branch 3 was taken 13 times"> + </span> :<span class="lineCov">       1538 :     if ((latest_time != TimePointZero) &amp;&amp; (req.time + cache_time_ &lt; latest_time)) {</span></a>
+<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 1525 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 1525 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">         </span>            <span class="branchCov" title="Branch 9 was taken 1538 times"> + </span>]
 <a name="1365"><span class="lineNum">    1365 </span>                :<span class="lineNoCov">          0 :       do_cb = true;</span></a>
 <a name="1366"><span class="lineNum">    1366 </span>                :<span class="lineNoCov">          0 :       result = TransformFailure;</span></a>
-<a name="1367"><span class="lineNum">    1367 </span>  [<span class="branchCov" title="Branch 0 was taken 1421 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1394 times"> + </span><span class="branchCov" title="Branch 3 was taken 27 times"> + </span>]:<span class="lineCov">       1421 :     } else if (canTransformInternal(req.target_id, req.source_id, req.time, 0)) {</span></a>
-<a name="1368"><span class="lineNum">    1368 </span>                :<span class="lineCov">       1394 :       do_cb = true;</span></a>
-<a name="1369"><span class="lineNum">    1369 </span>                :<span class="lineCov">       1394 :       result = TransformAvailable;</span></a>
+<a name="1367"><span class="lineNum">    1367 </span>  [<span class="branchCov" title="Branch 0 was taken 1538 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1511 times"> + </span><span class="branchCov" title="Branch 3 was taken 27 times"> + </span>]:<span class="lineCov">       1538 :     } else if (canTransformInternal(req.target_id, req.source_id, req.time, 0)) {</span></a>
+<a name="1368"><span class="lineNum">    1368 </span>                :<span class="lineCov">       1511 :       do_cb = true;</span></a>
+<a name="1369"><span class="lineNum">    1369 </span>                :<span class="lineCov">       1511 :       result = TransformAvailable;</span></a>
 <a name="1370"><span class="lineNum">    1370 </span>                :            :     }</a>
 <a name="1371"><span class="lineNum">    1371 </span>                :            : </a>
-<a name="1372"><span class="lineNum">    1372 </span>        [<span class="branchCov" title="Branch 0 was taken 1394 times"> + </span><span class="branchCov" title="Branch 1 was taken 27 times"> + </span>]:<span class="lineCov">       1421 :     if (do_cb) {</span></a>
+<a name="1372"><span class="lineNum">    1372 </span>        [<span class="branchCov" title="Branch 0 was taken 1511 times"> + </span><span class="branchCov" title="Branch 1 was taken 27 times"> + </span>]:<span class="lineCov">       1538 :     if (do_cb) {</span></a>
 <a name="1373"><span class="lineNum">    1373 </span>                :            :       {</a>
-<a name="1374"><span class="lineNum">    1374 </span>        [<span class="branchCov" title="Branch 0 was taken 1394 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       2788 :         std::unique_lock&lt;std::mutex&gt; lock2(transformable_callbacks_mutex_);</span></a>
-<a name="1375"><span class="lineNum">    1375 </span>        [<span class="branchCov" title="Branch 0 was taken 1394 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1394 :         M_TransformableCallback::iterator it = transformable_callbacks_.find(req.cb_handle);</span></a>
-<a name="1376"><span class="lineNum">    1376 </span>        [<span class="branchCov" title="Branch 0 was taken 1394 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1394 :         if (it != transformable_callbacks_.end()) {</span></a>
-<a name="1377"><span class="lineNum">    1377 </span>                :<span class="lineCov">       1394 :           const TransformableCallback &amp; cb = it-&gt;second;</span></a>
-<a name="1378"><span class="lineNum">    1378 </span>                :<span class="lineCov">       1394 :           cb(</span></a>
-<a name="1379"><span class="lineNum">    1379 </span>        [<span class="branchCov" title="Branch 0 was taken 1394 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1394 :             req.request_handle, lookupFrameString(req.target_id), lookupFrameString(</span></a>
-<a name="1380"><span class="lineNum">    1380 </span>  [<span class="branchCov" title="Branch 0 was taken 1394 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1394 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       1394 :               req.source_id), req.time, result);</span></a>
-<a name="1381"><span class="lineNum">    1381 </span>        [<span class="branchCov" title="Branch 0 was taken 1394 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1394 :           transformable_callbacks_.erase(req.cb_handle);</span></a>
+<a name="1374"><span class="lineNum">    1374 </span>        [<span class="branchCov" title="Branch 0 was taken 1511 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3022 :         std::unique_lock&lt;std::mutex&gt; lock2(transformable_callbacks_mutex_);</span></a>
+<a name="1375"><span class="lineNum">    1375 </span>        [<span class="branchCov" title="Branch 0 was taken 1511 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1511 :         M_TransformableCallback::iterator it = transformable_callbacks_.find(req.cb_handle);</span></a>
+<a name="1376"><span class="lineNum">    1376 </span>        [<span class="branchCov" title="Branch 0 was taken 1511 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1511 :         if (it != transformable_callbacks_.end()) {</span></a>
+<a name="1377"><span class="lineNum">    1377 </span>                :<span class="lineCov">       1511 :           const TransformableCallback &amp; cb = it-&gt;second;</span></a>
+<a name="1378"><span class="lineNum">    1378 </span>                :<span class="lineCov">       1511 :           cb(</span></a>
+<a name="1379"><span class="lineNum">    1379 </span>        [<span class="branchCov" title="Branch 0 was taken 1511 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1511 :             req.request_handle, lookupFrameString(req.target_id), lookupFrameString(</span></a>
+<a name="1380"><span class="lineNum">    1380 </span>  [<span class="branchCov" title="Branch 0 was taken 1511 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1511 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       1511 :               req.source_id), req.time, result);</span></a>
+<a name="1381"><span class="lineNum">    1381 </span>        [<span class="branchCov" title="Branch 0 was taken 1511 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1511 :           transformable_callbacks_.erase(req.cb_handle);</span></a>
 <a name="1382"><span class="lineNum">    1382 </span>                :            :         }</a>
 <a name="1383"><span class="lineNum">    1383 </span>                :            :       }</a>
 <a name="1384"><span class="lineNum">    1384 </span>                :            : </a>
-<a name="1385"><span class="lineNum">    1385 </span>        [<span class="branchCov" title="Branch 0 was taken 1335 times"> + </span><span class="branchCov" title="Branch 1 was taken 59 times"> + </span>]:<span class="lineCov">       1394 :       if (transformable_requests_.size() &gt; 1) {</span></a>
-<a name="1386"><span class="lineNum">    1386 </span>                :<span class="lineCov">       1335 :         transformable_requests_[it -</span></a>
-<a name="1387"><span class="lineNum">    1387 </span>        [<span class="branchCov" title="Branch 0 was taken 1335 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       2670 :           transformable_requests_.begin()] = transformable_requests_.back();</span></a>
+<a name="1385"><span class="lineNum">    1385 </span>        [<span class="branchCov" title="Branch 0 was taken 1452 times"> + </span><span class="branchCov" title="Branch 1 was taken 59 times"> + </span>]:<span class="lineCov">       1511 :       if (transformable_requests_.size() &gt; 1) {</span></a>
+<a name="1386"><span class="lineNum">    1386 </span>                :<span class="lineCov">       1452 :         transformable_requests_[it -</span></a>
+<a name="1387"><span class="lineNum">    1387 </span>        [<span class="branchCov" title="Branch 0 was taken 1452 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       2904 :           transformable_requests_.begin()] = transformable_requests_.back();</span></a>
 <a name="1388"><span class="lineNum">    1388 </span>                :            :       }</a>
 <a name="1389"><span class="lineNum">    1389 </span>                :            : </a>
-<a name="1390"><span class="lineNum">    1390 </span>        [<span class="branchCov" title="Branch 0 was taken 1394 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1394 :       transformable_requests_.erase(transformable_requests_.end() - 1);</span></a>
+<a name="1390"><span class="lineNum">    1390 </span>        [<span class="branchCov" title="Branch 0 was taken 1511 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1511 :       transformable_requests_.erase(transformable_requests_.end() - 1);</span></a>
 <a name="1391"><span class="lineNum">    1391 </span>                :            : </a>
 <a name="1392"><span class="lineNum">    1392 </span>                :            :       // If we've removed the last element, then the iterator is invalid</a>
-<a name="1393"><span class="lineNum">    1393 </span>        [<span class="branchCov" title="Branch 0 was taken 59 times"> + </span><span class="branchCov" title="Branch 1 was taken 1335 times"> + </span>]:<span class="lineCov">       1394 :       if (0u == transformable_requests_.size()) {</span></a>
+<a name="1393"><span class="lineNum">    1393 </span>        [<span class="branchCov" title="Branch 0 was taken 59 times"> + </span><span class="branchCov" title="Branch 1 was taken 1452 times"> + </span>]:<span class="lineCov">       1511 :       if (0u == transformable_requests_.size()) {</span></a>
 <a name="1394"><span class="lineNum">    1394 </span>                :<span class="lineCov">         59 :         it = transformable_requests_.end();</span></a>
 <a name="1395"><span class="lineNum">    1395 </span>                :            :       }</a>
 <a name="1396"><span class="lineNum">    1396 </span>                :            :     } else {</a>
