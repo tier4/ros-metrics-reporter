@@ -29,7 +29,7 @@ jobs:
         with:
           required-ros-distributions: galactic
 
-      - name: Inport vcs repo
+      - name: Import vcs repo
         run: |
           vcs import . < ros-metrics-reporter-galactic.repos
 
