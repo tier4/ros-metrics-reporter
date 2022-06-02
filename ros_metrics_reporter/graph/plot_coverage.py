@@ -45,12 +45,18 @@ def generate_labeled_graph(coverage_list: List[CoverageStamped], output_dir: Pat
         df = pd.DataFrame(columns=["date", "value", "type"])
         for coverage in coverage_list:
             for key in CoverageKeys:
-                df = df.append(
-                    {
-                        "date": coverage.date,
-                        "value": coverage.get_label_value(label).get(key),
-                        "type": key.value,
-                    },
+                df = pd.concat(
+                    [
+                        df,
+                        pd.DataFrame(
+                            {
+                                "date": coverage.date,
+                                "value": coverage.get_label_value(label).get(key),
+                                "type": key.value,
+                            },
+                            index=[0],
+                        ),
+                    ],
                     ignore_index=True,
                 )
         plot_graph(df, output_dir, label)

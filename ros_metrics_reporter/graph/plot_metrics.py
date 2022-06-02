@@ -47,12 +47,18 @@ def generate_metrics_graph(record_list: List[MetricsDataStamped], output_dir: Pa
         df = pd.DataFrame(columns=["date", "value", "type"])
         for record in record_list:
             for key in MetricsDataKeys:
-                df = df.append(
-                    {
-                        "date": record.date,
-                        "value": record.get_value(key).get(metrics_type),
-                        "type": key.value,
-                    },
+                df = pd.concat(
+                    [
+                        df,
+                        pd.DataFrame(
+                            {
+                                "date": record.date,
+                                "value": record.get_value(key).get(metrics_type),
+                                "type": key.value,
+                            },
+                            index=[0],
+                        ),
+                    ],
                     ignore_index=True,
                 )
         plot_graph(df, output_dir, metrics_type.value)

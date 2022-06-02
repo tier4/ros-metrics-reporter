@@ -25,10 +25,14 @@ Before running tests, you need to install dependencies. Check `Install dependenc
 After that, you can run tests with the following command:
 
 ```sh
+$ pip install pipenv
 $ cd ros-metrics-reporter
 $ vcs import . < ros-metrics-reporter-<ROS_DISTRO>.repos  # Import ros2/geometry2 into your workspace
-$ pip3 install --editable .
-$ python3 tests/test_run_local.py
+$ rosdep install --from-paths example/src/geometry2/ --ignore-src --rosdistro <ROS_DISTRO> -y
+$ pipenv
+$ pipenv shell
+$ pytest
+$ exit
 $ cd ../hugo-test
 $ hugo server -D
 $ firefox http://localhost:1313/

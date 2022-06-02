@@ -27,11 +27,11 @@ jobs:
       - name: Setup ROS to use colcon commands
         uses: ros-tooling/setup-ros@v0.3
         with:
-          required-ros-distributions: galactic
+          required-ros-distributions: humble
 
       - name: Import vcs repo
         run: |
-          vcs import . < ros-metrics-reporter-galactic.repos
+          vcs import . < ros-metrics-reporter-humble.repos
 
       - name: Run tests
         run: |

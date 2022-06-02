@@ -226,7 +226,7 @@ Setup ROS environment, using the `required-ros-distributions` option to specify 
 ```yaml
     - uses: ros-tooling/setup-ros@v0.2
       with:
-        required-ros-distributions: galactic
+        required-ros-distributions: humble
 ```
 
 ### Step3: Build
@@ -236,7 +236,7 @@ Copy the following code to the `runs` section of your workflow. The build option
 ```yaml
     - name: Build
       run: |
-        . /opt/ros/galactic/setup.sh
+        . /opt/ros/humble/setup.sh
         colcon build --event-handlers console_cohesion+ \
           --cmake-args -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 ```

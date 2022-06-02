@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+bs4 = "*"
+pandas = "*"
+plotly = "*"
+colcon-lcov-result = "*"
+Jinja2 = "*"
+PyGithub = "*"
+colcon-coveragepy-result = "*"
+pyyaml = "*"
+lark = "*"
+colcon-common-extensions = "*"
+colcon-mixin = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
