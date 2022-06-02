@@ -1,4 +1,4 @@
-name: Test github action on bare metal
+name: Test github action
 
 on:
   workflow_dispatch:
