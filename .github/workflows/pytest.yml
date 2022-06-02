@@ -17,15 +17,14 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Pipenv for Github Actions
-        uses: VaultVulp/action-pipenv@v2.0.1
-        with:
-          command: install -d
-
       - name: Install dependencies
         run: |
           sudo apt update
           sudo apt install -y git
+          python -m pip install --upgrade pip
+          python -m pip install pipenv
+          pipenv lock
+          pipenv sync --dev
 
       - name: Setup ROS to use colcon commands
         uses: ros-tooling/setup-ros@v0.3
