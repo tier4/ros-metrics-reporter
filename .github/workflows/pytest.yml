@@ -17,10 +17,13 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Pipenv for Github Actions
+        uses: VaultVulp/action-pipenv@v2.0.1
+        with:
+          command: install -d
+
       - name: Install dependencies
         run: |
-          pip install .
-          pip install pytest pytest-cov
           sudo apt update
           sudo apt install -y git
 
@@ -35,4 +38,4 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest tests
+          pipenv run pytest
