@@ -48,7 +48,7 @@ on:
 
 jobs:
   action-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       ARTIFACTS_DIR: data
       BASE_URL: "https://tier4.github.io/ros-metrics-reporter/"

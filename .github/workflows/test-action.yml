@@ -9,7 +9,7 @@ on:
 
 jobs:
   action-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       ARTIFACTS_DIR: data
       TARGET_REPO: "ros2/geometry2"
