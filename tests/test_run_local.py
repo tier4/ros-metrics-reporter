@@ -2,6 +2,7 @@ from datetime import datetime
 from pathlib import Path
 import shutil
 import subprocess
+import pytest
 
 
 root_path = Path(__file__).parent.parent.resolve()
@@ -10,7 +11,7 @@ ros_ws = root_path / "example" / "src" / "geometry2"
 
 def setup():
     res = subprocess.run(
-        "vcs import . < ros-metrics-reporter-galactic.repos",
+        "vcs import . < ros-metrics-reporter-humble.repos",
         shell=True,
         cwd=root_path,
     )
@@ -21,7 +22,7 @@ def setup():
 
 def build():
     res = subprocess.run(
-        '. /opt/ros/galactic/setup.sh && colcon build --symlink-install --cmake-args -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --mixin coverage-gcc',
+        '. /opt/ros/humble/setup.sh && colcon build --symlink-install --cmake-args -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --mixin coverage-gcc',
         shell=True,
         cwd=ros_ws,
     )
@@ -71,6 +72,7 @@ def run_ros_metrics_reporter():
     return args
 
 
+@pytest.mark.local
 def test_ros_metrics_reporter():
     if not ros_ws.exists():
         setup()

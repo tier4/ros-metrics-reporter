@@ -2,4 +2,4 @@ repositories:
   example/src/geometry2:
     type: git
     url: https://github.com/KeisukeShima/geometry2.git
-    version: foxy
+    version: humble

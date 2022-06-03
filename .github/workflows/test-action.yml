@@ -1,4 +1,4 @@
-name: Test github action on bare metal
+name: Test github action
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   action-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       ARTIFACTS_DIR: data
       TARGET_REPO: "ros2/geometry2"
@@ -19,18 +19,13 @@ jobs:
       fail-fast: false
       matrix:
         ros_distribution:
-          - foxy
-          - galactic
+          - humble
           - rolling
 
         include:
-          # Foxy Fitzroy (June 2020 - May 2023)
-          - ros_distribution: foxy
-            vcs_file: ros-metrics-reporter-foxy.repos
-
-          # Galactic Geochelone (May 2021 - November 2022)
-          - ros_distribution: galactic
-            vcs_file: ros-metrics-reporter-galactic.repos
+          # Humble Hawksbill (May 2022 - May 2027)
+          - ros_distribution: humble
+            vcs_file: ros-metrics-reporter-humble.repos
 
           # Rolling Ridley (June 2020 -)
           - ros_distribution: rolling
@@ -89,7 +84,7 @@ jobs:
         tree -L 2 ${GITHUB_WORKSPACE}/public/
 
     - name: Push artifacts
-      if: ${{ github.ref == 'refs/heads/main' && matrix.ros_distribution == 'galactic' }}
+      if: ${{ github.ref == 'refs/heads/main' && matrix.ros_distribution == 'humble' }}
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -97,14 +92,14 @@ jobs:
         publish_branch: data
 
     - name: Save page as artifacts
-      if: ${{ github.event.pull_request && matrix.ros_distribution == 'galactic' }}
+      if: ${{ github.event.pull_request && matrix.ros_distribution == 'humble' }}
       uses: actions/upload-artifact@v3
       with:
         name: static-pages
         path: public
 
     - name: Deploy public to gh-pages (main branch only)
-      if: ${{ github.ref == 'refs/heads/main' && matrix.ros_distribution == 'galactic' }}
+      if: ${{ github.ref == 'refs/heads/main' && matrix.ros_distribution == 'humble' }}
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
