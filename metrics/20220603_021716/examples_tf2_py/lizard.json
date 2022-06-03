@@ -1,16 +1,16 @@
 {
-  "package": "tf2_tools",
+  "package": "examples_tf2_py",
   "worst_value": {
     "ccn": 6,
-    "nloc": 52,
+    "nloc": 63,
     "parameter": 2,
-    "token": 433
+    "token": 635
   },
   "average_value": {
-    "ccn": 5.0,
-    "nloc": 36.5,
-    "parameter": 1.0,
-    "token": 299.5
+    "ccn": 1.8,
+    "nloc": 11.3,
+    "parameter": 0.8,
+    "token": 88.8
   },
   "over_threshold_count": {
     "ccn": 0,
