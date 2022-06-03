@@ -1,85 +1,45 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://tier4.github.io/ros-metrics-reporter/categories/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/examples_tf2_py/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/geometry2/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/ros-metrics-reporter/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/tags/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/test_tf2/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/tf2/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/tf2_bullet/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/tf2_eigen/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/tf2_eigen_kdl/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/tf2_geometry_msgs/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/tf2_kdl/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/tf2_msgs/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/tf2_py/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/tf2_ros/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/tf2_ros_py/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/tf2_sensor_msgs/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://tier4.github.io/ros-metrics-reporter/packages/tf2_tools/</loc>
   </url>
-  
 </urlset>

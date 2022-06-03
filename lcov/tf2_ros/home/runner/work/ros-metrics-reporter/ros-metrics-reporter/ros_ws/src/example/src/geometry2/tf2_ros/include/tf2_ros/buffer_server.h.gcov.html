@@ -31,13 +31,13 @@
             <td class="headerValue">coverage.filtered</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">7</td>
-            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntry">8</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-01 09:46:06</td>
+            <td class="headerValue">2022-06-03 02:37:41</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -56,9 +56,9 @@
 </td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">16</td>
-            <td class="headerCovTableEntry">52</td>
-            <td class="headerCovTableEntryLo">30.8 %</td>
+            <td class="headerCovTableEntry">15</td>
+            <td class="headerCovTableEntry">48</td>
+            <td class="headerCovTableEntryLo">31.2 %</td>
           </tr>
           <tr><td><img src="../../../../../../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -116,21 +116,21 @@
 <a name="38"><span class="lineNum">      38 </span>                :            : #ifndef TF2_ROS__BUFFER_SERVER_H_</a>
 <a name="39"><span class="lineNum">      39 </span>                :            : #define TF2_ROS__BUFFER_SERVER_H_</a>
 <a name="40"><span class="lineNum">      40 </span>                :            : </a>
-<a name="41"><span class="lineNum">      41 </span>                :            : #include &lt;tf2/time.h&gt;</a>
-<a name="42"><span class="lineNum">      42 </span>                :            : #include &lt;tf2/buffer_core_interface.h&gt;</a>
-<a name="43"><span class="lineNum">      43 </span>                :            : #include &lt;tf2_ros/visibility_control.h&gt;</a>
-<a name="44"><span class="lineNum">      44 </span>                :            : </a>
-<a name="45"><span class="lineNum">      45 </span>                :            : #include &lt;geometry_msgs/msg/transform_stamped.hpp&gt;</a>
-<a name="46"><span class="lineNum">      46 </span>                :            : #include &lt;rclcpp/create_timer.hpp&gt;</a>
-<a name="47"><span class="lineNum">      47 </span>                :            : #include &lt;rclcpp/rclcpp.hpp&gt;</a>
-<a name="48"><span class="lineNum">      48 </span>                :            : #include &lt;rclcpp_action/rclcpp_action.hpp&gt;</a>
-<a name="49"><span class="lineNum">      49 </span>                :            : #include &lt;tf2_msgs/action/lookup_transform.hpp&gt;</a>
+<a name="41"><span class="lineNum">      41 </span>                :            : #include &lt;functional&gt;</a>
+<a name="42"><span class="lineNum">      42 </span>                :            : #include &lt;list&gt;</a>
+<a name="43"><span class="lineNum">      43 </span>                :            : #include &lt;memory&gt;</a>
+<a name="44"><span class="lineNum">      44 </span>                :            : #include &lt;mutex&gt;</a>
+<a name="45"><span class="lineNum">      45 </span>                :            : #include &lt;string&gt;</a>
+<a name="46"><span class="lineNum">      46 </span>                :            : </a>
+<a name="47"><span class="lineNum">      47 </span>                :            : #include &quot;tf2/time.h&quot;</a>
+<a name="48"><span class="lineNum">      48 </span>                :            : #include &quot;tf2/buffer_core_interface.h&quot;</a>
+<a name="49"><span class="lineNum">      49 </span>                :            : #include &quot;tf2_ros/visibility_control.h&quot;</a>
 <a name="50"><span class="lineNum">      50 </span>                :            : </a>
-<a name="51"><span class="lineNum">      51 </span>                :            : #include &lt;functional&gt;</a>
-<a name="52"><span class="lineNum">      52 </span>                :            : #include &lt;list&gt;</a>
-<a name="53"><span class="lineNum">      53 </span>                :            : #include &lt;memory&gt;</a>
-<a name="54"><span class="lineNum">      54 </span>                :            : #include &lt;mutex&gt;</a>
-<a name="55"><span class="lineNum">      55 </span>                :            : #include &lt;string&gt;</a>
+<a name="51"><span class="lineNum">      51 </span>                :            : #include &quot;geometry_msgs/msg/transform_stamped.hpp&quot;</a>
+<a name="52"><span class="lineNum">      52 </span>                :            : #include &quot;rclcpp/create_timer.hpp&quot;</a>
+<a name="53"><span class="lineNum">      53 </span>                :            : #include &quot;rclcpp/rclcpp.hpp&quot;</a>
+<a name="54"><span class="lineNum">      54 </span>                :            : #include &quot;rclcpp_action/rclcpp_action.hpp&quot;</a>
+<a name="55"><span class="lineNum">      55 </span>                :            : #include &quot;tf2_msgs/action/lookup_transform.hpp&quot;</a>
 <a name="56"><span class="lineNum">      56 </span>                :            : </a>
 <a name="57"><span class="lineNum">      57 </span>                :            : namespace tf2_ros</a>
 <a name="58"><span class="lineNum">      58 </span>                :            : {</a>
@@ -157,7 +157,7 @@
 <a name="79"><span class="lineNum">      79 </span>                :            :     NodePtr node,</a>
 <a name="80"><span class="lineNum">      80 </span>                :            :     const std::string &amp; ns,</a>
 <a name="81"><span class="lineNum">      81 </span>                :<span class="lineCov">          3 :     tf2::Duration check_period = tf2::durationFromSec(0.01))</span></a>
-<a name="82"><span class="lineNum">      82 </span>                :            :   : buffer_(buffer),</a>
+<a name="82"><span class="lineNum">      82 </span>                :<span class="lineCov">          3 :   : buffer_(buffer),</span></a>
 <a name="83"><span class="lineNum">      83 </span>                :<span class="lineCov">          3 :     logger_(node-&gt;get_logger())</span></a>
 <a name="84"><span class="lineNum">      84 </span>                :            :   {</a>
 <a name="85"><span class="lineNum">      85 </span>  [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">          3 :     server_ = rclcpp_action::create_server&lt;LookupTransformAction&gt;(</span></a>
@@ -177,8 +177,8 @@
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchNoCov" title="Branch 12 was not taken"> - </span><span class="branchNoCov" title="Branch 13 was not taken"> - </span> 
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 14 was not taken"> - </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span><span class="branchNoCov" title="Branch 16 was not taken"> - </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span><span class="branchCov" title="Branch 18 was taken 3 times"> + </span> 
-<span class="lineNum">         </span><span class="branchNoCov" title="Branch 19 was not taken"> - </span><span class="branchCov" title="Branch 20 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 21 was not taken"> - </span><span class="branchNoCov" title="Branch 22 was not taken"> - </span><span class="branchCov" title="Branch 23 was taken 3 times"> + </span> 
-<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 24 was not taken"> - </span><span class="branchNoCov" title="Branch 25 was not taken"> - </span><span class="branchNoCov" title="Branch 26 was not taken"> - </span><span class="branchNoCov" title="Branch 27 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 19 was not taken"> - </span><span class="branchNoCov" title="Branch 20 was not taken"> - </span><span class="branchCov" title="Branch 21 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 22 was not taken"> - </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 23 was not taken"> - </span>]
 <a name="95"><span class="lineNum">      95 </span>                :<span class="lineCov">          3 :   }</span></a>
 <a name="96"><span class="lineNum">      96 </span>                :            : </a>
 <a name="97"><span class="lineNum">      97 </span>                :            : private:</a>

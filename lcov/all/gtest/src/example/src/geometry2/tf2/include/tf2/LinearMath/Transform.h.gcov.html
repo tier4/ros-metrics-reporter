@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-01 09:45:35</td>
+            <td class="headerValue">2022-06-03 02:35:53</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">12</td>
@@ -119,24 +119,24 @@
 <a name="41"><span class="lineNum">      41 </span>                :            :         </a>
 <a name="42"><span class="lineNum">      42 </span>                :            :   /**@brief No initialization constructor */</a>
 <a name="43"><span class="lineNum">      43 </span>                :            :         TF2_PUBLIC</a>
-<a name="44"><span class="lineNum">      44 </span>                :<span class="lineCov">       2650 :         Transform() {}</span></a>
+<a name="44"><span class="lineNum">      44 </span>                :<span class="lineCov">       2663 :         Transform() {}</span></a>
 <a name="45"><span class="lineNum">      45 </span>                :            :   /**@brief Constructor from Quaternion (optional Vector3 )</a>
 <a name="46"><span class="lineNum">      46 </span>                :            :    * @param q Rotation from quaternion </a>
 <a name="47"><span class="lineNum">      47 </span>                :            :    * @param c Translation from Vector (default 0,0,0) */</a>
-<a name="48"><span class="lineNum">      48 </span>                :<span class="lineCov">      25072 :         explicit TF2SIMD_FORCE_INLINE Transform(const Quaternion&amp; q, </span></a>
+<a name="48"><span class="lineNum">      48 </span>                :<span class="lineCov">      25075 :         explicit TF2SIMD_FORCE_INLINE Transform(const Quaternion&amp; q, </span></a>
 <a name="49"><span class="lineNum">      49 </span>                :            :                 const Vector3&amp; c = Vector3(tf2Scalar(0), tf2Scalar(0), tf2Scalar(0))) </a>
-<a name="50"><span class="lineNum">      50 </span>                :<span class="lineCov">      25072 :                 : m_basis(q),</span></a>
-<a name="51"><span class="lineNum">      51 </span>                :<span class="lineCov">      25072 :                 m_origin(c)</span></a>
-<a name="52"><span class="lineNum">      52 </span>                :<span class="lineCov">      25072 :         {}</span></a>
+<a name="50"><span class="lineNum">      50 </span>                :<span class="lineCov">      25075 :                 : m_basis(q),</span></a>
+<a name="51"><span class="lineNum">      51 </span>                :<span class="lineCov">      25075 :                 m_origin(c)</span></a>
+<a name="52"><span class="lineNum">      52 </span>                :<span class="lineCov">      25075 :         {}</span></a>
 <a name="53"><span class="lineNum">      53 </span>                :            : </a>
 <a name="54"><span class="lineNum">      54 </span>                :            :   /**@brief Constructor from Matrix3x3 (optional Vector3)</a>
 <a name="55"><span class="lineNum">      55 </span>                :            :    * @param b Rotation from Matrix </a>
 <a name="56"><span class="lineNum">      56 </span>                :            :    * @param c Translation from Vector default (0,0,0)*/</a>
-<a name="57"><span class="lineNum">      57 </span>                :<span class="lineCov">         15 :         explicit TF2SIMD_FORCE_INLINE Transform(const Matrix3x3&amp; b, </span></a>
+<a name="57"><span class="lineNum">      57 </span>                :<span class="lineCov">         19 :         explicit TF2SIMD_FORCE_INLINE Transform(const Matrix3x3&amp; b, </span></a>
 <a name="58"><span class="lineNum">      58 </span>                :            :                 const Vector3&amp; c = Vector3(tf2Scalar(0), tf2Scalar(0), tf2Scalar(0)))</a>
-<a name="59"><span class="lineNum">      59 </span>                :<span class="lineCov">         15 :                 : m_basis(b),</span></a>
-<a name="60"><span class="lineNum">      60 </span>                :<span class="lineCov">         15 :                 m_origin(c)</span></a>
-<a name="61"><span class="lineNum">      61 </span>                :<span class="lineCov">         15 :         {}</span></a>
+<a name="59"><span class="lineNum">      59 </span>                :<span class="lineCov">         19 :                 : m_basis(b),</span></a>
+<a name="60"><span class="lineNum">      60 </span>                :<span class="lineCov">         19 :                 m_origin(c)</span></a>
+<a name="61"><span class="lineNum">      61 </span>                :<span class="lineCov">         19 :         {}</span></a>
 <a name="62"><span class="lineNum">      62 </span>                :            :   /**@brief Copy constructor */</a>
 <a name="63"><span class="lineNum">      63 </span>                :            :         TF2SIMD_FORCE_INLINE Transform (const Transform&amp; other)</a>
 <a name="64"><span class="lineNum">      64 </span>                :            :                 : m_basis(other.m_basis),</a>
@@ -144,11 +144,11 @@
 <a name="66"><span class="lineNum">      66 </span>                :            :         {</a>
 <a name="67"><span class="lineNum">      67 </span>                :            :         }</a>
 <a name="68"><span class="lineNum">      68 </span>                :            :   /**@brief Assignment Operator */</a>
-<a name="69"><span class="lineNum">      69 </span>                :<span class="lineCov">         10 :         TF2SIMD_FORCE_INLINE Transform&amp; operator=(const Transform&amp; other)</span></a>
+<a name="69"><span class="lineNum">      69 </span>                :<span class="lineCov">         13 :         TF2SIMD_FORCE_INLINE Transform&amp; operator=(const Transform&amp; other)</span></a>
 <a name="70"><span class="lineNum">      70 </span>                :            :         {</a>
-<a name="71"><span class="lineNum">      71 </span>                :<span class="lineCov">         10 :                 m_basis = other.m_basis;</span></a>
-<a name="72"><span class="lineNum">      72 </span>                :<span class="lineCov">         10 :                 m_origin = other.m_origin;</span></a>
-<a name="73"><span class="lineNum">      73 </span>                :<span class="lineCov">         10 :                 return *this;</span></a>
+<a name="71"><span class="lineNum">      71 </span>                :<span class="lineCov">         13 :                 m_basis = other.m_basis;</span></a>
+<a name="72"><span class="lineNum">      72 </span>                :<span class="lineCov">         13 :                 m_origin = other.m_origin;</span></a>
+<a name="73"><span class="lineNum">      73 </span>                :<span class="lineCov">         13 :                 return *this;</span></a>
 <a name="74"><span class="lineNum">      74 </span>                :            :         }</a>
 <a name="75"><span class="lineNum">      75 </span>                :            : </a>
 <a name="76"><span class="lineNum">      76 </span>                :            :   /**@brief Set the current transform as the value of the product of two transforms</a>
@@ -168,11 +168,11 @@
 <a name="90"><span class="lineNum">      90 </span>                :            :                 */</a>
 <a name="91"><span class="lineNum">      91 </span>                :            : </a>
 <a name="92"><span class="lineNum">      92 </span>                :            : /**@brief Return the transform of the vector */</a>
-<a name="93"><span class="lineNum">      93 </span>                :<span class="lineCov">         15 :         TF2SIMD_FORCE_INLINE Vector3 operator()(const Vector3&amp; x) const</span></a>
+<a name="93"><span class="lineNum">      93 </span>                :<span class="lineCov">         19 :         TF2SIMD_FORCE_INLINE Vector3 operator()(const Vector3&amp; x) const</span></a>
 <a name="94"><span class="lineNum">      94 </span>                :            :         {</a>
-<a name="95"><span class="lineNum">      95 </span>                :<span class="lineCov">         15 :                 return Vector3(m_basis[0].dot(x) + m_origin.x(), </span></a>
-<a name="96"><span class="lineNum">      96 </span>                :<span class="lineCov">         15 :                         m_basis[1].dot(x) + m_origin.y(), </span></a>
-<a name="97"><span class="lineNum">      97 </span>                :<span class="lineCov">         30 :                         m_basis[2].dot(x) + m_origin.z());</span></a>
+<a name="95"><span class="lineNum">      95 </span>                :<span class="lineCov">         19 :                 return Vector3(m_basis[0].dot(x) + m_origin.x(), </span></a>
+<a name="96"><span class="lineNum">      96 </span>                :<span class="lineCov">         19 :                         m_basis[1].dot(x) + m_origin.y(), </span></a>
+<a name="97"><span class="lineNum">      97 </span>                :<span class="lineCov">         38 :                         m_basis[2].dot(x) + m_origin.z());</span></a>
 <a name="98"><span class="lineNum">      98 </span>                :            :         }</a>
 <a name="99"><span class="lineNum">      99 </span>                :            : </a>
 <a name="100"><span class="lineNum">     100 </span>                :            :   /**@brief Return the transform of the vector */</a>
@@ -193,16 +193,16 @@
 <a name="115"><span class="lineNum">     115 </span>                :            :         TF2SIMD_FORCE_INLINE const Matrix3x3&amp; getBasis()    const { return m_basis; }</a>
 <a name="116"><span class="lineNum">     116 </span>                :            : </a>
 <a name="117"><span class="lineNum">     117 </span>                :            :   /**@brief Return the origin vector translation */</a>
-<a name="118"><span class="lineNum">     118 </span>                :<span class="lineCov">       7863 :         TF2SIMD_FORCE_INLINE Vector3&amp;         getOrigin()         { return m_origin; }</span></a>
+<a name="118"><span class="lineNum">     118 </span>                :<span class="lineCov">       7884 :         TF2SIMD_FORCE_INLINE Vector3&amp;         getOrigin()         { return m_origin; }</span></a>
 <a name="119"><span class="lineNum">     119 </span>                :            :   /**@brief Return the origin vector translation */</a>
-<a name="120"><span class="lineNum">     120 </span>                :<span class="lineCov">     100284 :         TF2SIMD_FORCE_INLINE const Vector3&amp;   getOrigin()   const { return m_origin; }</span></a>
+<a name="120"><span class="lineNum">     120 </span>                :<span class="lineCov">     100296 :         TF2SIMD_FORCE_INLINE const Vector3&amp;   getOrigin()   const { return m_origin; }</span></a>
 <a name="121"><span class="lineNum">     121 </span>                :            : </a>
 <a name="122"><span class="lineNum">     122 </span>                :            :   /**@brief Return a quaternion representing the rotation */</a>
 <a name="123"><span class="lineNum">     123 </span>                :            :         TF2_PUBLIC</a>
-<a name="124"><span class="lineNum">     124 </span>                :<span class="lineCov">     336417 :         Quaternion getRotation() const { </span></a>
-<a name="125"><span class="lineNum">     125 </span>                :<span class="lineCov">     336417 :                 Quaternion q;</span></a>
-<a name="126"><span class="lineNum">     126 </span>                :<span class="lineCov">     336417 :                 m_basis.getRotation(q);</span></a>
-<a name="127"><span class="lineNum">     127 </span>                :<span class="lineCov">     336417 :                 return q;</span></a>
+<a name="124"><span class="lineNum">     124 </span>                :<span class="lineCov">     336484 :         Quaternion getRotation() const { </span></a>
+<a name="125"><span class="lineNum">     125 </span>                :<span class="lineCov">     336484 :                 Quaternion q;</span></a>
+<a name="126"><span class="lineNum">     126 </span>                :<span class="lineCov">     336484 :                 m_basis.getRotation(q);</span></a>
+<a name="127"><span class="lineNum">     127 </span>                :<span class="lineCov">     336484 :                 return q;</span></a>
 <a name="128"><span class="lineNum">     128 </span>                :            :         }</a>
 <a name="129"><span class="lineNum">     129 </span>                :            :         </a>
 <a name="130"><span class="lineNum">     130 </span>                :            :         </a>
@@ -229,10 +229,10 @@
 <a name="151"><span class="lineNum">     151 </span>                :            : </a>
 <a name="152"><span class="lineNum">     152 </span>                :            :   /**@brief Set the translational element</a>
 <a name="153"><span class="lineNum">     153 </span>                :            :    * @param origin The vector to set the translation to */</a>
-<a name="154"><span class="lineNum">     154 </span>                :<span class="lineCov">       2461 :         TF2SIMD_FORCE_INLINE void setOrigin(const Vector3&amp; origin) </span></a>
+<a name="154"><span class="lineNum">     154 </span>                :<span class="lineCov">       2468 :         TF2SIMD_FORCE_INLINE void setOrigin(const Vector3&amp; origin) </span></a>
 <a name="155"><span class="lineNum">     155 </span>                :            :         { </a>
-<a name="156"><span class="lineNum">     156 </span>                :<span class="lineCov">       2461 :                 m_origin = origin;</span></a>
-<a name="157"><span class="lineNum">     157 </span>                :<span class="lineCov">       2461 :         }</span></a>
+<a name="156"><span class="lineNum">     156 </span>                :<span class="lineCov">       2468 :                 m_origin = origin;</span></a>
+<a name="157"><span class="lineNum">     157 </span>                :<span class="lineCov">       2468 :         }</span></a>
 <a name="158"><span class="lineNum">     158 </span>                :            : </a>
 <a name="159"><span class="lineNum">     159 </span>                :            :         TF2SIMD_FORCE_INLINE Vector3 invXform(const Vector3&amp; inVec) const;</a>
 <a name="160"><span class="lineNum">     160 </span>                :            : </a>
@@ -244,19 +244,19 @@
 <a name="166"><span class="lineNum">     166 </span>                :            :         }</a>
 <a name="167"><span class="lineNum">     167 </span>                :            : </a>
 <a name="168"><span class="lineNum">     168 </span>                :            :   /**@brief Set the rotational element by Quaternion */</a>
-<a name="169"><span class="lineNum">     169 </span>                :<span class="lineCov">       2461 :         TF2SIMD_FORCE_INLINE void setRotation(const Quaternion&amp; q)</span></a>
+<a name="169"><span class="lineNum">     169 </span>                :<span class="lineCov">       2468 :         TF2SIMD_FORCE_INLINE void setRotation(const Quaternion&amp; q)</span></a>
 <a name="170"><span class="lineNum">     170 </span>                :            :         {</a>
-<a name="171"><span class="lineNum">     171 </span>                :<span class="lineCov">       2461 :                 m_basis.setRotation(q);</span></a>
-<a name="172"><span class="lineNum">     172 </span>                :<span class="lineCov">       2461 :         }</span></a>
+<a name="171"><span class="lineNum">     171 </span>                :<span class="lineCov">       2468 :                 m_basis.setRotation(q);</span></a>
+<a name="172"><span class="lineNum">     172 </span>                :<span class="lineCov">       2468 :         }</span></a>
 <a name="173"><span class="lineNum">     173 </span>                :            : </a>
 <a name="174"><span class="lineNum">     174 </span>                :            : </a>
 <a name="175"><span class="lineNum">     175 </span>                :            :   /**@brief Set this transformation to the identity */</a>
 <a name="176"><span class="lineNum">     176 </span>                :            :         TF2_PUBLIC</a>
-<a name="177"><span class="lineNum">     177 </span>                :<span class="lineCov">        175 :         void setIdentity()</span></a>
+<a name="177"><span class="lineNum">     177 </span>                :<span class="lineCov">        179 :         void setIdentity()</span></a>
 <a name="178"><span class="lineNum">     178 </span>                :            :         {</a>
-<a name="179"><span class="lineNum">     179 </span>                :<span class="lineCov">        175 :                 m_basis.setIdentity();</span></a>
-<a name="180"><span class="lineNum">     180 </span>                :<span class="lineCov">        175 :                 m_origin.setValue(tf2Scalar(0.0), tf2Scalar(0.0), tf2Scalar(0.0));</span></a>
-<a name="181"><span class="lineNum">     181 </span>                :<span class="lineCov">        175 :         }</span></a>
+<a name="179"><span class="lineNum">     179 </span>                :<span class="lineCov">        179 :                 m_basis.setIdentity();</span></a>
+<a name="180"><span class="lineNum">     180 </span>                :<span class="lineCov">        179 :                 m_origin.setValue(tf2Scalar(0.0), tf2Scalar(0.0), tf2Scalar(0.0));</span></a>
+<a name="181"><span class="lineNum">     181 </span>                :<span class="lineCov">        179 :         }</span></a>
 <a name="182"><span class="lineNum">     182 </span>                :            : </a>
 <a name="183"><span class="lineNum">     183 </span>                :            :   /**@brief Multiply this Transform by another(this = this * another) </a>
 <a name="184"><span class="lineNum">     184 </span>                :            :    * @param t The other transform */</a>
@@ -328,10 +328,10 @@
 <a name="250"><span class="lineNum">     250 </span>                :            : }</a>
 <a name="251"><span class="lineNum">     251 </span>                :            : </a>
 <a name="252"><span class="lineNum">     252 </span>                :            : TF2SIMD_FORCE_INLINE Transform </a>
-<a name="253"><span class="lineNum">     253 </span>                :<span class="lineCov">         15 : Transform::operator*(const Transform&amp; t) const</span></a>
+<a name="253"><span class="lineNum">     253 </span>                :<span class="lineCov">         19 : Transform::operator*(const Transform&amp; t) const</span></a>
 <a name="254"><span class="lineNum">     254 </span>                :            : {</a>
-<a name="255"><span class="lineNum">     255 </span>        [<span class="branchCov" title="Branch 0 was taken 15 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         15 :         return Transform(m_basis * t.m_basis, </span></a>
-<a name="256"><span class="lineNum">     256 </span>                :<span class="lineCov">         30 :                 (*this)(t.m_origin));</span></a>
+<a name="255"><span class="lineNum">     255 </span>        [<span class="branchCov" title="Branch 0 was taken 19 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         19 :         return Transform(m_basis * t.m_basis, </span></a>
+<a name="256"><span class="lineNum">     256 </span>                :<span class="lineCov">         38 :                 (*this)(t.m_origin));</span></a>
 <a name="257"><span class="lineNum">     257 </span>                :            : }</a>
 <a name="258"><span class="lineNum">     258 </span>                :            : </a>
 <a name="259"><span class="lineNum">     259 </span>                :            : /**@brief Test if two transforms have all elements equal */</a>

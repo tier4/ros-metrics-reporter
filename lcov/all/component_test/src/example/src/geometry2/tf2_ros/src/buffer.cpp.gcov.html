@@ -32,16 +32,16 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">144</td>
+            <td class="headerCovTableEntry">161</td>
             <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-01 09:46:00</td>
+            <td class="headerValue">2022-06-03 02:37:35</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">16</td>
+            <td class="headerCovTableEntry">17</td>
             <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
@@ -207,7 +207,7 @@
 <a name="129"><span class="lineNum">     129 </span>                :<span class="lineNoCov">          0 :       tf2::durationToSec(from_rclcpp(current_time - start_time)) &lt;&lt;</span></a>
 <a name="130"><span class="lineNum">     130 </span>                :<span class="lineNoCov">          0 :       &quot; timeout was &quot; &lt;&lt; tf2::durationToSec(from_rclcpp(timeout)) &lt;&lt; &quot;.&quot;;</span></a>
 <a name="131"><span class="lineNum">     131 </span>                :<span class="lineNoCov">          0 :     (*errstr) += ss.str();</span></a>
-<a name="132"><span class="lineNum">     132 </span>                :            :   }</a>
+<a name="132"><span class="lineNum">     132 </span>                :<span class="lineNoCov">          0 :   }</span></a>
 <a name="133"><span class="lineNum">     133 </span>                :<span class="lineNoCov">          0 : }</span></a>
 <a name="134"><span class="lineNum">     134 </span>                :            : </a>
 <a name="135"><span class="lineNum">     135 </span>                :            : bool</a>
@@ -235,7 +235,7 @@
 <a name="157"><span class="lineNum">     157 </span>                :<span class="lineNoCov">          0 :   rclcpp::Time current_time = clock_-&gt;now();</span></a>
 <a name="158"><span class="lineNum">     158 </span>                :<span class="lineNoCov">          0 :   conditionally_append_timeout_info(errstr, start_time, current_time, rclcpp_timeout);</span></a>
 <a name="159"><span class="lineNum">     159 </span>                :<span class="lineNoCov">          0 :   return retval;</span></a>
-<a name="160"><span class="lineNum">     160 </span>                :            : }</a>
+<a name="160"><span class="lineNum">     160 </span>                :<span class="lineNoCov">          0 : }</span></a>
 <a name="161"><span class="lineNum">     161 </span>                :            : </a>
 <a name="162"><span class="lineNum">     162 </span>                :            : bool</a>
 <a name="163"><span class="lineNum">     163 </span>                :<span class="lineNoCov">          0 : Buffer::canTransform(</span></a>
@@ -261,11 +261,11 @@
 <a name="183"><span class="lineNum">     183 </span>                :            :   }</a>
 <a name="184"><span class="lineNum">     184 </span>                :<span class="lineNoCov">          0 :   bool retval = canTransform(</span></a>
 <a name="185"><span class="lineNum">     185 </span>                :            :     target_frame, target_time,</a>
-<a name="186"><span class="lineNum">     186 </span>                :<span class="lineNoCov">          0 :     source_frame, source_time, fixed_frame, errstr);</span></a>
+<a name="186"><span class="lineNum">     186 </span>                :            :     source_frame, source_time, fixed_frame, errstr);</a>
 <a name="187"><span class="lineNum">     187 </span>                :<span class="lineNoCov">          0 :   rclcpp::Time current_time = clock_-&gt;now();</span></a>
 <a name="188"><span class="lineNum">     188 </span>                :<span class="lineNoCov">          0 :   conditionally_append_timeout_info(errstr, start_time, current_time, rclcpp_timeout);</span></a>
 <a name="189"><span class="lineNum">     189 </span>                :<span class="lineNoCov">          0 :   return retval;</span></a>
-<a name="190"><span class="lineNum">     190 </span>                :            : }</a>
+<a name="190"><span class="lineNum">     190 </span>                :<span class="lineNoCov">          0 : }</span></a>
 <a name="191"><span class="lineNum">     191 </span>                :            : </a>
 <a name="192"><span class="lineNum">     192 </span>                :            : TransformStampedFuture</a>
 <a name="193"><span class="lineNum">     193 </span>                :<span class="lineNoCov">          0 : Buffer::waitForTransform(</span></a>
@@ -298,17 +298,17 @@
 <a name="220"><span class="lineNum">     220 </span>                :<span class="lineNoCov">          0 :             break;</span></a>
 <a name="221"><span class="lineNum">     221 </span>                :            :           }</a>
 <a name="222"><span class="lineNum">     222 </span>                :            :         }</a>
-<a name="223"><span class="lineNum">     223 </span>                :            :       }</a>
+<a name="223"><span class="lineNum">     223 </span>                :<span class="lineNoCov">          0 :       }</span></a>
 <a name="224"><span class="lineNum">     224 </span>                :            : </a>
 <a name="225"><span class="lineNum">     225 </span>                :<span class="lineNoCov">          0 :       if (timeout_occurred) {</span></a>
 <a name="226"><span class="lineNum">     226 </span>                :<span class="lineNoCov">          0 :         return;</span></a>
 <a name="227"><span class="lineNum">     227 </span>                :            :       }</a>
 <a name="228"><span class="lineNum">     228 </span>                :            : </a>
 <a name="229"><span class="lineNum">     229 </span>                :<span class="lineNoCov">          0 :       if (result == tf2::TransformAvailable) {</span></a>
-<a name="230"><span class="lineNum">     230 </span>                :            :         geometry_msgs::msg::TransformStamped msg_stamped = this-&gt;lookupTransform(</a>
+<a name="230"><span class="lineNum">     230 </span>                :<span class="lineNoCov">          0 :         geometry_msgs::msg::TransformStamped msg_stamped = this-&gt;lookupTransform(</span></a>
 <a name="231"><span class="lineNum">     231 </span>                :<span class="lineNoCov">          0 :           target_frame, source_frame, time);</span></a>
 <a name="232"><span class="lineNum">     232 </span>                :<span class="lineNoCov">          0 :         promise-&gt;set_value(msg_stamped);</span></a>
-<a name="233"><span class="lineNum">     233 </span>                :            :       } else {</a>
+<a name="233"><span class="lineNum">     233 </span>                :<span class="lineNoCov">          0 :       } else {</span></a>
 <a name="234"><span class="lineNum">     234 </span>                :<span class="lineNoCov">          0 :         promise-&gt;set_exception(</span></a>
 <a name="235"><span class="lineNum">     235 </span>                :<span class="lineNoCov">          0 :           std::make_exception_ptr(</span></a>
 <a name="236"><span class="lineNum">     236 </span>                :<span class="lineNoCov">          0 :             tf2::LookupException(</span></a>
@@ -318,90 +318,103 @@
 <a name="240"><span class="lineNum">     240 </span>                :<span class="lineNoCov">          0 :     };</span></a>
 <a name="241"><span class="lineNum">     241 </span>                :            : </a>
 <a name="242"><span class="lineNum">     242 </span>                :<span class="lineNoCov">          0 :   auto handle = addTransformableRequest(cb, target_frame, source_frame, time);</span></a>
-<a name="243"><span class="lineNum">     243 </span>                :<span class="lineNoCov">          0 :   if (0 == handle) {</span></a>
-<a name="244"><span class="lineNum">     244 </span>                :            :     // Immediately transformable</a>
-<a name="245"><span class="lineNum">     245 </span>                :            :     geometry_msgs::msg::TransformStamped msg_stamped = lookupTransform(</a>
-<a name="246"><span class="lineNum">     246 </span>                :<span class="lineNoCov">          0 :       target_frame, source_frame, time);</span></a>
-<a name="247"><span class="lineNum">     247 </span>                :<span class="lineNoCov">          0 :     promise-&gt;set_value(msg_stamped);</span></a>
-<a name="248"><span class="lineNum">     248 </span>                :<span class="lineNoCov">          0 :     callback(future);</span></a>
-<a name="249"><span class="lineNum">     249 </span>                :<span class="lineNoCov">          0 :   } else if (0xffffffffffffffffULL == handle) {</span></a>
-<a name="250"><span class="lineNum">     250 </span>                :            :     // Never transformable</a>
-<a name="251"><span class="lineNum">     251 </span>                :<span class="lineNoCov">          0 :     promise-&gt;set_exception(</span></a>
-<a name="252"><span class="lineNum">     252 </span>                :<span class="lineNoCov">          0 :       std::make_exception_ptr(</span></a>
-<a name="253"><span class="lineNum">     253 </span>                :<span class="lineNoCov">          0 :         tf2::LookupException(</span></a>
-<a name="254"><span class="lineNum">     254 </span>                :<span class="lineNoCov">          0 :           &quot;Failed to transform from &quot; + source_frame + &quot; to &quot; + target_frame)));</span></a>
-<a name="255"><span class="lineNum">     255 </span>                :<span class="lineNoCov">          0 :     callback(future);</span></a>
-<a name="256"><span class="lineNum">     256 </span>                :            :   } else {</a>
-<a name="257"><span class="lineNum">     257 </span>                :<span class="lineNoCov">          0 :     std::lock_guard&lt;std::mutex&gt; lock(timer_to_request_map_mutex_);</span></a>
-<a name="258"><span class="lineNum">     258 </span>                :<span class="lineNoCov">          0 :     auto timer_handle = timer_interface_-&gt;createTimer(</span></a>
-<a name="259"><span class="lineNum">     259 </span>                :<span class="lineNoCov">          0 :       clock_,</span></a>
-<a name="260"><span class="lineNum">     260 </span>                :            :       timeout,</a>
-<a name="261"><span class="lineNum">     261 </span>                :<span class="lineNoCov">          0 :       std::bind(&amp;Buffer::timerCallback, this, std::placeholders::_1, promise, future, callback));</span></a>
-<a name="262"><span class="lineNum">     262 </span>                :            : </a>
-<a name="263"><span class="lineNum">     263 </span>                :            :     // Save association between timer and request handle</a>
-<a name="264"><span class="lineNum">     264 </span>                :<span class="lineNoCov">          0 :     timer_to_request_map_[timer_handle] = handle;</span></a>
-<a name="265"><span class="lineNum">     265 </span>                :            :   }</a>
-<a name="266"><span class="lineNum">     266 </span>                :<span class="lineNoCov">          0 :   return future;</span></a>
-<a name="267"><span class="lineNum">     267 </span>                :            : }</a>
-<a name="268"><span class="lineNum">     268 </span>                :            : </a>
-<a name="269"><span class="lineNum">     269 </span>                :            : void</a>
-<a name="270"><span class="lineNum">     270 </span>                :<span class="lineNoCov">          0 : Buffer::timerCallback(</span></a>
-<a name="271"><span class="lineNum">     271 </span>                :            :   const TimerHandle &amp; timer_handle,</a>
-<a name="272"><span class="lineNum">     272 </span>                :            :   std::shared_ptr&lt;std::promise&lt;geometry_msgs::msg::TransformStamped&gt;&gt; promise,</a>
-<a name="273"><span class="lineNum">     273 </span>                :            :   TransformStampedFuture future,</a>
-<a name="274"><span class="lineNum">     274 </span>                :            :   TransformReadyCallback callback)</a>
-<a name="275"><span class="lineNum">     275 </span>                :            : {</a>
-<a name="276"><span class="lineNum">     276 </span>                :<span class="lineNoCov">          0 :   bool timer_is_valid = false;</span></a>
-<a name="277"><span class="lineNum">     277 </span>                :<span class="lineNoCov">          0 :   tf2::TransformableRequestHandle request_handle = 0u;</span></a>
-<a name="278"><span class="lineNum">     278 </span>                :            :   {</a>
-<a name="279"><span class="lineNum">     279 </span>                :<span class="lineNoCov">          0 :     std::lock_guard&lt;std::mutex&gt; lock(timer_to_request_map_mutex_);</span></a>
-<a name="280"><span class="lineNum">     280 </span>                :<span class="lineNoCov">          0 :     auto timer_and_request_it = timer_to_request_map_.find(timer_handle);</span></a>
-<a name="281"><span class="lineNum">     281 </span>                :<span class="lineNoCov">          0 :     timer_is_valid = (timer_to_request_map_.end() != timer_and_request_it);</span></a>
-<a name="282"><span class="lineNum">     282 </span>                :<span class="lineNoCov">          0 :     if (timer_is_valid) {</span></a>
-<a name="283"><span class="lineNum">     283 </span>                :<span class="lineNoCov">          0 :       request_handle = timer_and_request_it-&gt;second;</span></a>
-<a name="284"><span class="lineNum">     284 </span>                :            :     }</a>
-<a name="285"><span class="lineNum">     285 </span>                :<span class="lineNoCov">          0 :     timer_to_request_map_.erase(timer_handle);</span></a>
-<a name="286"><span class="lineNum">     286 </span>                :<span class="lineNoCov">          0 :     timer_interface_-&gt;remove(timer_handle);</span></a>
-<a name="287"><span class="lineNum">     287 </span>                :            :   }</a>
-<a name="288"><span class="lineNum">     288 </span>                :            : </a>
-<a name="289"><span class="lineNum">     289 </span>                :<span class="lineNoCov">          0 :   if (timer_is_valid) {</span></a>
-<a name="290"><span class="lineNum">     290 </span>                :<span class="lineNoCov">          0 :     cancelTransformableRequest(request_handle);</span></a>
-<a name="291"><span class="lineNum">     291 </span>                :<span class="lineNoCov">          0 :     promise-&gt;set_exception(</span></a>
-<a name="292"><span class="lineNum">     292 </span>                :<span class="lineNoCov">          0 :       std::make_exception_ptr(</span></a>
-<a name="293"><span class="lineNum">     293 </span>                :<span class="lineNoCov">          0 :         tf2::TimeoutException(std::string(&quot;Timed out waiting for transform&quot;))));</span></a>
-<a name="294"><span class="lineNum">     294 </span>                :<span class="lineNoCov">          0 :     callback(future);</span></a>
-<a name="295"><span class="lineNum">     295 </span>                :            :   }</a>
-<a name="296"><span class="lineNum">     296 </span>                :<span class="lineNoCov">          0 : }</span></a>
-<a name="297"><span class="lineNum">     297 </span>                :            : </a>
-<a name="298"><span class="lineNum">     298 </span>                :<span class="lineNoCov">          0 : bool Buffer::getFrames(</span></a>
-<a name="299"><span class="lineNum">     299 </span>                :            :   const tf2_msgs::srv::FrameGraph::Request::SharedPtr req,</a>
-<a name="300"><span class="lineNum">     300 </span>                :            :   tf2_msgs::srv::FrameGraph::Response::SharedPtr res)</a>
-<a name="301"><span class="lineNum">     301 </span>                :            : {</a>
-<a name="302"><span class="lineNum">     302 </span>                :            :   (void)req;</a>
-<a name="303"><span class="lineNum">     303 </span>                :<span class="lineNoCov">          0 :   res-&gt;frame_yaml = allFramesAsYAML();</span></a>
-<a name="304"><span class="lineNum">     304 </span>                :<span class="lineNoCov">          0 :   return true;</span></a>
-<a name="305"><span class="lineNum">     305 </span>                :            : }</a>
-<a name="306"><span class="lineNum">     306 </span>                :            : </a>
-<a name="307"><span class="lineNum">     307 </span>                :<span class="lineNoCov">          0 : bool Buffer::checkAndErrorDedicatedThreadPresent(std::string * error_str) const</span></a>
-<a name="308"><span class="lineNum">     308 </span>                :            : {</a>
-<a name="309"><span class="lineNum">     309 </span>                :<span class="lineNoCov">          0 :   if (isUsingDedicatedThread()) {</span></a>
-<a name="310"><span class="lineNum">     310 </span>                :<span class="lineNoCov">          0 :     return true;</span></a>
-<a name="311"><span class="lineNum">     311 </span>                :            :   }</a>
-<a name="312"><span class="lineNum">     312 </span>                :            : </a>
-<a name="313"><span class="lineNum">     313 </span>                :<span class="lineNoCov">          0 :   if (error_str) {</span></a>
-<a name="314"><span class="lineNum">     314 </span>                :<span class="lineNoCov">          0 :     *error_str = tf2_ros::threading_error;</span></a>
-<a name="315"><span class="lineNum">     315 </span>                :            :   }</a>
-<a name="316"><span class="lineNum">     316 </span>                :            : </a>
-<a name="317"><span class="lineNum">     317 </span>                :<span class="lineNoCov">          0 :   RCLCPP_ERROR(getLogger(), &quot;%s&quot;, tf2_ros::threading_error);</span></a>
-<a name="318"><span class="lineNum">     318 </span>                :<span class="lineNoCov">          0 :   return false;</span></a>
-<a name="319"><span class="lineNum">     319 </span>                :            : }</a>
-<a name="320"><span class="lineNum">     320 </span>                :            : </a>
-<a name="321"><span class="lineNum">     321 </span>                :<span class="lineNoCov">          0 : rclcpp::Logger Buffer::getLogger() const</span></a>
-<a name="322"><span class="lineNum">     322 </span>                :            : {</a>
-<a name="323"><span class="lineNum">     323 </span>                :<span class="lineNoCov">          0 :   return node_ ? node_-&gt;get_logger() : rclcpp::get_logger(&quot;tf2_buffer&quot;);</span></a>
-<a name="324"><span class="lineNum">     324 </span>                :            : }</a>
+<a name="243"><span class="lineNum">     243 </span>                :<span class="lineNoCov">          0 :   future.setHandle(handle);</span></a>
+<a name="244"><span class="lineNum">     244 </span>                :<span class="lineNoCov">          0 :   if (0 == handle) {</span></a>
+<a name="245"><span class="lineNum">     245 </span>                :            :     // Immediately transformable</a>
+<a name="246"><span class="lineNum">     246 </span>                :<span class="lineNoCov">          0 :     geometry_msgs::msg::TransformStamped msg_stamped = lookupTransform(</span></a>
+<a name="247"><span class="lineNum">     247 </span>                :<span class="lineNoCov">          0 :       target_frame, source_frame, time);</span></a>
+<a name="248"><span class="lineNum">     248 </span>                :<span class="lineNoCov">          0 :     promise-&gt;set_value(msg_stamped);</span></a>
+<a name="249"><span class="lineNum">     249 </span>                :<span class="lineNoCov">          0 :     callback(future);</span></a>
+<a name="250"><span class="lineNum">     250 </span>                :<span class="lineNoCov">          0 :   } else if (0xffffffffffffffffULL == handle) {</span></a>
+<a name="251"><span class="lineNum">     251 </span>                :            :     // Never transformable</a>
+<a name="252"><span class="lineNum">     252 </span>                :<span class="lineNoCov">          0 :     promise-&gt;set_exception(</span></a>
+<a name="253"><span class="lineNum">     253 </span>                :<span class="lineNoCov">          0 :       std::make_exception_ptr(</span></a>
+<a name="254"><span class="lineNum">     254 </span>                :<span class="lineNoCov">          0 :         tf2::LookupException(</span></a>
+<a name="255"><span class="lineNum">     255 </span>                :<span class="lineNoCov">          0 :           &quot;Failed to transform from &quot; + source_frame + &quot; to &quot; + target_frame)));</span></a>
+<a name="256"><span class="lineNum">     256 </span>                :<span class="lineNoCov">          0 :     callback(future);</span></a>
+<a name="257"><span class="lineNum">     257 </span>                :            :   } else {</a>
+<a name="258"><span class="lineNum">     258 </span>                :<span class="lineNoCov">          0 :     std::lock_guard&lt;std::mutex&gt; lock(timer_to_request_map_mutex_);</span></a>
+<a name="259"><span class="lineNum">     259 </span>                :<span class="lineNoCov">          0 :     auto timer_handle = timer_interface_-&gt;createTimer(</span></a>
+<a name="260"><span class="lineNum">     260 </span>                :<span class="lineNoCov">          0 :       clock_,</span></a>
+<a name="261"><span class="lineNum">     261 </span>                :            :       timeout,</a>
+<a name="262"><span class="lineNum">     262 </span>                :<span class="lineNoCov">          0 :       std::bind(&amp;Buffer::timerCallback, this, std::placeholders::_1, promise, future, callback));</span></a>
+<a name="263"><span class="lineNum">     263 </span>                :            : </a>
+<a name="264"><span class="lineNum">     264 </span>                :            :     // Save association between timer and request handle</a>
+<a name="265"><span class="lineNum">     265 </span>                :<span class="lineNoCov">          0 :     timer_to_request_map_[timer_handle] = handle;</span></a>
+<a name="266"><span class="lineNum">     266 </span>                :<span class="lineNoCov">          0 :   }</span></a>
+<a name="267"><span class="lineNum">     267 </span>                :<span class="lineNoCov">          0 :   return future;</span></a>
+<a name="268"><span class="lineNum">     268 </span>                :<span class="lineNoCov">          0 : }</span></a>
+<a name="269"><span class="lineNum">     269 </span>                :            : </a>
+<a name="270"><span class="lineNum">     270 </span>                :            : void</a>
+<a name="271"><span class="lineNum">     271 </span>                :<span class="lineNoCov">          0 : Buffer::cancel(const TransformStampedFuture &amp; ts_future)</span></a>
+<a name="272"><span class="lineNum">     272 </span>                :            : {</a>
+<a name="273"><span class="lineNum">     273 </span>                :<span class="lineNoCov">          0 :   cancelTransformableRequest(ts_future.getHandle());</span></a>
+<a name="274"><span class="lineNum">     274 </span>                :            : </a>
+<a name="275"><span class="lineNum">     275 </span>                :<span class="lineNoCov">          0 :   std::lock_guard&lt;std::mutex&gt; lock(timer_to_request_map_mutex_);</span></a>
+<a name="276"><span class="lineNum">     276 </span>                :<span class="lineNoCov">          0 :   auto iter = timer_to_request_map_.find(ts_future.getHandle());</span></a>
+<a name="277"><span class="lineNum">     277 </span>                :<span class="lineNoCov">          0 :   if (iter != timer_to_request_map_.end()) {</span></a>
+<a name="278"><span class="lineNum">     278 </span>                :<span class="lineNoCov">          0 :     timer_to_request_map_.erase(iter);</span></a>
+<a name="279"><span class="lineNum">     279 </span>                :            :   }</a>
+<a name="280"><span class="lineNum">     280 </span>                :<span class="lineNoCov">          0 : }</span></a>
+<a name="281"><span class="lineNum">     281 </span>                :            : </a>
+<a name="282"><span class="lineNum">     282 </span>                :            : void</a>
+<a name="283"><span class="lineNum">     283 </span>                :<span class="lineNoCov">          0 : Buffer::timerCallback(</span></a>
+<a name="284"><span class="lineNum">     284 </span>                :            :   const TimerHandle &amp; timer_handle,</a>
+<a name="285"><span class="lineNum">     285 </span>                :            :   std::shared_ptr&lt;std::promise&lt;geometry_msgs::msg::TransformStamped&gt;&gt; promise,</a>
+<a name="286"><span class="lineNum">     286 </span>                :            :   TransformStampedFuture future,</a>
+<a name="287"><span class="lineNum">     287 </span>                :            :   TransformReadyCallback callback)</a>
+<a name="288"><span class="lineNum">     288 </span>                :            : {</a>
+<a name="289"><span class="lineNum">     289 </span>                :<span class="lineNoCov">          0 :   bool timer_is_valid = false;</span></a>
+<a name="290"><span class="lineNum">     290 </span>                :<span class="lineNoCov">          0 :   tf2::TransformableRequestHandle request_handle = 0u;</span></a>
+<a name="291"><span class="lineNum">     291 </span>                :            :   {</a>
+<a name="292"><span class="lineNum">     292 </span>                :<span class="lineNoCov">          0 :     std::lock_guard&lt;std::mutex&gt; lock(timer_to_request_map_mutex_);</span></a>
+<a name="293"><span class="lineNum">     293 </span>                :<span class="lineNoCov">          0 :     auto timer_and_request_it = timer_to_request_map_.find(timer_handle);</span></a>
+<a name="294"><span class="lineNum">     294 </span>                :<span class="lineNoCov">          0 :     timer_is_valid = (timer_to_request_map_.end() != timer_and_request_it);</span></a>
+<a name="295"><span class="lineNum">     295 </span>                :<span class="lineNoCov">          0 :     if (timer_is_valid) {</span></a>
+<a name="296"><span class="lineNum">     296 </span>                :<span class="lineNoCov">          0 :       request_handle = timer_and_request_it-&gt;second;</span></a>
+<a name="297"><span class="lineNum">     297 </span>                :            :     }</a>
+<a name="298"><span class="lineNum">     298 </span>                :<span class="lineNoCov">          0 :     timer_to_request_map_.erase(timer_handle);</span></a>
+<a name="299"><span class="lineNum">     299 </span>                :<span class="lineNoCov">          0 :     timer_interface_-&gt;remove(timer_handle);</span></a>
+<a name="300"><span class="lineNum">     300 </span>                :<span class="lineNoCov">          0 :   }</span></a>
+<a name="301"><span class="lineNum">     301 </span>                :            : </a>
+<a name="302"><span class="lineNum">     302 </span>                :<span class="lineNoCov">          0 :   if (timer_is_valid) {</span></a>
+<a name="303"><span class="lineNum">     303 </span>                :<span class="lineNoCov">          0 :     cancelTransformableRequest(request_handle);</span></a>
+<a name="304"><span class="lineNum">     304 </span>                :<span class="lineNoCov">          0 :     promise-&gt;set_exception(</span></a>
+<a name="305"><span class="lineNum">     305 </span>                :<span class="lineNoCov">          0 :       std::make_exception_ptr(</span></a>
+<a name="306"><span class="lineNum">     306 </span>                :<span class="lineNoCov">          0 :         tf2::TimeoutException(std::string(&quot;Timed out waiting for transform&quot;))));</span></a>
+<a name="307"><span class="lineNum">     307 </span>                :<span class="lineNoCov">          0 :     callback(future);</span></a>
+<a name="308"><span class="lineNum">     308 </span>                :            :   }</a>
+<a name="309"><span class="lineNum">     309 </span>                :<span class="lineNoCov">          0 : }</span></a>
+<a name="310"><span class="lineNum">     310 </span>                :            : </a>
+<a name="311"><span class="lineNum">     311 </span>                :<span class="lineNoCov">          0 : bool Buffer::getFrames(</span></a>
+<a name="312"><span class="lineNum">     312 </span>                :            :   const tf2_msgs::srv::FrameGraph::Request::SharedPtr req,</a>
+<a name="313"><span class="lineNum">     313 </span>                :            :   tf2_msgs::srv::FrameGraph::Response::SharedPtr res)</a>
+<a name="314"><span class="lineNum">     314 </span>                :            : {</a>
+<a name="315"><span class="lineNum">     315 </span>                :            :   (void)req;</a>
+<a name="316"><span class="lineNum">     316 </span>                :<span class="lineNoCov">          0 :   res-&gt;frame_yaml = allFramesAsYAML();</span></a>
+<a name="317"><span class="lineNum">     317 </span>                :<span class="lineNoCov">          0 :   return true;</span></a>
+<a name="318"><span class="lineNum">     318 </span>                :            : }</a>
+<a name="319"><span class="lineNum">     319 </span>                :            : </a>
+<a name="320"><span class="lineNum">     320 </span>                :<span class="lineNoCov">          0 : bool Buffer::checkAndErrorDedicatedThreadPresent(std::string * error_str) const</span></a>
+<a name="321"><span class="lineNum">     321 </span>                :            : {</a>
+<a name="322"><span class="lineNum">     322 </span>                :<span class="lineNoCov">          0 :   if (isUsingDedicatedThread()) {</span></a>
+<a name="323"><span class="lineNum">     323 </span>                :<span class="lineNoCov">          0 :     return true;</span></a>
+<a name="324"><span class="lineNum">     324 </span>                :            :   }</a>
 <a name="325"><span class="lineNum">     325 </span>                :            : </a>
-<a name="326"><span class="lineNum">     326 </span>                :            : }  // namespace tf2_ros</a>
+<a name="326"><span class="lineNum">     326 </span>                :<span class="lineNoCov">          0 :   if (error_str) {</span></a>
+<a name="327"><span class="lineNum">     327 </span>                :<span class="lineNoCov">          0 :     *error_str = tf2_ros::threading_error;</span></a>
+<a name="328"><span class="lineNum">     328 </span>                :            :   }</a>
+<a name="329"><span class="lineNum">     329 </span>                :            : </a>
+<a name="330"><span class="lineNum">     330 </span>                :<span class="lineNoCov">          0 :   RCLCPP_ERROR(getLogger(), &quot;%s&quot;, tf2_ros::threading_error);</span></a>
+<a name="331"><span class="lineNum">     331 </span>                :<span class="lineNoCov">          0 :   return false;</span></a>
+<a name="332"><span class="lineNum">     332 </span>                :            : }</a>
+<a name="333"><span class="lineNum">     333 </span>                :            : </a>
+<a name="334"><span class="lineNum">     334 </span>                :<span class="lineNoCov">          0 : rclcpp::Logger Buffer::getLogger() const</span></a>
+<a name="335"><span class="lineNum">     335 </span>                :            : {</a>
+<a name="336"><span class="lineNum">     336 </span>                :<span class="lineNoCov">          0 :   return node_ ? node_-&gt;get_logger() : rclcpp::get_logger(&quot;tf2_buffer&quot;);</span></a>
+<a name="337"><span class="lineNum">     337 </span>                :            : }</a>
+<a name="338"><span class="lineNum">     338 </span>                :            : </a>
+<a name="339"><span class="lineNum">     339 </span>                :            : }  // namespace tf2_ros</a>
 </pre>
       </td>
     </tr>

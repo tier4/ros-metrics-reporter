@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-01 09:45:35</td>
+            <td class="headerValue">2022-06-03 02:35:53</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">14</td>
@@ -116,13 +116,13 @@
 <a name="38"><span class="lineNum">      38 </span>                :            : public:</a>
 <a name="39"><span class="lineNum">      39 </span>                :            :         /** @brief No initializaion constructor */</a>
 <a name="40"><span class="lineNum">      40 </span>                :            :         TF2_PUBLIC</a>
-<a name="41"><span class="lineNum">      41 </span>        [<span class="branchCov" title="Branch 0 was taken 7950 times"> + </span><span class="branchCov" title="Branch 1 was taken 2650 times"> + </span>]:<span class="lineCov">      10600 :         Matrix3x3 () {}</span></a>
+<a name="41"><span class="lineNum">      41 </span>        [<span class="branchCov" title="Branch 0 was taken 7989 times"> + </span><span class="branchCov" title="Branch 1 was taken 2663 times"> + </span>]:<span class="lineCov">      10652 :         Matrix3x3 () {}</span></a>
 <a name="42"><span class="lineNum">      42 </span>                :            : </a>
 <a name="43"><span class="lineNum">      43 </span>                :            :         //              explicit Matrix3x3(const tf2Scalar *m) { setFromOpenGLSubMatrix(m); }</a>
 <a name="44"><span class="lineNum">      44 </span>                :            : </a>
 <a name="45"><span class="lineNum">      45 </span>                :            :         /**@brief Constructor from Quaternion */</a>
 <a name="46"><span class="lineNum">      46 </span>                :            :         TF2_PUBLIC</a>
-<a name="47"><span class="lineNum">      47 </span>        [<span class="branchCov" title="Branch 0 was taken 75216 times"> + </span><span class="branchCov" title="Branch 1 was taken 25072 times"> + </span>]:<span class="lineCov">     100288 :         explicit Matrix3x3(const Quaternion&amp; q) { setRotation(q); }</span></a>
+<a name="47"><span class="lineNum">      47 </span>        [<span class="branchCov" title="Branch 0 was taken 75225 times"> + </span><span class="branchCov" title="Branch 1 was taken 25075 times"> + </span>]:<span class="lineCov">     100300 :         explicit Matrix3x3(const Quaternion&amp; q) { setRotation(q); }</span></a>
 <a name="48"><span class="lineNum">      48 </span>                :            :         /*</a>
 <a name="49"><span class="lineNum">      49 </span>                :            :         template &lt;typename tf2Scalar&gt;</a>
 <a name="50"><span class="lineNum">      50 </span>                :            :         Matrix3x3(const tf2Scalar&amp; yaw, const tf2Scalar&amp; pitch, const tf2Scalar&amp; roll)</a>
@@ -132,30 +132,30 @@
 <a name="54"><span class="lineNum">      54 </span>                :            :         */</a>
 <a name="55"><span class="lineNum">      55 </span>                :            :         /** @brief Constructor with row major formatting */</a>
 <a name="56"><span class="lineNum">      56 </span>                :            :         TF2_PUBLIC</a>
-<a name="57"><span class="lineNum">      57 </span>                :<span class="lineCov">         15 :         Matrix3x3(const tf2Scalar&amp; xx, const tf2Scalar&amp; xy, const tf2Scalar&amp; xz,</span></a>
+<a name="57"><span class="lineNum">      57 </span>                :<span class="lineCov">         13 :         Matrix3x3(const tf2Scalar&amp; xx, const tf2Scalar&amp; xy, const tf2Scalar&amp; xz,</span></a>
 <a name="58"><span class="lineNum">      58 </span>                :            :                 const tf2Scalar&amp; yx, const tf2Scalar&amp; yy, const tf2Scalar&amp; yz,</a>
 <a name="59"><span class="lineNum">      59 </span>                :            :                 const tf2Scalar&amp; zx, const tf2Scalar&amp; zy, const tf2Scalar&amp; zz)</a>
-<a name="60"><span class="lineNum">      60 </span>        [<span class="branchCov" title="Branch 0 was taken 45 times"> + </span><span class="branchCov" title="Branch 1 was taken 15 times"> + </span>]:<span class="lineCov">         60 :         { </span></a>
-<a name="61"><span class="lineNum">      61 </span>                :<span class="lineCov">         15 :                 setValue(xx, xy, xz, </span></a>
+<a name="60"><span class="lineNum">      60 </span>        [<span class="branchCov" title="Branch 0 was taken 39 times"> + </span><span class="branchCov" title="Branch 1 was taken 13 times"> + </span>]:<span class="lineCov">         52 :         { </span></a>
+<a name="61"><span class="lineNum">      61 </span>                :<span class="lineCov">         13 :                 setValue(xx, xy, xz, </span></a>
 <a name="62"><span class="lineNum">      62 </span>                :            :                         yx, yy, yz, </a>
 <a name="63"><span class="lineNum">      63 </span>                :            :                         zx, zy, zz);</a>
-<a name="64"><span class="lineNum">      64 </span>                :<span class="lineCov">         15 :         }</span></a>
+<a name="64"><span class="lineNum">      64 </span>                :<span class="lineCov">         13 :         }</span></a>
 <a name="65"><span class="lineNum">      65 </span>                :            :         /** @brief Copy constructor */</a>
-<a name="66"><span class="lineNum">      66 </span>                :<span class="lineCov">         10 :         TF2SIMD_FORCE_INLINE Matrix3x3 (const Matrix3x3&amp; other)</span></a>
-<a name="67"><span class="lineNum">      67 </span>        [<span class="branchCov" title="Branch 0 was taken 30 times"> + </span><span class="branchCov" title="Branch 1 was taken 10 times"> + </span>]:<span class="lineCov">         40 :         {</span></a>
-<a name="68"><span class="lineNum">      68 </span>                :<span class="lineCov">         10 :                 m_el[0] = other.m_el[0];</span></a>
-<a name="69"><span class="lineNum">      69 </span>                :<span class="lineCov">         10 :                 m_el[1] = other.m_el[1];</span></a>
-<a name="70"><span class="lineNum">      70 </span>                :<span class="lineCov">         10 :                 m_el[2] = other.m_el[2];</span></a>
-<a name="71"><span class="lineNum">      71 </span>                :<span class="lineCov">         10 :         }</span></a>
+<a name="66"><span class="lineNum">      66 </span>                :<span class="lineCov">         13 :         TF2SIMD_FORCE_INLINE Matrix3x3 (const Matrix3x3&amp; other)</span></a>
+<a name="67"><span class="lineNum">      67 </span>        [<span class="branchCov" title="Branch 0 was taken 39 times"> + </span><span class="branchCov" title="Branch 1 was taken 13 times"> + </span>]:<span class="lineCov">         52 :         {</span></a>
+<a name="68"><span class="lineNum">      68 </span>                :<span class="lineCov">         13 :                 m_el[0] = other.m_el[0];</span></a>
+<a name="69"><span class="lineNum">      69 </span>                :<span class="lineCov">         13 :                 m_el[1] = other.m_el[1];</span></a>
+<a name="70"><span class="lineNum">      70 </span>                :<span class="lineCov">         13 :                 m_el[2] = other.m_el[2];</span></a>
+<a name="71"><span class="lineNum">      71 </span>                :<span class="lineCov">         13 :         }</span></a>
 <a name="72"><span class="lineNum">      72 </span>                :            : </a>
 <a name="73"><span class="lineNum">      73 </span>                :            : </a>
 <a name="74"><span class="lineNum">      74 </span>                :            :         /** @brief Assignment Operator */</a>
-<a name="75"><span class="lineNum">      75 </span>                :<span class="lineCov">         10 :         TF2SIMD_FORCE_INLINE Matrix3x3&amp; operator=(const Matrix3x3&amp; other)</span></a>
+<a name="75"><span class="lineNum">      75 </span>                :<span class="lineCov">         13 :         TF2SIMD_FORCE_INLINE Matrix3x3&amp; operator=(const Matrix3x3&amp; other)</span></a>
 <a name="76"><span class="lineNum">      76 </span>                :            :         {</a>
-<a name="77"><span class="lineNum">      77 </span>                :<span class="lineCov">         10 :                 m_el[0] = other.m_el[0];</span></a>
-<a name="78"><span class="lineNum">      78 </span>                :<span class="lineCov">         10 :                 m_el[1] = other.m_el[1];</span></a>
-<a name="79"><span class="lineNum">      79 </span>                :<span class="lineCov">         10 :                 m_el[2] = other.m_el[2];</span></a>
-<a name="80"><span class="lineNum">      80 </span>                :<span class="lineCov">         10 :                 return *this;</span></a>
+<a name="77"><span class="lineNum">      77 </span>                :<span class="lineCov">         13 :                 m_el[0] = other.m_el[0];</span></a>
+<a name="78"><span class="lineNum">      78 </span>                :<span class="lineCov">         13 :                 m_el[1] = other.m_el[1];</span></a>
+<a name="79"><span class="lineNum">      79 </span>                :<span class="lineCov">         13 :                 m_el[2] = other.m_el[2];</span></a>
+<a name="80"><span class="lineNum">      80 </span>                :<span class="lineCov">         13 :                 return *this;</span></a>
 <a name="81"><span class="lineNum">      81 </span>                :            :         }</a>
 <a name="82"><span class="lineNum">      82 </span>                :            : </a>
 <a name="83"><span class="lineNum">      83 </span>                :            : </a>
@@ -185,10 +185,10 @@
 <a name="107"><span class="lineNum">     107 </span>                :            : </a>
 <a name="108"><span class="lineNum">     108 </span>                :            :         /** @brief Get a const reference to a row of the matrix as a vector </a>
 <a name="109"><span class="lineNum">     109 </span>                :            :         *  @param i Row number 0 indexed */</a>
-<a name="110"><span class="lineNum">     110 </span>                :<span class="lineCov">        180 :         TF2SIMD_FORCE_INLINE const Vector3&amp; operator[](int i) const</span></a>
+<a name="110"><span class="lineNum">     110 </span>                :<span class="lineCov">        156 :         TF2SIMD_FORCE_INLINE const Vector3&amp; operator[](int i) const</span></a>
 <a name="111"><span class="lineNum">     111 </span>                :            :         {</a>
 <a name="112"><span class="lineNum">     112 </span>                :            :                 tf2FullAssert(0 &lt;= i &amp;&amp; i &lt; 3);</a>
-<a name="113"><span class="lineNum">     113 </span>                :<span class="lineCov">        180 :                 return m_el[i]; </span></a>
+<a name="113"><span class="lineNum">     113 </span>                :<span class="lineCov">        156 :                 return m_el[i]; </span></a>
 <a name="114"><span class="lineNum">     114 </span>                :            :         }</a>
 <a name="115"><span class="lineNum">     115 </span>                :            : </a>
 <a name="116"><span class="lineNum">     116 </span>                :            :         /** @brief Multiply by the target matrix on the right</a>
@@ -218,31 +218,31 @@
 <a name="140"><span class="lineNum">     140 </span>                :            :         *  @param zy Bottom Middle</a>
 <a name="141"><span class="lineNum">     141 </span>                :            :         *  @param zz Bottom Right*/</a>
 <a name="142"><span class="lineNum">     142 </span>                :            :         TF2_PUBLIC</a>
-<a name="143"><span class="lineNum">     143 </span>                :<span class="lineCov">      27713 :         void setValue(const tf2Scalar&amp; xx, const tf2Scalar&amp; xy, const tf2Scalar&amp; xz, </span></a>
+<a name="143"><span class="lineNum">     143 </span>                :<span class="lineCov">      27729 :         void setValue(const tf2Scalar&amp; xx, const tf2Scalar&amp; xy, const tf2Scalar&amp; xz, </span></a>
 <a name="144"><span class="lineNum">     144 </span>                :            :                 const tf2Scalar&amp; yx, const tf2Scalar&amp; yy, const tf2Scalar&amp; yz, </a>
 <a name="145"><span class="lineNum">     145 </span>                :            :                 const tf2Scalar&amp; zx, const tf2Scalar&amp; zy, const tf2Scalar&amp; zz)</a>
 <a name="146"><span class="lineNum">     146 </span>                :            :         {</a>
-<a name="147"><span class="lineNum">     147 </span>                :<span class="lineCov">      27713 :                 m_el[0].setValue(xx,xy,xz);</span></a>
-<a name="148"><span class="lineNum">     148 </span>                :<span class="lineCov">      27713 :                 m_el[1].setValue(yx,yy,yz);</span></a>
-<a name="149"><span class="lineNum">     149 </span>                :<span class="lineCov">      27713 :                 m_el[2].setValue(zx,zy,zz);</span></a>
-<a name="150"><span class="lineNum">     150 </span>                :<span class="lineCov">      27713 :         }</span></a>
+<a name="147"><span class="lineNum">     147 </span>                :<span class="lineCov">      27729 :                 m_el[0].setValue(xx,xy,xz);</span></a>
+<a name="148"><span class="lineNum">     148 </span>                :<span class="lineCov">      27729 :                 m_el[1].setValue(yx,yy,yz);</span></a>
+<a name="149"><span class="lineNum">     149 </span>                :<span class="lineCov">      27729 :                 m_el[2].setValue(zx,zy,zz);</span></a>
+<a name="150"><span class="lineNum">     150 </span>                :<span class="lineCov">      27729 :         }</span></a>
 <a name="151"><span class="lineNum">     151 </span>                :            : </a>
 <a name="152"><span class="lineNum">     152 </span>                :            :         /** @brief Set the matrix from a quaternion</a>
 <a name="153"><span class="lineNum">     153 </span>                :            :         *  @param q The Quaternion to match */  </a>
 <a name="154"><span class="lineNum">     154 </span>                :            :         TF2_PUBLIC</a>
-<a name="155"><span class="lineNum">     155 </span>                :<span class="lineCov">      27533 :         void setRotation(const Quaternion&amp; q) </span></a>
+<a name="155"><span class="lineNum">     155 </span>                :<span class="lineCov">      27543 :         void setRotation(const Quaternion&amp; q) </span></a>
 <a name="156"><span class="lineNum">     156 </span>                :            :         {</a>
-<a name="157"><span class="lineNum">     157 </span>                :<span class="lineCov">      27533 :                 tf2Scalar d = q.length2();</span></a>
+<a name="157"><span class="lineNum">     157 </span>                :<span class="lineCov">      27543 :                 tf2Scalar d = q.length2();</span></a>
 <a name="158"><span class="lineNum">     158 </span>                :            :                 tf2FullAssert(d != tf2Scalar(0.0));</a>
-<a name="159"><span class="lineNum">     159 </span>                :<span class="lineCov">      27533 :                 tf2Scalar s = tf2Scalar(2.0) / d;</span></a>
-<a name="160"><span class="lineNum">     160 </span>                :<span class="lineCov">      27533 :                 tf2Scalar xs = q.x() * s,   ys = q.y() * s,   zs = q.z() * s;</span></a>
-<a name="161"><span class="lineNum">     161 </span>                :<span class="lineCov">      27533 :                 tf2Scalar wx = q.w() * xs,  wy = q.w() * ys,  wz = q.w() * zs;</span></a>
-<a name="162"><span class="lineNum">     162 </span>                :<span class="lineCov">      27533 :                 tf2Scalar xx = q.x() * xs,  xy = q.x() * ys,  xz = q.x() * zs;</span></a>
-<a name="163"><span class="lineNum">     163 </span>                :<span class="lineCov">      27533 :                 tf2Scalar yy = q.y() * ys,  yz = q.y() * zs,  zz = q.z() * zs;</span></a>
-<a name="164"><span class="lineNum">     164 </span>                :<span class="lineCov">      55066 :                 setValue(tf2Scalar(1.0) - (yy + zz), xy - wz, xz + wy,</span></a>
-<a name="165"><span class="lineNum">     165 </span>                :<span class="lineCov">      55066 :                         xy + wz, tf2Scalar(1.0) - (xx + zz), yz - wx,</span></a>
-<a name="166"><span class="lineNum">     166 </span>                :<span class="lineCov">      27533 :                         xz - wy, yz + wx, tf2Scalar(1.0) - (xx + yy));</span></a>
-<a name="167"><span class="lineNum">     167 </span>                :<span class="lineCov">      27533 :         }</span></a>
+<a name="159"><span class="lineNum">     159 </span>                :<span class="lineCov">      27543 :                 tf2Scalar s = tf2Scalar(2.0) / d;</span></a>
+<a name="160"><span class="lineNum">     160 </span>                :<span class="lineCov">      27543 :                 tf2Scalar xs = q.x() * s,   ys = q.y() * s,   zs = q.z() * s;</span></a>
+<a name="161"><span class="lineNum">     161 </span>                :<span class="lineCov">      27543 :                 tf2Scalar wx = q.w() * xs,  wy = q.w() * ys,  wz = q.w() * zs;</span></a>
+<a name="162"><span class="lineNum">     162 </span>                :<span class="lineCov">      27543 :                 tf2Scalar xx = q.x() * xs,  xy = q.x() * ys,  xz = q.x() * zs;</span></a>
+<a name="163"><span class="lineNum">     163 </span>                :<span class="lineCov">      27543 :                 tf2Scalar yy = q.y() * ys,  yz = q.y() * zs,  zz = q.z() * zs;</span></a>
+<a name="164"><span class="lineNum">     164 </span>                :<span class="lineCov">      55086 :                 setValue(tf2Scalar(1.0) - (yy + zz), xy - wz, xz + wy,</span></a>
+<a name="165"><span class="lineNum">     165 </span>                :<span class="lineCov">      55086 :                         xy + wz, tf2Scalar(1.0) - (xx + zz), yz - wx,</span></a>
+<a name="166"><span class="lineNum">     166 </span>                :<span class="lineCov">      27543 :                         xz - wy, yz + wx, tf2Scalar(1.0) - (xx + yy));</span></a>
+<a name="167"><span class="lineNum">     167 </span>                :<span class="lineCov">      27543 :         }</span></a>
 <a name="168"><span class="lineNum">     168 </span>                :            : </a>
 <a name="169"><span class="lineNum">     169 </span>                :            :         /** @brief Set the matrix from euler angles YPR around ZYX axes</a>
 <a name="170"><span class="lineNum">     170 </span>                :            :         * @param eulerZ Yaw aboud Z axis</a>
@@ -284,12 +284,12 @@
 <a name="206"><span class="lineNum">     206 </span>                :            : </a>
 <a name="207"><span class="lineNum">     207 </span>                :            :         /**@brief Set the matrix to the identity */</a>
 <a name="208"><span class="lineNum">     208 </span>                :            :         TF2_PUBLIC</a>
-<a name="209"><span class="lineNum">     209 </span>                :<span class="lineCov">        175 :         void setIdentity()</span></a>
+<a name="209"><span class="lineNum">     209 </span>                :<span class="lineCov">        179 :         void setIdentity()</span></a>
 <a name="210"><span class="lineNum">     210 </span>                :            :         { </a>
-<a name="211"><span class="lineNum">     211 </span>                :<span class="lineCov">        350 :                 setValue(tf2Scalar(1.0), tf2Scalar(0.0), tf2Scalar(0.0), </span></a>
-<a name="212"><span class="lineNum">     212 </span>                :<span class="lineCov">        350 :                         tf2Scalar(0.0), tf2Scalar(1.0), tf2Scalar(0.0), </span></a>
-<a name="213"><span class="lineNum">     213 </span>                :<span class="lineCov">        175 :                         tf2Scalar(0.0), tf2Scalar(0.0), tf2Scalar(1.0)); </span></a>
-<a name="214"><span class="lineNum">     214 </span>                :<span class="lineCov">        175 :         }</span></a>
+<a name="211"><span class="lineNum">     211 </span>                :<span class="lineCov">        358 :                 setValue(tf2Scalar(1.0), tf2Scalar(0.0), tf2Scalar(0.0), </span></a>
+<a name="212"><span class="lineNum">     212 </span>                :<span class="lineCov">        358 :                         tf2Scalar(0.0), tf2Scalar(1.0), tf2Scalar(0.0), </span></a>
+<a name="213"><span class="lineNum">     213 </span>                :<span class="lineCov">        179 :                         tf2Scalar(0.0), tf2Scalar(0.0), tf2Scalar(1.0)); </span></a>
+<a name="214"><span class="lineNum">     214 </span>                :<span class="lineCov">        179 :         }</span></a>
 <a name="215"><span class="lineNum">     215 </span>                :            : </a>
 <a name="216"><span class="lineNum">     216 </span>                :            :         TF2_PUBLIC</a>
 <a name="217"><span class="lineNum">     217 </span>                :            :         static const Matrix3x3&amp;     getIdentity()</a>
@@ -322,39 +322,39 @@
 <a name="244"><span class="lineNum">     244 </span>                :            :         /**@brief Get the matrix represented as a quaternion </a>
 <a name="245"><span class="lineNum">     245 </span>                :            :         * @param q The quaternion which will be set */</a>
 <a name="246"><span class="lineNum">     246 </span>                :            :         TF2_PUBLIC</a>
-<a name="247"><span class="lineNum">     247 </span>                :<span class="lineCov">     336417 :         void getRotation(Quaternion&amp; q) const</span></a>
+<a name="247"><span class="lineNum">     247 </span>                :<span class="lineCov">     336484 :         void getRotation(Quaternion&amp; q) const</span></a>
 <a name="248"><span class="lineNum">     248 </span>                :            :         {</a>
-<a name="249"><span class="lineNum">     249 </span>                :<span class="lineCov">     336417 :                 tf2Scalar trace = m_el[0].x() + m_el[1].y() + m_el[2].z();</span></a>
+<a name="249"><span class="lineNum">     249 </span>                :<span class="lineCov">     336484 :                 tf2Scalar trace = m_el[0].x() + m_el[1].y() + m_el[2].z();</span></a>
 <a name="250"><span class="lineNum">     250 </span>                :            :                 tf2Scalar temp[4];</a>
 <a name="251"><span class="lineNum">     251 </span>                :            : </a>
-<a name="252"><span class="lineNum">     252 </span>        [<span class="branchCov" title="Branch 0 was taken 335204 times"> + </span><span class="branchCov" title="Branch 1 was taken 1213 times"> + </span>]:<span class="lineCov">     336417 :                 if (trace &gt; tf2Scalar(0.0)) </span></a>
+<a name="252"><span class="lineNum">     252 </span>        [<span class="branchCov" title="Branch 0 was taken 335221 times"> + </span><span class="branchCov" title="Branch 1 was taken 1263 times"> + </span>]:<span class="lineCov">     336484 :                 if (trace &gt; tf2Scalar(0.0)) </span></a>
 <a name="253"><span class="lineNum">     253 </span>                :            :                 {</a>
-<a name="254"><span class="lineNum">     254 </span>                :<span class="lineCov">     335204 :                         tf2Scalar s = tf2Sqrt(trace + tf2Scalar(1.0));</span></a>
-<a name="255"><span class="lineNum">     255 </span>                :<span class="lineCov">     335204 :                         temp[3]=(s * tf2Scalar(0.5));</span></a>
-<a name="256"><span class="lineNum">     256 </span>                :<span class="lineCov">     335204 :                         s = tf2Scalar(0.5) / s;</span></a>
+<a name="254"><span class="lineNum">     254 </span>                :<span class="lineCov">     335221 :                         tf2Scalar s = tf2Sqrt(trace + tf2Scalar(1.0));</span></a>
+<a name="255"><span class="lineNum">     255 </span>                :<span class="lineCov">     335221 :                         temp[3]=(s * tf2Scalar(0.5));</span></a>
+<a name="256"><span class="lineNum">     256 </span>                :<span class="lineCov">     335221 :                         s = tf2Scalar(0.5) / s;</span></a>
 <a name="257"><span class="lineNum">     257 </span>                :            : </a>
-<a name="258"><span class="lineNum">     258 </span>                :<span class="lineCov">     335204 :                         temp[0]=((m_el[2].y() - m_el[1].z()) * s);</span></a>
-<a name="259"><span class="lineNum">     259 </span>                :<span class="lineCov">     335204 :                         temp[1]=((m_el[0].z() - m_el[2].x()) * s);</span></a>
-<a name="260"><span class="lineNum">     260 </span>                :<span class="lineCov">     335204 :                         temp[2]=((m_el[1].x() - m_el[0].y()) * s);</span></a>
+<a name="258"><span class="lineNum">     258 </span>                :<span class="lineCov">     335221 :                         temp[0]=((m_el[2].y() - m_el[1].z()) * s);</span></a>
+<a name="259"><span class="lineNum">     259 </span>                :<span class="lineCov">     335221 :                         temp[1]=((m_el[0].z() - m_el[2].x()) * s);</span></a>
+<a name="260"><span class="lineNum">     260 </span>                :<span class="lineCov">     335221 :                         temp[2]=((m_el[1].x() - m_el[0].y()) * s);</span></a>
 <a name="261"><span class="lineNum">     261 </span>                :            :                 } </a>
 <a name="262"><span class="lineNum">     262 </span>                :            :                 else </a>
 <a name="263"><span class="lineNum">     263 </span>                :            :                 {</a>
-<a name="264"><span class="lineNum">     264 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1213 times"> + </span>]:<span class="lineCov">       2426 :                         int i = m_el[0].x() &lt; m_el[1].y() ? </span></a>
+<a name="264"><span class="lineNum">     264 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1263 times"> + </span>]:<span class="lineCov">       2526 :                         int i = m_el[0].x() &lt; m_el[1].y() ? </span></a>
 <a name="265"><span class="lineNum">     265 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                 (m_el[1].y() &lt; m_el[2].z() ? 2 : 1) :</span></a>
-<a name="266"><span class="lineNum">     266 </span>        [<span class="branchCov" title="Branch 0 was taken 1080 times"> + </span><span class="branchCov" title="Branch 1 was taken 133 times"> + </span>]:<span class="lineCov">       1213 :                                 (m_el[0].x() &lt; m_el[2].z() ? 2 : 0); </span></a>
-<a name="267"><span class="lineNum">     267 </span>                :<span class="lineCov">       1213 :                         int j = (i + 1) % 3;  </span></a>
-<a name="268"><span class="lineNum">     268 </span>                :<span class="lineCov">       1213 :                         int k = (i + 2) % 3;</span></a>
+<a name="266"><span class="lineNum">     266 </span>        [<span class="branchCov" title="Branch 0 was taken 1080 times"> + </span><span class="branchCov" title="Branch 1 was taken 183 times"> + </span>]:<span class="lineCov">       1263 :                                 (m_el[0].x() &lt; m_el[2].z() ? 2 : 0); </span></a>
+<a name="267"><span class="lineNum">     267 </span>                :<span class="lineCov">       1263 :                         int j = (i + 1) % 3;  </span></a>
+<a name="268"><span class="lineNum">     268 </span>                :<span class="lineCov">       1263 :                         int k = (i + 2) % 3;</span></a>
 <a name="269"><span class="lineNum">     269 </span>                :            : </a>
-<a name="270"><span class="lineNum">     270 </span>                :<span class="lineCov">       1213 :                         tf2Scalar s = tf2Sqrt(m_el[i][i] - m_el[j][j] - m_el[k][k] + tf2Scalar(1.0));</span></a>
-<a name="271"><span class="lineNum">     271 </span>                :<span class="lineCov">       1213 :                         temp[i] = s * tf2Scalar(0.5);</span></a>
-<a name="272"><span class="lineNum">     272 </span>                :<span class="lineCov">       1213 :                         s = tf2Scalar(0.5) / s;</span></a>
+<a name="270"><span class="lineNum">     270 </span>                :<span class="lineCov">       1263 :                         tf2Scalar s = tf2Sqrt(m_el[i][i] - m_el[j][j] - m_el[k][k] + tf2Scalar(1.0));</span></a>
+<a name="271"><span class="lineNum">     271 </span>                :<span class="lineCov">       1263 :                         temp[i] = s * tf2Scalar(0.5);</span></a>
+<a name="272"><span class="lineNum">     272 </span>                :<span class="lineCov">       1263 :                         s = tf2Scalar(0.5) / s;</span></a>
 <a name="273"><span class="lineNum">     273 </span>                :            : </a>
-<a name="274"><span class="lineNum">     274 </span>                :<span class="lineCov">       1213 :                         temp[3] = (m_el[k][j] - m_el[j][k]) * s;</span></a>
-<a name="275"><span class="lineNum">     275 </span>                :<span class="lineCov">       1213 :                         temp[j] = (m_el[j][i] + m_el[i][j]) * s;</span></a>
-<a name="276"><span class="lineNum">     276 </span>                :<span class="lineCov">       1213 :                         temp[k] = (m_el[k][i] + m_el[i][k]) * s;</span></a>
+<a name="274"><span class="lineNum">     274 </span>                :<span class="lineCov">       1263 :                         temp[3] = (m_el[k][j] - m_el[j][k]) * s;</span></a>
+<a name="275"><span class="lineNum">     275 </span>                :<span class="lineCov">       1263 :                         temp[j] = (m_el[j][i] + m_el[i][j]) * s;</span></a>
+<a name="276"><span class="lineNum">     276 </span>                :<span class="lineCov">       1263 :                         temp[k] = (m_el[k][i] + m_el[i][k]) * s;</span></a>
 <a name="277"><span class="lineNum">     277 </span>                :            :                 }</a>
-<a name="278"><span class="lineNum">     278 </span>                :<span class="lineCov">     336417 :                 q.setValue(temp[0],temp[1],temp[2],temp[3]);</span></a>
-<a name="279"><span class="lineNum">     279 </span>                :<span class="lineCov">     336417 :         }</span></a>
+<a name="278"><span class="lineNum">     278 </span>                :<span class="lineCov">     336484 :                 q.setValue(temp[0],temp[1],temp[2],temp[3]);</span></a>
+<a name="279"><span class="lineNum">     279 </span>                :<span class="lineCov">     336484 :         }</span></a>
 <a name="280"><span class="lineNum">     280 </span>                :            : </a>
 <a name="281"><span class="lineNum">     281 </span>                :            :         /**@brief Get the matrix represented as euler angles around YXZ, roundtrip with setEulerYPR</a>
 <a name="282"><span class="lineNum">     282 </span>                :            :         * @param yaw Yaw around Z axis</a>
@@ -471,17 +471,17 @@
 <a name="393"><span class="lineNum">     393 </span>                :            :         TF2_PUBLIC</a>
 <a name="394"><span class="lineNum">     394 </span>                :            :         Matrix3x3 timesTranspose(const Matrix3x3&amp; m) const;</a>
 <a name="395"><span class="lineNum">     395 </span>                :            : </a>
-<a name="396"><span class="lineNum">     396 </span>                :<span class="lineCov">         45 :         TF2SIMD_FORCE_INLINE tf2Scalar tdotx(const Vector3&amp; v) const </span></a>
+<a name="396"><span class="lineNum">     396 </span>                :<span class="lineCov">         39 :         TF2SIMD_FORCE_INLINE tf2Scalar tdotx(const Vector3&amp; v) const </span></a>
 <a name="397"><span class="lineNum">     397 </span>                :            :         {</a>
-<a name="398"><span class="lineNum">     398 </span>                :<span class="lineCov">         45 :                 return m_el[0].x() * v.x() + m_el[1].x() * v.y() + m_el[2].x() * v.z();</span></a>
+<a name="398"><span class="lineNum">     398 </span>                :<span class="lineCov">         39 :                 return m_el[0].x() * v.x() + m_el[1].x() * v.y() + m_el[2].x() * v.z();</span></a>
 <a name="399"><span class="lineNum">     399 </span>                :            :         }</a>
-<a name="400"><span class="lineNum">     400 </span>                :<span class="lineCov">         45 :         TF2SIMD_FORCE_INLINE tf2Scalar tdoty(const Vector3&amp; v) const </span></a>
+<a name="400"><span class="lineNum">     400 </span>                :<span class="lineCov">         39 :         TF2SIMD_FORCE_INLINE tf2Scalar tdoty(const Vector3&amp; v) const </span></a>
 <a name="401"><span class="lineNum">     401 </span>                :            :         {</a>
-<a name="402"><span class="lineNum">     402 </span>                :<span class="lineCov">         45 :                 return m_el[0].y() * v.x() + m_el[1].y() * v.y() + m_el[2].y() * v.z();</span></a>
+<a name="402"><span class="lineNum">     402 </span>                :<span class="lineCov">         39 :                 return m_el[0].y() * v.x() + m_el[1].y() * v.y() + m_el[2].y() * v.z();</span></a>
 <a name="403"><span class="lineNum">     403 </span>                :            :         }</a>
-<a name="404"><span class="lineNum">     404 </span>                :<span class="lineCov">         45 :         TF2SIMD_FORCE_INLINE tf2Scalar tdotz(const Vector3&amp; v) const </span></a>
+<a name="404"><span class="lineNum">     404 </span>                :<span class="lineCov">         39 :         TF2SIMD_FORCE_INLINE tf2Scalar tdotz(const Vector3&amp; v) const </span></a>
 <a name="405"><span class="lineNum">     405 </span>                :            :         {</a>
-<a name="406"><span class="lineNum">     406 </span>                :<span class="lineCov">         45 :                 return m_el[0].z() * v.x() + m_el[1].z() * v.y() + m_el[2].z() * v.z();</span></a>
+<a name="406"><span class="lineNum">     406 </span>                :<span class="lineCov">         39 :                 return m_el[0].z() * v.x() + m_el[1].z() * v.y() + m_el[2].z() * v.z();</span></a>
 <a name="407"><span class="lineNum">     407 </span>                :            :         }</a>
 <a name="408"><span class="lineNum">     408 </span>                :            : </a>
 <a name="409"><span class="lineNum">     409 </span>                :            : </a>
@@ -699,12 +699,12 @@
 <a name="621"><span class="lineNum">     621 </span>                :            : }</a>
 <a name="622"><span class="lineNum">     622 </span>                :            : </a>
 <a name="623"><span class="lineNum">     623 </span>                :            : TF2SIMD_FORCE_INLINE Matrix3x3 </a>
-<a name="624"><span class="lineNum">     624 </span>                :<span class="lineCov">         15 : operator*(const Matrix3x3&amp; m1, const Matrix3x3&amp; m2)</span></a>
+<a name="624"><span class="lineNum">     624 </span>                :<span class="lineCov">         13 : operator*(const Matrix3x3&amp; m1, const Matrix3x3&amp; m2)</span></a>
 <a name="625"><span class="lineNum">     625 </span>                :            : {</a>
 <a name="626"><span class="lineNum">     626 </span>                :            :         return Matrix3x3(</a>
-<a name="627"><span class="lineNum">     627 </span>                :<span class="lineCov">         15 :                 m2.tdotx( m1[0]), m2.tdoty( m1[0]), m2.tdotz( m1[0]),</span></a>
-<a name="628"><span class="lineNum">     628 </span>                :<span class="lineCov">         15 :                 m2.tdotx( m1[1]), m2.tdoty( m1[1]), m2.tdotz( m1[1]),</span></a>
-<a name="629"><span class="lineNum">     629 </span>        [<span class="branchCov" title="Branch 0 was taken 15 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         45 :                 m2.tdotx( m1[2]), m2.tdoty( m1[2]), m2.tdotz( m1[2]));</span></a>
+<a name="627"><span class="lineNum">     627 </span>                :<span class="lineCov">         13 :                 m2.tdotx( m1[0]), m2.tdoty( m1[0]), m2.tdotz( m1[0]),</span></a>
+<a name="628"><span class="lineNum">     628 </span>                :<span class="lineCov">         13 :                 m2.tdotx( m1[1]), m2.tdoty( m1[1]), m2.tdotz( m1[1]),</span></a>
+<a name="629"><span class="lineNum">     629 </span>        [<span class="branchCov" title="Branch 0 was taken 13 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         39 :                 m2.tdotx( m1[2]), m2.tdoty( m1[2]), m2.tdotz( m1[2]));</span></a>
 <a name="630"><span class="lineNum">     630 </span>                :            : }</a>
 <a name="631"><span class="lineNum">     631 </span>                :            : </a>
 <a name="632"><span class="lineNum">     632 </span>                :            : /*</a>

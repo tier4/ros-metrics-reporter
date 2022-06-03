@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-01 09:45:36</td>
+            <td class="headerValue">2022-06-03 02:35:54</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
@@ -118,116 +118,141 @@
 <a name="40"><span class="lineNum">      40 </span>                :            : namespace tf2</a>
 <a name="41"><span class="lineNum">      41 </span>                :            : {</a>
 <a name="42"><span class="lineNum">      42 </span>                :            : </a>
-<a name="43"><span class="lineNum">      43 </span>                :            : // This workaround prevents a collision with Windows.h</a>
-<a name="44"><span class="lineNum">      44 </span>                :            : #if defined(_WIN32)</a>
-<a name="45"><span class="lineNum">      45 </span>                :            : #pragma push_macro(&quot;NO_ERROR&quot;)</a>
-<a name="46"><span class="lineNum">      46 </span>                :            : #undef NO_ERROR</a>
-<a name="47"><span class="lineNum">      47 </span>                :            : #endif</a>
-<a name="48"><span class="lineNum">      48 </span>                :            : </a>
-<a name="49"><span class="lineNum">      49 </span>                :            : enum class TF2Error : std::uint8_t {</a>
-<a name="50"><span class="lineNum">      50 </span>                :            :   NO_ERROR = 0,</a>
-<a name="51"><span class="lineNum">      51 </span>                :            :   LOOKUP_ERROR = 1,</a>
-<a name="52"><span class="lineNum">      52 </span>                :            :   CONNECTIVITY_ERROR = 2,</a>
-<a name="53"><span class="lineNum">      53 </span>                :            :   EXTRAPOLATION_ERROR = 3,</a>
-<a name="54"><span class="lineNum">      54 </span>                :            :   INVALID_ARGUMENT_ERROR = 4,</a>
-<a name="55"><span class="lineNum">      55 </span>                :            :   TIMEOUT_ERROR = 5,</a>
-<a name="56"><span class="lineNum">      56 </span>                :            :   TRANSFORM_ERROR = 6</a>
-<a name="57"><span class="lineNum">      57 </span>                :            : };</a>
-<a name="58"><span class="lineNum">      58 </span>                :            : </a>
-<a name="59"><span class="lineNum">      59 </span>                :            : #if defined(_WIN32)</a>
-<a name="60"><span class="lineNum">      60 </span>                :            : #pragma pop_macro(&quot;NO_ERROR&quot;)</a>
-<a name="61"><span class="lineNum">      61 </span>                :            : #endif</a>
-<a name="62"><span class="lineNum">      62 </span>                :            : </a>
-<a name="63"><span class="lineNum">      63 </span>                :            : /** \brief A base class for all tf2 exceptions</a>
-<a name="64"><span class="lineNum">      64 </span>                :            :  * This inherits from ros::exception</a>
-<a name="65"><span class="lineNum">      65 </span>                :            :  * which inherits from std::runtime_exception</a>
-<a name="66"><span class="lineNum">      66 </span>                :            :  */</a>
-<a name="67"><span class="lineNum">      67 </span>                :            : class TransformException : public std::runtime_error</a>
-<a name="68"><span class="lineNum">      68 </span>                :            : {</a>
-<a name="69"><span class="lineNum">      69 </span>                :            : public:</a>
-<a name="70"><span class="lineNum">      70 </span>                :            :   TF2_PUBLIC</a>
-<a name="71"><span class="lineNum">      71 </span>                :<span class="lineCov">          9 :   explicit TransformException(const std::string errorDescription)</span></a>
-<a name="72"><span class="lineNum">      72 </span>                :<span class="lineCov">          9 :   : std::runtime_error(errorDescription)</span></a>
-<a name="73"><span class="lineNum">      73 </span>                :            :   {</a>
-<a name="74"><span class="lineNum">      74 </span>                :<span class="lineCov">          9 :   }</span></a>
-<a name="75"><span class="lineNum">      75 </span>                :            : };</a>
-<a name="76"><span class="lineNum">      76 </span>                :            : </a>
-<a name="77"><span class="lineNum">      77 </span>                :            : </a>
-<a name="78"><span class="lineNum">      78 </span>                :            : /** \brief An exception class to notify of no connection</a>
-<a name="79"><span class="lineNum">      79 </span>                :            :  *</a>
-<a name="80"><span class="lineNum">      80 </span>                :            :  * This is an exception class to be thrown in the case</a>
-<a name="81"><span class="lineNum">      81 </span>                :            :  * that the Reference Frame tree is not connected between</a>
-<a name="82"><span class="lineNum">      82 </span>                :            :  * the frames requested. */</a>
-<a name="83"><span class="lineNum">      83 </span>                :            : class ConnectivityException : public TransformException</a>
-<a name="84"><span class="lineNum">      84 </span>                :            : {</a>
-<a name="85"><span class="lineNum">      85 </span>                :            : public:</a>
-<a name="86"><span class="lineNum">      86 </span>                :            :   TF2_PUBLIC</a>
-<a name="87"><span class="lineNum">      87 </span>                :<span class="lineNoCov">          0 :   explicit ConnectivityException(const std::string errorDescription)</span></a>
-<a name="88"><span class="lineNum">      88 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   : tf2::TransformException(errorDescription)</span></a>
-<a name="89"><span class="lineNum">      89 </span>                :            :   {</a>
-<a name="90"><span class="lineNum">      90 </span>                :<span class="lineNoCov">          0 :   }</span></a>
-<a name="91"><span class="lineNum">      91 </span>                :            : };</a>
-<a name="92"><span class="lineNum">      92 </span>                :            : </a>
-<a name="93"><span class="lineNum">      93 </span>                :            : </a>
-<a name="94"><span class="lineNum">      94 </span>                :            : /** \brief An exception class to notify of bad frame number</a>
-<a name="95"><span class="lineNum">      95 </span>                :            :  *</a>
-<a name="96"><span class="lineNum">      96 </span>                :            :  * This is an exception class to be thrown in the case that</a>
-<a name="97"><span class="lineNum">      97 </span>                :            :  * a frame not in the graph has been attempted to be accessed.</a>
-<a name="98"><span class="lineNum">      98 </span>                :            :  * The most common reason for this is that the frame is not</a>
-<a name="99"><span class="lineNum">      99 </span>                :            :  * being published, or a parent frame was not set correctly</a>
-<a name="100"><span class="lineNum">     100 </span>                :            :  * causing the tree to be broken.</a>
-<a name="101"><span class="lineNum">     101 </span>                :            :  */</a>
-<a name="102"><span class="lineNum">     102 </span>                :            : class LookupException : public TransformException</a>
-<a name="103"><span class="lineNum">     103 </span>                :            : {</a>
-<a name="104"><span class="lineNum">     104 </span>                :            : public:</a>
-<a name="105"><span class="lineNum">     105 </span>                :            :   TF2_PUBLIC</a>
-<a name="106"><span class="lineNum">     106 </span>                :<span class="lineCov">          3 :   explicit LookupException(const std::string errorDescription)</span></a>
-<a name="107"><span class="lineNum">     107 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          3 :   : tf2::TransformException(errorDescription)</span></a>
-<a name="108"><span class="lineNum">     108 </span>                :            :   {</a>
-<a name="109"><span class="lineNum">     109 </span>                :<span class="lineCov">          3 :   }</span></a>
-<a name="110"><span class="lineNum">     110 </span>                :            : };</a>
-<a name="111"><span class="lineNum">     111 </span>                :            : </a>
-<a name="112"><span class="lineNum">     112 </span>                :            : /** \brief An exception class to notify that the requested value would have required extrapolation beyond current limits.</a>
-<a name="113"><span class="lineNum">     113 </span>                :            :  *</a>
-<a name="114"><span class="lineNum">     114 </span>                :            :  */</a>
-<a name="115"><span class="lineNum">     115 </span>                :            : class ExtrapolationException : public TransformException</a>
-<a name="116"><span class="lineNum">     116 </span>                :            : {</a>
-<a name="117"><span class="lineNum">     117 </span>                :            : public:</a>
-<a name="118"><span class="lineNum">     118 </span>                :            :   TF2_PUBLIC</a>
-<a name="119"><span class="lineNum">     119 </span>                :<span class="lineCov">          2 :   explicit ExtrapolationException(const std::string errorDescription)</span></a>
-<a name="120"><span class="lineNum">     120 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   : tf2::TransformException(errorDescription)</span></a>
-<a name="121"><span class="lineNum">     121 </span>                :            :   {</a>
-<a name="122"><span class="lineNum">     122 </span>                :<span class="lineCov">          2 :   }</span></a>
-<a name="123"><span class="lineNum">     123 </span>                :            : };</a>
-<a name="124"><span class="lineNum">     124 </span>                :            : </a>
-<a name="125"><span class="lineNum">     125 </span>                :            : /** \brief An exception class to notify that one of the arguments is invalid</a>
-<a name="126"><span class="lineNum">     126 </span>                :            :  *</a>
-<a name="127"><span class="lineNum">     127 </span>                :            :  * usually it's an uninitalized Quaternion (0,0,0,0)</a>
-<a name="128"><span class="lineNum">     128 </span>                :            :  *</a>
-<a name="129"><span class="lineNum">     129 </span>                :            :  */</a>
-<a name="130"><span class="lineNum">     130 </span>                :            : class InvalidArgumentException : public TransformException</a>
-<a name="131"><span class="lineNum">     131 </span>                :            : {</a>
-<a name="132"><span class="lineNum">     132 </span>                :            : public:</a>
-<a name="133"><span class="lineNum">     133 </span>                :            :   TF2_PUBLIC</a>
-<a name="134"><span class="lineNum">     134 </span>                :<span class="lineCov">          4 :   explicit InvalidArgumentException(const std::string errorDescription)</span></a>
-<a name="135"><span class="lineNum">     135 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          4 :   : tf2::TransformException(errorDescription) {}</span></a>
-<a name="136"><span class="lineNum">     136 </span>                :            : };</a>
-<a name="137"><span class="lineNum">     137 </span>                :            : </a>
-<a name="138"><span class="lineNum">     138 </span>                :            : /** \brief An exception class to notify that a timeout has occured</a>
-<a name="139"><span class="lineNum">     139 </span>                :            :  *</a>
-<a name="140"><span class="lineNum">     140 </span>                :            :  *</a>
-<a name="141"><span class="lineNum">     141 </span>                :            :  */</a>
-<a name="142"><span class="lineNum">     142 </span>                :            : class TimeoutException : public TransformException</a>
-<a name="143"><span class="lineNum">     143 </span>                :            : {</a>
-<a name="144"><span class="lineNum">     144 </span>                :            : public:</a>
-<a name="145"><span class="lineNum">     145 </span>                :            :   TF2_PUBLIC</a>
-<a name="146"><span class="lineNum">     146 </span>                :            :   explicit TimeoutException(const std::string errorDescription)</a>
-<a name="147"><span class="lineNum">     147 </span>                :            :   : tf2::TransformException(errorDescription)</a>
-<a name="148"><span class="lineNum">     148 </span>                :            :   {</a>
-<a name="149"><span class="lineNum">     149 </span>                :            :   }</a>
-<a name="150"><span class="lineNum">     150 </span>                :            : };</a>
-<a name="151"><span class="lineNum">     151 </span>                :            : }  // namespace tf2</a>
-<a name="152"><span class="lineNum">     152 </span>                :            : #endif  // TF2__EXCEPTIONS_H_</a>
+<a name="43"><span class="lineNum">      43 </span>                :            : // TODO(clalancette): We can remove these workarounds when we remove the</a>
+<a name="44"><span class="lineNum">      44 </span>                :            : // deprecated TF2Error enums.</a>
+<a name="45"><span class="lineNum">      45 </span>                :            : #if defined(_WIN32)</a>
+<a name="46"><span class="lineNum">      46 </span>                :            : #pragma push_macro(&quot;NO_ERROR&quot;)</a>
+<a name="47"><span class="lineNum">      47 </span>                :            : #undef NO_ERROR</a>
+<a name="48"><span class="lineNum">      48 </span>                :            : #endif</a>
+<a name="49"><span class="lineNum">      49 </span>                :            : #if defined(__APPLE__) || defined(__clang__)</a>
+<a name="50"><span class="lineNum">      50 </span>                :            : // The clang compiler on Apple claims that [[deprecated]] on an enumerator value</a>
+<a name="51"><span class="lineNum">      51 </span>                :            : // is a C++17 feature, when it was really introduced in C++14.  Ignore that</a>
+<a name="52"><span class="lineNum">      52 </span>                :            : // warning when defining the structure; this whole thing will go away when we</a>
+<a name="53"><span class="lineNum">      53 </span>                :            : // remove the deprecated values.</a>
+<a name="54"><span class="lineNum">      54 </span>                :            : #pragma clang diagnostic push</a>
+<a name="55"><span class="lineNum">      55 </span>                :            : #pragma clang diagnostic ignored &quot;-Wc++17-extensions&quot;</a>
+<a name="56"><span class="lineNum">      56 </span>                :            : #endif</a>
+<a name="57"><span class="lineNum">      57 </span>                :            : </a>
+<a name="58"><span class="lineNum">      58 </span>                :            : enum class TF2Error : std::uint8_t</a>
+<a name="59"><span class="lineNum">      59 </span>                :            : {</a>
+<a name="60"><span class="lineNum">      60 </span>                :            :   // While the TF2_ prefix here is a bit redundant, it also prevents us from</a>
+<a name="61"><span class="lineNum">      61 </span>                :            :   // colliding with Windows defines (specifically, NO_ERROR).</a>
+<a name="62"><span class="lineNum">      62 </span>                :            :   TF2_NO_ERROR = 0,</a>
+<a name="63"><span class="lineNum">      63 </span>                :            :   TF2_LOOKUP_ERROR = 1,</a>
+<a name="64"><span class="lineNum">      64 </span>                :            :   TF2_CONNECTIVITY_ERROR = 2,</a>
+<a name="65"><span class="lineNum">      65 </span>                :            :   TF2_EXTRAPOLATION_ERROR = 3,</a>
+<a name="66"><span class="lineNum">      66 </span>                :            :   TF2_INVALID_ARGUMENT_ERROR = 4,</a>
+<a name="67"><span class="lineNum">      67 </span>                :            :   TF2_TIMEOUT_ERROR = 5,</a>
+<a name="68"><span class="lineNum">      68 </span>                :            :   TF2_TRANSFORM_ERROR = 6,</a>
+<a name="69"><span class="lineNum">      69 </span>                :            : </a>
+<a name="70"><span class="lineNum">      70 </span>                :            :   NO_ERROR [[deprecated(&quot;Use TF2_NO_ERROR instead&quot;)]] = 0,</a>
+<a name="71"><span class="lineNum">      71 </span>                :            :   LOOKUP_ERROR [[deprecated(&quot;Use TF2_LOOKUP_ERROR instead&quot;)]] = 1,</a>
+<a name="72"><span class="lineNum">      72 </span>                :            :   CONNECTIVITY_ERROR [[deprecated(&quot;Use TF2_CONNECTIVITY_ERROR instead&quot;)]] = 2,</a>
+<a name="73"><span class="lineNum">      73 </span>                :            :   EXTRAPOLATION_ERROR [[deprecated(&quot;Use TF2_EXTRAPOLATION_ERROR instead&quot;)]] = 3,</a>
+<a name="74"><span class="lineNum">      74 </span>                :            :   INVALID_ARGUMENT_ERROR [[deprecated(&quot;Use TF2_INVALID_ARGUMENT_ERROR instead&quot;)]] = 4,</a>
+<a name="75"><span class="lineNum">      75 </span>                :            :   TIMEOUT_ERROR [[deprecated(&quot;Use TF2_TIMEOUT_ERROR instead&quot;)]] = 5,</a>
+<a name="76"><span class="lineNum">      76 </span>                :            :   TRANSFORM_ERROR [[deprecated(&quot;Use TF2_TRANSFORM_ERROR instead&quot;)]] = 6</a>
+<a name="77"><span class="lineNum">      77 </span>                :            : };</a>
+<a name="78"><span class="lineNum">      78 </span>                :            : </a>
+<a name="79"><span class="lineNum">      79 </span>                :            : // TODO(clalancette): We can remove these workarounds when we remove the</a>
+<a name="80"><span class="lineNum">      80 </span>                :            : // deprecated TF2Error enums.</a>
+<a name="81"><span class="lineNum">      81 </span>                :            : #if defined(__APPLE__)</a>
+<a name="82"><span class="lineNum">      82 </span>                :            : #pragma clang diagnostic pop</a>
+<a name="83"><span class="lineNum">      83 </span>                :            : #endif</a>
+<a name="84"><span class="lineNum">      84 </span>                :            : #if defined(_WIN32)</a>
+<a name="85"><span class="lineNum">      85 </span>                :            : #pragma pop_macro(&quot;NO_ERROR&quot;)</a>
+<a name="86"><span class="lineNum">      86 </span>                :            : #endif</a>
+<a name="87"><span class="lineNum">      87 </span>                :            : </a>
+<a name="88"><span class="lineNum">      88 </span>                :            : /** \brief A base class for all tf2 exceptions</a>
+<a name="89"><span class="lineNum">      89 </span>                :            :  * This inherits from ros::exception</a>
+<a name="90"><span class="lineNum">      90 </span>                :            :  * which inherits from std::runtime_exception</a>
+<a name="91"><span class="lineNum">      91 </span>                :            :  */</a>
+<a name="92"><span class="lineNum">      92 </span>                :            : class TransformException : public std::runtime_error</a>
+<a name="93"><span class="lineNum">      93 </span>                :            : {</a>
+<a name="94"><span class="lineNum">      94 </span>                :            : public:</a>
+<a name="95"><span class="lineNum">      95 </span>                :            :   TF2_PUBLIC</a>
+<a name="96"><span class="lineNum">      96 </span>                :<span class="lineCov">          9 :   explicit TransformException(const std::string errorDescription)</span></a>
+<a name="97"><span class="lineNum">      97 </span>                :<span class="lineCov">          9 :   : std::runtime_error(errorDescription)</span></a>
+<a name="98"><span class="lineNum">      98 </span>                :            :   {</a>
+<a name="99"><span class="lineNum">      99 </span>                :<span class="lineCov">          9 :   }</span></a>
+<a name="100"><span class="lineNum">     100 </span>                :            : };</a>
+<a name="101"><span class="lineNum">     101 </span>                :            : </a>
+<a name="102"><span class="lineNum">     102 </span>                :            : </a>
+<a name="103"><span class="lineNum">     103 </span>                :            : /** \brief An exception class to notify of no connection</a>
+<a name="104"><span class="lineNum">     104 </span>                :            :  *</a>
+<a name="105"><span class="lineNum">     105 </span>                :            :  * This is an exception class to be thrown in the case</a>
+<a name="106"><span class="lineNum">     106 </span>                :            :  * that the Reference Frame tree is not connected between</a>
+<a name="107"><span class="lineNum">     107 </span>                :            :  * the frames requested. */</a>
+<a name="108"><span class="lineNum">     108 </span>                :            : class ConnectivityException : public TransformException</a>
+<a name="109"><span class="lineNum">     109 </span>                :            : {</a>
+<a name="110"><span class="lineNum">     110 </span>                :            : public:</a>
+<a name="111"><span class="lineNum">     111 </span>                :            :   TF2_PUBLIC</a>
+<a name="112"><span class="lineNum">     112 </span>                :<span class="lineNoCov">          0 :   explicit ConnectivityException(const std::string errorDescription)</span></a>
+<a name="113"><span class="lineNum">     113 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   : tf2::TransformException(errorDescription)</span></a>
+<a name="114"><span class="lineNum">     114 </span>                :            :   {</a>
+<a name="115"><span class="lineNum">     115 </span>                :<span class="lineNoCov">          0 :   }</span></a>
+<a name="116"><span class="lineNum">     116 </span>                :            : };</a>
+<a name="117"><span class="lineNum">     117 </span>                :            : </a>
+<a name="118"><span class="lineNum">     118 </span>                :            : </a>
+<a name="119"><span class="lineNum">     119 </span>                :            : /** \brief An exception class to notify of bad frame number</a>
+<a name="120"><span class="lineNum">     120 </span>                :            :  *</a>
+<a name="121"><span class="lineNum">     121 </span>                :            :  * This is an exception class to be thrown in the case that</a>
+<a name="122"><span class="lineNum">     122 </span>                :            :  * a frame not in the graph has been attempted to be accessed.</a>
+<a name="123"><span class="lineNum">     123 </span>                :            :  * The most common reason for this is that the frame is not</a>
+<a name="124"><span class="lineNum">     124 </span>                :            :  * being published, or a parent frame was not set correctly</a>
+<a name="125"><span class="lineNum">     125 </span>                :            :  * causing the tree to be broken.</a>
+<a name="126"><span class="lineNum">     126 </span>                :            :  */</a>
+<a name="127"><span class="lineNum">     127 </span>                :            : class LookupException : public TransformException</a>
+<a name="128"><span class="lineNum">     128 </span>                :            : {</a>
+<a name="129"><span class="lineNum">     129 </span>                :            : public:</a>
+<a name="130"><span class="lineNum">     130 </span>                :            :   TF2_PUBLIC</a>
+<a name="131"><span class="lineNum">     131 </span>                :<span class="lineCov">          3 :   explicit LookupException(const std::string errorDescription)</span></a>
+<a name="132"><span class="lineNum">     132 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          3 :   : tf2::TransformException(errorDescription)</span></a>
+<a name="133"><span class="lineNum">     133 </span>                :            :   {</a>
+<a name="134"><span class="lineNum">     134 </span>                :<span class="lineCov">          3 :   }</span></a>
+<a name="135"><span class="lineNum">     135 </span>                :            : };</a>
+<a name="136"><span class="lineNum">     136 </span>                :            : </a>
+<a name="137"><span class="lineNum">     137 </span>                :            : /** \brief An exception class to notify that the requested value would have required extrapolation beyond current limits.</a>
+<a name="138"><span class="lineNum">     138 </span>                :            :  *</a>
+<a name="139"><span class="lineNum">     139 </span>                :            :  */</a>
+<a name="140"><span class="lineNum">     140 </span>                :            : class ExtrapolationException : public TransformException</a>
+<a name="141"><span class="lineNum">     141 </span>                :            : {</a>
+<a name="142"><span class="lineNum">     142 </span>                :            : public:</a>
+<a name="143"><span class="lineNum">     143 </span>                :            :   TF2_PUBLIC</a>
+<a name="144"><span class="lineNum">     144 </span>                :<span class="lineCov">          2 :   explicit ExtrapolationException(const std::string errorDescription)</span></a>
+<a name="145"><span class="lineNum">     145 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   : tf2::TransformException(errorDescription)</span></a>
+<a name="146"><span class="lineNum">     146 </span>                :            :   {</a>
+<a name="147"><span class="lineNum">     147 </span>                :<span class="lineCov">          2 :   }</span></a>
+<a name="148"><span class="lineNum">     148 </span>                :            : };</a>
+<a name="149"><span class="lineNum">     149 </span>                :            : </a>
+<a name="150"><span class="lineNum">     150 </span>                :            : /** \brief An exception class to notify that one of the arguments is invalid</a>
+<a name="151"><span class="lineNum">     151 </span>                :            :  *</a>
+<a name="152"><span class="lineNum">     152 </span>                :            :  * usually it's an uninitalized Quaternion (0,0,0,0)</a>
+<a name="153"><span class="lineNum">     153 </span>                :            :  *</a>
+<a name="154"><span class="lineNum">     154 </span>                :            :  */</a>
+<a name="155"><span class="lineNum">     155 </span>                :            : class InvalidArgumentException : public TransformException</a>
+<a name="156"><span class="lineNum">     156 </span>                :            : {</a>
+<a name="157"><span class="lineNum">     157 </span>                :            : public:</a>
+<a name="158"><span class="lineNum">     158 </span>                :            :   TF2_PUBLIC</a>
+<a name="159"><span class="lineNum">     159 </span>                :<span class="lineCov">          4 :   explicit InvalidArgumentException(const std::string errorDescription)</span></a>
+<a name="160"><span class="lineNum">     160 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          4 :   : tf2::TransformException(errorDescription) {}</span></a>
+<a name="161"><span class="lineNum">     161 </span>                :            : };</a>
+<a name="162"><span class="lineNum">     162 </span>                :            : </a>
+<a name="163"><span class="lineNum">     163 </span>                :            : /** \brief An exception class to notify that a timeout has occured</a>
+<a name="164"><span class="lineNum">     164 </span>                :            :  *</a>
+<a name="165"><span class="lineNum">     165 </span>                :            :  *</a>
+<a name="166"><span class="lineNum">     166 </span>                :            :  */</a>
+<a name="167"><span class="lineNum">     167 </span>                :            : class TimeoutException : public TransformException</a>
+<a name="168"><span class="lineNum">     168 </span>                :            : {</a>
+<a name="169"><span class="lineNum">     169 </span>                :            : public:</a>
+<a name="170"><span class="lineNum">     170 </span>                :            :   TF2_PUBLIC</a>
+<a name="171"><span class="lineNum">     171 </span>                :            :   explicit TimeoutException(const std::string errorDescription)</a>
+<a name="172"><span class="lineNum">     172 </span>                :            :   : tf2::TransformException(errorDescription)</a>
+<a name="173"><span class="lineNum">     173 </span>                :            :   {</a>
+<a name="174"><span class="lineNum">     174 </span>                :            :   }</a>
+<a name="175"><span class="lineNum">     175 </span>                :            : };</a>
+<a name="176"><span class="lineNum">     176 </span>                :            : }  // namespace tf2</a>
+<a name="177"><span class="lineNum">     177 </span>                :            : #endif  // TF2__EXCEPTIONS_H_</a>
 </pre>
       </td>
     </tr>

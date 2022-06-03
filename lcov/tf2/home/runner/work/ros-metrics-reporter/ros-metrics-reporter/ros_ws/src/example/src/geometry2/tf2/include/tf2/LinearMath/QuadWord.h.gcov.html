@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-01 09:46:05</td>
+            <td class="headerValue">2022-06-03 02:37:40</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">10</td>
@@ -136,11 +136,11 @@
 <a name="58"><span class="lineNum">      58 </span>                :            :   </a>
 <a name="59"><span class="lineNum">      59 </span>                :            : </a>
 <a name="60"><span class="lineNum">      60 </span>                :            :   /**@brief Return the x value */</a>
-<a name="61"><span class="lineNum">      61 </span>                :<span class="lineCov">       9061 :                 TF2SIMD_FORCE_INLINE const tf2Scalar&amp; getX() const { return m_floats[0]; }</span></a>
+<a name="61"><span class="lineNum">      61 </span>                :<span class="lineCov">       9082 :                 TF2SIMD_FORCE_INLINE const tf2Scalar&amp; getX() const { return m_floats[0]; }</span></a>
 <a name="62"><span class="lineNum">      62 </span>                :            :   /**@brief Return the y value */</a>
-<a name="63"><span class="lineNum">      63 </span>                :<span class="lineCov">       9061 :                 TF2SIMD_FORCE_INLINE const tf2Scalar&amp; getY() const { return m_floats[1]; }</span></a>
+<a name="63"><span class="lineNum">      63 </span>                :<span class="lineCov">       9082 :                 TF2SIMD_FORCE_INLINE const tf2Scalar&amp; getY() const { return m_floats[1]; }</span></a>
 <a name="64"><span class="lineNum">      64 </span>                :            :   /**@brief Return the z value */</a>
-<a name="65"><span class="lineNum">      65 </span>                :<span class="lineCov">       9061 :                 TF2SIMD_FORCE_INLINE const tf2Scalar&amp; getZ() const { return m_floats[2]; }</span></a>
+<a name="65"><span class="lineNum">      65 </span>                :<span class="lineCov">       9082 :                 TF2SIMD_FORCE_INLINE const tf2Scalar&amp; getZ() const { return m_floats[2]; }</span></a>
 <a name="66"><span class="lineNum">      66 </span>                :            :   /**@brief Set the x value */</a>
 <a name="67"><span class="lineNum">      67 </span>                :            :                 TF2SIMD_FORCE_INLINE void       setX(tf2Scalar x) { m_floats[0] = x;};</a>
 <a name="68"><span class="lineNum">      68 </span>                :            :   /**@brief Set the y value */</a>
@@ -150,13 +150,13 @@
 <a name="72"><span class="lineNum">      72 </span>                :            :   /**@brief Set the w value */</a>
 <a name="73"><span class="lineNum">      73 </span>                :            :                 TF2SIMD_FORCE_INLINE void       setW(tf2Scalar w) { m_floats[3] = w;};</a>
 <a name="74"><span class="lineNum">      74 </span>                :            :   /**@brief Return the x value */</a>
-<a name="75"><span class="lineNum">      75 </span>                :<span class="lineCov">     457214 :                 TF2SIMD_FORCE_INLINE const tf2Scalar&amp; x() const { return m_floats[0]; }</span></a>
+<a name="75"><span class="lineNum">      75 </span>                :<span class="lineCov">     457488 :                 TF2SIMD_FORCE_INLINE const tf2Scalar&amp; x() const { return m_floats[0]; }</span></a>
 <a name="76"><span class="lineNum">      76 </span>                :            :   /**@brief Return the y value */</a>
-<a name="77"><span class="lineNum">      77 </span>                :<span class="lineCov">     431223 :                 TF2SIMD_FORCE_INLINE const tf2Scalar&amp; y() const { return m_floats[1]; }</span></a>
+<a name="77"><span class="lineNum">      77 </span>                :<span class="lineCov">     431489 :                 TF2SIMD_FORCE_INLINE const tf2Scalar&amp; y() const { return m_floats[1]; }</span></a>
 <a name="78"><span class="lineNum">      78 </span>                :            :   /**@brief Return the z value */</a>
-<a name="79"><span class="lineNum">      79 </span>                :<span class="lineCov">     405233 :                 TF2SIMD_FORCE_INLINE const tf2Scalar&amp; z() const { return m_floats[2]; }</span></a>
+<a name="79"><span class="lineNum">      79 </span>                :<span class="lineCov">     405491 :                 TF2SIMD_FORCE_INLINE const tf2Scalar&amp; z() const { return m_floats[2]; }</span></a>
 <a name="80"><span class="lineNum">      80 </span>                :            :   /**@brief Return the w value */</a>
-<a name="81"><span class="lineNum">      81 </span>                :<span class="lineCov">     198767 :                 TF2SIMD_FORCE_INLINE const tf2Scalar&amp; w() const { return m_floats[3]; }</span></a>
+<a name="81"><span class="lineNum">      81 </span>                :<span class="lineCov">     198953 :                 TF2SIMD_FORCE_INLINE const tf2Scalar&amp; w() const { return m_floats[3]; }</span></a>
 <a name="82"><span class="lineNum">      82 </span>                :            : </a>
 <a name="83"><span class="lineNum">      83 </span>                :            :         //TF2SIMD_FORCE_INLINE tf2Scalar&amp;       operator[](int i)       { return (&amp;m_floats[0])[i];     }      </a>
 <a name="84"><span class="lineNum">      84 </span>                :            :         //TF2SIMD_FORCE_INLINE const tf2Scalar&amp; operator[](int i) const { return (&amp;m_floats[0])[i]; }</a>
@@ -200,18 +200,18 @@
 <a name="122"><span class="lineNum">     122 </span>                :            :    * @param z Value of z</a>
 <a name="123"><span class="lineNum">     123 </span>                :            :    * @param w Value of w</a>
 <a name="124"><span class="lineNum">     124 </span>                :            :    */</a>
-<a name="125"><span class="lineNum">     125 </span>                :<span class="lineCov">     345969 :                 TF2SIMD_FORCE_INLINE void       setValue(const tf2Scalar&amp; x, const tf2Scalar&amp; y, const tf2Scalar&amp; z,const tf2Scalar&amp; w)</span></a>
+<a name="125"><span class="lineNum">     125 </span>                :<span class="lineCov">     346057 :                 TF2SIMD_FORCE_INLINE void       setValue(const tf2Scalar&amp; x, const tf2Scalar&amp; y, const tf2Scalar&amp; z,const tf2Scalar&amp; w)</span></a>
 <a name="126"><span class="lineNum">     126 </span>                :            :                 {</a>
-<a name="127"><span class="lineNum">     127 </span>                :<span class="lineCov">     345969 :                         m_floats[0]=x;</span></a>
-<a name="128"><span class="lineNum">     128 </span>                :<span class="lineCov">     345969 :                         m_floats[1]=y;</span></a>
-<a name="129"><span class="lineNum">     129 </span>                :<span class="lineCov">     345969 :                         m_floats[2]=z;</span></a>
-<a name="130"><span class="lineNum">     130 </span>                :<span class="lineCov">     345969 :                         m_floats[3]=w;</span></a>
-<a name="131"><span class="lineNum">     131 </span>                :<span class="lineCov">     345969 :                 }</span></a>
+<a name="127"><span class="lineNum">     127 </span>                :<span class="lineCov">     346057 :                         m_floats[0]=x;</span></a>
+<a name="128"><span class="lineNum">     128 </span>                :<span class="lineCov">     346057 :                         m_floats[1]=y;</span></a>
+<a name="129"><span class="lineNum">     129 </span>                :<span class="lineCov">     346057 :                         m_floats[2]=z;</span></a>
+<a name="130"><span class="lineNum">     130 </span>                :<span class="lineCov">     346057 :                         m_floats[3]=w;</span></a>
+<a name="131"><span class="lineNum">     131 </span>                :<span class="lineCov">     346057 :                 }</span></a>
 <a name="132"><span class="lineNum">     132 </span>                :            :   /**@brief No initialization constructor */</a>
-<a name="133"><span class="lineNum">     133 </span>                :<span class="lineCov">     369364 :                 TF2SIMD_FORCE_INLINE QuadWord()</span></a>
+<a name="133"><span class="lineNum">     133 </span>                :<span class="lineCov">     369690 :                 TF2SIMD_FORCE_INLINE QuadWord()</span></a>
 <a name="134"><span class="lineNum">     134 </span>                :            :                 //      :m_floats[0](tf2Scalar(0.)),m_floats[1](tf2Scalar(0.)),m_floats[2](tf2Scalar(0.)),m_floats[3](tf2Scalar(0.))</a>
-<a name="135"><span class="lineNum">     135 </span>                :<span class="lineCov">     369364 :                 {</span></a>
-<a name="136"><span class="lineNum">     136 </span>                :<span class="lineCov">     369364 :                 }</span></a>
+<a name="135"><span class="lineNum">     135 </span>                :<span class="lineCov">     369690 :                 {</span></a>
+<a name="136"><span class="lineNum">     136 </span>                :<span class="lineCov">     369690 :                 }</span></a>
 <a name="137"><span class="lineNum">     137 </span>                :            :  </a>
 <a name="138"><span class="lineNum">     138 </span>                :            :   /**@brief Three argument constructor (zeros w)</a>
 <a name="139"><span class="lineNum">     139 </span>                :            :    * @param x Value of x</a>
@@ -229,10 +229,10 @@
 <a name="151"><span class="lineNum">     151 </span>                :            :    * @param z Value of z</a>
 <a name="152"><span class="lineNum">     152 </span>                :            :    * @param w Value of w</a>
 <a name="153"><span class="lineNum">     153 </span>                :            :    */</a>
-<a name="154"><span class="lineNum">     154 </span>                :<span class="lineCov">      61348 :                 TF2SIMD_FORCE_INLINE QuadWord(const tf2Scalar&amp; x, const tf2Scalar&amp; y, const tf2Scalar&amp; z,const tf2Scalar&amp; w) </span></a>
-<a name="155"><span class="lineNum">     155 </span>                :<span class="lineCov">      61348 :                 {</span></a>
-<a name="156"><span class="lineNum">     156 </span>                :<span class="lineCov">      61348 :                         m_floats[0] = x, m_floats[1] = y, m_floats[2] = z, m_floats[3] = w;</span></a>
-<a name="157"><span class="lineNum">     157 </span>                :<span class="lineCov">      61348 :                 }</span></a>
+<a name="154"><span class="lineNum">     154 </span>                :<span class="lineCov">      61422 :                 TF2SIMD_FORCE_INLINE QuadWord(const tf2Scalar&amp; x, const tf2Scalar&amp; y, const tf2Scalar&amp; z,const tf2Scalar&amp; w) </span></a>
+<a name="155"><span class="lineNum">     155 </span>                :<span class="lineCov">      61422 :                 {</span></a>
+<a name="156"><span class="lineNum">     156 </span>                :<span class="lineCov">      61422 :                         m_floats[0] = x, m_floats[1] = y, m_floats[2] = z, m_floats[3] = w;</span></a>
+<a name="157"><span class="lineNum">     157 </span>                :<span class="lineCov">      61422 :                 }</span></a>
 <a name="158"><span class="lineNum">     158 </span>                :            : </a>
 <a name="159"><span class="lineNum">     159 </span>                :            :   /**@brief Set each element to the max of the current values and the values of another QuadWord</a>
 <a name="160"><span class="lineNum">     160 </span>                :            :    * @param other The other QuadWord to compare with </a>

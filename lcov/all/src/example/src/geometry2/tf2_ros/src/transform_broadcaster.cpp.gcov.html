@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-01 09:46:07</td>
+            <td class="headerValue">2022-06-03 02:37:42</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">2</td>
@@ -110,18 +110,18 @@
 <a name="32"><span class="lineNum">      32 </span>                :            : </a>
 <a name="33"><span class="lineNum">      33 </span>                :            : #include &quot;tf2_ros/transform_broadcaster.h&quot;</a>
 <a name="34"><span class="lineNum">      34 </span>                :            : </a>
-<a name="35"><span class="lineNum">      35 </span>                :            : #include &lt;geometry_msgs/msg/transform_stamped.hpp&gt;</a>
-<a name="36"><span class="lineNum">      36 </span>                :            : #include &lt;rclcpp/rclcpp.hpp&gt;</a>
-<a name="37"><span class="lineNum">      37 </span>                :            : #include &lt;tf2_msgs/msg/tf_message.hpp&gt;</a>
-<a name="38"><span class="lineNum">      38 </span>                :            : </a>
-<a name="39"><span class="lineNum">      39 </span>                :            : #include &lt;vector&gt;</a>
+<a name="35"><span class="lineNum">      35 </span>                :            : #include &lt;vector&gt;</a>
+<a name="36"><span class="lineNum">      36 </span>                :            : </a>
+<a name="37"><span class="lineNum">      37 </span>                :            : #include &quot;geometry_msgs/msg/transform_stamped.hpp&quot;</a>
+<a name="38"><span class="lineNum">      38 </span>                :            : #include &quot;rclcpp/rclcpp.hpp&quot;</a>
+<a name="39"><span class="lineNum">      39 </span>                :            : #include &quot;tf2_msgs/msg/tf_message.hpp&quot;</a>
 <a name="40"><span class="lineNum">      40 </span>                :            : </a>
 <a name="41"><span class="lineNum">      41 </span>                :            : namespace tf2_ros</a>
 <a name="42"><span class="lineNum">      42 </span>                :            : {</a>
 <a name="43"><span class="lineNum">      43 </span>                :            : </a>
 <a name="44"><span class="lineNum">      44 </span>                :<span class="lineCov">          2 : void TransformBroadcaster::sendTransform(const geometry_msgs::msg::TransformStamped &amp; msgtf)</span></a>
 <a name="45"><span class="lineNum">      45 </span>                :            : {</a>
-<a name="46"><span class="lineNum">      46 </span>                :<span class="lineCov">          4 :   std::vector&lt;geometry_msgs::msg::TransformStamped&gt; v1;</span></a>
+<a name="46"><span class="lineNum">      46 </span>                :<span class="lineCov">          2 :   std::vector&lt;geometry_msgs::msg::TransformStamped&gt; v1;</span></a>
 <a name="47"><span class="lineNum">      47 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   v1.push_back(msgtf);</span></a>
 <a name="48"><span class="lineNum">      48 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   sendTransform(v1);</span></a>
 <a name="49"><span class="lineNum">      49 </span>                :<span class="lineCov">          2 : }</span></a>
@@ -129,9 +129,9 @@
 <a name="51"><span class="lineNum">      51 </span>                :<span class="lineCov">          2 : void TransformBroadcaster::sendTransform(</span></a>
 <a name="52"><span class="lineNum">      52 </span>                :            :   const std::vector&lt;geometry_msgs::msg::TransformStamped&gt; &amp; msgtf)</a>
 <a name="53"><span class="lineNum">      53 </span>                :            : {</a>
-<a name="54"><span class="lineNum">      54 </span>                :<span class="lineCov">          4 :   tf2_msgs::msg::TFMessage message;</span></a>
-<a name="55"><span class="lineNum">      55 </span>                :<span class="lineCov">          4 :   for (std::vector&lt;geometry_msgs::msg::TransformStamped&gt;::const_iterator it = msgtf.begin();</span></a>
-<a name="56"><span class="lineNum">      56 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          6 :     it != msgtf.end(); ++it)</span></a>
+<a name="54"><span class="lineNum">      54 </span>                :<span class="lineCov">          2 :   tf2_msgs::msg::TFMessage message;</span></a>
+<a name="55"><span class="lineNum">      55 </span>                :<span class="lineCov">          2 :   for (std::vector&lt;geometry_msgs::msg::TransformStamped&gt;::const_iterator it = msgtf.begin();</span></a>
+<a name="56"><span class="lineNum">      56 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          4 :     it != msgtf.end(); ++it)</span></a>
 <a name="57"><span class="lineNum">      57 </span>                :            :   {</a>
 <a name="58"><span class="lineNum">      58 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :     message.transforms.push_back(*it);</span></a>
 <a name="59"><span class="lineNum">      59 </span>                :            :   }</a>

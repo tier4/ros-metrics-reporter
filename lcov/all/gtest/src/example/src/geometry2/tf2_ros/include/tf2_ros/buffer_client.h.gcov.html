@@ -31,18 +31,18 @@
             <td class="headerValue">coverage.filtered</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">15</td>
-            <td class="headerCovTableEntry">24</td>
-            <td class="headerCovTableEntryLo">62.5 %</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">25</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-01 09:45:35</td>
+            <td class="headerValue">2022-06-03 02:35:53</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">0</td>
             <td class="headerCovTableEntry">9</td>
-            <td class="headerCovTableEntryLo">66.7 %</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Legend:</td>
@@ -56,9 +56,9 @@
 </td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">4</td>
-            <td class="headerCovTableEntry">8</td>
-            <td class="headerCovTableEntryLo">50.0 %</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntryHi">-</td>
           </tr>
           <tr><td><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -116,16 +116,16 @@
 <a name="38"><span class="lineNum">      38 </span>                :            : #ifndef TF2_ROS__BUFFER_CLIENT_H_</a>
 <a name="39"><span class="lineNum">      39 </span>                :            : #define TF2_ROS__BUFFER_CLIENT_H_</a>
 <a name="40"><span class="lineNum">      40 </span>                :            : </a>
-<a name="41"><span class="lineNum">      41 </span>                :            : #include &lt;tf2_ros/buffer_interface.h&gt;</a>
-<a name="42"><span class="lineNum">      42 </span>                :            : #include &lt;tf2_ros/visibility_control.h&gt;</a>
-<a name="43"><span class="lineNum">      43 </span>                :            : #include &lt;tf2/time.h&gt;</a>
-<a name="44"><span class="lineNum">      44 </span>                :            : </a>
-<a name="45"><span class="lineNum">      45 </span>                :            : #include &lt;geometry_msgs/msg/transform_stamped.hpp&gt;</a>
-<a name="46"><span class="lineNum">      46 </span>                :            : #include &lt;rclcpp_action/rclcpp_action.hpp&gt;</a>
-<a name="47"><span class="lineNum">      47 </span>                :            : #include &lt;tf2_msgs/action/lookup_transform.hpp&gt;</a>
-<a name="48"><span class="lineNum">      48 </span>                :            : </a>
-<a name="49"><span class="lineNum">      49 </span>                :            : #include &lt;stdexcept&gt;</a>
-<a name="50"><span class="lineNum">      50 </span>                :            : #include &lt;string&gt;</a>
+<a name="41"><span class="lineNum">      41 </span>                :            : #include &lt;stdexcept&gt;</a>
+<a name="42"><span class="lineNum">      42 </span>                :            : #include &lt;string&gt;</a>
+<a name="43"><span class="lineNum">      43 </span>                :            : </a>
+<a name="44"><span class="lineNum">      44 </span>                :            : #include &quot;tf2_ros/buffer_interface.h&quot;</a>
+<a name="45"><span class="lineNum">      45 </span>                :            : #include &quot;tf2_ros/visibility_control.h&quot;</a>
+<a name="46"><span class="lineNum">      46 </span>                :            : #include &quot;tf2/time.h&quot;</a>
+<a name="47"><span class="lineNum">      47 </span>                :            : </a>
+<a name="48"><span class="lineNum">      48 </span>                :            : #include &quot;geometry_msgs/msg/transform_stamped.hpp&quot;</a>
+<a name="49"><span class="lineNum">      49 </span>                :            : #include &quot;rclcpp_action/rclcpp_action.hpp&quot;</a>
+<a name="50"><span class="lineNum">      50 </span>                :            : #include &quot;tf2_msgs/action/lookup_transform.hpp&quot;</a>
 <a name="51"><span class="lineNum">      51 </span>                :            : </a>
 <a name="52"><span class="lineNum">      52 </span>                :            : namespace tf2_ros</a>
 <a name="53"><span class="lineNum">      53 </span>                :            : {</a>
@@ -136,10 +136,10 @@
 <a name="58"><span class="lineNum">      58 </span>                :            : {</a>
 <a name="59"><span class="lineNum">      59 </span>                :            : public:</a>
 <a name="60"><span class="lineNum">      60 </span>                :            :   TF2_ROS_PUBLIC</a>
-<a name="61"><span class="lineNum">      61 </span>                :<span class="lineCov">          2 :   explicit LookupTransformGoalException(const std::string &amp; message)</span></a>
-<a name="62"><span class="lineNum">      62 </span>                :<span class="lineCov">          2 :   : std::runtime_error(message)</span></a>
+<a name="61"><span class="lineNum">      61 </span>                :<span class="lineNoCov">          0 :   explicit LookupTransformGoalException(const std::string &amp; message)</span></a>
+<a name="62"><span class="lineNum">      62 </span>                :<span class="lineNoCov">          0 :   : std::runtime_error(message)</span></a>
 <a name="63"><span class="lineNum">      63 </span>                :            :   {</a>
-<a name="64"><span class="lineNum">      64 </span>                :<span class="lineCov">          2 :   }</span></a>
+<a name="64"><span class="lineNum">      64 </span>                :<span class="lineNoCov">          0 :   }</span></a>
 <a name="65"><span class="lineNum">      65 </span>                :            : };</a>
 <a name="66"><span class="lineNum">      66 </span>                :            : </a>
 <a name="67"><span class="lineNum">      67 </span>                :            : class GoalRejectedException : public LookupTransformGoalException</a>
@@ -156,10 +156,10 @@
 <a name="78"><span class="lineNum">      78 </span>                :            : {</a>
 <a name="79"><span class="lineNum">      79 </span>                :            : public:</a>
 <a name="80"><span class="lineNum">      80 </span>                :            :   TF2_ROS_PUBLIC</a>
-<a name="81"><span class="lineNum">      81 </span>                :<span class="lineCov">          2 :   explicit GoalAbortedException(const std::string &amp; message)</span></a>
-<a name="82"><span class="lineNum">      82 </span>                :<span class="lineCov">          2 :   : LookupTransformGoalException(message)</span></a>
+<a name="81"><span class="lineNum">      81 </span>                :<span class="lineNoCov">          0 :   explicit GoalAbortedException(const std::string &amp; message)</span></a>
+<a name="82"><span class="lineNum">      82 </span>                :<span class="lineNoCov">          0 :   : LookupTransformGoalException(message)</span></a>
 <a name="83"><span class="lineNum">      83 </span>                :            :   {</a>
-<a name="84"><span class="lineNum">      84 </span>                :<span class="lineCov">          2 :   }</span></a>
+<a name="84"><span class="lineNum">      84 </span>                :<span class="lineNoCov">          0 :   }</span></a>
 <a name="85"><span class="lineNum">      85 </span>                :            : };</a>
 <a name="86"><span class="lineNum">      86 </span>                :            : </a>
 <a name="87"><span class="lineNum">      87 </span>                :            : class GoalCanceledException : public LookupTransformGoalException</a>
@@ -200,18 +200,18 @@
 <a name="122"><span class="lineNum">     122 </span>                :            :    * \param timeout_padding The amount of time to allow passed the desired timeout on the client side for communication lag</a>
 <a name="123"><span class="lineNum">     123 </span>                :            :    */</a>
 <a name="124"><span class="lineNum">     124 </span>                :            :   template&lt;typename NodePtr&gt;</a>
-<a name="125"><span class="lineNum">     125 </span>                :<span class="lineCov">          4 :   BufferClient(</span></a>
+<a name="125"><span class="lineNum">     125 </span>                :<span class="lineNoCov">          0 :   BufferClient(</span></a>
 <a name="126"><span class="lineNum">     126 </span>                :            :     NodePtr node,</a>
 <a name="127"><span class="lineNum">     127 </span>                :            :     const std::string ns,</a>
-<a name="128"><span class="lineNum">     128 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          4 :     const double &amp; check_frequency = 10.0,</span></a>
-<a name="129"><span class="lineNum">     129 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          8 :     const tf2::Duration &amp; timeout_padding = tf2::durationFromSec(2.0))</span></a>
-<a name="130"><span class="lineNum">     130 </span>                :            :   : check_frequency_(check_frequency),</a>
-<a name="131"><span class="lineNum">     131 </span>                :<span class="lineCov">          4 :     timeout_padding_(timeout_padding)</span></a>
+<a name="128"><span class="lineNum">     128 </span>                :<span class="lineNoCov">          0 :     const double &amp; check_frequency = 10.0,</span></a>
+<a name="129"><span class="lineNum">     129 </span>                :<span class="lineNoCov">          0 :     const tf2::Duration &amp; timeout_padding = tf2::durationFromSec(2.0))</span></a>
+<a name="130"><span class="lineNum">     130 </span>                :<span class="lineNoCov">          0 :   : check_frequency_(check_frequency),</span></a>
+<a name="131"><span class="lineNum">     131 </span>                :<span class="lineNoCov">          0 :     timeout_padding_(timeout_padding)</span></a>
 <a name="132"><span class="lineNum">     132 </span>                :            :   {</a>
-<a name="133"><span class="lineNum">     133 </span>  [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          4 :     client_ = rclcpp_action::create_client&lt;LookupTransformAction&gt;(node, ns);</span></a>
-<a name="134"><span class="lineNum">     134 </span>                :<span class="lineCov">          4 :   }</span></a>
+<a name="133"><span class="lineNum">     133 </span>                :<span class="lineNoCov">          0 :     client_ = rclcpp_action::create_client&lt;LookupTransformAction&gt;(node, ns);</span></a>
+<a name="134"><span class="lineNum">     134 </span>                :<span class="lineNoCov">          0 :   }</span></a>
 <a name="135"><span class="lineNum">     135 </span>                :            : </a>
-<a name="136"><span class="lineNum">     136 </span>                :<span class="lineCov">          8 :   virtual ~BufferClient() = default;</span></a>
+<a name="136"><span class="lineNum">     136 </span>                :<span class="lineNoCov">          0 :   virtual ~BufferClient() = default;</span></a>
 <a name="137"><span class="lineNum">     137 </span>                :            : </a>
 <a name="138"><span class="lineNum">     138 </span>                :            :   /** \brief Get the transform between two frames by frame ID.</a>
 <a name="139"><span class="lineNum">     139 </span>                :            :    *</a>
@@ -320,9 +320,9 @@
 <a name="242"><span class="lineNum">     242 </span>                :            :    * \return True if the server is ready, false otherwise.</a>
 <a name="243"><span class="lineNum">     243 </span>                :            :    */</a>
 <a name="244"><span class="lineNum">     244 </span>                :            :   TF2_ROS_PUBLIC</a>
-<a name="245"><span class="lineNum">     245 </span>                :<span class="lineCov">          4 :   bool waitForServer(const tf2::Duration &amp; timeout = tf2::durationFromSec(0))</span></a>
+<a name="245"><span class="lineNum">     245 </span>                :<span class="lineNoCov">          0 :   bool waitForServer(const tf2::Duration &amp; timeout = tf2::durationFromSec(0))</span></a>
 <a name="246"><span class="lineNum">     246 </span>                :            :   {</a>
-<a name="247"><span class="lineNum">     247 </span>                :<span class="lineCov">          4 :     return client_-&gt;wait_for_action_server(timeout);</span></a>
+<a name="247"><span class="lineNum">     247 </span>                :<span class="lineNoCov">          0 :     return client_-&gt;wait_for_action_server(timeout);</span></a>
 <a name="248"><span class="lineNum">     248 </span>                :            :   }</a>
 <a name="249"><span class="lineNum">     249 </span>                :            : </a>
 <a name="250"><span class="lineNum">     250 </span>                :            : private:</a>
