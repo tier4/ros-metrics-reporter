@@ -2,6 +2,7 @@ from datetime import datetime
 from pathlib import Path
 import shutil
 import subprocess
+import pytest
 
 
 root_path = Path(__file__).parent.parent.resolve()
@@ -71,6 +72,7 @@ def run_ros_metrics_reporter():
     return args
 
 
+@pytest.mark.local
 def test_ros_metrics_reporter():
     if not ros_ws.exists():
         setup()
