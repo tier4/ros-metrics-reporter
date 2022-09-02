@@ -108,7 +108,7 @@ runs:
         sudo apt-get install -y gcc-multilib
         python -m pip install --upgrade pip
         python -m pip install pipenv
-        pipenv lock -r > requirement.txt
+        pipenv requirements > requirement.txt
         pip install -r requirement.txt
       shell: bash
 
