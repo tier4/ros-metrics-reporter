@@ -24,8 +24,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install pipenv
+          python3 -m pip install --upgrade pip
+          python3 -m pip install pipenv
           pipenv requirements > requirement.txt
           pip install -r requirement.txt
           colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
