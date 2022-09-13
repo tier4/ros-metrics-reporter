@@ -13,7 +13,7 @@ class Package:
     """
 
     name: str
-    ros_ws: Path
+    git_ws: Path
     path: Path
     type: str
 

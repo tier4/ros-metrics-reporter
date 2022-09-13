@@ -5,10 +5,16 @@ import collections
 import plotly.express as px
 import pandas as pd
 
-from ros_metrics_reporter.util import run_command_pipe
+from ros_metrics_reporter.util import run_command_pipe, run_command
 
 
 def generate_code_frequency_graph(git_ws: Path, package_path: Path, dest: Path) -> None:
+    # Prevent "detected dubious ownership in repository" error
+    run_command(
+        args=shlex.split(f"git config --global --add safe.directory {git_ws}"),
+        cwd=git_ws,
+    )
+
     git_log = run_command_pipe(
         args=shlex.split(f'git log --follow --pretty=format:"%as" {package_path}'),
         cwd=git_ws,
