@@ -27,12 +27,12 @@ jobs:
         include:
           # Humble Hawksbill (May 2022 - May 2027)
           - ros_distribution: humble
-            docker_image: osrf/ros-humble-desktop
+            docker_image: osrf/ros:humble-desktop
             vcs_file: ros-metrics-reporter-humble.repos
 
           # Rolling Ridley (June 2020 -)
           - ros_distribution: rolling
-            docker_image: osrf/ros-rolling-desktop
+            docker_image: osrf/ros:rolling-desktop
             vcs_file: ros-metrics-reporter-rolling.repos
 
     steps:
