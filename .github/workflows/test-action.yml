@@ -10,6 +10,8 @@ on:
 jobs:
   action-test:
     runs-on: ubuntu-22.04
+    container:
+      image: ${{ matrix.docker_image }}
     env:
       ARTIFACTS_DIR: data
       TARGET_REPO: "ros2/geometry2"
@@ -25,10 +27,12 @@ jobs:
         include:
           # Humble Hawksbill (May 2022 - May 2027)
           - ros_distribution: humble
+            docker_image: osrf/ros-humble-desktop
             vcs_file: ros-metrics-reporter-humble.repos
 
           # Rolling Ridley (June 2020 -)
           - ros_distribution: rolling
+            docker_image: osrf/ros-rolling-desktop
             vcs_file: ros-metrics-reporter-rolling.repos
 
     steps:
