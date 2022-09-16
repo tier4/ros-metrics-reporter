@@ -102,7 +102,7 @@ runs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y lcov git hugo
+        sudo apt-get install -y lcov git hugo python3-venv
         sudo apt-get install -y clang-tidy-11
         sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-11 9999
         sudo apt-get install -y gcc-multilib
