@@ -1,25 +1,25 @@
 {
-  "package": "all",
+  "package": "tf2",
   "worst_value": {
-    "ccn": 36,
+    "ccn": 31,
     "nloc": 201,
     "parameter": 9,
     "token": 1868
   },
   "average_value": {
-    "ccn": 2.1,
-    "nloc": 11.6,
-    "parameter": 1.8,
-    "token": 83.3
+    "ccn": 1.9,
+    "nloc": 9.3,
+    "parameter": 1.4,
+    "token": 73.7
   },
   "over_threshold_count": {
-    "ccn": 4,
+    "ccn": 2,
     "nloc": 1,
-    "parameter": 16,
+    "parameter": 3,
     "token": 0
   },
   "over_recommendation_count": {
-    "ccn": 60,
+    "ccn": 14,
     "nloc": 0,
     "parameter": 0,
     "token": 0

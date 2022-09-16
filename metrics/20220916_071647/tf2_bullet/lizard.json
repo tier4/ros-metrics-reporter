@@ -1,25 +1,25 @@
 {
-  "package": "ros-metrics-reporter",
+  "package": "tf2_bullet",
   "worst_value": {
-    "ccn": 10,
-    "nloc": 65,
-    "parameter": 7,
-    "token": 445
+    "ccn": 1,
+    "nloc": 13,
+    "parameter": 3,
+    "token": 121
   },
   "average_value": {
-    "ccn": 2.5,
-    "nloc": 12.0,
-    "parameter": 2.2,
-    "token": 71.4
+    "ccn": 1.0,
+    "nloc": 8.8,
+    "parameter": 1.7,
+    "token": 73.5
   },
   "over_threshold_count": {
     "ccn": 0,
     "nloc": 0,
-    "parameter": 1,
+    "parameter": 0,
     "token": 0
   },
   "over_recommendation_count": {
-    "ccn": 6,
+    "ccn": 0,
     "nloc": 0,
     "parameter": 0,
     "token": 0

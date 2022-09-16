@@ -1,0 +1,27 @@
+{
+  "package": "tf2_py",
+  "worst_value": {
+    "ccn": 36,
+    "nloc": 176,
+    "parameter": 3,
+    "token": 957
+  },
+  "average_value": {
+    "ccn": 4.8,
+    "nloc": 28.2,
+    "parameter": 1.7,
+    "token": 171.6
+  },
+  "over_threshold_count": {
+    "ccn": 1,
+    "nloc": 0,
+    "parameter": 0,
+    "token": 0
+  },
+  "over_recommendation_count": {
+    "ccn": 8,
+    "nloc": 0,
+    "parameter": 0,
+    "token": 0
+  }
+}
