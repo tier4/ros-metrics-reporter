@@ -108,7 +108,7 @@ runs:
         sudo apt-get install -y gcc-multilib
         python3 -m pip install --upgrade pip
         python3 -m pip install pipenv
-        cd ${GITHUB_ACTION_PATH} && pipenv requirements > requirement.txt && python3 -m pip install -r requirement.txt
+        python3 -m pip install -r ${GITHUB_ACTION_PATH}/requirement.txt
       shell: bash
 
     - name: Set timestamp
