@@ -10,6 +10,8 @@ on:
 jobs:
   action-test:
     runs-on: ubuntu-22.04
+    container:
+      image: ${{ matrix.docker_image }}
     env:
       ARTIFACTS_DIR: data
       TARGET_REPO: "ros2/geometry2"
@@ -25,10 +27,12 @@ jobs:
         include:
           # Humble Hawksbill (May 2022 - May 2027)
           - ros_distribution: humble
+            docker_image: osrf/ros:humble-desktop
             vcs_file: ros-metrics-reporter-humble.repos
 
           # Rolling Ridley (June 2020 -)
           - ros_distribution: rolling
+            docker_image: osrf/ros:rolling-desktop
             vcs_file: ros-metrics-reporter-rolling.repos
 
     steps:
@@ -51,7 +55,7 @@ jobs:
       with:
         target-ros2-distro: ${{ matrix.ros_distribution }}
         vcs-repo-file-url: ${{ matrix.vcs_file }}
-        skip-tests: true
+        colcon-extra-args: --base-paths example/src/geometry2/
         extra-cmake-args: -DCMAKE_CXX_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_C_FLAGS="-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
         colcon-defaults: |
           {
@@ -60,6 +64,12 @@ jobs:
             }
           }
         colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/1ddb69bedfd1f04c2f000e95452f7c24a4d6176b/index.yaml
+
+    - uses: actions/upload-artifact@v1
+      with:
+        name: colcon-logs
+        path: ${{ steps.build_and_test.outputs.ros-workspace-directory-name }}/log
+      if: always() # upload the logs even when the build fails
 
     - name: Generate report
       id: metrics-reporter

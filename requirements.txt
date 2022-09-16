@@ -1,0 +1,11 @@
+bs4
+pandas
+plotly
+colcon-lcov-result
+Jinja2
+PyGithub
+colcon-coveragepy-result
+pyyaml
+lark
+colcon-common-extensions
+colcon-mixin
