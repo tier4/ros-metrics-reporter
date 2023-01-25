@@ -45,7 +45,7 @@ jobs:
         ref: data
         path: ${{ env.ARTIFACTS_DIR }}
 
-    - uses: ros-tooling/setup-ros@v0.4
+    - uses: ros-tooling/setup-ros@v0.5
       with:
         required-ros-distributions: ${{ matrix.ros_distribution }}
 
