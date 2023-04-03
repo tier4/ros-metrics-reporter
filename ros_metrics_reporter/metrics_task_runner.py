@@ -45,7 +45,6 @@ class MetricsTaskRunner:
         )
 
     def run(self, packages: PackageInfo):
-
         lizard_dir = self.gh_action_dir / "lizard"
         if not lizard_dir.exists():
             clone_lizard(lizard_dir)
