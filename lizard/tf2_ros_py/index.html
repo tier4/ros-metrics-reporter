@@ -55,7 +55,7 @@
 <table>
 
   <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>/__w/ros-metrics-reporter/ros-metrics-reporter/ros_ws/src/example/src/geometry2/tf2_ros_py/tf2_ros/transform_broadcaster.py</b></td></tr>
+  Source file: <b>/__w/ros-metrics-reporter/ros-metrics-reporter/ros_ws/src/example/src/geometry2/tf2_ros_py/tf2_ros/buffer_client.py</b></td></tr>
 
 <tr><th>Function name</th><th></th><th>
 Cyclomatic complexity
@@ -71,31 +71,91 @@ Cyclomatic complexity
     <td style="background-color:LightSteelBlue">__init__</td>
     <td></td>
     
-       <td class="lesser-value">2</td>
+       <td class="lesser-value">1</td>
     
 
     
-       <td class="lesser-value">16</td>
+       <td class="lesser-value">20</td>
     
 
     
-       <td class="value">53</td>
+       <td class="value">74</td>
     
 
     
-       <td class="lesser-value">4</td>
+       <td class="lesser-value">5</td>
     
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">sendTransform</td>
+    <td style="background-color:LightSteelBlue">lookup_transform</td>
     <td></td>
     
        <td class="lesser-value">3</td>
     
 
     
-       <td class="lesser-value">15</td>
+       <td class="lesser-value">32</td>
+    
+
+    
+       <td class="value">120</td>
+    
+
+    
+       <td class="lesser-value">5</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">lookup_transform_full</td>
+    <td></td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">29</td>
+    
+
+    
+       <td class="value">97</td>
+    
+
+    
+       <td class="greater-value">7</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">can_transform</td>
+    <td></td>
+    
+       <td class="lesser-value">2</td>
+    
+
+    
+       <td class="lesser-value">22</td>
+    
+
+    
+       <td class="value">51</td>
+    
+
+    
+       <td class="lesser-value">5</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">can_transform_full</td>
+    <td></td>
+    
+       <td class="lesser-value">2</td>
+    
+
+    
+       <td class="lesser-value">28</td>
     
 
     
@@ -103,42 +163,43 @@ Cyclomatic complexity
     
 
     
-       <td class="lesser-value">3</td>
+       <td class="greater-value">7</td>
     
   </tr>
   
-
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>/__w/ros-metrics-reporter/ros-metrics-reporter/ros_ws/src/example/src/geometry2/tf2_ros_py/tf2_ros/__init__.py</b></td></tr>
-
-  
-
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>/__w/ros-metrics-reporter/ros-metrics-reporter/ros_ws/src/example/src/geometry2/tf2_ros_py/tf2_ros/transform_listener.py</b></td></tr>
-
-<tr><th>Function name</th><th></th><th>
-Cyclomatic complexity
-(20)
-</th><th>LOC (200)</th><th>
-    
-       Token count
-    
-</th><th>Parameter count (6)</th></tr>
-
-  
   <tr>
-    <td style="background-color:LightSteelBlue">__init__.run_func</td>
+    <td style="background-color:LightSteelBlue">__process_goal.unblock</td>
     <td></td>
     
        <td class="lesser-value">1</td>
     
 
     
+       <td class="lesser-value">3</td>
+    
+
+    
+       <td class="value">12</td>
+    
+
+    
+       <td class="lesser-value">1</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">__process_goal.unblock_by_timeout</td>
+    <td></td>
+    
        <td class="lesser-value">4</td>
     
 
     
-       <td class="value">31</td>
+       <td class="lesser-value">11</td>
+    
+
+    
+       <td class="value">81</td>
     
 
     
@@ -147,156 +208,62 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">__init__</td>
+    <td style="background-color:LightSteelBlue">__process_goal</td>
     <td></td>
     
        <td class="lesser-value">4</td>
     
 
     
-       <td class="lesser-value">42</td>
+       <td class="lesser-value">18</td>
     
 
     
-       <td class="value">198</td>
+       <td class="value">129</td>
     
 
     
-       <td class="greater-value">9</td>
+       <td class="lesser-value">2</td>
     
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">__del__</td>
+    <td style="background-color:LightSteelBlue">__process_result</td>
     <td></td>
+    
+       <td class="lesser-value">9</td>
+    
+
+    
+       <td class="lesser-value">16</td>
+    
+
+    
+       <td class="value">177</td>
+    
+
+    
+       <td class="lesser-value">2</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">destroy</td>
+    <td></td>
+    
+       <td class="lesser-value">1</td>
+    
+
     
        <td class="lesser-value">3</td>
     
 
     
-       <td class="lesser-value">5</td>
-    
-
-    
-       <td class="value">41</td>
+       <td class="value">15</td>
     
 
     
        <td class="lesser-value">1</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">unregister</td>
-    <td></td>
-    
-       <td class="lesser-value">1</td>
-    
-
-    
-       <td class="lesser-value">6</td>
-    
-
-    
-       <td class="value">28</td>
-    
-
-    
-       <td class="lesser-value">1</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">callback</td>
-    <td></td>
-    
-       <td class="lesser-value">2</td>
-    
-
-    
-       <td class="lesser-value">4</td>
-    
-
-    
-       <td class="value">31</td>
-    
-
-    
-       <td class="lesser-value">2</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">static_callback</td>
-    <td></td>
-    
-       <td class="lesser-value">2</td>
-    
-
-    
-       <td class="lesser-value">4</td>
-    
-
-    
-       <td class="value">31</td>
-    
-
-    
-       <td class="lesser-value">2</td>
-    
-  </tr>
-  
-
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>/__w/ros-metrics-reporter/ros-metrics-reporter/ros_ws/src/example/src/geometry2/tf2_ros_py/tf2_ros/static_transform_broadcaster.py</b></td></tr>
-
-<tr><th>Function name</th><th></th><th>
-Cyclomatic complexity
-(20)
-</th><th>LOC (200)</th><th>
-    
-       Token count
-    
-</th><th>Parameter count (6)</th></tr>
-
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">__init__</td>
-    <td></td>
-    
-       <td class="lesser-value">2</td>
-    
-
-    
-       <td class="lesser-value">14</td>
-    
-
-    
-       <td class="value">66</td>
-    
-
-    
-       <td class="lesser-value">4</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">sendTransform</td>
-    <td></td>
-    
-       <td class="lesser-value">3</td>
-    
-
-    
-       <td class="lesser-value">7</td>
-    
-
-    
-       <td class="value">62</td>
-    
-
-    
-       <td class="lesser-value">3</td>
     
   </tr>
   
@@ -631,6 +598,194 @@ Cyclomatic complexity
 
     
        <td class="lesser-value">6</td>
+    
+  </tr>
+  
+
+  <tr><td colspan="7" style="background-color:LightBlue;">
+  Source file: <b>/__w/ros-metrics-reporter/ros-metrics-reporter/ros_ws/src/example/src/geometry2/tf2_ros_py/tf2_ros/transform_broadcaster.py</b></td></tr>
+
+<tr><th>Function name</th><th></th><th>
+Cyclomatic complexity
+(20)
+</th><th>LOC (200)</th><th>
+    
+       Token count
+    
+</th><th>Parameter count (6)</th></tr>
+
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">__init__</td>
+    <td></td>
+    
+       <td class="lesser-value">2</td>
+    
+
+    
+       <td class="lesser-value">16</td>
+    
+
+    
+       <td class="value">53</td>
+    
+
+    
+       <td class="lesser-value">4</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">sendTransform</td>
+    <td></td>
+    
+       <td class="lesser-value">3</td>
+    
+
+    
+       <td class="lesser-value">15</td>
+    
+
+    
+       <td class="value">63</td>
+    
+
+    
+       <td class="lesser-value">3</td>
+    
+  </tr>
+  
+
+  <tr><td colspan="7" style="background-color:LightBlue;">
+  Source file: <b>/__w/ros-metrics-reporter/ros-metrics-reporter/ros_ws/src/example/src/geometry2/tf2_ros_py/tf2_ros/transform_listener.py</b></td></tr>
+
+<tr><th>Function name</th><th></th><th>
+Cyclomatic complexity
+(20)
+</th><th>LOC (200)</th><th>
+    
+       Token count
+    
+</th><th>Parameter count (6)</th></tr>
+
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">__init__.run_func</td>
+    <td></td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">4</td>
+    
+
+    
+       <td class="value">31</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">__init__</td>
+    <td></td>
+    
+       <td class="lesser-value">4</td>
+    
+
+    
+       <td class="lesser-value">42</td>
+    
+
+    
+       <td class="value">198</td>
+    
+
+    
+       <td class="greater-value">9</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">__del__</td>
+    <td></td>
+    
+       <td class="lesser-value">3</td>
+    
+
+    
+       <td class="lesser-value">5</td>
+    
+
+    
+       <td class="value">41</td>
+    
+
+    
+       <td class="lesser-value">1</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">unregister</td>
+    <td></td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">6</td>
+    
+
+    
+       <td class="value">28</td>
+    
+
+    
+       <td class="lesser-value">1</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">callback</td>
+    <td></td>
+    
+       <td class="lesser-value">2</td>
+    
+
+    
+       <td class="lesser-value">4</td>
+    
+
+    
+       <td class="value">31</td>
+    
+
+    
+       <td class="lesser-value">2</td>
+    
+  </tr>
+  
+  <tr>
+    <td style="background-color:LightSteelBlue">static_callback</td>
+    <td></td>
+    
+       <td class="lesser-value">2</td>
+    
+
+    
+       <td class="lesser-value">4</td>
+    
+
+    
+       <td class="value">31</td>
+    
+
+    
+       <td class="lesser-value">2</td>
     
   </tr>
   
@@ -1050,7 +1205,12 @@ Cyclomatic complexity
   
 
   <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>/__w/ros-metrics-reporter/ros-metrics-reporter/ros_ws/src/example/src/geometry2/tf2_ros_py/tf2_ros/buffer_client.py</b></td></tr>
+  Source file: <b>/__w/ros-metrics-reporter/ros-metrics-reporter/ros_ws/src/example/src/geometry2/tf2_ros_py/tf2_ros/__init__.py</b></td></tr>
+
+  
+
+  <tr><td colspan="7" style="background-color:LightBlue;">
+  Source file: <b>/__w/ros-metrics-reporter/ros-metrics-reporter/ros_ws/src/example/src/geometry2/tf2_ros_py/tf2_ros/static_transform_broadcaster.py</b></td></tr>
 
 <tr><th>Function name</th><th></th><th>
 Cyclomatic complexity
@@ -1066,199 +1226,39 @@ Cyclomatic complexity
     <td style="background-color:LightSteelBlue">__init__</td>
     <td></td>
     
-       <td class="lesser-value">1</td>
-    
-
-    
-       <td class="lesser-value">20</td>
-    
-
-    
-       <td class="value">74</td>
-    
-
-    
-       <td class="lesser-value">5</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">lookup_transform</td>
-    <td></td>
-    
-       <td class="lesser-value">3</td>
-    
-
-    
-       <td class="lesser-value">32</td>
-    
-
-    
-       <td class="value">120</td>
-    
-
-    
-       <td class="lesser-value">5</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">lookup_transform_full</td>
-    <td></td>
-    
-       <td class="lesser-value">1</td>
-    
-
-    
-       <td class="lesser-value">29</td>
-    
-
-    
-       <td class="value">97</td>
-    
-
-    
-       <td class="greater-value">7</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">can_transform</td>
-    <td></td>
-    
        <td class="lesser-value">2</td>
     
 
     
-       <td class="lesser-value">22</td>
+       <td class="lesser-value">14</td>
     
 
     
-       <td class="value">51</td>
+       <td class="value">66</td>
     
 
-    
-       <td class="lesser-value">5</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">can_transform_full</td>
-    <td></td>
-    
-       <td class="lesser-value">2</td>
-    
-
-    
-       <td class="lesser-value">28</td>
-    
-
-    
-       <td class="value">63</td>
-    
-
-    
-       <td class="greater-value">7</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">__process_goal.unblock</td>
-    <td></td>
-    
-       <td class="lesser-value">1</td>
-    
-
-    
-       <td class="lesser-value">3</td>
-    
-
-    
-       <td class="value">12</td>
-    
-
-    
-       <td class="lesser-value">1</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">__process_goal.unblock_by_timeout</td>
-    <td></td>
     
        <td class="lesser-value">4</td>
     
-
-    
-       <td class="lesser-value">11</td>
-    
-
-    
-       <td class="value">81</td>
-    
-
-    
-       <td class="lesser-value">0</td>
-    
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">__process_goal</td>
+    <td style="background-color:LightSteelBlue">sendTransform</td>
     <td></td>
-    
-       <td class="lesser-value">4</td>
-    
-
-    
-       <td class="lesser-value">18</td>
-    
-
-    
-       <td class="value">129</td>
-    
-
-    
-       <td class="lesser-value">2</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">__process_result</td>
-    <td></td>
-    
-       <td class="lesser-value">9</td>
-    
-
-    
-       <td class="lesser-value">16</td>
-    
-
-    
-       <td class="value">177</td>
-    
-
-    
-       <td class="lesser-value">2</td>
-    
-  </tr>
-  
-  <tr>
-    <td style="background-color:LightSteelBlue">destroy</td>
-    <td></td>
-    
-       <td class="lesser-value">1</td>
-    
-
     
        <td class="lesser-value">3</td>
     
 
     
-       <td class="value">15</td>
+       <td class="lesser-value">7</td>
     
 
     
-       <td class="lesser-value">1</td>
+       <td class="value">62</td>
+    
+
+    
+       <td class="lesser-value">3</td>
     
   </tr>
   
@@ -1274,7 +1274,7 @@ Cyclomatic complexity
 <br>
 <table width="100%" border=0 cellspacing=0 cellpadding=0>
     <tr><td class="footer">Generated by
-    <a href="http://www.lizard.ws/">Lizard</a> on 2022-09-16 07:17
+    <a href="http://www.lizard.ws/">Lizard</a> on 2023-11-02 09:13
     </td></tr>
 </table>
  </body>
