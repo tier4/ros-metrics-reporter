@@ -18,7 +18,7 @@ jobs:
           python-version: '3.10'
 
       - name: Setup ROS to use colcon commands
-        uses: ros-tooling/setup-ros@v0.4
+        uses: ros-tooling/setup-ros@v0.7
         with:
           required-ros-distributions: humble
 
