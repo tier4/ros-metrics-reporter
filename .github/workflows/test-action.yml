@@ -37,10 +37,10 @@ jobs:
 
     steps:
     - name: Clone main branch
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Clone data branch
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         ref: data
         path: ${{ env.ARTIFACTS_DIR }}
