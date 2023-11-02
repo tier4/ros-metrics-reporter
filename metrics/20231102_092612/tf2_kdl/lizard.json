@@ -1,0 +1,27 @@
+{
+  "package": "tf2_kdl",
+  "worst_value": {
+    "ccn": 1,
+    "nloc": 13,
+    "parameter": 3,
+    "token": 141
+  },
+  "average_value": {
+    "ccn": 1.0,
+    "nloc": 6.9,
+    "parameter": 1.7,
+    "token": 76.6
+  },
+  "over_threshold_count": {
+    "ccn": 0,
+    "nloc": 0,
+    "parameter": 0,
+    "token": 0
+  },
+  "over_recommendation_count": {
+    "ccn": 0,
+    "nloc": 0,
+    "parameter": 0,
+    "token": 0
+  }
+}
