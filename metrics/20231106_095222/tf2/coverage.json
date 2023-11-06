@@ -1,0 +1,23 @@
+{
+  "package": "tf2",
+  "value": [
+    {
+      "label": "all",
+      "line": 73.2,
+      "function": 86.4,
+      "branch": 35.7
+    },
+    {
+      "label": "gtest",
+      "line": 73.2,
+      "function": 86.4,
+      "branch": 35.7
+    },
+    {
+      "label": "component_test",
+      "line": 48.3,
+      "function": 69.1,
+      "branch": 19.2
+    }
+  ]
+}
