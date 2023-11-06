@@ -1,9 +1,10 @@
 #! /usr/bin/env python3
 
-import bs4
+from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
+
+import bs4
 from numpy.core.fromnumeric import mean
-from decimal import Decimal, ROUND_HALF_UP
 from ros_metrics_reporter.metrics.metrics_data import *
 
 
@@ -42,7 +43,16 @@ def get_violate_count(metrics: list) -> int:
 
 def scraping_lizard_result(html_path: Path) -> dict:
     soup = bs4.BeautifulSoup(open(html_path), "html.parser")
-    table = soup.select("body > center > table:nth-of-type(1)")[0]
+    try:
+        table = soup.select("body > center > table:nth-of-type(1)")[0]
+    except IndexError:
+        print(f"Could not find lizard data from HTML file. File path: {html_path}")
+        return {
+            "ccn": [],
+            "loc": [],
+            "token": [],
+            "parameter": [],
+        }
 
     ccn = []
     loc = []
