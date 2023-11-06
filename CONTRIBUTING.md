@@ -27,8 +27,8 @@ After that, you can run tests with the following command:
 ```sh
 $ pip install pipenv
 $ cd ros-metrics-reporter
-$ vcs import . < ros-metrics-reporter-<ROS_DISTRO>.repos  # Import ros2/geometry2 into your workspace
-$ rosdep install --from-paths example/src/geometry2/ --ignore-src --rosdistro <ROS_DISTRO> -y
+$ mkdir src && vcs import src < ros-metrics-reporter-<ROS_DISTRO>.repos  # Import ros2/geometry2 into your workspace
+$ rosdep install --from-paths src/example/geometry2/ --ignore-src --rosdistro <ROS_DISTRO> -y
 $ pipenv
 $ pipenv shell
 $ pytest

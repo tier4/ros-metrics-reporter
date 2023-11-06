@@ -2,7 +2,7 @@ from pathlib import Path
 
 from ros_metrics_reporter.code_activity.git_statistics import *
 
-GIT_WS = "example/src/geometry2"
+GIT_WS = "src/example/geometry2"
 
 
 def test_generate_code_frequency_graph(tmpdir):
@@ -16,7 +16,7 @@ def test_generate_code_frequency_graph(tmpdir):
 
 def test_get_top3_contributor():
     result = get_top3_contributor(
-        git_ws="example/src/geometry2",
+        git_ws="src/example/geometry2",
         package_path=Path("tf2"),
     )
 
