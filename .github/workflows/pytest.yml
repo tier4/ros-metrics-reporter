@@ -33,7 +33,7 @@ jobs:
 
       - name: Import vcs repo
         run: |
-          vcs import . < ros-metrics-reporter-humble.repos
+          mkdir src && vcs import src < ros-metrics-reporter-humble.repos
 
       - name: Run tests
         run: |

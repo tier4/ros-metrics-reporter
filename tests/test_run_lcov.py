@@ -1,7 +1,8 @@
 from pathlib import Path
+
 from ros_metrics_reporter.coverage.run_lcov import *
 
-GIT_WS = "example/src/geometry2"
+GIT_WS = "src/example/geometry2"
 
 
 def test_concat_output_path():

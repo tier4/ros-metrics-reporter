@@ -1,5 +1,5 @@
 repositories:
-  example/src/geometry2:
+  example/geometry2:
     type: git
     url: https://github.com/KeisukeShima/geometry2.git
     version: humble
