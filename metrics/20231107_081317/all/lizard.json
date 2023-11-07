@@ -1,0 +1,27 @@
+{
+  "package": "all",
+  "worst_value": {
+    "ccn": 36,
+    "nloc": 201,
+    "parameter": 9,
+    "token": 1868
+  },
+  "average_value": {
+    "ccn": 2.4,
+    "nloc": 12.8,
+    "parameter": 1.5,
+    "token": 74.7
+  },
+  "over_threshold_count": {
+    "ccn": 4,
+    "nloc": 1,
+    "parameter": 16,
+    "token": 0
+  },
+  "over_recommendation_count": {
+    "ccn": 180,
+    "nloc": 0,
+    "parameter": 0,
+    "token": 0
+  }
+}
