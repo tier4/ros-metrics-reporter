@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2023-11-07 08:16:56</td>
+            <td class="headerValue">2023-11-07 09:28:43</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
@@ -129,24 +129,24 @@
 <a name="51"><span class="lineNum">      51 </span>                :<span class="lineCov">         10 : }</span></a>
 <a name="52"><span class="lineNum">      52 </span>                :            : </a>
 <a name="53"><span class="lineNum">      53 </span>                :            : TimerHandle</a>
-<a name="54"><span class="lineNum">      54 </span>                :<span class="lineCov">       1506 : CreateTimerROS::createTimer(</span></a>
+<a name="54"><span class="lineNum">      54 </span>                :<span class="lineCov">       1393 : CreateTimerROS::createTimer(</span></a>
 <a name="55"><span class="lineNum">      55 </span>                :            :   rclcpp::Clock::SharedPtr clock,</a>
 <a name="56"><span class="lineNum">      56 </span>                :            :   const tf2::Duration &amp; period,</a>
 <a name="57"><span class="lineNum">      57 </span>                :            :   TimerCallbackType callback)</a>
 <a name="58"><span class="lineNum">      58 </span>                :            : {</a>
-<a name="59"><span class="lineNum">      59 </span>        [<span class="branchCov" title="Branch 0 was taken 1506 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1506 :   std::lock_guard&lt;std::mutex&gt; lock(timers_map_mutex_);</span></a>
-<a name="60"><span class="lineNum">      60 </span>                :<span class="lineCov">       1506 :   auto timer_handle_index = next_timer_handle_index_++;</span></a>
+<a name="59"><span class="lineNum">      59 </span>        [<span class="branchCov" title="Branch 0 was taken 1393 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1393 :   std::lock_guard&lt;std::mutex&gt; lock(timers_map_mutex_);</span></a>
+<a name="60"><span class="lineNum">      60 </span>                :<span class="lineCov">       1393 :   auto timer_handle_index = next_timer_handle_index_++;</span></a>
 <a name="61"><span class="lineNum">      61 </span>                :            :   auto timer = rclcpp::create_timer&lt;std::function&lt;void()&gt;&gt;(</a>
-<a name="62"><span class="lineNum">      62 </span>                :<span class="lineCov">       1506 :     node_base_,</span></a>
-<a name="63"><span class="lineNum">      63 </span>                :<span class="lineCov">       1506 :     node_timers_,</span></a>
+<a name="62"><span class="lineNum">      62 </span>                :<span class="lineCov">       1393 :     node_base_,</span></a>
+<a name="63"><span class="lineNum">      63 </span>                :<span class="lineCov">       1393 :     node_timers_,</span></a>
 <a name="64"><span class="lineNum">      64 </span>                :            :     clock,</a>
 <a name="65"><span class="lineNum">      65 </span>                :            :     period,</a>
-<a name="66"><span class="lineNum">      66 </span>        [<span class="branchCov" title="Branch 0 was taken 1506 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3012 :     std::bind(&amp;CreateTimerROS::timerCallback, this, timer_handle_index, callback),</span></a>
-<a name="67"><span class="lineNum">      67 </span>  [<span class="branchCov" title="Branch 0 was taken 1506 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1506 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">       4518 :     callback_group_);</span></a>
-<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 1506 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]
-<a name="68"><span class="lineNum">      68 </span>        [<span class="branchCov" title="Branch 0 was taken 1506 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1506 :   timers_map_[timer_handle_index] = timer;</span></a>
-<a name="69"><span class="lineNum">      69 </span>                :<span class="lineCov">       1506 :   return timer_handle_index;</span></a>
-<a name="70"><span class="lineNum">      70 </span>                :<span class="lineCov">       1506 : }</span></a>
+<a name="66"><span class="lineNum">      66 </span>        [<span class="branchCov" title="Branch 0 was taken 1393 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       2786 :     std::bind(&amp;CreateTimerROS::timerCallback, this, timer_handle_index, callback),</span></a>
+<a name="67"><span class="lineNum">      67 </span>  [<span class="branchCov" title="Branch 0 was taken 1393 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1393 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">       4179 :     callback_group_);</span></a>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 1393 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]
+<a name="68"><span class="lineNum">      68 </span>        [<span class="branchCov" title="Branch 0 was taken 1393 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1393 :   timers_map_[timer_handle_index] = timer;</span></a>
+<a name="69"><span class="lineNum">      69 </span>                :<span class="lineCov">       1393 :   return timer_handle_index;</span></a>
+<a name="70"><span class="lineNum">      70 </span>                :<span class="lineCov">       1393 : }</span></a>
 <a name="71"><span class="lineNum">      71 </span>                :            : </a>
 <a name="72"><span class="lineNum">      72 </span>                :            : void</a>
 <a name="73"><span class="lineNum">      73 </span>                :<span class="lineNoCov">          0 : CreateTimerROS::cancel(const TimerHandle &amp; timer_handle)</span></a>
@@ -167,26 +167,26 @@
 <a name="88"><span class="lineNum">      88 </span>                :<span class="lineNoCov">          0 : }</span></a>
 <a name="89"><span class="lineNum">      89 </span>                :            : </a>
 <a name="90"><span class="lineNum">      90 </span>                :            : void</a>
-<a name="91"><span class="lineNum">      91 </span>                :<span class="lineCov">       1503 : CreateTimerROS::remove(const TimerHandle &amp; timer_handle)</span></a>
+<a name="91"><span class="lineNum">      91 </span>                :<span class="lineCov">       1390 : CreateTimerROS::remove(const TimerHandle &amp; timer_handle)</span></a>
 <a name="92"><span class="lineNum">      92 </span>                :            : {</a>
-<a name="93"><span class="lineNum">      93 </span>        [<span class="branchCov" title="Branch 0 was taken 1503 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1503 :   std::lock_guard&lt;std::mutex&gt; lock(timers_map_mutex_);</span></a>
+<a name="93"><span class="lineNum">      93 </span>        [<span class="branchCov" title="Branch 0 was taken 1390 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1390 :   std::lock_guard&lt;std::mutex&gt; lock(timers_map_mutex_);</span></a>
 <a name="94"><span class="lineNum">      94 </span>                :            :   try {</a>
-<a name="95"><span class="lineNum">      95 </span>        [<span class="branchCov" title="Branch 0 was taken 1503 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1503 :     cancelNoLock(timer_handle);</span></a>
+<a name="95"><span class="lineNum">      95 </span>        [<span class="branchCov" title="Branch 0 was taken 1390 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1390 :     cancelNoLock(timer_handle);</span></a>
 <a name="96"><span class="lineNum">      96 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :   } catch (const InvalidTimerHandleException &amp;) {</span></a>
 <a name="97"><span class="lineNum">      97 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineNoCov">          0 :     throw InvalidTimerHandleException(&quot;Invalid timer handle in remove()&quot;);</span></a>
 <a name="98"><span class="lineNum">      98 </span>                :<span class="lineNoCov">          0 :   }</span></a>
-<a name="99"><span class="lineNum">      99 </span>        [<span class="branchCov" title="Branch 0 was taken 1503 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1503 :   timers_map_.erase(timer_handle);</span></a>
-<a name="100"><span class="lineNum">     100 </span>                :<span class="lineCov">       1503 : }</span></a>
+<a name="99"><span class="lineNum">      99 </span>        [<span class="branchCov" title="Branch 0 was taken 1390 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1390 :   timers_map_.erase(timer_handle);</span></a>
+<a name="100"><span class="lineNum">     100 </span>                :<span class="lineCov">       1390 : }</span></a>
 <a name="101"><span class="lineNum">     101 </span>                :            : </a>
 <a name="102"><span class="lineNum">     102 </span>                :            : void</a>
-<a name="103"><span class="lineNum">     103 </span>                :<span class="lineCov">       1503 : CreateTimerROS::cancelNoLock(const TimerHandle &amp; timer_handle)</span></a>
+<a name="103"><span class="lineNum">     103 </span>                :<span class="lineCov">       1390 : CreateTimerROS::cancelNoLock(const TimerHandle &amp; timer_handle)</span></a>
 <a name="104"><span class="lineNum">     104 </span>                :            : {</a>
 <a name="105"><span class="lineNum">     105 </span>                :            :   try {</a>
-<a name="106"><span class="lineNum">     106 </span>  [<span class="branchCov" title="Branch 0 was taken 1503 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1503 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       1503 :     timers_map_.at(timer_handle)-&gt;cancel();</span></a>
+<a name="106"><span class="lineNum">     106 </span>  [<span class="branchCov" title="Branch 0 was taken 1390 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1390 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       1390 :     timers_map_.at(timer_handle)-&gt;cancel();</span></a>
 <a name="107"><span class="lineNum">     107 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :   } catch (const std::out_of_range &amp;) {</span></a>
 <a name="108"><span class="lineNum">     108 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineNoCov">          0 :     throw InvalidTimerHandleException(&quot;Invalid timer handle in cancel()&quot;);</span></a>
 <a name="109"><span class="lineNum">     109 </span>                :<span class="lineNoCov">          0 :   }</span></a>
-<a name="110"><span class="lineNum">     110 </span>                :<span class="lineCov">       1503 : }</span></a>
+<a name="110"><span class="lineNum">     110 </span>                :<span class="lineCov">       1390 : }</span></a>
 <a name="111"><span class="lineNum">     111 </span>                :            : </a>
 <a name="112"><span class="lineNum">     112 </span>                :            : void</a>
 <a name="113"><span class="lineNum">     113 </span>                :<span class="lineNoCov">          0 : CreateTimerROS::timerCallback(</span></a>
