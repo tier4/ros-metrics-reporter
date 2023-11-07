@@ -91,14 +91,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Filtering input
-      id: filtered
-      run: |
-        echo ::set-output name=ARTIFACTS_DIR::$(echo ${{ inputs.artifacts-dir }} | sed -e "s@/\$@@")
-        echo ::set-output name=HUGO_DIR::$(echo ${{ inputs.hugo-dir }} | sed -e "s@/\$@@")
-        echo ::set-output name=OUTPUT_DIR::$(echo ${{ inputs.output-dir }} | sed -e "s@/\$@@")
-      shell: bash
-
     - name: Install dependencies
       run: |
         sudo apt-get update
@@ -118,8 +110,8 @@ runs:
 
     - name: Measure code quality index
       run: |
-        echo "Artifacts directory is ${{ steps.filtered.outputs.ARTIFACTS_DIR }}"
-        mkdir -p ${{ steps.filtered.outputs.ARTIFACTS_DIR }}
+        echo "Artifacts directory is ${{ inputs.ARTIFACTS_DIR }}"
+        mkdir -p ${{ inputs.ARTIFACTS_DIR }}
         TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
         CODECHECKER_CONFIG_PATH=${{ inputs.codechecker-config-path }}
         CODECHECKER_SKIP_LIST=${{ inputs.codechecker-skip-list }}
@@ -133,10 +125,10 @@ runs:
         cd ${GITHUB_ACTION_PATH} && python3 -m ros_metrics_reporter.ros_metrics_reporter \
           --base-dir=${{ inputs.target-dir }} \
           --action-dir=${GITHUB_ACTION_PATH} \
-          --output-dir=${{ steps.filtered.outputs.ARTIFACTS_DIR }} \
+          --output-dir=${{ inputs.ARTIFACTS_DIR }} \
           --timestamp=${TIMESTAMP} \
           --lcovrc=${{ inputs.lcovrc-path }} \
-          --hugo-root-dir=${{ steps.filtered.outputs.HUGO_DIR }} \
+          --hugo-root-dir=${{ inputs.HUGO_DIR }} \
           --base-url=${{ inputs.base-url }} \
           --title=${{ inputs.title }} \
           --extra-cmake-args=${{ inputs.extra-cmake-args }} \
@@ -156,5 +148,5 @@ runs:
 
     - name: Generate pages
       run: |
-        cd ${{ steps.filtered.outputs.HUGO_DIR }} && hugo -d ${{ steps.filtered.outputs.OUTPUT_DIR }}
+        cd ${{ inputs.HUGO_DIR }} && hugo -d ${{ inputs.OUTPUT_DIR }}
       shell: bash
