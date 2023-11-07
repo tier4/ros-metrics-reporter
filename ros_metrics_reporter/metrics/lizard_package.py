@@ -57,7 +57,7 @@ def lizard_single_package(
         output_file=(output_package_dir / "index.html"),
     )
 
-    print(f"Generated package metrics: {package_name}")
+    print(f"Generated package metrics: {output_package_dir}")
 
 
 def lizard_package(
