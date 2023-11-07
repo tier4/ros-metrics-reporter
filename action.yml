@@ -110,8 +110,8 @@ runs:
 
     - name: Measure code quality index
       run: |
-        echo "Artifacts directory is ${{ inputs.ARTIFACTS_DIR }}"
-        mkdir -p ${{ inputs.ARTIFACTS_DIR }}
+        echo "Artifacts directory is ${{ inputs.artifacts-dir }}"
+        mkdir -p ${{ inputs.artifacts-dir }}
         TIMESTAMP=$(cat ${GITHUB_WORKSPACE}/timestamp.txt)
         CODECHECKER_CONFIG_PATH=${{ inputs.codechecker-config-path }}
         CODECHECKER_SKIP_LIST=${{ inputs.codechecker-skip-list }}
@@ -125,10 +125,10 @@ runs:
         cd ${GITHUB_ACTION_PATH} && python3 -m ros_metrics_reporter.ros_metrics_reporter \
           --base-dir=${{ inputs.target-dir }} \
           --action-dir=${GITHUB_ACTION_PATH} \
-          --output-dir=${{ inputs.ARTIFACTS_DIR }} \
+          --output-dir=${{ inputs.artifacts-dir }} \
           --timestamp=${TIMESTAMP} \
           --lcovrc=${{ inputs.lcovrc-path }} \
-          --hugo-root-dir=${{ inputs.HUGO_DIR }} \
+          --hugo-root-dir=${{ inputs.hugo-dir }} \
           --base-url=${{ inputs.base-url }} \
           --title=${{ inputs.title }} \
           --extra-cmake-args=${{ inputs.extra-cmake-args }} \
@@ -148,5 +148,5 @@ runs:
 
     - name: Generate pages
       run: |
-        cd ${{ inputs.HUGO_DIR }} && hugo -d ${{ inputs.OUTPUT_DIR }}
+        cd ${{ inputs.hugo-dir }} && hugo -d ${{ inputs.output-dir }}
       shell: bash
