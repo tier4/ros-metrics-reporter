@@ -23,8 +23,7 @@ def lizard_all(
     exclude_list_str = " ".join([f'-x "{s}"' for s in exclude])
 
     run_command_redirect(
-        args=shlex.split(
-            f'python3 {str(lizard_executable)} \
+        args=shlex.split(f'python3 {str(lizard_executable)} \
             -l cpp \
             -l python \
             -x "*test*" \
@@ -33,7 +32,6 @@ def lizard_all(
             --CCN {threshold.ccn} \
             -T nloc={threshold.nloc} \
             --arguments {threshold.parameter} \
-            --html {base_dir}'
-        ),
+            --html {base_dir}'),
         output_file=(output_lizard_dir / "index.html"),
     )

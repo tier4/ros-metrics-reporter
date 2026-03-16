@@ -75,13 +75,11 @@ class Colcon:
         COVERAGE_FLAGS = "-fprofile-arcs -ftest-coverage -DCOVERAGE_RUN=1"
 
         if run_command(
-            args=shlex.split(
-                f'colcon build \
+            args=shlex.split(f'colcon build \
                 --event-handlers console_cohesion+ \
                 --cmake-args {extra_cmake_args} -DCMAKE_BUILD_TYPE=Debug \
                 -DCMAKE_CXX_FLAGS="{COVERAGE_FLAGS}" -DCMAKE_C_FLAGS="{COVERAGE_FLAGS}" \
-                -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
-            ),
+                -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'),
             cwd=self.target_path,
         ):
             self.__build_success = True
@@ -95,11 +93,9 @@ class Colcon:
         colcon_get_all_packages(self.target_path)
 
         if run_command(
-            args=shlex.split(
-                "colcon test \
+            args=shlex.split("colcon test \
                 --event-handlers console_cohesion+ \
-                --return-code-on-test-failure"
-            ),
+                --return-code-on-test-failure"),
             cwd=self.target_path,
         ):
             self.__test_success = True

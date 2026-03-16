@@ -23,9 +23,7 @@ def filter_report(
     exclude_list_str = " ".join([f'"{s}"' for s in exclude])
     filtered_coverage_info_path = concat_output_path(output_dir, "coverage.filtered")
 
-    if not run_command(
-        args=shlex.split(
-            f'lcov \
+    if not run_command(args=shlex.split(f'lcov \
             --config-file {str(lcovrc)} \
             -r "{coverage_info_path}" \
             "{str(base_dir)}/build/*" \
@@ -37,9 +35,7 @@ def filter_report(
             "*/usr/*" \
             "*/opt/*" \
             {exclude_list_str} \
-            -o {filtered_coverage_info_path}'
-        )
-    ):
+            -o {filtered_coverage_info_path}')):
         print("Filtering failed.")
         return
     return filtered_coverage_info_path
@@ -51,16 +47,12 @@ def generate_html_report(
     output_dir: Path,
     lcovrc: Path,
 ):
-    if not run_command(
-        args=shlex.split(
-            f"genhtml \
+    if not run_command(args=shlex.split(f"genhtml \
             --config-file {str(lcovrc)} \
             -p {str(base_dir)} \
             --legend \
             --demangle-cpp {coverage_info_path} \
-            -o {str(output_dir)}"
-        )
-    ):
+            -o {str(output_dir)}")):
         print("HTML generation failed.")
         return
 
@@ -76,13 +68,9 @@ def calculate_total_coverage(
     for coverage_file in coverage_files:
         append_option += f"-a {str(coverage_file)} "
 
-    if not run_command(
-        args=shlex.split(
-            f"lcov \
+    if not run_command(args=shlex.split(f"lcov \
             --config-file {str(lcovrc)} \
             {append_option} \
-            -o {output_path}"
-        )
-    ):
+            -o {output_path}")):
         print("Filtering failed.")
         return
