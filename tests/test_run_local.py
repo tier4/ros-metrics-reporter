@@ -4,7 +4,6 @@ import shutil
 import subprocess
 import pytest
 
-
 root_path = Path(__file__).parent.parent.resolve()
 ros_ws = root_path / "example" / "src" / "geometry2"
 

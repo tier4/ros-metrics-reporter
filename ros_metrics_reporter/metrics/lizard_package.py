@@ -43,8 +43,7 @@ def lizard_single_package(
 
     # TODO: Consider call lizard script from python
     run_command_redirect(
-        args=shlex.split(
-            f'python3 {str(lizard_executable)} \
+        args=shlex.split(f'python3 {str(lizard_executable)} \
             -l cpp \
             -l python \
             -x "*test*" \
@@ -52,8 +51,7 @@ def lizard_single_package(
             --CCN {threshold.ccn} \
             -T nloc={threshold.nloc} \
             --arguments {threshold.parameter} \
-            --html {package_path}'
-        ),
+            --html {package_path}'),
         output_file=(output_package_dir / "index.html"),
     )
 
